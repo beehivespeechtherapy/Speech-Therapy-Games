@@ -99,33 +99,33 @@ async function searchPixabay(query, apiKey) {
   const axios = require('axios');
 
   try {
-    // First try with vector only
+    // First try with illustrations
     let response = await axios.get('https://pixabay.com/api/', {
       params: {
         key: apiKey,
-        q: `${query} clipart cartoon illustration`, // Add clipart keywords
-        image_type: 'vector', // Prioritize vector/clipart over photos
+        q: query,
+        image_type: 'illustration',
         safesearch: true,
         per_page: 10,
-        min_width: 300, // Ensure decent quality
-        min_height: 300
+        min_width: 200,
+        min_height: 200
       }
     });
 
-    // If we got results, return them
     if (response.data.hits && response.data.hits.length > 0) {
       return response.data.hits;
     }
 
-    // Otherwise, try with illustrations (less restrictive)
+    // Fallback: allow any image type (including photos)
+    console.log(`  No illustrations found, trying photos...`);
     response = await axios.get('https://pixabay.com/api/', {
       params: {
         key: apiKey,
-        q: `${query} clipart cartoon illustration`,
-        image_type: 'illustration', // More lenient than vector
+        q: query,
+        // No image_type filter - allows all types including photos
         safesearch: true,
         per_page: 10,
-        min_width: 200, // Lower minimum
+        min_width: 200,
         min_height: 200
       }
     });
@@ -258,16 +258,81 @@ async function downloadImagesForGame(gameDir, options) {
         continue;
       }
 
-      // In auto mode, pick first result
-      let selectedImage = results[0];
+      // In auto mode, try to find a relevant result
+      let selectedImage = null;
 
-      if (options.interactive) {
-        // TODO: In a full implementation, use inquirer to let user choose
-        // For now, fall back to auto selection
-        console.log(`  Found ${results.length} options, using first result (interactive mode requires inquirer)`);
-      } else {
-        console.log(`  Found ${results.length} options, using first result`);
+      // Extract key terms from search for relevance matching
+      // Use word primarily, and common nouns/verbs from altText
+      const wordKeywords = word.toLowerCase().split(/\s+/).filter(term => term.length > 2);
+      const altKeywords = altText.toLowerCase()
+        .split(/\s+/)
+        .filter(term => term.length > 3 && !['person', 'something', 'with'].includes(term)); // Skip generic words
+      const searchKeywords = [...wordKeywords, ...altKeywords];
+
+      // Check results for relevance (check more results to find a good match)
+      for (let i = 0; i < Math.min(10, results.length); i++) {
+        const img = results[i];
+        const tags = img.tags.toLowerCase();
+
+        // Expanded seasonal/holiday keyword list
+        const seasonalKeywords = [
+          'christmas', 'xmas', 'holiday', 'santa', 'claus',
+          'winter', 'snow', 'snowman', 'snowflake', 'decoration',
+          'ornament', 'festive', 'advent', 'wreath', 'reindeer'
+        ];
+
+        const isHoliday = seasonalKeywords.some(keyword => tags.includes(keyword));
+        const searchingForHoliday = word.toLowerCase().includes('christmas') ||
+                                   word.toLowerCase().includes('holiday') ||
+                                   altText.toLowerCase().includes('christmas') ||
+                                   altText.toLowerCase().includes('holiday');
+
+        if (isHoliday && !searchingForHoliday) {
+          console.log(`  ⏭️  Skipping seasonal image: ${img.tags}`);
+          continue;
+        }
+
+        // Filter out Linux penguin (Tux) and other tech mascots
+        const techKeywords = ['linux', 'tux', 'opensource', 'open source', 'unix', 'kernel'];
+        const isTechMascot = techKeywords.some(keyword => tags.includes(keyword));
+
+        if (isTechMascot) {
+          console.log(`  ⏭️  Skipping tech mascot image: ${img.tags}`);
+          continue;
+        }
+
+        // Filter out penguins unless we're specifically searching for one
+        const searchingForPenguin = word.toLowerCase().includes('penguin') ||
+                                   altText.toLowerCase().includes('penguin');
+        if (tags.includes('penguin') && !searchingForPenguin) {
+          console.log(`  ⏭️  Skipping penguin image: ${img.tags}`);
+          continue;
+        }
+
+        // Check for positive relevance - tags should relate to what we're searching for
+        const hasRelevantTag = searchKeywords.some(keyword =>
+          tags.includes(keyword) || tags.includes(keyword + 's') || tags.includes(keyword + 'ing')
+        );
+
+        if (!hasRelevantTag && searchKeywords.length > 0) {
+          console.log(`  ⏭️  Skipping irrelevant image (no matching tags): ${img.tags}`);
+          continue;
+        }
+
+        // This image looks good
+        selectedImage = img;
+        console.log(`  ✓ Selected image with tags: ${img.tags}`);
+        break;
       }
+
+      // If no relevant images found, report as failed
+      if (!selectedImage) {
+        console.log(`  ⚠️  No relevant images found after filtering. You'll need to manually add this image.\n`);
+        continue;
+      }
+
+      // Log search results count
+      console.log(`  Found ${results.length} total results from Pixabay`);
 
       // Download image
       const imageUrl = selectedImage.webformatURL || selectedImage.largeImageURL;

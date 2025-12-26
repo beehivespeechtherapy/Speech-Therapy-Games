@@ -14,7 +14,7 @@
   "map": {
     "theme": "jungle",
     "pathStyle": "winding",
-    "backgroundImage": "../../assets/maps/jungle-bg.jpg"
+    "backgroundImage": "../../assets/maps/jungle-bg.png"
   },
   "challenges": [
     {
@@ -31,7 +31,7 @@
         {
           "word": "ship",
           "sound": "sh",
-          "image": "assets/pairs/ship.png",
+          "image": "assets/pairs/ship.jpg",
           "alt": "A ship on water"
         }
       ]
@@ -44,7 +44,7 @@
         {
           "word": "see",
           "sound": "s",
-          "image": "assets/pairs/see.png",
+          "image": "assets/pairs/see.jpg",
           "alt": "An eye looking"
         },
         {
@@ -69,7 +69,7 @@
         {
           "word": "shell",
           "sound": "sh",
-          "image": "assets/pairs/shell.png",
+          "image": "assets/pairs/shell.jpg",
           "alt": "A seashell"
         }
       ]
@@ -107,7 +107,7 @@
         {
           "word": "sheet",
           "sound": "sh",
-          "image": "assets/pairs/sheet.png",
+          "image": "assets/pairs/sheet.jpg",
           "alt": "A bed sheet"
         }
       ]
@@ -139,13 +139,13 @@
         {
           "word": "sign",
           "sound": "s",
-          "image": "assets/pairs/sign.png",
+          "image": "assets/pairs/sign.jpg",
           "alt": "A road sign"
         },
         {
           "word": "shine",
           "sound": "sh",
-          "image": "assets/pairs/shine.png",
+          "image": "assets/pairs/shine.jpg",
           "alt": "Something shining bright"
         }
       ]
@@ -183,7 +183,7 @@
         {
           "word": "shore",
           "sound": "sh",
-          "image": "assets/pairs/shore.png",
+          "image": "assets/pairs/shore.jpg",
           "alt": "A beach shore"
         }
       ]
@@ -202,7 +202,7 @@
         {
           "word": "shave",
           "sound": "sh",
-          "image": "assets/pairs/shave.png",
+          "image": "assets/pairs/shave.jpg",
           "alt": "Shaving with a razor"
         }
       ]
@@ -234,13 +234,13 @@
         {
           "word": "same",
           "sound": "s",
-          "image": "assets/pairs/same.png",
+          "image": "assets/pairs/same.jpg",
           "alt": "Two things that are the same"
         },
         {
           "word": "shame",
           "sound": "sh",
-          "image": "assets/pairs/shame.png",
+          "image": "assets/pairs/shame.jpg",
           "alt": "Person feeling ashamed"
         }
       ]
