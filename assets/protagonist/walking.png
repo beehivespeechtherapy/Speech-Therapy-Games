@@ -1,0 +1,11 @@
+<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+  <!-- Walking protagonist - slight tilt -->
+  <circle cx="50" cy="50" r="40" fill="#4CAF50"/>
+  <!-- Eyes looking ahead -->
+  <circle cx="38" cy="45" r="5" fill="white"/>
+  <circle cx="62" cy="45" r="5" fill="white"/>
+  <circle cx="42" cy="45" r="3" fill="black"/>
+  <circle cx="64" cy="45" r="3" fill="black"/>
+  <!-- Determined mouth -->
+  <path d="M 35,62 L 65,62" stroke="white" stroke-width="3"/>
+</svg>

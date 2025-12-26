@@ -1,0 +1,50 @@
+{
+  "title": "S vs SH Sounds",
+  "description": "Practice with S vs SH Sounds",
+  "targetSound": "s",
+  "contrastSound": "sh",
+  "challenges": [
+    {
+      "id": 1,
+      "correctWord": "sun",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sun",
+          "sound": "s",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "A bright yellow sun in the sky"
+        },
+        {
+          "word": "shun",
+          "sound": "sh",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "Person turning away"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "correctWord": "sip",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sip",
+          "sound": "s",
+          "image": "assets/pairs/sip.jpg",
+          "alt": "Person sipping from a cup"
+        },
+        {
+          "word": "ship",
+          "sound": "sh",
+          "image": "assets/pairs/ship.jpg",
+          "alt": "Large sailing ship on water"
+        }
+      ]
+    }
+  ],
+  "victory": {
+    "message": "Congratulations! You've mastered these sounds!",
+    "music": "../../assets/audio/victory.mp3"
+  }
+}

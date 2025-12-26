@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Speech Therapy Game</title>
+
+  <!-- Core framework styles -->
+  <link rel="stylesheet" href="../../core/styles.css">
+
+  <!-- Optional game-specific style overrides -->
+  <style>
+    /* You can override CSS variables here for game-specific theming */
+    /* :root {
+      --primary-color: #4CAF50;
+      --secondary-color: #FF9800;
+    } */
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Map section -->
+    <section class="map-section">
+      <div id="game-map"></div>
+    </section>
+
+    <!-- Challenge section -->
+    <section class="challenge-section">
+      <h2 id="challenge-prompt">Choose the correct word:</h2>
+      <div id="word-pairs" class="pair-container">
+        <!-- Dynamically populated by UI class -->
+      </div>
+    </section>
+
+    <!-- Victory modal (hidden by default) -->
+    <div id="victory-modal" class="modal hidden">
+      <div class="modal-content">
+        <h1>Victory!</h1>
+        <p id="victory-message"></p>
+        <button id="play-again">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Core framework scripts -->
+  <script src="../../core/engine.js"></script>
+  <script src="../../core/ui.js"></script>
+  <script src="../../core/animator.js"></script>
+  <script src="../../core/audio.js"></script>
+
+  <!-- Game initialization -->
+  <script>
+    // Initialize game components
+    const engine = new GameEngine('./config.json');
+    const ui = new GameUI(document.getElementById('game-container'));
+    const animator = new PathAnimator(ui);
+    const audio = new AudioManager();
+
+    // Game state
+    let isProcessing = false;
+
+    // Initialize and start game
+    async function initGame() {
+      try {
+        // Load game configuration
+        await engine.loadConfig();
+
+        // Set page title from config
+        document.title = engine.config.title || 'Speech Therapy Game';
+
+        // Initialize UI
+        ui.init();
+
+        // Initialize audio if available
+        if (engine.config.victory && engine.config.victory.music) {
+          audio.init(engine.config.victory.music);
+        }
+
+        // Render initial state
+        renderGame();
+
+        // Set up event handlers
+        setupEventHandlers();
+
+        // Unlock audio on first user interaction (iOS requirement)
+        document.addEventListener('click', () => {
+          audio.unlockAudio();
+        }, { once: true });
+
+      } catch (error) {
+        console.error('Failed to initialize game:', error);
+        alert('Failed to load game. Please check the console for details.');
+      }
+    }
+
+    // Render current game state
+    function renderGame() {
+      const challenge = engine.getCurrentChallenge();
+
+      if (challenge) {
+        // Render challenge
+        ui.renderChallenge(challenge);
+
+        // Render map
+        const totalChallenges = engine.config.challenges.length;
+        ui.renderMap(totalChallenges, engine.currentPosition);
+
+        // Initialize animator
+        animator.init();
+      } else if (engine.isVictory()) {
+        // Show victory screen
+        handleVictory();
+      }
+    }
+
+    // Set up event handlers
+    function setupEventHandlers() {
+      // Handle answer selection
+      ui.onAnswer(async (choiceIndex) => {
+        if (isProcessing) return;
+        isProcessing = true;
+
+        // Submit answer
+        const result = await engine.submitAnswer(choiceIndex);
+
+        // Show feedback
+        ui.showFeedback(result.correct);
+
+        // Wait a bit before animating
+        await new Promise(resolve => setTimeout(resolve, 400));
+
+        // Animate protagonist movement
+        if (result.correct && engine.currentPosition > 0) {
+          animator.playForwardFeedback();
+        } else if (!result.correct) {
+          animator.playBackwardFeedback();
+        }
+
+        await animator.moveToPosition(result.newPosition);
+
+        // Check for victory
+        if (engine.isVictory()) {
+          await handleVictory();
+        } else {
+          // Render next challenge
+          renderGame();
+        }
+
+        isProcessing = false;
+      });
+
+      // Handle play again
+      ui.onPlayAgain(() => {
+        engine.reset();
+        ui.hideVictory();
+        renderGame();
+      });
+    }
+
+    // Handle victory
+    async function handleVictory() {
+      // Celebrate animation
+      await animator.celebrate();
+
+      // Show victory screen
+      ui.showVictory(engine.config);
+
+      // Play victory music
+      await audio.playVictory();
+    }
+
+    // Start the game
+    initGame();
+  </script>
+</body>
+</html>

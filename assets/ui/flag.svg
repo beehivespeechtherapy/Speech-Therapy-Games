@@ -1,0 +1,5 @@
+<svg width="50" height="50" xmlns="http://www.w3.org/2000/svg">
+  <!-- Victory flag -->
+  <rect x="5" y="5" width="3" height="40" fill="#8B4513"/>
+  <path d="M 8,5 L 45,5 L 40,15 L 45,25 L 8,25 Z" fill="#FF9800"/>
+</svg>

@@ -1,0 +1,33 @@
+# Dependencies
+tools/node_modules/
+node_modules/
+
+# Environment variables
+tools/.env
+.env
+
+# OS files
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# IDE
+.vscode/
+.idea/
+*.sublime-*
+
+# Logs
+*.log
+npm-debug.log*
+
+# Temporary files
+*.tmp
+.cache/
+
+# Optional: Uncomment if you want to exclude downloaded images
+# and re-download them each time instead of committing them
+# games/*/assets/pairs/*.jpg
+# games/*/assets/pairs/*.png
+# games/*/assets/pairs/*.gif
