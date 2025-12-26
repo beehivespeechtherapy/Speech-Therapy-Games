@@ -237,7 +237,8 @@ async function downloadImagesForGame(gameDir, options) {
 
       if (existingFile) {
         console.log(`Skipping "${word}" (already exists)...`);
-        downloadedImages[word] = existingFile;
+        // Store path without extension for config
+        downloadedImages[word] = `assets/pairs/${word}`;
         skippedCount++;
         continue;
       }
@@ -343,7 +344,8 @@ async function downloadImagesForGame(gameDir, options) {
       try {
         console.log(`  Downloading: ${filename}...`);
         await downloadFile(imageUrl, filepath);
-        downloadedImages[word] = `assets/pairs/${filename}`;
+        // Store path without extension for config (UI will auto-detect extension)
+        downloadedImages[word] = `assets/pairs/${word}`;
         console.log(`  ✅ Downloaded successfully\n`);
       } catch (error) {
         console.log(`  ❌ Failed to download: ${error.message}\n`);

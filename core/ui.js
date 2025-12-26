@@ -12,6 +12,64 @@ class GameUI {
   }
 
   /**
+   * Get image path with extension fallback
+   * Tries multiple extensions if the specified one doesn't exist
+   * @param {string} imagePath - Original image path (with or without extension)
+   * @returns {Promise<string>} - Resolved path that works
+   */
+  async resolveImagePath(imagePath) {
+    // If path already has an extension, try it first, then try alternatives
+    const hasExtension = /\.(png|jpg|jpeg|gif)$/i.test(imagePath);
+
+    if (hasExtension) {
+      // Try the specified path first
+      if (await this.imageExists(imagePath)) {
+        return imagePath;
+      }
+
+      // If it fails, try other extensions
+      const basePath = imagePath.replace(/\.(png|jpg|jpeg|gif)$/i, '');
+      return await this.tryImageExtensions(basePath);
+    } else {
+      // No extension specified, try all extensions
+      return await this.tryImageExtensions(imagePath);
+    }
+  }
+
+  /**
+   * Try multiple image extensions
+   * @param {string} basePath - Path without extension
+   * @returns {Promise<string>} - Path with working extension
+   */
+  async tryImageExtensions(basePath) {
+    const extensions = ['.png', '.jpg', '.jpeg', '.gif'];
+
+    for (const ext of extensions) {
+      const path = basePath + ext;
+      if (await this.imageExists(path)) {
+        return path;
+      }
+    }
+
+    // If nothing works, return original path (will show broken image)
+    return basePath + '.png';
+  }
+
+  /**
+   * Check if image exists by trying to load it
+   * @param {string} path - Image path to check
+   * @returns {Promise<boolean>} - True if image loads
+   */
+  imageExists(path) {
+    return new Promise((resolve) => {
+      const img = new Image();
+      img.onload = () => resolve(true);
+      img.onerror = () => resolve(false);
+      img.src = path;
+    });
+  }
+
+  /**
    * Initialize UI with container elements
    */
   init() {
@@ -57,7 +115,7 @@ class GameUI {
    * @param {object} challenge - Challenge object with pairs
    * @param {object} gameConfig - Game configuration (for prompt)
    */
-  renderChallenge(challenge, gameConfig = {}) {
+  async renderChallenge(challenge, gameConfig = {}) {
     if (!challenge || !this.challengeContainer) {
       console.warn('Cannot render challenge: missing challenge or container');
       return;
@@ -77,10 +135,10 @@ class GameUI {
     const shuffledPairs = this.shuffleArray([...challenge.pairs]);
 
     // Create button for each pair
-    shuffledPairs.forEach((pair, originalIndex) => {
-      const button = this.createPairButton(pair, challenge.pairs.indexOf(pair));
+    for (const pair of shuffledPairs) {
+      const button = await this.createPairButton(pair, challenge.pairs.indexOf(pair));
       this.challengeContainer.appendChild(button);
-    });
+    }
 
     // Show the challenge modal
     this.showChallengeModal();
@@ -90,17 +148,17 @@ class GameUI {
    * Create a button element for a word pair
    * @param {object} pair - Pair object with word, image, alt
    * @param {number} index - Index in original pairs array
-   * @returns {HTMLElement} - Button element
+   * @returns {Promise<HTMLElement>} - Button element
    */
-  createPairButton(pair, index) {
+  async createPairButton(pair, index) {
     const button = document.createElement('button');
     button.className = 'pair-button';
     button.setAttribute('data-index', index);
     button.setAttribute('aria-label', `Choose ${pair.word} - ${pair.sound} sound`);
 
-    // Image
+    // Image with extension fallback
     const img = document.createElement('img');
-    img.src = pair.image;
+    img.src = await this.resolveImagePath(pair.image);
     img.alt = pair.alt || pair.word;
     img.className = 'pair-image';
     button.appendChild(img);

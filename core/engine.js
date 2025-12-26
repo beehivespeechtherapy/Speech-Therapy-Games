@@ -29,8 +29,8 @@ class GameEngine {
       // Generate unique game ID
       this.gameId = this.generateGameId(this.config.title);
 
-      // Try to load saved progress
-      this.loadProgress();
+      // Always start fresh - clear any saved progress
+      this.clearProgress();
     } catch (error) {
       console.error('Error loading config:', error);
       throw error;
@@ -104,7 +104,7 @@ class GameEngine {
     }
 
     const selectedPair = challenge.pairs[choiceIndex];
-    const isCorrect = selectedPair.word === challenge.correctWord;
+    const isCorrect = selectedPair.sound === challenge.correctSound;
 
     // Record attempt
     this.attempts.push({

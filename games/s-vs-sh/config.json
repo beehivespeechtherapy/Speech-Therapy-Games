@@ -4,7 +4,7 @@
   "targetSound": "s",
   "contrastSound": "sh",
   "protagonist": {
-    "character": "ninja",
+    "character": "explorer",
     "images": {
       "idle": "assets/protagonist/idle.png",
       "walking": "assets/protagonist/walking.png",
@@ -19,13 +19,12 @@
   "challenges": [
     {
       "id": 1,
-      "correctWord": "sip",
       "correctSound": "s",
       "pairs": [
         {
           "word": "sip",
           "sound": "s",
-          "image": "assets/pairs/sip.png",
+          "image": "assets/pairs/sip",
           "alt": "Person sipping from a cup"
         },
         {
@@ -38,7 +37,6 @@
     },
     {
       "id": 2,
-      "correctWord": "see",
       "correctSound": "s",
       "pairs": [
         {
@@ -57,7 +55,6 @@
     },
     {
       "id": 3,
-      "correctWord": "sell",
       "correctSound": "s",
       "pairs": [
         {
@@ -76,7 +73,6 @@
     },
     {
       "id": 4,
-      "correctWord": "sock",
       "correctSound": "s",
       "pairs": [
         {
@@ -95,7 +91,6 @@
     },
     {
       "id": 5,
-      "correctWord": "seat",
       "correctSound": "s",
       "pairs": [
         {
@@ -114,7 +109,6 @@
     },
     {
       "id": 6,
-      "correctWord": "show",
       "correctSound": "sh",
       "pairs": [
         {
@@ -133,7 +127,6 @@
     },
     {
       "id": 7,
-      "correctWord": "sign",
       "correctSound": "s",
       "pairs": [
         {
@@ -152,7 +145,6 @@
     },
     {
       "id": 8,
-      "correctWord": "shed",
       "correctSound": "sh",
       "pairs": [
         {
@@ -171,7 +163,6 @@
     },
     {
       "id": 9,
-      "correctWord": "sore",
       "correctSound": "s",
       "pairs": [
         {
@@ -190,7 +181,6 @@
     },
     {
       "id": 10,
-      "correctWord": "shave",
       "correctSound": "sh",
       "pairs": [
         {
@@ -209,7 +199,6 @@
     },
     {
       "id": 11,
-      "correctWord": "sack",
       "correctSound": "s",
       "pairs": [
         {
@@ -228,7 +217,6 @@
     },
     {
       "id": 12,
-      "correctWord": "same",
       "correctSound": "s",
       "pairs": [
         {

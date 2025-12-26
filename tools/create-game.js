@@ -211,11 +211,10 @@ async function createGame(gameName, gameTitle, protagonist, background) {
 
 Each challenge needs:
 - \`id\`: Unique number
-- \`correctWord\`: The target word students should choose
-- \`correctSound\`: The target sound (for reference)
+- \`correctSound\`: The target sound students should listen for
 - \`pairs\`: Array of 2 word objects, each with:
   - \`word\`: The word text
-  - \`sound\`: The sound it contains
+  - \`sound\`: The sound it contains (must match correctSound for one pair)
   - \`image\`: Path to image file (will be set by download tool)
   - \`alt\`: Alt text describing the image
 

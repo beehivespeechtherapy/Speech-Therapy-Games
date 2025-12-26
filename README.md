@@ -164,7 +164,6 @@ Edit `games/your-game-name/config.json`:
   "challenges": [
     {
       "id": 1,
-      "correctWord": "sun",
       "correctSound": "s",
       "pairs": [
         {
@@ -183,7 +182,6 @@ Edit `games/your-game-name/config.json`:
     },
     {
       "id": 2,
-      "correctWord": "sip",
       "correctSound": "s",
       "pairs": [
         {
@@ -521,7 +519,6 @@ SpeechTherapyGame/
   "challenges": [
     {
       "id": 1,
-      "correctWord": "word-to-select",
       "correctSound": "s",
       "pairs": [
         {
@@ -657,6 +654,81 @@ jungle, castle, space, ocean, desert, winter, city, forest, mountain
 node download-background.js jungle
 # Downloads to: assets/maps/jungle-bg.jpg
 ```
+
+### test-pixabay.js
+
+Test Pixabay search queries to preview results before downloading.
+
+```bash
+node test-pixabay.js "<search-query>" [illustration|photo|all]
+```
+
+**Options:**
+- `<search-query>`: Search term to test (required)
+- `illustration`: Cartoon/clipart images (default)
+- `photo`: Real photographs
+- `all`: All image types
+
+**What it does:**
+1. Searches Pixabay with your query
+2. Shows top 5 results with tags and preview URLs
+3. Downloads first result to `/tmp/` for preview
+4. Prints file path so you can view it
+
+**Examples:**
+```bash
+# Test illustration search
+node test-pixabay.js "person sipping from a cup"
+
+# Test photo search
+node test-pixabay.js "coffee" photo
+
+# Test all image types
+node test-pixabay.js "cat" all
+```
+
+**Use case:** Iterate on search queries to find the best alt text before running the full download-images.js script.
+
+### download-from-url.js
+
+Download a specific Pixabay image by URL to replace an existing game asset.
+
+```bash
+node download-from-url.js <game-name> <word> <pixabay-url>
+```
+
+**Arguments:**
+- `<game-name>`: Game directory name (e.g., `s-vs-sh`)
+- `<word>`: Image basename/word (e.g., `sell`)
+- `<pixabay-url>`: Full Pixabay URL to the image
+
+**What it does:**
+1. Extracts the image ID from Pixabay URL
+2. Fetches image details via Pixabay API
+3. Deletes any existing image for that word
+4. Downloads new image to `games/<game-name>/assets/pairs/<word>.{ext}`
+5. Shows tags and file path
+
+**Examples:**
+```bash
+# Replace "sell" image in s-vs-sh game
+node download-from-url.js s-vs-sh sell "https://pixabay.com/vectors/street-food-food-cart-selling-9587641/"
+
+# Replace "ship" image
+node download-from-url.js s-vs-sh ship "https://pixabay.com/vectors/ship-boat-ocean-12345/"
+
+# Replace "cat" image in animal-sounds game
+node download-from-url.js animal-sounds cat "https://pixabay.com/photos/cat-pet-kitten-67890/"
+```
+
+**Use case:** When the automatic download-images.js tool selects the wrong image, browse Pixabay manually, find the perfect image, and use this tool to download it directly.
+
+**Workflow:**
+1. Run `node download-images.js ../games/your-game --auto` to auto-download all images
+2. Review the downloaded images in your game
+3. For any incorrect images, search Pixabay manually in your browser
+4. Copy the Pixabay URL and use `download-from-url.js` to replace it
+5. Refresh your game to see the new image
 
 ---
 
