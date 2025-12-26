@@ -3,6 +3,19 @@
   "description": "Brief description of the sound contrast being practiced",
   "targetSound": "s",
   "contrastSound": "sh",
+  "protagonist": {
+    "character": "ninja",
+    "images": {
+      "idle": "../../assets/protagonist/idle.png",
+      "walking": "../../assets/protagonist/walking.png",
+      "celebrating": "../../assets/protagonist/celebrating.png"
+    }
+  },
+  "map": {
+    "theme": "jungle",
+    "pathStyle": "winding",
+    "backgroundImage": "../../assets/maps/jungle-bg.jpg"
+  },
   "challenges": [
     {
       "id": 1,
@@ -45,6 +58,7 @@
   ],
   "victory": {
     "message": "Congratulations! You've mastered these sounds!",
-    "music": "../../assets/audio/victory.mp3"
+    "music": "../../assets/audio/victory.mp3",
+    "gif": "assets/victory.gif"
   }
 }

@@ -3,48 +3,252 @@
   "description": "Practice with S vs SH Sounds",
   "targetSound": "s",
   "contrastSound": "sh",
+  "protagonist": {
+    "character": "ninja",
+    "images": {
+      "idle": "assets/protagonist/idle.png",
+      "walking": "assets/protagonist/walking.png",
+      "celebrating": "assets/protagonist/celebrating.png"
+    }
+  },
+  "map": {
+    "theme": "jungle",
+    "pathStyle": "winding",
+    "backgroundImage": "../../assets/maps/jungle-bg.jpg"
+  },
   "challenges": [
     {
       "id": 1,
-      "correctWord": "sun",
-      "correctSound": "s",
-      "pairs": [
-        {
-          "word": "sun",
-          "sound": "s",
-          "image": "assets/pairs/sun.jpg",
-          "alt": "A bright yellow sun in the sky"
-        },
-        {
-          "word": "shun",
-          "sound": "sh",
-          "image": "assets/pairs/shun.jpg",
-          "alt": "Person turning away"
-        }
-      ]
-    },
-    {
-      "id": 2,
       "correctWord": "sip",
       "correctSound": "s",
       "pairs": [
         {
           "word": "sip",
           "sound": "s",
-          "image": "assets/pairs/sip.jpg",
+          "image": "assets/pairs/sip.png",
           "alt": "Person sipping from a cup"
         },
         {
           "word": "ship",
           "sound": "sh",
-          "image": "assets/pairs/ship.jpg",
-          "alt": "Large sailing ship on water"
+          "image": "assets/pairs/ship.png",
+          "alt": "A ship on water"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "correctWord": "see",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "see",
+          "sound": "s",
+          "image": "assets/pairs/see.png",
+          "alt": "An eye looking"
+        },
+        {
+          "word": "she",
+          "sound": "sh",
+          "image": "assets/pairs/she.png",
+          "alt": "A girl pointing to herself"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "correctWord": "sell",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sell",
+          "sound": "s",
+          "image": "assets/pairs/sell.png",
+          "alt": "Selling something"
+        },
+        {
+          "word": "shell",
+          "sound": "sh",
+          "image": "assets/pairs/shell.png",
+          "alt": "A seashell"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "correctWord": "sock",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sock",
+          "sound": "s",
+          "image": "assets/pairs/sock.png",
+          "alt": "A sock"
+        },
+        {
+          "word": "shock",
+          "sound": "sh",
+          "image": "assets/pairs/shock.png",
+          "alt": "lightning bolt"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "correctWord": "seat",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "seat",
+          "sound": "s",
+          "image": "assets/pairs/seat.png",
+          "alt": "A chair"
+        },
+        {
+          "word": "sheet",
+          "sound": "sh",
+          "image": "assets/pairs/sheet.png",
+          "alt": "A bed sheet"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "correctWord": "show",
+      "correctSound": "sh",
+      "pairs": [
+        {
+          "word": "so",
+          "sound": "s",
+          "image": "assets/pairs/so.png",
+          "alt": "Person shrugging"
+        },
+        {
+          "word": "show",
+          "sound": "sh",
+          "image": "assets/pairs/show.png",
+          "alt": "Showing something"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "correctWord": "sign",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sign",
+          "sound": "s",
+          "image": "assets/pairs/sign.png",
+          "alt": "A road sign"
+        },
+        {
+          "word": "shine",
+          "sound": "sh",
+          "image": "assets/pairs/shine.png",
+          "alt": "Something shining bright"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "correctWord": "shed",
+      "correctSound": "sh",
+      "pairs": [
+        {
+          "word": "said",
+          "sound": "s",
+          "image": "assets/pairs/said.png",
+          "alt": "Person talking"
+        },
+        {
+          "word": "shed",
+          "sound": "sh",
+          "image": "assets/pairs/shed.png",
+          "alt": "A small shed"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "correctWord": "sore",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sore",
+          "sound": "s",
+          "image": "assets/pairs/sore.png",
+          "alt": "A sore knee with bandage"
+        },
+        {
+          "word": "shore",
+          "sound": "sh",
+          "image": "assets/pairs/shore.png",
+          "alt": "A beach shore"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "correctWord": "shave",
+      "correctSound": "sh",
+      "pairs": [
+        {
+          "word": "save",
+          "sound": "s",
+          "image": "assets/pairs/save.png",
+          "alt": "Saving money in a piggy bank"
+        },
+        {
+          "word": "shave",
+          "sound": "sh",
+          "image": "assets/pairs/shave.png",
+          "alt": "Shaving with a razor"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "correctWord": "sack",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sack",
+          "sound": "s",
+          "image": "assets/pairs/sack.png",
+          "alt": "A sack or bag"
+        },
+        {
+          "word": "shack",
+          "sound": "sh",
+          "image": "assets/pairs/shack.png",
+          "alt": "A small shack"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "correctWord": "same",
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "same",
+          "sound": "s",
+          "image": "assets/pairs/same.png",
+          "alt": "Two things that are the same"
+        },
+        {
+          "word": "shame",
+          "sound": "sh",
+          "image": "assets/pairs/shame.png",
+          "alt": "Person feeling ashamed"
         }
       ]
     }
   ],
   "victory": {
     "message": "Congratulations! You've mastered these sounds!",
-    "music": "../../assets/audio/victory.mp3"
+    "music": "../../assets/audio/victory.mp3",
+    "gif": "https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExdG4zZTQ2ZnFpMGpkdTN6cGFhZHNkanJhODFpMTZ2YXd1dzZuNHI4NSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/U7Ign5kqooi2TSci32/giphy.gif"
   }
 }

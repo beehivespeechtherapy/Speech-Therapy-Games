@@ -42,29 +42,68 @@ button, a {
 
 /* ========== Game Container ========== */
 #game-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 1rem;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  position: relative;
 }
 
 /* ========== Map Section ========== */
 .map-section {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background: var(--card-background);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  background: linear-gradient(180deg, #87CEEB 0%, #98D8C8 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.map-section.fullscreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 #game-map {
   position: relative;
-  width: 100%;
-  max-width: 800px;
+  width: 90%;
+  max-width: 1200px;
   margin: 0 auto;
-  height: 150px;
+  height: 70vh;
+  max-height: 600px;
+  border-radius: 12px;
+  overflow: hidden;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+/* Theme-specific map backgrounds */
+#game-map[data-theme="jungle"] {
+  background-color: #2d5016;
+}
+
+#game-map[data-theme="castle"] {
+  background-color: #5a5a5a;
+}
+
+#game-map[data-theme="space"] {
+  background-color: #0a0e27;
+}
+
+#game-map[data-theme="ocean"] {
+  background-color: #006994;
+}
+
+#game-map[data-theme="desert"] {
+  background-color: #d4a574;
 }
 
 .path-svg {
@@ -117,11 +156,13 @@ button, a {
 /* Protagonist */
 .protagonist {
   position: absolute;
-  width: 60px;
-  height: 60px;
+  width: 80px;
+  height: 80px;
   z-index: 10;
   transition: left 0.8s ease-in-out, top 0.8s ease-in-out;
   transform-origin: center bottom;
+  margin-left: -40px;
+  margin-top: -40px;
 }
 
 .protagonist-image {
@@ -184,27 +225,43 @@ button, a {
   50% { transform: scale(1.2); opacity: 0.8; }
 }
 
-/* ========== Challenge Section ========== */
-.challenge-section {
-  flex: 1;
-  padding: 2rem 1rem;
+/* ========== Challenge Modal ========== */
+.challenge-modal .modal-content {
+  max-width: 800px;
+  width: 95%;
+  max-height: 90vh;
+  overflow-y: auto;
   background: var(--card-background);
-  border-radius: var(--border-radius);
-  box-shadow: var(--shadow);
+  padding: 2.5rem 2rem;
+}
+
+.challenge-content {
+  animation: modal-slide-up 0.4s ease-out;
+}
+
+@keyframes modal-slide-up {
+  from {
+    transform: translateY(50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 #challenge-prompt {
   text-align: center;
-  font-size: 1.5rem;
-  margin-bottom: 2rem;
+  font-size: 2rem;
+  margin-bottom: 2.5rem;
   color: var(--primary-color);
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .pair-container {
   display: flex;
   flex-wrap: wrap;
-  gap: 2rem;
+  gap: 2.5rem;
   justify-content: center;
   align-items: center;
   padding: 1rem;
@@ -327,14 +384,15 @@ button, a {
   }
 }
 
-/* ========== Victory Modal ========== */
+/* ========== Modals (Challenge & Victory) ========== */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(5px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -361,10 +419,12 @@ button, a {
   text-align: center;
   max-width: 500px;
   width: 90%;
+  max-height: 90vh;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   animation: modal-appear 0.5s ease-out;
   position: relative;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 @keyframes modal-appear {
@@ -384,10 +444,70 @@ button, a {
   margin-bottom: 1rem;
 }
 
+.victory-modal .modal-content h1 {
+  animation: victory-bounce 1s ease-in-out infinite;
+}
+
+@keyframes victory-bounce {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-15px) scale(1.1);
+  }
+}
+
+#victory-gif-container {
+  width: 100%;
+  max-width: 400px;
+  max-height: 50vh;
+  margin: 1.5rem auto;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  animation: gif-zoom-in 0.5s ease-out 0.2s both;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#victory-gif {
+  max-width: 100%;
+  max-height: 50vh;
+  width: auto;
+  height: auto;
+  display: block;
+  border-radius: var(--border-radius);
+  object-fit: contain;
+}
+
+@keyframes gif-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
 #victory-message {
   font-size: 1.25rem;
   margin-bottom: 2rem;
   color: var(--text-color);
+  animation: slide-in-up 0.6s ease-out 0.5s both;
+}
+
+@keyframes slide-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 #play-again {
@@ -416,19 +536,59 @@ button, a {
 /* Confetti */
 .confetti {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background: red;
-  top: -10px;
-  opacity: 0;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  top: -20px;
+  opacity: 1;
   animation: confetti-fall linear forwards;
 }
 
 @keyframes confetti-fall {
-  to {
+  0% {
     opacity: 1;
+    top: -20px;
+    transform: translateX(0) rotate(0deg);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.3;
     top: 110%;
-    transform: rotate(360deg);
+    transform: translateX(calc(var(--confetti-drift, 0) * 100px)) rotate(720deg);
+  }
+}
+
+/* Add stars and balloons to victory modal */
+.victory-modal .modal-content::before,
+.victory-modal .modal-content::after {
+  content: '⭐';
+  position: absolute;
+  font-size: 3rem;
+  animation: star-twinkle 1.5s ease-in-out infinite;
+}
+
+.victory-modal .modal-content::before {
+  top: 10px;
+  left: 10px;
+  animation-delay: 0s;
+}
+
+.victory-modal .modal-content::after {
+  top: 10px;
+  right: 10px;
+  animation-delay: 0.5s;
+}
+
+@keyframes star-twinkle {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3) rotate(180deg);
+    opacity: 0.7;
   }
 }
 

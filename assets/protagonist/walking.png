@@ -1,11 +1,24 @@
 <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
-  <!-- Walking protagonist - slight tilt -->
-  <circle cx="50" cy="50" r="40" fill="#4CAF50"/>
-  <!-- Eyes looking ahead -->
-  <circle cx="38" cy="45" r="5" fill="white"/>
-  <circle cx="62" cy="45" r="5" fill="white"/>
-  <circle cx="42" cy="45" r="3" fill="black"/>
-  <circle cx="64" cy="45" r="3" fill="black"/>
-  <!-- Determined mouth -->
-  <path d="M 35,62 L 65,62" stroke="white" stroke-width="3"/>
+  <!-- Ninja character - Walking -->
+  <!-- Head -->
+  <circle cx="50" cy="35" r="18" fill="#2c2c2c"/>
+  <!-- Eyes (determined look) -->
+  <ellipse cx="44" cy="35" rx="3" ry="4" fill="white"/>
+  <ellipse cx="56" cy="35" rx="3" ry="4" fill="white"/>
+  <!-- Body (slightly leaning forward) -->
+  <rect x="38" y="50" width="24" height="30" rx="3" fill="#2c2c2c" transform="rotate(5 50 65)"/>
+  <!-- Belt -->
+  <rect x="35" y="63" width="30" height="4" fill="#ff6b6b"/>
+  <!-- Arms (one forward, one back) -->
+  <rect x="25" y="52" width="10" height="20" rx="3" fill="#2c2c2c" transform="rotate(-15 30 62)"/>
+  <rect x="65" y="52" width="10" height="20" rx="3" fill="#2c2c2c" transform="rotate(15 70 62)"/>
+  <!-- Legs (walking stride) -->
+  <rect x="38" y="78" width="8" height="20" rx="2" fill="#2c2c2c" transform="rotate(-10 42 88)"/>
+  <rect x="54" y="78" width="8" height="20" rx="2" fill="#2c2c2c" transform="rotate(10 58 88)"/>
+  <!-- Feet -->
+  <ellipse cx="40" cy="96" rx="6" ry="3" fill="#4a4a4a"/>
+  <ellipse cx="60" cy="94" rx="6" ry="3" fill="#4a4a4a"/>
+  <!-- Headband with flowing ribbon -->
+  <rect x="32" y="28" width="36" height="4" fill="#ff6b6b"/>
+  <path d="M 68,30 L 78,22 L 74,30" fill="#ff6b6b"/>
 </svg>

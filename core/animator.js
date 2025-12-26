@@ -37,16 +37,40 @@ class PathAnimator {
       // Update protagonist image to walking
       this.setAnimationState('walking');
 
-      // Apply transition
-      this.protagonistElement.style.transition = `left ${duration}ms ease-in-out, top ${duration}ms ease-in-out`;
-      this.protagonistElement.style.left = `${checkpoint.x}px`;
-      this.protagonistElement.style.top = `${checkpoint.y - 40}px`;
+      // Get current position
+      const currentX = parseFloat(this.protagonistElement.getAttribute('x')) || 0;
+      const currentY = parseFloat(this.protagonistElement.getAttribute('y')) || 0;
 
-      // After animation completes, return to idle
-      setTimeout(() => {
-        this.setAnimationState('idle');
-        resolve();
-      }, duration);
+      // Animate using SVG attributes
+      const startTime = Date.now();
+      const targetX = checkpoint.x - 30; // Center the 60x60 image
+      const targetY = checkpoint.y - 30;
+
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        // Ease-in-out function
+        const easeProgress = progress < 0.5
+          ? 2 * progress * progress
+          : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+
+        const x = currentX + (targetX - currentX) * easeProgress;
+        const y = currentY + (targetY - currentY) * easeProgress;
+
+        this.protagonistElement.setAttribute('x', x);
+        this.protagonistElement.setAttribute('y', y);
+
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          // After animation completes, return to idle
+          this.setAnimationState('idle');
+          resolve();
+        }
+      };
+
+      requestAnimationFrame(animate);
     });
   }
 
@@ -59,15 +83,13 @@ class PathAnimator {
 
     this.currentAnimationState = state;
 
-    const img = this.protagonistElement.querySelector('.protagonist-image');
-    if (img) {
-      // Update image source based on state
-      const imagePath = `../../assets/protagonist/${state}.png`;
-      img.src = imagePath;
-    }
+    // Update image source based on state (SVG image element)
+    const protagonistImages = this.ui.protagonistImages || {};
+    const imagePath = protagonistImages[state] || `../../assets/protagonist/${state}.png`;
+    this.protagonistElement.setAttribute('href', imagePath);
 
     // Update class for additional CSS animations
-    this.protagonistElement.className = `protagonist ${state}`;
+    this.protagonistElement.setAttribute('class', `protagonist-svg-image ${state}`);
   }
 
   /**
@@ -84,14 +106,45 @@ class PathAnimator {
       // Set to celebrating state
       this.setAnimationState('celebrating');
 
-      // Add bounce animation class
-      this.protagonistElement.classList.add('celebrating-bounce');
+      // Get current position
+      const currentX = parseFloat(this.protagonistElement.getAttribute('x')) || 0;
+      const currentY = parseFloat(this.protagonistElement.getAttribute('y')) || 0;
+      const centerX = currentX + 30; // Center of 60x60 image
+      const centerY = currentY + 30;
 
-      // Remove after animation
-      setTimeout(() => {
-        this.protagonistElement.classList.remove('celebrating-bounce');
-        resolve();
-      }, 2000);
+      // Energetic bouncing and rotating animation
+      const startTime = Date.now();
+      const duration = 2000;
+      const bounces = 4;
+
+      const animate = () => {
+        const elapsed = Date.now() - startTime;
+        const progress = elapsed / duration;
+
+        if (progress < 1) {
+          // Bounce effect (vertical movement)
+          const bounceAmount = Math.abs(Math.sin(progress * Math.PI * bounces)) * 20;
+
+          // Rotation effect
+          const rotation = Math.sin(progress * Math.PI * bounces * 2) * 15;
+
+          // Scale effect (pulse)
+          const scale = 1 + Math.abs(Math.sin(progress * Math.PI * bounces)) * 0.3;
+
+          // Apply combined transform
+          this.protagonistElement.setAttribute('transform',
+            `translate(${centerX}, ${centerY - bounceAmount}) rotate(${rotation}) scale(${scale}) translate(${-centerX}, ${-centerY})`
+          );
+
+          requestAnimationFrame(animate);
+        } else {
+          // Reset transform
+          this.protagonistElement.removeAttribute('transform');
+          resolve();
+        }
+      };
+
+      requestAnimationFrame(animate);
     });
   }
 
@@ -99,26 +152,14 @@ class PathAnimator {
    * Play forward movement feedback (small jump)
    */
   playForwardFeedback() {
-    if (!this.protagonistElement) return;
-
-    this.protagonistElement.classList.add('jump-forward');
-
-    setTimeout(() => {
-      this.protagonistElement.classList.remove('jump-forward');
-    }, 400);
+    // Feedback handled by movement animation
   }
 
   /**
    * Play backward movement feedback (small shake)
    */
   playBackwardFeedback() {
-    if (!this.protagonistElement) return;
-
-    this.protagonistElement.classList.add('shake-backward');
-
-    setTimeout(() => {
-      this.protagonistElement.classList.remove('shake-backward');
-    }, 400);
+    // Feedback handled by movement animation
   }
 
   /**
