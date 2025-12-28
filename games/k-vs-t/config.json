@@ -1,0 +1,64 @@
+{
+  "title": "Candy Mountain",
+  "description": "Practice with K vs. T",
+  "targetSound": "k",
+  "contrastSound": "t",
+  "protagonist": {
+    "character": "explorer",
+    "images": {
+      "idle": "assets/protagonist/idle.png",
+      "walking": "assets/protagonist/walking.png",
+      "celebrating": "assets/protagonist/celebrating.png"
+    }
+  },
+  "map": {
+    "theme": "candy mountain",
+    "pathstyle": "mountainous",
+    "backgroundImage": "../../assets/maps/candymountain.png"
+  },
+  "challenges": [
+    {
+      "id": 1,
+      "correctWord": "cab",
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "cab",
+          "sound": "k",
+          "image": "assets/pairs/cab.jpg",
+          "alt": "taxi cab clipart"
+        },
+        {
+          "word": "tab",
+          "sound": "t",
+          "image": "assets/pairs/tab.png",
+          "alt": "soda can tab clipart"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "correctWord": "car",
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "car",
+          "sound": "k",
+          "image": "assets/pairs/car.jpg",
+          "alt": "car clipart"
+        },
+        {
+          "word": "tar",
+          "sound": "t",
+          "image": "assets/pairs/tar.jpg",
+          "alt": "tar clipart"
+        }
+      ]
+    }
+  ],
+  "victory": {
+    "message": "Congratulations! You've mastered these sounds!",
+    "music": "../../assets/audio/victory.mp3",
+    "gif": "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTlsenFrbmVwYjBrdHR5d2pyN3Azbzl3MXgxcHk3ZTFqZjVjcmppZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d3RObx3BG7pTASeyZ0/giphy.gif"
+  }
+}
