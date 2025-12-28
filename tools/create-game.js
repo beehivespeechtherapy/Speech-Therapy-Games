@@ -20,6 +20,12 @@ function parseArgs() {
     } else if (args[i] === '--title' && args[i + 1]) {
       options.title = args[i + 1];
       i++;
+    } else if (args[i] === '--protagonist' && args[i + 1]) {
+      options.protagonist = args[i + 1];
+      i++;
+    } else if (args[i] === '--background' && args[i + 1]) {
+      options.background = args[i + 1];
+      i++;
     } else if (args[i] === '--help' || args[i] === '-h') {
       options.help = true;
     }
@@ -34,16 +40,33 @@ function showHelp() {
 Speech Therapy Game Creator
 
 Usage:
-  node create-game.js --name <game-name> --title <game-title>
+  node create-game.js --name <game-name> --title <game-title> [options]
 
-Options:
-  --name <game-name>    Name for game directory (lowercase, hyphens allowed)
-  --title <game-title>  Display title for the game
-  --help, -h            Show this help message
+Required Options:
+  --name <game-name>      Name for game directory (lowercase, hyphens allowed)
+  --title <game-title>    Display title for the game
+
+Optional:
+  --protagonist <type>    Download protagonist character (ninja, pirate, parrot, etc.)
+  --background <theme>    Download background image (jungle, castle, space, etc.)
+  --help, -h              Show this help message
+
+Available Protagonists:
+  ninja, pirate, parrot, robot, astronaut, dragon, knight, princess,
+  superhero, wizard, cat, dog, bear, monkey, elephant
+
+Available Backgrounds:
+  jungle, castle, space, ocean, desert, winter, city, forest, mountain
 
 Examples:
+  # Basic game with default ninja
   node create-game.js --name "s-vs-sh" --title "S vs SH Sounds"
-  node create-game.js --name "r-vs-w" --title "R vs W Practice"
+
+  # Pirate adventure with ocean theme
+  node create-game.js --name "pirate-r" --title "Pirate R Sounds" --protagonist pirate --background ocean
+
+  # Space theme with robot
+  node create-game.js --name "space-th" --title "Space TH Sounds" --protagonist robot --background space
   `);
 }
 
@@ -79,7 +102,7 @@ function validateGameName(name) {
 }
 
 // Create a new game
-async function createGame(gameName, gameTitle) {
+async function createGame(gameName, gameTitle, protagonist, background) {
   try {
     // Validate inputs
     validateGameName(gameName);
@@ -91,7 +114,10 @@ async function createGame(gameName, gameTitle) {
     }
 
     console.log(`\nCreating new game: ${gameTitle}`);
-    console.log(`Directory name: ${gameName}\n`);
+    console.log(`Directory name: ${gameName}`);
+    if (protagonist) console.log(`Protagonist: ${protagonist}`);
+    if (background) console.log(`Background: ${background}`);
+    console.log();
 
     // Paths
     const rootDir = path.resolve(__dirname, '..');
@@ -121,7 +147,54 @@ async function createGame(gameName, gameTitle) {
     const config = JSON.parse(await fs.readFile(configPath, 'utf8'));
     config.title = gameTitle;
     config.description = `Practice with ${gameTitle}`;
+
+    // Update protagonist if specified
+    if (protagonist) {
+      config.protagonist = {
+        character: protagonist,
+        images: {
+          idle: 'assets/protagonist/idle.png',
+          walking: 'assets/protagonist/walking.png',
+          celebrating: 'assets/protagonist/celebrating.png'
+        }
+      };
+    }
+
+    // Update background if specified
+    if (background) {
+      if (!config.map) config.map = {};
+      config.map.theme = background;
+      config.map.backgroundImage = `../../assets/maps/${background}-bg.jpg`;
+      if (!config.map.pathStyle) config.map.pathStyle = 'winding';
+    }
+
     await fs.writeFile(configPath, JSON.stringify(config, null, 2));
+
+    // Download protagonist if specified
+    if (protagonist) {
+      console.log(`\n🎭 Downloading ${protagonist} character sprites...`);
+      try {
+        const { execSync } = require('child_process');
+        execSync(`node ${path.join(__dirname, 'download-protagonist.js')} ${protagonist} --game-dir ${gameDir}`, {
+          stdio: 'inherit'
+        });
+      } catch (error) {
+        console.warn(`⚠️  Failed to download protagonist. You can download manually later.`);
+      }
+    }
+
+    // Download background if specified
+    if (background) {
+      console.log(`\n🎨 Downloading ${background} background...`);
+      try {
+        const { execSync } = require('child_process');
+        execSync(`node ${path.join(__dirname, 'download-background.js')} ${background}`, {
+          stdio: 'inherit'
+        });
+      } catch (error) {
+        console.warn(`⚠️  Failed to download background. You can download manually later.`);
+      }
+    }
 
     // Create README for the game
     const readmePath = path.join(gameDir, 'README.md');
@@ -138,11 +211,10 @@ async function createGame(gameName, gameTitle) {
 
 Each challenge needs:
 - \`id\`: Unique number
-- \`correctWord\`: The target word students should choose
-- \`correctSound\`: The target sound (for reference)
+- \`correctSound\`: The target sound students should listen for
 - \`pairs\`: Array of 2 word objects, each with:
   - \`word\`: The word text
-  - \`sound\`: The sound it contains
+  - \`sound\`: The sound it contains (must match correctSound for one pair)
   - \`image\`: Path to image file (will be set by download tool)
   - \`alt\`: Alt text describing the image
 
@@ -180,7 +252,7 @@ async function main() {
     process.exit(options.help ? 0 : 1);
   }
 
-  await createGame(options.name, options.title);
+  await createGame(options.name, options.title, options.protagonist, options.background);
 }
 
 main();
