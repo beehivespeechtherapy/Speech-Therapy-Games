@@ -101,6 +101,45 @@ function validateGameName(name) {
   return true;
 }
 
+// Update root index.html with new game entry
+async function updateRootIndex(gameName, gameTitle, gameDescription) {
+  const rootDir = path.resolve(__dirname, '..');
+  const indexPath = path.join(rootDir, 'index.html');
+
+  try {
+    let content = await fs.readFile(indexPath, 'utf8');
+
+    // Find the games array
+    const gamesArrayRegex = /const games = \[([\s\S]*?)\];/;
+    const match = content.match(gamesArrayRegex);
+
+    if (!match) {
+      console.warn('⚠️  Could not find games array in index.html. Skipping update.');
+      return;
+    }
+
+    const currentArray = match[1];
+
+    // Check if game already exists in array
+    if (currentArray.includes(`name: '${gameName}'`)) {
+      console.log('Game already exists in index.html');
+      return;
+    }
+
+    // Create new game entry
+    const newEntry = `\n      { name: '${gameName}', title: '${gameTitle}', description: '${gameDescription}' },`;
+
+    // Insert new entry (before the closing bracket)
+    const updatedArray = currentArray + newEntry;
+    const updatedContent = content.replace(gamesArrayRegex, `const games = [${updatedArray}\n    ];`);
+
+    await fs.writeFile(indexPath, updatedContent);
+    console.log('✅ Added game to index.html');
+  } catch (error) {
+    console.warn('⚠️  Could not update index.html:', error.message);
+  }
+}
+
 // Create a new game
 async function createGame(gameName, gameTitle, protagonist, background) {
   try {
@@ -226,6 +265,10 @@ Each challenge needs:
 4. Share with students!
 `;
     await fs.writeFile(readmePath, readmeContent);
+
+    // Update root index.html with new game
+    console.log('\n📝 Adding game to index.html...');
+    await updateRootIndex(gameName, gameTitle, config.description);
 
     // Success message
     console.log('✅ Game created successfully!\n');

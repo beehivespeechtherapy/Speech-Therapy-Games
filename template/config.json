@@ -56,7 +56,6 @@
   ],
   "victory": {
     "message": "Congratulations! You've mastered these sounds!",
-    "music": "../../assets/audio/victory.mp3",
-    "gif": "assets/victory.gif"
+    "music": "../../assets/audio/victory.mp3"
   }
 }

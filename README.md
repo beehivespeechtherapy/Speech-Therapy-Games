@@ -588,7 +588,8 @@ node create-game.js --name <game-name> --title <game-title> [options]
 3. Updates config.json with title and settings
 4. Downloads protagonist sprites (if specified)
 5. Downloads background image (if specified)
-6. Creates a README with next steps
+6. Adds game to root index.html game list
+7. Creates a README with next steps
 
 ### download-images.js
 

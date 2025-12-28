@@ -21,23 +21,28 @@
 </head>
 <body>
   <div id="game-container">
-    <!-- Map section -->
-    <section class="map-section">
+    <!-- Full-screen map (always visible) -->
+    <section class="map-section fullscreen">
       <div id="game-map"></div>
     </section>
 
-    <!-- Challenge section -->
-    <section class="challenge-section">
-      <h2 id="challenge-prompt">Choose the correct word:</h2>
-      <div id="word-pairs" class="pair-container">
-        <!-- Dynamically populated by UI class -->
+    <!-- Challenge modal (pops up when needed) -->
+    <div id="challenge-modal" class="modal challenge-modal hidden">
+      <div class="modal-content challenge-content">
+        <h2 id="challenge-prompt">Choose the correct word:</h2>
+        <div id="word-pairs" class="pair-container">
+          <!-- Dynamically populated by UI class -->
+        </div>
       </div>
-    </section>
+    </div>
 
     <!-- Victory modal (hidden by default) -->
-    <div id="victory-modal" class="modal hidden">
+    <div id="victory-modal" class="modal victory-modal hidden">
       <div class="modal-content">
         <h1>Victory!</h1>
+        <div id="victory-gif-container">
+          <img id="victory-gif" src="" alt="Celebration!" />
+        </div>
         <p id="victory-message"></p>
         <button id="play-again">Play Again</button>
       </div>
@@ -96,19 +101,26 @@
     }
 
     // Render current game state
-    function renderGame() {
+    async function renderGame(showChallengeDelay = 1500) {
       const challenge = engine.getCurrentChallenge();
 
       if (challenge) {
-        // Render challenge
-        ui.renderChallenge(challenge);
-
-        // Render map
+        // Render map first
         const totalChallenges = engine.config.challenges.length;
-        ui.renderMap(totalChallenges, engine.currentPosition);
+        const mapConfig = {
+          ...(engine.config.map || {}),
+          protagonist: engine.config.protagonist
+        };
+        ui.renderMap(totalChallenges, engine.currentPosition, mapConfig);
 
         // Initialize animator
         animator.init();
+
+        // Wait before showing challenge (let user see the map/position)
+        await new Promise(resolve => setTimeout(resolve, showChallengeDelay));
+
+        // Now render and show the challenge
+        ui.renderChallenge(challenge, engine.config);
       } else if (engine.isVictory()) {
         // Show victory screen
         handleVictory();
@@ -128,7 +140,13 @@
         // Show feedback
         ui.showFeedback(result.correct);
 
-        // Wait a bit before animating
+        // Wait for feedback animation
+        await new Promise(resolve => setTimeout(resolve, 800));
+
+        // Hide challenge modal to show map animation
+        ui.hideChallengeModal();
+
+        // Wait for modal to fully close
         await new Promise(resolve => setTimeout(resolve, 400));
 
         // Animate protagonist movement
@@ -138,14 +156,18 @@
           animator.playBackwardFeedback();
         }
 
-        await animator.moveToPosition(result.newPosition);
+        // Wait for movement animation to complete (800ms is the default duration)
+        await animator.moveToPosition(result.newPosition, 800);
+
+        // Wait a moment at new position before next challenge
+        await new Promise(resolve => setTimeout(resolve, 800));
 
         // Check for victory
         if (engine.isVictory()) {
           await handleVictory();
         } else {
-          // Render next challenge
-          renderGame();
+          // Render next challenge with shorter delay (already waited above)
+          await renderGame(1000);
         }
 
         isProcessing = false;
@@ -164,8 +186,8 @@
       // Celebrate animation
       await animator.celebrate();
 
-      // Show victory screen
-      ui.showVictory(engine.config);
+      // Show victory screen (fetch GIF)
+      await ui.showVictory(engine.config);
 
       // Play victory music
       await audio.playVictory();
