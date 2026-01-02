@@ -1,0 +1,224 @@
+{
+  "title": "Final S vs Z",
+  "description": "Practice with Final S vs Z",
+  "targetSound": "z",
+  "contrastSound": "s",
+  "protagonist": {
+    "character": "adventurer",
+    "images": {
+      "idle": "../../assets/protagonist/idle.png",
+      "walking": "../../assets/protagonist/walking.png",
+      "celebrating": "../../assets/protagonist/celebrating.png"
+    }
+  },
+  "map": {
+    "theme": "treasure-map",
+    "pathStyle": "winding",
+    "backgroundImage": "../../assets/maps/treasure-map.jpg"
+  },
+  "challenges": [
+    {
+      "id": 1,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "buzz",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "a bee buzzing"
+        },
+        {
+          "word": "bus",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "a clipart bus"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "ks",
+          "sound": "z",
+          "image": "assets/pairs/sip.jpg",
+          "alt": "Clipart picture of multiple letter Ks"
+        },
+        {
+          "word": "case",
+          "sound": "sh",
+          "image": "assets/pairs/ship.jpg",
+          "alt": "a carrying case for pencils clipart"
+        }
+      ]
+    }
+        {
+      "id": 3,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "eyes",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart pair of eyes"
+        },
+        {
+          "word": "ice",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "frozen ice"
+        }
+      ]
+    },
+        {
+      "id": 4,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "prize",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart trophy"
+        },
+        {
+          "word": "price",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "clipart price tag"
+        }
+      ]
+    },
+        {
+      "id": 5,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "his",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart of a little boy"
+        },
+        {
+          "word": "hiss",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "clipart of a snake"
+        }
+      ]
+    },
+        {
+      "id": 6,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "peas",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart of peas in a pod"
+        },
+        {
+          "word": "peace",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "clipart of a peace sign"
+        }
+      ]
+    },
+        {
+      "id": 7,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "purrs",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart of a cat purring"
+        },
+        {
+          "word": "purse",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "a clipart purse"
+        }
+      ]
+    },
+        {
+      "id": 8,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "rays",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart sunshine rays"
+        },
+        {
+          "word": "race",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "clipart of kids running a race"
+        }
+      ]
+    },
+        {
+      "id": 9,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "rise",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart of an up arrow"
+        },
+        {
+          "word": "rice",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "a clipart bowl of rice"
+        }
+      ]
+    },
+        {
+      "id": 10,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "close",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart of two people standing close together"
+        },
+        {
+          "word": "close",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "clipart of a door closing"
+        }
+      ]
+    },
+        {
+      "id": 11,
+      "correctSound": "z",
+      "pairs": [
+        {
+          "word": "spies",
+          "sound": "z",
+          "image": "assets/pairs/sun.jpg",
+          "alt": "clipart spies"
+        },
+        {
+          "word": "spice",
+          "sound": "s",
+          "image": "assets/pairs/shun.jpg",
+          "alt": "clipart of spice bottles or peppers"
+        }
+      ]
+    }
+  ],
+  "victory": {
+    "message": "Congratulations! You've mastered these sounds!",
+    "music": "../../assets/audio/victory.mp3",
+    "gif": "assets/victory.gif"
+  }
+}

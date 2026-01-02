@@ -1,0 +1,62 @@
+{
+  "title": "T vs D Sounds",
+  "description": "Practice with T vs D Sounds",
+  "targetSound": "s",
+  "contrastSound": "sh",
+  "protagonist": {
+    "character": "ninja",
+    "images": {
+      "idle": "../../assets/protagonist/idle.png",
+      "walking": "../../assets/protagonist/walking.png",
+      "celebrating": "../../assets/protagonist/celebrating.png"
+    }
+  },
+  "map": {
+    "theme": "jungle",
+    "pathStyle": "winding",
+    "backgroundImage": "../../assets/maps/jungle-bg.jpg"
+  },
+  "challenges": [
+    {
+      "id": 1,
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sun",
+          "sound": "s",
+          "image": "assets/pairs/sun",
+          "alt": "A bright yellow sun in the sky"
+        },
+        {
+          "word": "shun",
+          "sound": "sh",
+          "image": "assets/pairs/shun",
+          "alt": "Person turning away"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "correctSound": "s",
+      "pairs": [
+        {
+          "word": "sip",
+          "sound": "s",
+          "image": "assets/pairs/sip",
+          "alt": "Person sipping from a cup"
+        },
+        {
+          "word": "ship",
+          "sound": "sh",
+          "image": "assets/pairs/ship",
+          "alt": "Large sailing ship on water"
+        }
+      ]
+    }
+  ],
+  "victory": {
+    "message": "Congratulations! You've mastered these sounds!",
+    "music": "../../assets/audio/victory.mp3",
+    "gif": "assets/victory.gif"
+  }
+}
