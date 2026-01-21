@@ -1,0 +1,255 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+#hud {
+  font-size: 18px;
+  margin: 10px 0;
+}
+
+#creditsLink {
+  margin-left: 15px;
+  color: #667eea;
+  text-decoration: none;
+  font-size: 20px;
+  transition: color 0.3s;
+}
+
+#creditsLink:hover {
+  color: #5568d3;
+  text-decoration: underline;
+}
+
+.game-card {
+  margin: 20px;
+  font-size: 20px;
+}
+
+#board {
+  position: relative;
+  width: 800px;
+  height: 500px;
+  margin: 20px auto;
+
+  background-image: url("images/board.png");
+  margin: 0 auto;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+
+  border: 2px solid #ccc; /* TEMP: helps you see board bounds */
+}
+
+
+#character {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  z-index: 10;
+  transition: left 0.6s ease, top 0.6s ease;
+
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+
+
+#eggs {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none; /* Container doesn't block, but eggs will be clickable */
+}
+
+
+
+
+#mamaDragon {
+  position: absolute;
+  width: 220px;
+  left: 580px;
+  top: 320px;
+  z-index: 7;
+}
+
+#nest {
+  position: absolute;
+  width: 90px;
+  left: 700px;
+  top: 420px;
+  z-index: 6;
+  display: none; /* Hide nest since mama dragon covers it */
+}
+
+.egg {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  z-index: 5;
+  transition: transform 0.2s;
+}
+
+.egg:hover {
+  transform: scale(1.2);
+}
+
+#choiceScreen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 50;
+}
+
+.choice-content {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  text-align: center;
+  max-width: 600px;
+}
+
+#instructionText {
+  font-size: 24px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+#choices {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.choice-button {
+  font-size: 28px;
+  padding: 20px 40px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+  min-width: 200px;
+  min-height: 200px;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.choice-button img {
+  max-width: 150px;
+  max-height: 150px;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+}
+
+.choice-text {
+  font-size: 24px;
+  display: block;
+}
+
+.choice-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.choice-button:active {
+  transform: translateY(0);
+}
+
+.listen-button {
+  font-size: 18px;
+  padding: 12px 24px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  margin-top: 20px;
+  transition: background 0.3s;
+}
+
+.listen-button:hover {
+  background: #45a049;
+}
+
+#celebration {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+}
+
+#celebration h2 {
+  color: white;
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+#celebration img {
+  max-width: 400px;
+  margin-bottom: 20px;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+#celebrationGif {
+  max-width: 400px !important;
+  width: auto !important;
+  height: auto !important;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  margin: 0 auto 20px !important;
+}
+
+#celebration button {
+  font-size: 20px;
+  padding: 15px 30px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+#celebration button:hover {
+  background: #45a049;
+}
+
+.hidden {
+  display: none !important;
+}
+
+#celebration.hidden {
+  display: none !important;
+}
+
+#choiceScreen.hidden {
+  display: none !important;
+}
