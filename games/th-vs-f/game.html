@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dragon Egg Game</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<h2 id="gameTitle"></h2>
+<p id="instruction"></p>
+
+<div id="hud">
+  🥚 Eggs <span id="eggCount">0</span>/12
+  <a href="credits.html" id="creditsLink" title="Credits & Attribution">ℹ️</a>
+</div>
+
+<div id="board">
+
+  <!-- Character -->
+  <img id="character" src="images/character.png" alt="Player character">
+
+  <!-- Eggs ONLY live here -->
+  <div id="eggs"></div>
+
+  <!-- End goal -->
+  <img id="nest" src="images/nest.png" alt="Dragon nest">
+  <img id="mamaDragon" src="images/mama_dragon.png" alt="Mama dragon">
+
+</div>
+
+<!-- Choice overlay -->
+<div id="choiceScreen" class="hidden">
+  <div class="choice-content">
+    <p id="instructionText">Which word has the /th/ sound?</p>
+    <div id="choices"></div>
+    <button id="listenAgain" class="listen-button">🔊 Listen Again</button>
+  </div>
+</div>
+
+<!-- Celebration -->
+<div id="celebration" class="hidden">
+  <h2>🎉 You helped the dragon!</h2>
+  <img id="celebrationGif" src="images/celebration.gif" alt="Celebration animation">
+  <button id="playAgainBtn">Play again</button>
+</div>
+
+<script src="game.js"></script>
+
