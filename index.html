@@ -3,19 +3,82 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Speech Therapy Games</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Speech Therapy Games - Minimal Pairs Practice</title>
+
+  <link rel="stylesheet" href="core/styles.css">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+    }
+
+    .landing-header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      color: white;
+    }
+
+    .landing-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .landing-header p {
+      font-size: 1.2rem;
+      opacity: 0.95;
+      margin: 0;
+    }
+  </style>
 </head>
 <body>
-  <h1>🐉 Speech Therapy Games</h1>
-  <p>Interactive minimal pairs practice for speech therapy</p>
-  
-  <h2>Available Games</h2>
-  
-  <div class="game-card">
-    <a href="games/th-vs-f/game.html?game=f_vs_th_dragons">🐉 Dragon Eggs – F vs TH</a>
-    <p>Help the dragon collect eggs by identifying words with the /th/ sound!</p>
+  <div class="landing-header">
+    <h1>Speech Therapy Games</h1>
+    <p>Interactive minimal pairs practice for speech therapy</p>
   </div>
 
+  <div class="landing-container">
+    <div id="game-list" class="game-list">
+      <!-- Games will be dynamically loaded -->
+    </div>
+  </div>
+
+  <script>
+    // Auto-discover games from the games directory
+    // List of all available games
+    const games = [
+      { name: 's-vs-sh', title: 'S vs SH Sounds', description: 'Practice distinguishing /s/ and /sh/ sounds', path: 'games/s-vs-sh/' },
+      { name: 'k-vs-t', title: 'Candy Mountain', description: 'Practice distinguishing /k/ and /t/ sounds', path: 'games/k-vs-t/' },
+      { name: 't-vs-d', title: 'T vs D Sounds', description: 'Practice with T vs D Sounds', path: 'games/t-vs-d/' },
+      { name: 'th-vs-f', title: '🐉 Dragon Eggs – F vs TH', description: 'Help the dragon collect eggs by identifying words with the /th/ sound!', path: 'games/th-vs-f/game.html?game=f_vs_th_dragons' },
+    ];
+
+    const gameListElement = document.getElementById('game-list');
+
+    if (games.length > 0) {
+      // Add game cards
+      games.forEach(game => {
+        const card = document.createElement('a');
+        card.href = game.path;
+        card.className = 'game-card';
+        card.innerHTML = `
+          <h2>${game.title}</h2>
+          <p>${game.description}</p>
+        `;
+        gameListElement.appendChild(card);
+      });
+    } else {
+      // Show welcome message if no games
+      gameListElement.innerHTML = `
+        <div class="game-card" style="text-align: center; grid-column: 1 / -1;">
+          <h2>Welcome!</h2>
+          <p>No games have been created yet.</p>
+          <p style="margin-top: 1rem;">Follow the Quick Start guide in the README to create your first game.</p>
+        </div>
+      `;
+    }
+  </script>
 </body>
 </html>
