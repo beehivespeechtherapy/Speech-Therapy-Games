@@ -65,6 +65,7 @@
       // Example: Uncomment when you create games
       { name: 's-vs-sh', title: 'S vs SH Sounds', description: 'Practice distinguishing /s/ and /sh/ sounds' },
       { name: 'k-vs-t', title: 'Candy Mountain', description: 'Practice distinguishing /k/ and /t/ sounds' },
+      { name: 'itchy-dragon-tk', title: 'Itchy Dragon T/K', description: 'Help Henry the dragon scratch his itchy back by finding the correct /k/ sounds!' },
     ];
 
     const gameListElement = document.getElementById('game-list');
@@ -76,7 +77,7 @@
       // Add game cards
       games.forEach(game => {
         const card = document.createElement('a');
-        card.href = `games/${game.name}/`;
+        card.href = `games/${game.name}/index.html`;
         card.className = 'game-card';
         card.innerHTML = `
           <h2>${game.title}</h2>

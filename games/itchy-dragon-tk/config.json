@@ -1,0 +1,259 @@
+{
+  "title": "Itchy Dragon T/K",
+  "description": "Help Henry the dragon scratch his itchy back by finding the correct back sounds!",
+  "targetSound": "k",
+  "contrastSound": "t",
+  "spotOffsetX": 200,
+  "spotOffsetY": 0,
+  "dragon": {
+    "name": "Henry",
+    "image": "assets/dragon/dragon.png",
+    "imageWithSpots": "assets/dragon/dragon-with-spots.png"
+  },
+  "spots": [
+    {
+      "id": 1,
+      "x": 62,
+      "y": 112,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "back",
+          "sound": "k",
+          "image": "assets/pairs/back.png",
+          "alt": "A person's back"
+        },
+        {
+          "word": "bat",
+          "sound": "t",
+          "image": "assets/pairs/bat.png",
+          "alt": "Baseball bat"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "x": 148,
+      "y": 245,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "rack",
+          "sound": "k",
+          "image": "assets/pairs/rack.png",
+          "alt": "Clothing rack"
+        },
+        {
+          "word": "rat",
+          "sound": "t",
+          "image": "assets/pairs/rat.png",
+          "alt": "Rat animal"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "x": 274,
+      "y": 91,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "beak",
+          "sound": "k",
+          "image": "assets/pairs/beak.png",
+          "alt": "Bird beak"
+        },
+        {
+          "word": "beet",
+          "sound": "t",
+          "image": "assets/pairs/beet.png",
+          "alt": "Beet vegetable"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "x": 302,
+      "y": 260,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "bike",
+          "sound": "k",
+          "image": "assets/pairs/bike.png",
+          "alt": "Bicycle"
+        },
+        {
+          "word": "bite",
+          "sound": "t",
+          "image": "assets/pairs/bite.png",
+          "alt": "Bite mark or action"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "x": 121,
+      "y": 334,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "shock",
+          "sound": "k",
+          "image": "assets/pairs/shock.png",
+          "alt": "Electric shock"
+        },
+        {
+          "word": "shot",
+          "sound": "t",
+          "image": "assets/pairs/shot.png",
+          "alt": "Shot or injection"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "x": 279,
+      "y": 323,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "sick",
+          "sound": "k",
+          "image": "assets/pairs/sick.png",
+          "alt": "Sick person"
+        },
+        {
+          "word": "sit",
+          "sound": "t",
+          "image": "assets/pairs/sit.png",
+          "alt": "Person sitting"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "x": 352,
+      "y": 434,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "puck",
+          "sound": "k",
+          "image": "assets/pairs/puck.png",
+          "alt": "Hockey puck"
+        },
+        {
+          "word": "putt",
+          "sound": "t",
+          "image": "assets/pairs/putt.png",
+          "alt": "Golf putt"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "x": 119,
+      "y": 442,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "hike",
+          "sound": "k",
+          "image": "assets/pairs/hike.png",
+          "alt": "Hiking"
+        },
+        {
+          "word": "height",
+          "sound": "t",
+          "image": "assets/pairs/height.png",
+          "alt": "Height measurement"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "x": 191,
+      "y": 515,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "pick",
+          "sound": "k",
+          "image": "assets/pairs/pick.png",
+          "alt": "Pick tool or picking action"
+        },
+        {
+          "word": "pit",
+          "sound": "t",
+          "image": "assets/pairs/pit.png",
+          "alt": "Pit or hole"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "x": 254,
+      "y": 382,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "kick",
+          "sound": "k",
+          "image": "assets/pairs/kick.png",
+          "alt": "Kicking action"
+        },
+        {
+          "word": "kit",
+          "sound": "t",
+          "image": "assets/pairs/kit.png",
+          "alt": "Kit or toolkit"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "x": 324,
+      "y": 51,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "lick",
+          "sound": "k",
+          "image": "assets/pairs/lick.png",
+          "alt": "Licking action"
+        },
+        {
+          "word": "lit",
+          "sound": "t",
+          "image": "assets/pairs/lit.png",
+          "alt": "Lit or illuminated"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "x": 194,
+      "y": 250,
+      "correctSound": "k",
+      "pairs": [
+        {
+          "word": "lock",
+          "sound": "k",
+          "image": "assets/pairs/lock.png",
+          "alt": "Lock or padlock"
+        },
+        {
+          "word": "lot",
+          "sound": "t",
+          "image": "assets/pairs/lot.png",
+          "alt": "Lot or parking lot"
+        }
+      ]
+    }
+  ],
+  "victory": {
+    "message": "Congratulations! You helped Henry scratch all his itchy spots!",
+    "gif": "assets/victory/celebration.gif"
+  }
+}

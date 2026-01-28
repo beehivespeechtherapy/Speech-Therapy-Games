@@ -1,0 +1,42 @@
+{
+  "title": "Help the Dragon Find the /th/ Sound!",
+  "instruction": "Which word has the /th/ sound?",
+  "pairs": [
+    { "distractor": "four", "target": "Thor" },
+    { "distractor": "fin", "target": "thin" },
+    { "distractor": "Fred", "target": "thread" },
+    { "distractor": "fought", "target": "thought" },
+    { "distractor": "free", "target": "three" },
+    { "distractor": "first", "target": "thirst" },
+    { "distractor": "frill", "target": "thrill" },
+    { "distractor": "fresh", "target": "thresh" },
+    { "distractor": "fun", "target": "thumb" },
+    { "distractor": "foes", "target": "those" },
+    { "distractor": "fair", "target": "there" },
+    { "distractor": "fat", "target": "that" }
+  ]
+}
+   cd "/Users/Amelia/Documents/Beehive Speech Therapy/MY GAMES"
+   git init
+   git add .
+   git commit -m "Initial commit: Speech therapy game"
+   git remote add origin https://github.com/beehivespeechtherapy/Speech_Therapy_Games.git
+   git branch -M main
+   git push -u origin main
+
+   cd ~/Documents/Beehive\ Speech\ Therapy
+   git clone https://github.com/beehivespeechtherapy/Speech-Therapy-Games.git
+   cp -r "MY GAMES"/* Speech-Therapy-Games/
+      cd Speech-Therapy-Games
+   git add .
+   git commit -m "Add Dragon Eggs F vs TH game"
+   git push
+   
+
+
+
+
+
+
+
+   

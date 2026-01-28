@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Itchy Dragon T/K - Speech Therapy Game</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 100%);
+      min-height: 100vh;
+      overflow: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #game-container {
+      width: 100%;
+      height: 100vh;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Introduction Screen */
+    #intro-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      z-index: 1000;
+      text-align: center;
+    }
+
+    #intro-screen.hidden {
+      display: none;
+    }
+
+    #intro-screen h1 {
+      font-size: 2.5rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #intro-screen p {
+      font-size: 1.2rem;
+      color: #34495e;
+      max-width: 600px;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    #intro-screen button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    #intro-screen button:active {
+      transform: scale(0.95);
+    }
+
+    /* Dragon Screen */
+    #dragon-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    #dragon-screen.hidden {
+      display: none;
+    }
+
+    #dragon-container {
+      position: relative;
+      width: 90%;
+      max-width: 800px;
+      height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #dragon-image {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      position: relative;
+    }
+
+    .itchy-spot {
+      position: absolute;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: rgba(255, 0, 0, 0.3);
+      border: 3px solid rgba(255, 0, 0, 0.6);
+      animation: pulse 2s infinite;
+      transition: transform 0.2s;
+      z-index: 10;
+    }
+
+    .itchy-spot:hover {
+      transform: scale(1.1);
+      background: rgba(255, 0, 0, 0.5);
+    }
+
+    .itchy-spot.scratched {
+      display: none;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        opacity: 0.6;
+        transform: scale(1);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+    }
+
+    .scratching-hand {
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      pointer-events: none;
+      z-index: 20;
+      animation: scratch 1s ease-in-out;
+      transform-origin: center;
+    }
+
+    @keyframes scratch {
+      0% {
+        transform: translateY(-30px) rotate(-10deg);
+        opacity: 0;
+        scale: 0.8;
+      }
+      25% {
+        opacity: 1;
+        scale: 1;
+      }
+      50% {
+        transform: translateY(0) rotate(20deg);
+        opacity: 1;
+        scale: 1.1;
+      }
+      75% {
+        opacity: 1;
+        scale: 1;
+      }
+      100% {
+        transform: translateY(30px) rotate(-10deg);
+        opacity: 0;
+        scale: 0.8;
+      }
+    }
+
+    /* Word Pair Screen */
+    #word-pair-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    #word-pair-screen.hidden {
+      display: none;
+    }
+
+    #word-pair-screen h2 {
+      font-size: 2rem;
+      color: #2c3e50;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    #word-pairs-container {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      max-width: 800px;
+    }
+
+    .word-pair-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2rem;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s, box-shadow 0.2s;
+      text-align: center;
+      min-width: 200px;
+      flex: 1;
+      max-width: 300px;
+    }
+
+    .word-pair-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    }
+
+    .word-pair-card:active {
+      transform: translateY(-2px);
+    }
+
+    .word-pair-card img {
+      width: 100%;
+      max-width: 200px;
+      height: auto;
+      margin-bottom: 1rem;
+      border-radius: 8px;
+    }
+
+    .word-pair-card .word {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .word-pair-card.correct {
+      background: #4CAF50;
+      color: white;
+    }
+
+    .word-pair-card.incorrect {
+      background: #f44336;
+      color: white;
+    }
+
+    /* Victory Screen */
+    #victory-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    #victory-screen.hidden {
+      display: none;
+    }
+
+    #victory-screen h1 {
+      font-size: 3rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    #victory-screen p {
+      font-size: 1.5rem;
+      color: #34495e;
+      margin-bottom: 2rem;
+    }
+
+    #victory-screen img {
+      max-width: 400px;
+      width: 100%;
+      margin-bottom: 2rem;
+      border-radius: 16px;
+    }
+
+    #victory-screen button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border-radius: 12px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s;
+    }
+
+    #victory-screen button:active {
+      transform: scale(0.95);
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      #word-pairs-container {
+        flex-direction: column;
+      }
+
+      .word-pair-card {
+        max-width: 100%;
+      }
+
+      #intro-screen h1 {
+        font-size: 2rem;
+      }
+
+      #intro-screen p {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Introduction Screen -->
+    <div id="intro-screen">
+      <h1>Itchy Dragon</h1>
+      <p>This is Henry. He's a dragon. Henry has a problem! He fell into a prickle bush and now his back is SOOO itchy, but his arms are too short to scratch it. Can you help him scratch his back by finding some good back sounds?</p>
+      <button id="start-button">Start Game</button>
+    </div>
+
+    <!-- Dragon Screen -->
+    <div id="dragon-screen" class="hidden">
+      <div id="dragon-container">
+        <img id="dragon-image" src="assets/dragon/dragon-with-spots.png" alt="Henry the Dragon">
+        <!-- Itchy spots will be dynamically added here -->
+      </div>
+    </div>
+
+    <!-- Word Pair Screen -->
+    <div id="word-pair-screen" class="hidden">
+      <h2 id="pair-prompt">Choose the word with the /k/ sound:</h2>
+      <div id="word-pairs-container">
+        <!-- Word pairs will be dynamically added here -->
+      </div>
+    </div>
+
+    <!-- Victory Screen -->
+    <div id="victory-screen" class="hidden">
+      <h1>Congratulations!</h1>
+      <p id="victory-message"></p>
+      <img id="victory-gif" src="" alt="Celebration">
+      <button id="play-again-button">Play Again</button>
+    </div>
+  </div>
+
+  <script>
+    // Game configuration embedded directly in HTML for file:// protocol compatibility
+    const gameConfig = {
+      "title": "Itchy Dragon T/K",
+      "description": "Help Henry the dragon scratch his itchy back by finding the correct back sounds!",
+      "targetSound": "k",
+      "contrastSound": "t",
+      "spotOffsetX": 200,
+      "spotOffsetY": 0,
+      "dragon": {
+        "name": "Henry",
+        "image": "assets/dragon/dragon.png",
+        "imageWithSpots": "assets/dragon/dragon-with-spots.png"
+      },
+      "spots": [
+        {
+          "id": 1,
+          "x": 62,
+          "y": 112,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "back", "sound": "k", "image": "assets/pairs/back.png", "alt": "A person's back" },
+            { "word": "bat", "sound": "t", "image": "assets/pairs/bat.png", "alt": "Baseball bat" }
+          ]
+        },
+        {
+          "id": 2,
+          "x": 148,
+          "y": 245,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "rack", "sound": "k", "image": "assets/pairs/rack.png", "alt": "Clothing rack" },
+            { "word": "rat", "sound": "t", "image": "assets/pairs/rat.png", "alt": "Rat animal" }
+          ]
+        },
+        {
+          "id": 3,
+          "x": 274,
+          "y": 91,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "beak", "sound": "k", "image": "assets/pairs/beak.png", "alt": "Bird beak" },
+            { "word": "beet", "sound": "t", "image": "assets/pairs/beet.png", "alt": "Beet vegetable" }
+          ]
+        },
+        {
+          "id": 4,
+          "x": 302,
+          "y": 260,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "bike", "sound": "k", "image": "assets/pairs/bike.png", "alt": "Bicycle" },
+            { "word": "bite", "sound": "t", "image": "assets/pairs/bite.png", "alt": "Bite mark or action" }
+          ]
+        },
+        {
+          "id": 5,
+          "x": 121,
+          "y": 334,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "shock", "sound": "k", "image": "assets/pairs/shock.png", "alt": "Electric shock" },
+            { "word": "shot", "sound": "t", "image": "assets/pairs/shot.png", "alt": "Shot or injection" }
+          ]
+        },
+        {
+          "id": 6,
+          "x": 279,
+          "y": 323,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "sick", "sound": "k", "image": "assets/pairs/sick.png", "alt": "Sick person" },
+            { "word": "sit", "sound": "t", "image": "assets/pairs/sit.png", "alt": "Person sitting" }
+          ]
+        },
+        {
+          "id": 7,
+          "x": 352,
+          "y": 434,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "puck", "sound": "k", "image": "assets/pairs/puck.png", "alt": "Hockey puck" },
+            { "word": "putt", "sound": "t", "image": "assets/pairs/putt.png", "alt": "Golf putt" }
+          ]
+        },
+        {
+          "id": 8,
+          "x": 119,
+          "y": 442,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "hike", "sound": "k", "image": "assets/pairs/hike.png", "alt": "Hiking" },
+            { "word": "height", "sound": "t", "image": "assets/pairs/height.png", "alt": "Height measurement" }
+          ]
+        },
+        {
+          "id": 9,
+          "x": 191,
+          "y": 515,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "pick", "sound": "k", "image": "assets/pairs/pick.png", "alt": "Pick tool or picking action" },
+            { "word": "pit", "sound": "t", "image": "assets/pairs/pit.png", "alt": "Pit or hole" }
+          ]
+        },
+        {
+          "id": 10,
+          "x": 254,
+          "y": 382,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "kick", "sound": "k", "image": "assets/pairs/kick.png", "alt": "Kicking action" },
+            { "word": "kit", "sound": "t", "image": "assets/pairs/kit.png", "alt": "Kit or toolkit" }
+          ]
+        },
+        {
+          "id": 11,
+          "x": 324,
+          "y": 51,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "lick", "sound": "k", "image": "assets/pairs/lick.png", "alt": "Licking action" },
+            { "word": "lit", "sound": "t", "image": "assets/pairs/lit.png", "alt": "Lit or illuminated" }
+          ]
+        },
+        {
+          "id": 12,
+          "x": 194,
+          "y": 250,
+          "correctSound": "k",
+          "pairs": [
+            { "word": "lock", "sound": "k", "image": "assets/pairs/lock.png", "alt": "Lock or padlock" },
+            { "word": "lot", "sound": "t", "image": "assets/pairs/lot.png", "alt": "Lot or parking lot" }
+          ]
+        }
+      ],
+      "victory": {
+        "message": "Congratulations! You helped Henry scratch all his itchy spots!",
+        "gif": "assets/victory/celebration.gif"
+      }
+    };
+
+    let activeSpots = [];
+    let currentSpot = null;
+
+    // Initialize game
+    function initGame() {
+      activeSpots = [...gameConfig.spots];
+      setupEventHandlers();
+      showIntroScreen();
+    }
+
+    // Show introduction screen
+    function showIntroScreen() {
+      document.getElementById('intro-screen').classList.remove('hidden');
+      document.getElementById('dragon-screen').classList.add('hidden');
+      document.getElementById('word-pair-screen').classList.add('hidden');
+      document.getElementById('victory-screen').classList.add('hidden');
+    }
+
+    // Show dragon screen
+    function showDragonScreen() {
+      document.getElementById('intro-screen').classList.add('hidden');
+      document.getElementById('dragon-screen').classList.remove('hidden');
+      document.getElementById('word-pair-screen').classList.add('hidden');
+      document.getElementById('victory-screen').classList.add('hidden');
+      
+      renderDragonWithSpots();
+    }
+
+    // Render dragon with itchy spots
+    function renderDragonWithSpots() {
+      const container = document.getElementById('dragon-container');
+      const dragonImage = document.getElementById('dragon-image');
+      
+      // Clear existing spots
+      const existingSpots = container.querySelectorAll('.itchy-spot');
+      existingSpots.forEach(spot => spot.remove());
+
+      const ox = gameConfig.spotOffsetX ?? 0;
+      const oy = gameConfig.spotOffsetY ?? 0;
+      // Add active spots
+      activeSpots.forEach(spot => {
+        const spotElement = document.createElement('div');
+        spotElement.className = 'itchy-spot';
+        spotElement.style.left = `${spot.x + ox}px`;
+        spotElement.style.top = `${spot.y + oy}px`;
+        spotElement.dataset.spotId = spot.id;
+        spotElement.addEventListener('click', () => handleSpotClick(spot));
+        container.appendChild(spotElement);
+      });
+    }
+
+    // Handle spot click
+    function handleSpotClick(spot) {
+      currentSpot = spot;
+      showWordPairScreen(spot);
+    }
+
+    // Show word pair screen
+    function showWordPairScreen(spot) {
+      document.getElementById('dragon-screen').classList.add('hidden');
+      document.getElementById('word-pair-screen').classList.remove('hidden');
+
+      const prompt = document.getElementById('pair-prompt');
+      prompt.textContent = `Choose the word with the /${gameConfig.targetSound}/ sound:`;
+
+      const container = document.getElementById('word-pairs-container');
+      container.innerHTML = '';
+
+      // Shuffle pairs for variety
+      const shuffledPairs = [...spot.pairs].sort(() => Math.random() - 0.5);
+
+      shuffledPairs.forEach((pair, index) => {
+        const card = document.createElement('div');
+        card.className = 'word-pair-card';
+        const imgSrc = pair.image;
+        const placeholderSvg = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#e0e0e0" width="200" height="200" rx="8"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="24" font-weight="bold" fill="#666">${pair.word}</text></svg>`)}`;
+        card.innerHTML = `
+          <img src="${imgSrc}" alt="${pair.alt}" onerror="this.src='${placeholderSvg}'">
+          <div class="word">${pair.word}</div>
+        `;
+        card.addEventListener('click', () => handleWordSelection(pair, card));
+        container.appendChild(card);
+      });
+    }
+
+    // Handle word selection
+    async function handleWordSelection(selectedPair, cardElement) {
+      const isCorrect = selectedPair.sound === currentSpot.correctSound;
+      
+      // Disable all cards
+      const allCards = document.querySelectorAll('.word-pair-card');
+      allCards.forEach(card => {
+        card.style.pointerEvents = 'none';
+      });
+
+      // Show feedback
+      if (isCorrect) {
+        cardElement.classList.add('correct');
+        // Wait a moment, then return to dragon screen and show scratching animation
+        setTimeout(() => {
+          showDragonScreen();
+          // Small delay to ensure dragon screen is visible before animation
+          setTimeout(() => {
+            showScratchingAnimation(currentSpot);
+            setTimeout(() => {
+              removeSpot(currentSpot);
+              renderDragonWithSpots();
+              checkVictory();
+            }, 1100);
+          }, 100);
+        }, 1000);
+      } else {
+        cardElement.classList.add('incorrect');
+        // Wait a moment, then return to dragon
+        setTimeout(() => {
+          showDragonScreen();
+        }, 1500);
+      }
+    }
+
+    // Show scratching animation
+    function showScratchingAnimation(spot) {
+      const container = document.getElementById('dragon-container');
+      const spotElement = container.querySelector(`[data-spot-id="${spot.id}"]`);
+      
+      if (spotElement) {
+        const ox = gameConfig.spotOffsetX ?? 0;
+        const oy = gameConfig.spotOffsetY ?? 0;
+        const hand = document.createElement('img');
+        hand.src = 'assets/dragon/scratching-hand.png';
+        hand.className = 'scratching-hand';
+        // Center the 120px hand on the 60px spot (spot center is at x+30, y+30)
+        hand.style.left = `${spot.x + ox - 30}px`;
+        hand.style.top = `${spot.y + oy - 30}px`;
+        container.appendChild(hand);
+
+        // Remove hand after animation
+        setTimeout(() => {
+          hand.remove();
+        }, 500);
+      }
+    }
+
+    // Remove spot
+    function removeSpot(spot) {
+      activeSpots = activeSpots.filter(s => s.id !== spot.id);
+    }
+
+    // Check if all spots are gone
+    function checkVictory() {
+      if (activeSpots.length === 0) {
+        showVictoryScreen();
+      }
+    }
+
+    // Show victory screen
+    function showVictoryScreen() {
+      document.getElementById('dragon-screen').classList.add('hidden');
+      document.getElementById('word-pair-screen').classList.add('hidden');
+      document.getElementById('victory-screen').classList.remove('hidden');
+
+      const message = document.getElementById('victory-message');
+      message.textContent = gameConfig.victory.message;
+
+      const gif = document.getElementById('victory-gif');
+      if (gameConfig.victory.gif) {
+        gif.src = gameConfig.victory.gif;
+      }
+    }
+
+    // Setup event handlers
+    function setupEventHandlers() {
+      document.getElementById('start-button').addEventListener('click', showDragonScreen);
+      document.getElementById('play-again-button').addEventListener('click', () => {
+        activeSpots = [...gameConfig.spots];
+        showDragonScreen();
+      });
+    }
+
+    // Start the game
+    initGame();
+  </script>
+</body>
+</html>
