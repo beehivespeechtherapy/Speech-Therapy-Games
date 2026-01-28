@@ -7,8 +7,8 @@
     "character": "explorer",
     "images": {
       "idle": "assets/protagonist/idle.png",
-      "walking": "assets/protagonist/walking.png",
-      "celebrating": "assets/protagonist/celebrating.png"
+      "walking": "assets/protagonist/idle.png",
+      "celebrating": "assets/protagonist/idle.png"
     }
   },
   "map": {

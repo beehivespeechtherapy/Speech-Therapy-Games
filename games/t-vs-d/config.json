@@ -1,62 +1,242 @@
 {
   "title": "T vs D Sounds",
   "description": "Practice with T vs D Sounds",
-  "targetSound": "s",
-  "contrastSound": "sh",
+  "targetSound": "t",
+  "contrastSound": "d",
   "protagonist": {
     "character": "ninja",
     "images": {
-      "idle": "../../assets/protagonist/idle.png",
-      "walking": "../../assets/protagonist/walking.png",
-      "celebrating": "../../assets/protagonist/celebrating.png"
+      "idle": "assets/protagonist/ninja-idle.png",
+      "walking": "assets/protagonist/ninja-walking.png",
+      "celebrating": "assets/protagonist/ninja-celebrating.png"
     }
   },
   "map": {
-    "theme": "jungle",
+    "theme": "dojo",
     "pathStyle": "winding",
-    "backgroundImage": "../../assets/maps/jungle-bg.jpg"
+    "backgroundImage": "../../assets/maps/dojo-bg.png"
   },
   "challenges": [
     {
       "id": 1,
-      "correctSound": "s",
+      "correctSound": "t",
       "pairs": [
         {
-          "word": "sun",
-          "sound": "s",
-          "image": "assets/pairs/sun",
-          "alt": "A bright yellow sun in the sky"
+          "word": "toe",
+          "sound": "t",
+          "image": "assets/pairs/toe",
+          "alt": "A cartoon toe"
         },
         {
-          "word": "shun",
-          "sound": "sh",
-          "image": "assets/pairs/shun",
-          "alt": "Person turning away"
+          "word": "dough",
+          "sound": "d",
+          "image": "assets/pairs/dough",
+          "alt": "Ball of dough"
         }
       ]
     },
     {
       "id": 2,
-      "correctSound": "s",
+      "correctSound": "t",
       "pairs": [
         {
-          "word": "sip",
-          "sound": "s",
-          "image": "assets/pairs/sip",
-          "alt": "Person sipping from a cup"
+          "word": "ten",
+          "sound": "t",
+          "image": "assets/pairs/ten",
+          "alt": "Number 10"
         },
         {
-          "word": "ship",
-          "sound": "sh",
-          "image": "assets/pairs/ship",
-          "alt": "Large sailing ship on water"
+          "word": "den",
+          "sound": "d",
+          "image": "assets/pairs/den",
+          "alt": "Animal den or cave"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "tore",
+          "sound": "t",
+          "image": "assets/pairs/tore",
+          "alt": "Torn piece of paper"
+        },
+        {
+          "word": "door",
+          "sound": "d",
+          "image": "assets/pairs/door",
+          "alt": "House door"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "tin",
+          "sound": "t",
+          "image": "assets/pairs/tin",
+          "alt": "Tin can"
+        },
+        {
+          "word": "din",
+          "sound": "d",
+          "image": "assets/pairs/din",
+          "alt": "Noisy scene with sound waves"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "tuck",
+          "sound": "t",
+          "image": "assets/pairs/tuck",
+          "alt": "Child being tucked into bed"
+        },
+        {
+          "word": "duck",
+          "sound": "d",
+          "image": "assets/pairs/duck",
+          "alt": "Yellow duck"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "tip",
+          "sound": "t",
+          "image": "assets/pairs/tip",
+          "alt": "Tip of a pencil"
+        },
+        {
+          "word": "dip",
+          "sound": "d",
+          "image": "assets/pairs/dip",
+          "alt": "Bowl of dip with chips"
+        }
+      ]
+    },
+    {
+      "id": 7,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "tie",
+          "sound": "t",
+          "image": "assets/pairs/tie",
+          "alt": "Necktie"
+        },
+        {
+          "word": "die",
+          "sound": "d",
+          "image": "assets/pairs/die.png",
+          "alt": "Six-sided die"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "train",
+          "sound": "t",
+          "image": "assets/pairs/train",
+          "alt": "Toy train or locomotive"
+        },
+        {
+          "word": "drain",
+          "sound": "d",
+          "image": "assets/pairs/drain",
+          "alt": "Sink drain with water going down"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "town",
+          "sound": "t",
+          "image": "assets/pairs/town",
+          "alt": "Small town with buildings"
+        },
+        {
+          "word": "down",
+          "sound": "d",
+          "image": "assets/pairs/down",
+          "alt": "Arrow pointing down"
+        }
+      ]
+    },
+    {
+      "id": 10,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "tear",
+          "sound": "t",
+          "image": "assets/pairs/tear",
+          "alt": "Teardrop from crying"
+        },
+        {
+          "word": "deer",
+          "sound": "d",
+          "image": "assets/pairs/deer",
+          "alt": "Deer in forest"
+        }
+      ]
+    },
+    {
+      "id": 11,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "tank",
+          "sound": "t",
+          "image": "assets/pairs/tank",
+          "alt": "Military tank"
+        },
+        {
+          "word": "dank",
+          "sound": "d",
+          "image": "assets/pairs/dank",
+          "alt": "Damp, dark cave"
+        }
+      ]
+    },
+    {
+      "id": 12,
+      "correctSound": "t",
+      "pairs": [
+        {
+          "word": "tall",
+          "sound": "t",
+          "image": "assets/pairs/tall",
+          "alt": "Tall giraffe"
+        },
+        {
+          "word": "doll",
+          "sound": "d",
+          "image": "assets/pairs/doll",
+          "alt": "Toy doll"
         }
       ]
     }
   ],
   "victory": {
-    "message": "Congratulations! You've mastered these sounds!",
+    "message": "Congratulations! You've mastered T and D sounds!",
     "music": "../../assets/audio/victory.mp3",
-    "gif": "assets/victory.gif"
+    "gif": "https://media2.giphy.com/media/v1.Y2lkPTc5MGI3NjExY3l2NzEzc2x4cThjZDYwM3hycngycDI5dHFlbnFxamV1emRheDMwcSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2fJ3kgoTA96EwddgCZ/giphy.gif"
   }
 }

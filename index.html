@@ -41,43 +41,28 @@
 
   <div class="landing-container">
     <div id="game-list" class="game-list">
-      <!-- Games will be dynamically loaded or add manually -->
-      <div class="game-card" style="text-align: center; grid-column: 1 / -1;">
-        <h2>Welcome!</h2>
-        <p>No games have been created yet.</p>
-        <p style="margin-top: 1rem;">Follow the Quick Start guide in the README to create your first game.</p>
-        <p style="margin-top: 1rem;">
-          <code style="background: #f5f5f5; padding: 0.5rem 1rem; border-radius: 4px; display: inline-block;">
-            cd tools && node create-game.js --name "my-game" --title "My First Game"
-          </code>
-        </p>
-      </div>
+      <!-- Games will be dynamically loaded -->
     </div>
   </div>
 
   <script>
     // Auto-discover games from the games directory
-    // This would require a build step or manual update
-    // For now, we'll check if games exist and list them
-
-    // You can manually add games here:
+    // List of all available games
     const games = [
-      // Example: Uncomment when you create games
-      { name: 's-vs-sh', title: 'S vs SH Sounds', description: 'Practice distinguishing /s/ and /sh/ sounds' },
-      { name: 'k-vs-t', title: 'Candy Mountain', description: 'Practice distinguishing /k/ and /t/ sounds' },
-      { name: 'itchy-dragon-tk', title: 'Itchy Dragon T/K', description: 'Help Henry the dragon scratch his itchy back by finding the correct /k/ sounds!' },
+      { name: 's-vs-sh', title: 'S vs SH Sounds', description: 'Practice distinguishing /s/ and /sh/ sounds', path: 'games/s-vs-sh/index.html' },
+      { name: 'k-vs-t', title: 'Candy Mountain', description: 'Practice distinguishing /k/ and /t/ sounds', path: 'games/k-vs-t/index.html' },
+      { name: 'itchy-dragon-tk', title: 'Itchy Dragon T/K', description: 'Help Henry the dragon scratch his itchy back by finding the correct /k/ sounds!', path: 'games/itchy-dragon-tk/index.html' },
+      { name: 't-vs-d', title: 'T vs D Sounds', description: 'Practice with T vs D Sounds', path: 'games/t-vs-d/index.html' },
+      { name: 'th-vs-f', title: '🐉 Dragon Eggs – F vs TH', description: 'Help the dragon collect eggs by identifying words with the /th/ sound!', path: 'games/th-vs-f/game.html?game=f_vs_th_dragons' },
     ];
 
     const gameListElement = document.getElementById('game-list');
 
     if (games.length > 0) {
-      // Clear welcome message
-      gameListElement.innerHTML = '';
-
       // Add game cards
       games.forEach(game => {
         const card = document.createElement('a');
-        card.href = `games/${game.name}/index.html`;
+        card.href = game.path;
         card.className = 'game-card';
         card.innerHTML = `
           <h2>${game.title}</h2>
@@ -85,6 +70,15 @@
         `;
         gameListElement.appendChild(card);
       });
+    } else {
+      // Show welcome message when no games
+      gameListElement.innerHTML = `
+        <div class="game-card" style="text-align: center; grid-column: 1 / -1;">
+          <h2>Welcome!</h2>
+          <p>No games have been created yet.</p>
+          <p style="margin-top: 1rem;">Follow the Quick Start guide in the README to create your first game.</p>
+        </div>
+      `;
     }
   </script>
 </body>
