@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Donut Detective - Speech Therapy Game</title>
+  <script>
+    (function() {
+      var href = document.location.href.split('#')[0].split('?')[0];
+      var base = href.lastIndexOf('/') >= 0 ? href.substring(0, href.lastIndexOf('/') + 1) : '';
+      var b = document.createElement('base');
+      b.href = base;
+      document.head.insertBefore(b, document.head.firstChild);
+    })();
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #fff8f0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #game-container {
+      width: 100%;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+    .screen.hidden { display: none; }
+
+    /* Intro */
+    #intro-screen {
+      background: linear-gradient(180deg, #ffe4c9 0%, #fff8f0 50%);
+      text-align: center;
+    }
+    #intro-screen .intro-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; max-width: 520px; }
+    #intro-screen .chef-wrap { width: 160px; height: 160px; flex-shrink: 0; }
+    #intro-screen .chef-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    #intro-screen .message {
+      font-size: 1.25rem; line-height: 1.6; color: #4a3728;
+      padding: 0.5rem 0;
+    }
+    #intro-screen .btn {
+      background: #d4845c; color: #fff; border: none; padding: 0.9rem 2rem; font-size: 1.15rem;
+      border-radius: 999px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #intro-screen .btn:active { transform: scale(0.97); }
+
+    /* Donut grid */
+    #donut-screen { background: #fff8f0; }
+    #donut-screen h2 { font-size: 1.35rem; color: #4a3728; margin-bottom: 1rem; text-align: center; }
+    .donut-grid {
+      display: grid; grid-template-columns: repeat(5, 1fr); gap: clamp(8px, 2vw, 16px);
+      max-width: 95vw; margin: 0 auto;
+    }
+    .donut-cell {
+      aspect-ratio: 1; display: flex; align-items: center; justify-content: center;
+      cursor: pointer; border-radius: 12px; transition: transform 0.2s;
+    }
+    .donut-cell:hover { transform: scale(1.05); }
+    .donut-cell.found { cursor: default; pointer-events: none; }
+    .donut-cell .cell-stack { position: relative; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; }
+    .donut-cell .cell-ingredient { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 0; }
+    .donut-cell .donut-img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; transition: opacity 0.25s ease; }
+    .donut-cell .donut-img.gone { opacity: 0; pointer-events: none; visibility: hidden; }
+    .donut-cell.empty .cell-stack { background: #f5e6d3; border-radius: 12px; }
+    .donut-cell img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* Discrimination modal - 2x size */
+    #discrimination-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    #discrimination-overlay.hidden { display: none; }
+    .discrimination-box {
+      background: #fff; border-radius: 40px; padding: 3.5rem; max-width: 840px; width: 100%;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.2);
+    }
+    .discrimination-box h3 { font-size: 2.4rem; color: #4a3728; margin-bottom: 2.5rem; text-align: center; }
+    .word-choices { display: flex; gap: 2rem; justify-content: center; flex-wrap: wrap; }
+    .word-btn {
+      padding: 2rem 3rem; font-size: 2.7rem; font-weight: 600; color: #4a3728;
+      background: #f5e6d3; border: 6px solid #d4845c; border-radius: 28px; cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    .word-btn .word-pair-img { width: 160px; height: 160px; object-fit: contain; display: block; }
+    .word-btn .word-label { display: block; }
+    .word-btn:hover { background: #edd9c4; transform: scale(1.03); }
+    .word-btn.correct { background: #7cb87c; border-color: #5a9a5a; color: #fff; pointer-events: none; }
+    .word-btn.incorrect { background: #e8a0a0; border-color: #c75c5c; color: #fff; pointer-events: none; }
+
+    /* Bowl screen */
+    #bowl-screen { background: linear-gradient(180deg, #e8f4e8 0%, #fff8f0 100%); }
+    #bowl-screen .bowl-message { font-size: 1.25rem; color: #4a3728; margin-bottom: 1.5rem; text-align: center; max-width: 400px; }
+    .bowl-layout {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2rem;
+      max-width: 95vw;
+    }
+    .bowl-zone {
+      width: 360px; height: 360px; display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .bowl-zone img.bowl-img { width: 100%; height: 100%; object-fit: contain; }
+    .ingredients-row {
+      display: flex; gap: 1.5rem; flex-wrap: wrap; justify-content: center; align-items: center;
+    }
+    .ingredient-item {
+      width: 160px; height: 160px; cursor: pointer; transition: transform 0.2s;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .ingredient-item:hover { transform: scale(1.08); }
+    .ingredient-item.used { visibility: hidden; pointer-events: none; }
+    .ingredient-item img { width: 100%; height: 100%; object-fit: contain; }
+    .ingredient-in-bowl {
+      position: absolute; width: 100px; height: 100px; pointer-events: none;
+      transition: transform 0.5s ease-in-out;
+    }
+    .ingredient-in-bowl img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* Victory */
+    #victory-screen { background: linear-gradient(180deg, #ffe4c9 0%, #fff8f0 100%); text-align: center; }
+    #victory-screen h1 { font-size: 1.75rem; color: #4a3728; margin-bottom: 0.75rem; }
+    #victory-screen .victory-msg { font-size: 1.2rem; color: #5c4a3a; margin-bottom: 1.5rem; }
+    #victory-screen .victory-img-wrap { width: 220px; height: 220px; margin: 0 auto 1.5rem; }
+    #victory-screen .victory-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    #victory-screen .btn { background: #d4845c; color: #fff; border: none; padding: 0.9rem 2rem; font-size: 1.15rem;
+      border-radius: 999px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+    #victory-screen .btn:active { transform: scale(0.97); }
+
+    @media (max-width: 500px) {
+      .donut-grid { grid-template-columns: repeat(5, 1fr); gap: 6px; }
+      .word-choices { flex-direction: column; }
+      .word-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Intro -->
+    <section id="intro-screen" class="screen">
+      <div class="intro-content">
+        <div class="chef-wrap">
+          <img id="chef-img" src="assets/chef.png" alt="Chef">
+        </div>
+        <p class="message" id="intro-message">Welcome to my bakery! I've made so many donuts that I've lost track of some of my ingredients. Can you help me find them?</p>
+        <button class="btn" id="start-btn">Start</button>
+      </div>
+    </section>
+
+    <!-- Donut grid -->
+    <section id="donut-screen" class="screen hidden">
+      <h2>Click a donut to look for an ingredient!</h2>
+      <div class="donut-grid" id="donut-grid"></div>
+    </section>
+
+    <!-- Discrimination (overlay) -->
+    <div id="discrimination-overlay" class="hidden">
+      <div class="discrimination-box">
+        <h3 id="discrimination-prompt">Which word has the &quot;G&quot; sound?</h3>
+        <div class="word-choices" id="word-choices"></div>
+      </div>
+    </div>
+
+    <!-- Bowl -->
+    <section id="bowl-screen" class="screen hidden">
+      <p class="bowl-message" id="bowl-message">Let's make some donuts! Put the ingredients in the bowl!</p>
+      <div class="bowl-layout">
+        <div class="bowl-zone" id="bowl-zone"></div>
+        <div class="ingredients-row" id="bowl-ingredients"></div>
+      </div>
+    </section>
+
+    <!-- Victory -->
+    <section id="victory-screen" class="screen hidden">
+      <h1>You did it!</h1>
+      <p class="victory-msg" id="victory-msg">Your donuts look delicious.</p>
+      <div class="victory-img-wrap">
+        <img id="victory-donut-img" src="assets/finished-donut.png" alt="Finished donuts">
+      </div>
+      <button class="btn" id="play-again-btn">Play again</button>
+    </section>
+  </div>
+
+  <script>
+    (function() {
+      const NUM_DONUTS = 15;
+      const NUM_INGREDIENTS = 5;
+
+      let config = null;
+      let donutSlots = [];       // length 15: each el is null or ingredientId
+      let foundIngredients = []; // ids we found (order preserved)
+      let ingredientsInBowl = 0;
+      let audio = null;
+      let audioUnlocked = false;
+      let findingPairIndex = 0;  // cycle through 10 pairs (0..9 then repeat)
+      let bowlPairIndex = 0;      // cycle through 5 pairs in bowl phase (0..4 then repeat)
+
+      function assetPath(relative) {
+        var loc = window.location.href.split('#')[0].split('?')[0];
+        var dir = loc.lastIndexOf('/') >= 0 ? loc.substring(0, loc.lastIndexOf('/') + 1) : '';
+        return dir + relative.replace(/^\//, '');
+      }
+
+      async function loadConfig() {
+        try {
+          const r = await fetch('config.json');
+          if (r.ok) config = await r.json();
+        } catch (e) {}
+        if (!config) {
+          config = {
+            title: 'Donut Detective',
+            intro: { message: "Welcome to my bakery! I've made so many donuts that I've lost track of some of my ingredients. Can you help me find them?" },
+            assets: { chef: 'assets/chef.png', donuts: 'assets/donuts/donut', bowl: 'assets/bowl.png', finishedDonut: 'assets/finished-donut.png', ingredients: { flour: 'assets/ingredients/flour.png', water: 'assets/ingredients/water.png', oil: 'assets/ingredients/oil.png', eggs: 'assets/ingredients/eggs.png', sugar: 'assets/ingredients/sugar.png' }, victoryMusic: 'assets/audio/victory.mp3' },
+            victoryMusicFallback: '../../assets/audio/victory.mp3',
+            wordPairsFinding: [['mug','mud'],['bug','bud'],['bag','bad'],['egg','Ed'],['leg','lead'],['dig','did'],['beg','bed'],['rag','rad'],['hag','had'],['tag','tad']],
+            wordPairsBowl: [['mug','mud'],['bug','bud'],['bag','bad'],['egg','Ed'],['leg','lead']],
+            ingredientIds: ['flour','water','oil','eggs','sugar'],
+            bowlMessage: "Let's make some donuts! Put the ingredients in the bowl!",
+            victoryMessage: "You did it! Your donuts look delicious.",
+            discriminationPrompt: 'Which word has the "G" sound?'
+          };
+        }
+        document.title = config.title || 'Donut Detective';
+        const msg = config.intro && config.intro.message;
+        if (msg) document.getElementById('intro-message').textContent = msg;
+        if (config.bowlMessage) document.getElementById('bowl-message').textContent = config.bowlMessage;
+        if (config.victoryMessage) document.getElementById('victory-msg').textContent = config.victoryMessage;
+        if (config.discriminationPrompt) document.getElementById('discrimination-prompt').textContent = config.discriminationPrompt;
+      }
+
+      function shuffle(arr) {
+        const a = [...arr];
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      }
+
+      function pickRandomPair(pairs) {
+        const idx = Math.floor(Math.random() * pairs.length);
+        const pair = pairs[idx];
+        const [a, b] = shuffle([pair[0], pair[1]]);
+        const correctWord = pair[0];
+        const correctIndex = a === correctWord ? 0 : 1;
+        return { words: [a, b], correctIndex };
+      }
+
+      function pickNextInCycle(pairs) {
+        if (pairs.length === 0) return pickRandomPair(pairs);
+        const idx = findingPairIndex % pairs.length;
+        findingPairIndex = (findingPairIndex + 1) % pairs.length;
+        const pair = pairs[idx];
+        const [a, b] = shuffle([pair[0], pair[1]]);
+        const correctWord = pair[0];
+        const correctIndex = a === correctWord ? 0 : 1;
+        return { words: [a, b], correctIndex };
+      }
+
+      function pickNextBowlInCycle(pairs) {
+        if (pairs.length === 0) return pickRandomPair(pairs);
+        const idx = bowlPairIndex % pairs.length;
+        bowlPairIndex = (bowlPairIndex + 1) % pairs.length;
+        const pair = pairs[idx];
+        const [a, b] = shuffle([pair[0], pair[1]]);
+        const correctWord = pair[0];
+        const correctIndex = a === correctWord ? 0 : 1;
+        return { words: [a, b], correctIndex };
+      }
+
+      function initAudio() {
+        const rel = (config.assets && config.assets.victoryMusic) || 'assets/audio/victory.mp3';
+        try {
+          var src = assetPath(rel);
+          audio = new Audio(src);
+          audio.volume = 0.7;
+        } catch (e) {}
+        if (!audio || !audio.src) {
+          try {
+            audio = new Audio(assetPath('../../assets/audio/victory.mp3'));
+            if (audio) audio.volume = 0.7;
+          } catch (e2) {}
+        }
+      }
+
+      function unlockAudio() {
+        if (audioUnlocked || !audio) return;
+        audio.play().then(() => { audio.pause(); audio.currentTime = 0; audioUnlocked = true; }).catch(() => {});
+      }
+
+      function playVictoryMusic() {
+        if (!audio) return;
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      }
+
+      function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
+        const el = document.getElementById(id);
+        if (el) el.classList.remove('hidden');
+      }
+
+      function placeIngredients() {
+        const ids = config.ingredientIds || ['flour','water','oil','eggs','sugar'];
+        const indices = shuffle(Array.from({ length: NUM_DONUTS }, (_, i) => i)).slice(0, NUM_INGREDIENTS);
+        donutSlots = Array(NUM_DONUTS).fill(null);
+        indices.forEach((idx, i) => { donutSlots[idx] = ids[i]; });
+      }
+
+      function donutImagePath(i) {
+        const base = (config.assets && config.assets.donuts) || 'assets/donuts/donut';
+        return assetPath(base + (i + 1) + '.png');
+      }
+
+      function renderDonutGrid() {
+        const grid = document.getElementById('donut-grid');
+        grid.innerHTML = '';
+        for (let i = 0; i < NUM_DONUTS; i++) {
+          const cell = document.createElement('div');
+          cell.className = 'donut-cell';
+          cell.dataset.index = String(i);
+          const stack = document.createElement('div');
+          stack.className = 'cell-stack';
+          const ingredientId = donutSlots[i];
+          if (ingredientId) {
+            const ingImg = document.createElement('img');
+            ingImg.className = 'cell-ingredient';
+            ingImg.src = ingredientImagePath(ingredientId);
+            ingImg.alt = ingredientId;
+            ingImg.dataset.ingredient = ingredientId;
+            ingImg.onerror = function() { this.style.visibility = 'hidden'; };
+            stack.appendChild(ingImg);
+          }
+          const donutImg = document.createElement('img');
+          donutImg.className = 'donut-img';
+          donutImg.src = donutImagePath(i);
+          donutImg.alt = 'Donut ' + (i + 1);
+          donutImg.onerror = function() { this.style.visibility = 'hidden'; this.parentElement.style.background = '#f5e6d3'; };
+          stack.appendChild(donutImg);
+          cell.appendChild(stack);
+          cell.addEventListener('click', () => handleDonutClick(i));
+          grid.appendChild(cell);
+        }
+      }
+
+      function ingredientImagePath(id) {
+        const ing = config.assets && config.assets.ingredients ? config.assets.ingredients : {};
+        return assetPath(ing[id] || ('assets/ingredients/' + id + '.png'));
+      }
+
+      function handleDonutClick(index) {
+        const cell = document.querySelector('#donut-grid .donut-cell[data-index="' + String(index) + '"]');
+        if (cell && cell.classList.contains('found')) return;
+        const ingredientId = donutSlots[index];
+        showDiscrimination(config.wordPairsFinding, (correct) => {
+          if (!correct || !cell) return;
+          cell.classList.add('found');
+          var donutImg = cell.querySelector('.donut-img');
+          if (donutImg) donutImg.classList.add('gone');
+          if (ingredientId) {
+            foundIngredients.push(ingredientId);
+            donutSlots[index] = undefined;
+            if (foundIngredients.length >= NUM_INGREDIENTS) showBowlScreen();
+          } else {
+            cell.classList.add('empty');
+          }
+        }, 'finding');
+      }
+
+      function pairImagePath(word) {
+        var base = (config.assets && config.assets.pairs) || 'assets/pairs';
+        var file = (word === 'Ed') ? 'ed' : word.toLowerCase();
+        return assetPath(base + '/' + file + '.png');
+      }
+
+      function showDiscrimination(pairs, onDone, cycleMode) {
+        const overlay = document.getElementById('discrimination-overlay');
+        const container = document.getElementById('word-choices');
+        container.innerHTML = '';
+        var chosen;
+        if (cycleMode === 'finding') chosen = pickNextInCycle(pairs);
+        else if (cycleMode === 'bowl') chosen = pickNextBowlInCycle(pairs);
+        else chosen = pickRandomPair(pairs);
+        const { words, correctIndex } = chosen;
+        words.forEach((word, idx) => {
+          const btn = document.createElement('button');
+          btn.className = 'word-btn';
+          var imgPath = pairImagePath(word);
+          var wrap = document.createElement('div');
+          wrap.className = 'word-choice-wrap';
+          var img = document.createElement('img');
+          img.src = imgPath;
+          img.alt = word;
+          img.className = 'word-pair-img';
+          img.onerror = function() { this.style.display = 'none'; };
+          wrap.appendChild(img);
+          var label = document.createElement('span');
+          label.className = 'word-label';
+          label.textContent = word;
+          wrap.appendChild(label);
+          btn.appendChild(wrap);
+          btn.addEventListener('click', () => {
+            container.querySelectorAll('.word-btn').forEach(b => b.setAttribute('disabled', ''));
+            const isCorrect = idx === correctIndex;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            if (!isCorrect) {
+              const correctBtn = container.querySelectorAll('.word-btn')[correctIndex];
+              if (correctBtn) correctBtn.classList.add('correct');
+            }
+            setTimeout(() => {
+              overlay.classList.add('hidden');
+              onDone(isCorrect);
+            }, 1200);
+          });
+          container.appendChild(btn);
+        });
+        overlay.classList.remove('hidden');
+      }
+
+      function showBowlScreen() {
+        showScreen('bowl-screen');
+        bowlPairIndex = 0;
+        const zone = document.getElementById('bowl-zone');
+        zone.innerHTML = '';
+        const bowlImg = document.createElement('img');
+        bowlImg.className = 'bowl-img';
+        bowlImg.src = 'assets/bowl.png';
+        bowlImg.alt = 'Bowl';
+        bowlImg.onerror = function() { this.src = 'assets/bowl.svg'; };
+        zone.appendChild(bowlImg);
+
+        const row = document.getElementById('bowl-ingredients');
+        row.innerHTML = '';
+        foundIngredients.forEach((id, idx) => {
+          const wrap = document.createElement('div');
+          wrap.className = 'ingredient-item';
+          wrap.dataset.ingredientId = id;
+          wrap.dataset.index = String(idx);
+          const img = document.createElement('img');
+          img.src = ingredientImagePath(id);
+          img.alt = id;
+          img.onerror = function() { this.style.visibility = 'hidden'; };
+          wrap.appendChild(img);
+          wrap.addEventListener('click', () => handleBowlIngredientClick(id, wrap, zone));
+          row.appendChild(wrap);
+        });
+      }
+
+      function handleBowlIngredientClick(ingredientId, wrap, bowlZone) {
+        if (wrap.classList.contains('used')) return;
+        showDiscrimination(config.wordPairsBowl, (correct) => {
+          if (correct) {
+            wrap.classList.add('used');
+            const img = wrap.querySelector('img');
+            if (!img) return;
+            const rect = bowlZone.getBoundingClientRect();
+            const clone = document.createElement('div');
+            clone.className = 'ingredient-in-bowl';
+            const cloneImg = document.createElement('img');
+            cloneImg.src = img.src;
+            cloneImg.alt = ingredientId;
+            clone.appendChild(cloneImg);
+            clone.style.position = 'fixed';
+            clone.style.left = wrap.getBoundingClientRect().left + 'px';
+            clone.style.top = wrap.getBoundingClientRect().top + 'px';
+            clone.style.width = '160px';
+            clone.style.height = '160px';
+            document.body.appendChild(clone);
+            requestAnimationFrame(() => {
+              clone.style.left = (rect.left + rect.width / 2 - 50) + 'px';
+              clone.style.top = (rect.top + rect.height / 2 - 50) + 'px';
+              clone.style.width = '100px';
+              clone.style.height = '100px';
+            });
+            setTimeout(() => {
+              clone.remove();
+              ingredientsInBowl++;
+              if (ingredientsInBowl >= NUM_INGREDIENTS) showVictoryScreen();
+            }, 550);
+          }
+        }, 'bowl');
+      }
+
+      function showVictoryScreen() {
+        showScreen('victory-screen');
+        const img = document.getElementById('victory-donut-img');
+        img.src = 'assets/finished-donut.png';
+        img.onerror = function() { this.src = 'assets/finished-donut.svg'; };
+        unlockAudio();
+        playVictoryMusic();
+      }
+
+      function startGame() {
+        placeIngredients();
+        foundIngredients = [];
+        ingredientsInBowl = 0;
+        findingPairIndex = 0;
+        renderDonutGrid();
+        showScreen('donut-screen');
+      }
+
+      function init() {
+        loadConfig().then(() => {
+          initAudio();
+          var chefImg = document.getElementById('chef-img');
+          if (chefImg) chefImg.onerror = function() { this.src = 'assets/chef.svg'; };
+          document.getElementById('start-btn').addEventListener('click', () => { unlockAudio(); startGame(); });
+          document.getElementById('play-again-btn').addEventListener('click', startGame);
+          document.addEventListener('click', unlockAudio, { once: true });
+        });
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>

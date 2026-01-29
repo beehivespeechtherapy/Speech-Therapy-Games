@@ -1,0 +1,47 @@
+{
+  "title": "Donut Detective",
+  "description": "Find ingredients under donuts by identifying words with the G sound, then put them in the bowl!",
+  "targetSound": "g",
+  "intro": {
+    "message": "Welcome to my bakery! I've made so many donuts that I've lost track of some of my ingredients. Can you help me find them?"
+  },
+  "assets": {
+    "chef": "assets/chef.png",
+    "donuts": "assets/donuts/donut",
+    "pairs": "assets/pairs",
+    "bowl": "assets/bowl.png",
+    "finishedDonut": "assets/finished-donut.png",
+    "ingredients": {
+      "flour": "assets/ingredients/flour.png",
+      "water": "assets/ingredients/water.png",
+      "oil": "assets/ingredients/oil.png",
+      "eggs": "assets/ingredients/eggs.png",
+      "sugar": "assets/ingredients/sugar.png"
+    },
+    "victoryMusic": "assets/audio/victory.mp3"
+  },
+  "victoryMusicFallback": "../../assets/audio/victory.mp3",
+  "wordPairsFinding": [
+    ["mug", "mud"],
+    ["bug", "bud"],
+    ["bag", "bad"],
+    ["egg", "Ed"],
+    ["leg", "lead"],
+    ["dig", "did"],
+    ["beg", "bed"],
+    ["rag", "rad"],
+    ["hag", "had"],
+    ["tag", "tad"]
+  ],
+  "wordPairsBowl": [
+    ["mug", "mud"],
+    ["bug", "bud"],
+    ["bag", "bad"],
+    ["egg", "Ed"],
+    ["leg", "lead"]
+  ],
+  "ingredientIds": ["flour", "water", "oil", "eggs", "sugar"],
+  "bowlMessage": "Let's make some donuts! Put the ingredients in the bowl!",
+  "victoryMessage": "You did it! Your donuts look delicious.",
+  "discriminationPrompt": "Which word has the \"G\" sound?"
+}

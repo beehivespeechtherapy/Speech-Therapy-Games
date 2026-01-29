@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160">
+  <rect width="160" height="160" fill="#f5e6d3" rx="12"/>
+  <text x="80" y="85" text-anchor="middle" font-size="18" fill="#8b6914" font-family="sans-serif">Chef</text>
+  <text x="80" y="110" text-anchor="middle" font-size="11" fill="#a08040" font-family="sans-serif">Add chef.png</text>
+</svg>
