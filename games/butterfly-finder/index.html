@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <title>Butterfly Finder - Speech Therapy Game</title>
+  <script>
+    (function() {
+      var href = document.location.href.split('#')[0].split('?')[0];
+      var base = href.lastIndexOf('/') >= 0 ? href.substring(0, href.lastIndexOf('/') + 1) : '';
+      var b = document.createElement('base');
+      b.href = base;
+      document.head.insertBefore(b, document.head.firstChild);
+    })();
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: #e8f5e9;
+      min-height: 100vh;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #game-container { width: 100%; min-height: 100vh; position: relative; }
+
+    .screen { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1.5rem; }
+    .screen.hidden { display: none; }
+
+    /* Intro */
+    #intro-screen {
+      background: linear-gradient(180deg, #c8e6c9 0%, #e8f5e9 50%);
+      text-align: center;
+    }
+    #intro-screen .intro-content { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; max-width: 520px; }
+    #intro-screen .intro-wrap { width: 140px; height: 140px; flex-shrink: 0; }
+    #intro-screen .intro-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    #intro-screen .message { font-size: 1.25rem; line-height: 1.6; color: #2e7d32; padding: 0.5rem 0; }
+    #intro-screen .btn {
+      background: #43a047; color: #fff; border: none; padding: 0.9rem 2rem; font-size: 1.15rem;
+      border-radius: 999px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    #intro-screen .btn:active { transform: scale(0.97); }
+
+    /* Choose word set */
+    #choose-screen {
+      background: linear-gradient(180deg, #c8e6c9 0%, #e8f5e9 50%);
+      justify-content: flex-start;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    #choose-screen h2 { font-size: 1.35rem; color: #2e7d32; margin-bottom: 1rem; text-align: center; }
+    .word-set-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 520px; width: 100%; margin: 0 auto; }
+    .word-set-btn {
+      background: #fff;
+      border: 3px solid #43a047;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      color: #2e7d32;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .word-set-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    .word-set-btn:active { transform: translateY(0); }
+
+    /* Flower grid - 4x4, fits in viewport */
+    #game-screen {
+      background: linear-gradient(180deg, #a5d6a7 0%, #e8f5e9 100%);
+      justify-content: flex-start;
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+      overflow: hidden;
+    }
+    #game-screen h2 { font-size: 1.2rem; color: #2e7d32; margin-bottom: 0.5rem; text-align: center; flex-shrink: 0; }
+    .flower-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(4, 1fr);
+      gap: 8px;
+      width: min(80vh, 100vw);
+      height: min(80vh, 100vw);
+      margin: 0 auto;
+      flex-shrink: 0;
+    }
+    .flower-cell {
+      display: flex;
+      min-height: 0;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 16px;
+      transition: transform 0.2s;
+    }
+    .flower-cell:hover { transform: scale(1.05); }
+    .flower-cell.found { cursor: default; pointer-events: none; }
+    .flower-cell .cell-stack {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .flower-cell .cell-behind { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; z-index: 0; }
+    .flower-cell .flower-img {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      transition: opacity 0.3s ease;
+    }
+    .flower-cell .flower-img.gone { opacity: 0; pointer-events: none; visibility: hidden; }
+    .flower-cell.empty .cell-stack { background: rgba(255,255,255,0.4); border-radius: 16px; }
+    .flower-cell img { width: 100%; height: 100%; object-fit: contain; }
+
+    /* Celebration */
+    #celebration-screen {
+      background: linear-gradient(180deg, #c8e6c9 0%, #e8f5e9 100%);
+      text-align: center;
+    }
+    #celebration-screen h1 { font-size: 1.75rem; color: #2e7d32; margin-bottom: 0.75rem; }
+    #celebration-screen .celebration-msg { font-size: 1.2rem; color: #388e3c; margin-bottom: 1.5rem; }
+    #celebration-screen .celebration-img-wrap { width: 220px; height: 220px; margin: 0 auto 1.5rem; }
+    #celebration-screen .celebration-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
+    #celebration-screen .btn {
+      background: #43a047;
+      color: #fff;
+      border: none;
+      padding: 0.9rem 2rem;
+      font-size: 1.15rem;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    #celebration-screen .btn:active { transform: scale(0.97); }
+
+    /* Discrimination modal - 2x size */
+    #discrimination-overlay {
+      position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000;
+      display: flex; align-items: center; justify-content: center; padding: 2rem;
+    }
+    #discrimination-overlay.hidden { display: none; }
+    .discrimination-box {
+      background: #fff; border-radius: 48px; padding: 4rem; max-width: 1040px; width: 100%;
+      box-shadow: 0 32px 96px rgba(0,0,0,0.2);
+    }
+    .discrimination-box h3 { font-size: 3rem; color: #2e7d32; margin-bottom: 3rem; text-align: center; }
+    .word-choices { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; }
+    .word-btn {
+      padding: 2rem 3rem; font-size: 3rem; font-weight: 600; color: #2e7d32;
+      background: #e8f5e9; border: 8px solid #43a047; border-radius: 32px; cursor: pointer;
+      transition: transform 0.2s, background 0.2s;
+      display: flex; flex-direction: column; align-items: center; gap: 1rem;
+    }
+    .word-btn .word-pair-img { width: 200px; height: 200px; object-fit: contain; display: block; }
+    .word-btn .word-label { display: block; }
+    .word-btn:hover { background: #c8e6c9; transform: scale(1.03); }
+    .word-btn.correct { background: #81c784; border-color: #2e7d32; color: #fff; pointer-events: none; }
+    .word-btn.incorrect { background: #e57373; border-color: #c62828; color: #fff; pointer-events: none; }
+
+    @media (max-width: 500px) {
+      .flower-grid { width: min(78vh, 100vw); height: min(78vh, 100vw); gap: 6px; }
+      .word-choices { flex-direction: column; }
+      .word-btn { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <!-- Intro -->
+    <section id="intro-screen" class="screen">
+      <div class="intro-content">
+        <div class="intro-wrap">
+          <img id="intro-img" src="assets/intro.png" alt="">
+        </div>
+        <p class="message" id="intro-message">Find the butterflies hidden behind the flowers! Click a flower to see what's behind it. You can find them in any order.</p>
+        <button class="btn" id="start-btn">Start</button>
+      </div>
+    </section>
+
+    <!-- Choose word set -->
+    <section id="choose-screen" class="screen hidden">
+      <h2>Choose which word pairs to practice</h2>
+      <div class="word-set-list" id="word-set-list"></div>
+    </section>
+
+    <!-- Flower grid -->
+    <section id="game-screen" class="screen hidden">
+      <h2>Click a flower to see what's behind it!</h2>
+      <div class="flower-grid" id="flower-grid"></div>
+    </section>
+
+    <!-- Discrimination modal -->
+    <div id="discrimination-overlay" class="hidden">
+      <div class="discrimination-box">
+        <h3 id="discrimination-prompt">Which word has the /v/ sound?</h3>
+        <div class="word-choices" id="word-choices"></div>
+      </div>
+    </div>
+
+    <!-- Celebration -->
+    <section id="celebration-screen" class="screen hidden">
+      <h1>You found all the butterflies, great job!</h1>
+      <p class="celebration-msg" id="celebration-msg"></p>
+      <div class="celebration-img-wrap">
+        <img id="celebration-img" src="assets/celebration.png" alt="">
+      </div>
+      <button class="btn" id="play-again-btn">Play again</button>
+    </section>
+  </div>
+
+  <script type="application/json" id="game-config">
+  {"title":"Butterfly Finder","description":"Find all the butterflies hidden behind the flowers!","intro":{"message":"Find the butterflies hidden behind the flowers! Choose which word pairs to practice, then click a flower to see what's behind it."},"assets":{"intro":"assets/intro.png","flowers":"assets/flowers/flower","butterflies":"assets/butterflies/butterfly","celebration":"assets/celebration.png","pairs":"assets/pairs"},"numFlowers":16,"numButterflies":10,"celebrationMessage":"You found all the butterflies, great job!","wordSets":[{"id":"tk-k1","label":"T/K – K sound (can/tan, cap/tap, …)","prompt":"Which word has the /k/ sound?","pairs":[["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]]},{"id":"tk-t1","label":"T/K – T sound (can/tan, cap/tap, …)","prompt":"Which word has the /t/ sound?","pairs":[["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]]},{"id":"tk-k2","label":"T/K – K sound (back/bat, beak/beet, …)","prompt":"Which word has the /k/ sound?","pairs":[["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]]},{"id":"tk-t2","label":"T/K – T sound (back/bat, beak/beet, …)","prompt":"Which word has the /t/ sound?","pairs":[["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]]},{"id":"dg-d1","label":"D/G – D sound (dame/game, date/gate, …)","prompt":"Which word has the /d/ sound?","pairs":[["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]]},{"id":"dg-g1","label":"D/G – G sound (dame/game, date/gate, …)","prompt":"Which word has the /g/ sound?","pairs":[["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]]},{"id":"dg-g2","label":"D/G – G sound (bad/bag, bed/beg, …)","prompt":"Which word has the /g/ sound?","pairs":[["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]]},{"id":"dg-d2","label":"D/G – D sound (bad/bag, bed/beg, …)","prompt":"Which word has the /d/ sound?","pairs":[["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]]},{"id":"vb-b1","label":"V/B – B sound (van/ban, vest/best, …)","prompt":"Which word has the /b/ sound?","pairs":[["ban","van"],["best","vest"],["broom","vroom"],["boat","vote"],["base","vase"],["bale","veil"],["berry","very"],["bow","vow"],["bent","vent"],["bat","vat"],["bee","v"],["bet","vet"],["boo","view"],["bowl","vole"],["bane","vane"]]},{"id":"vb-v1","label":"V/B – V sound (veil/bale, vase/base, …)","prompt":"Which word has the /v/ sound?","pairs":[["veil","bale"],["vase","base"],["vat","bat"],["v","bee"],["vent","bent"],["very","berry"],["vest","best"],["vote","boat"],["view","boo"],["vroom","broom"]]},{"id":"vb-v2","label":"V/B – V sound (carb/carve, curb/curve, …)","prompt":"Which word has the /v/ sound?","pairs":[["carve","carb"],["curve","curb"],["wave","web"],["drive","drib"],["five","fib"],["give","goob"],["grave","grab"],["live","lab"],["love","lobe"],["nerve","nub"]]},{"id":"vb-b2","label":"V/B – B sound (carb/carve, dob/dove, …)","prompt":"Which word has the /b/ sound?","pairs":[["carb","carve"],["curb","curve"],["dob","dove"],["drib","drive"],["fib","five"],["goob","give"],["grab","grave"],["lab","live"],["lobe","love"],["nub","nerve"]]}]}
+  </script>
+
+  <script>
+    (function() {
+      let config = null;
+      let flowerSlots = [];
+      let foundCount = 0;
+      let pairIndex = 0;
+      let selectedWordSet = null;
+
+      function assetPath(relative) {
+        var loc = window.location.href.split('#')[0].split('?')[0];
+        var dir = loc.lastIndexOf('/') >= 0 ? loc.substring(0, loc.lastIndexOf('/') + 1) : '';
+        return dir + relative.replace(/^\//, '');
+      }
+
+      async function loadConfig() {
+        try {
+          var r = await fetch('config.json');
+          if (r.ok) config = await r.json();
+        } catch (e) {}
+        if (!config) {
+          var el = document.getElementById('game-config');
+          if (el && el.textContent) {
+            try { config = JSON.parse(el.textContent.trim()); } catch (e2) {}
+          }
+        }
+        if (!config) {
+          config = {
+            title: 'Butterfly Finder',
+            intro: { message: "Find the butterflies hidden behind the flowers! Choose which word pairs to practice, then click a flower to see what's behind it." },
+            assets: { intro: 'assets/intro.png', flowers: 'assets/flowers/flower', butterflies: 'assets/butterflies/butterfly', celebration: 'assets/celebration.png', pairs: 'assets/pairs' },
+            numFlowers: 16,
+            numButterflies: 10,
+            celebrationMessage: 'You found all the butterflies, great job!',
+            wordSets: [
+              { id: 'vb-v1', label: 'V/B – V sound (veil/bale, …)', prompt: 'Which word has the /v/ sound?', pairs: [['veil','bale'],['vase','base'],['vat','bat'],['v','bee'],['vent','bent'],['very','berry'],['vest','best'],['vote','boat'],['view','boo'],['vroom','broom']] }
+            ]
+          };
+        }
+        document.title = config.title || 'Butterfly Finder';
+        var msgEl = document.getElementById('intro-message');
+        if (msgEl && config.intro && config.intro.message) msgEl.textContent = config.intro.message;
+        var celebEl = document.getElementById('celebration-msg');
+        if (celebEl && config.celebrationMessage) celebEl.textContent = config.celebrationMessage;
+        var introImg = document.getElementById('intro-img');
+        if (introImg && config.assets && config.assets.intro) introImg.src = assetPath(config.assets.intro);
+        introImg.onerror = function() { this.style.display = 'none'; };
+        renderWordSetList();
+      }
+
+      function renderWordSetList() {
+        var list = document.getElementById('word-set-list');
+        if (!list) return;
+        list.innerHTML = '';
+        var sets = config.wordSets || [];
+        sets.forEach(function(set) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'word-set-btn';
+          btn.textContent = set.label;
+          btn.addEventListener('click', function() {
+            selectedWordSet = set;
+            startGame();
+          });
+          list.appendChild(btn);
+        });
+      }
+
+      function pairImagePath(word) {
+        var base = (config.assets && config.assets.pairs) || 'assets/pairs';
+        var file = (word === 'v') ? 'v' : (word === 'Ed') ? 'ed' : word.toLowerCase();
+        return assetPath(base + '/' + file + '.png');
+      }
+
+      function pickNextPair(pairs) {
+        if (!pairs || pairs.length === 0) return { words: ['veil', 'bale'], correctIndex: 0 };
+        var idx = pairIndex % pairs.length;
+        pairIndex = (pairIndex + 1) % pairs.length;
+        var pair = pairs[idx];
+        var targetWord = pair[0];
+        var otherWord = pair[1];
+        var order = Math.random() < 0.5 ? [targetWord, otherWord] : [otherWord, targetWord];
+        var correctIndex = order[0] === targetWord ? 0 : 1;
+        return { words: order, correctIndex: correctIndex };
+      }
+
+      function shuffle(arr) {
+        var a = arr.slice();
+        for (var i = a.length - 1; i > 0; i--) {
+          var j = Math.floor(Math.random() * (i + 1));
+          var t = a[i]; a[i] = a[j]; a[j] = t;
+        }
+        return a;
+      }
+
+      function placeButterflies() {
+        var n = config.numFlowers || 16;
+        var b = config.numButterflies || 10;
+        var indices = shuffle(Array.from({ length: n }, function(_, i) { return i; })).slice(0, b);
+        flowerSlots = Array(n).fill(null);
+        for (var i = 0; i < b; i++) flowerSlots[indices[i]] = i + 1; // butterfly 1..b
+      }
+
+      function flowerImagePath(i) {
+        var base = (config.assets && config.assets.flowers) || 'assets/flowers/flower';
+        return assetPath(base + (i + 1) + '.png');
+      }
+
+      function butterflyImagePath(butterflyIndex) {
+        var base = (config.assets && config.assets.butterflies) || 'assets/butterflies/butterfly';
+        return assetPath(base + butterflyIndex + '.png');
+      }
+
+      function renderGrid() {
+        var grid = document.getElementById('flower-grid');
+        grid.innerHTML = '';
+        var n = config.numFlowers || 16;
+        for (var i = 0; i < n; i++) {
+          var cell = document.createElement('div');
+          cell.className = 'flower-cell';
+          cell.dataset.index = String(i);
+          var stack = document.createElement('div');
+          stack.className = 'cell-stack';
+          var butterflyIdx = flowerSlots[i];
+          if (butterflyIdx) {
+            var behind = document.createElement('img');
+            behind.className = 'cell-behind';
+            behind.src = butterflyImagePath(butterflyIdx);
+            behind.alt = 'Butterfly';
+            behind.onerror = function() { this.style.visibility = 'hidden'; };
+            stack.appendChild(behind);
+          }
+          var flowerImg = document.createElement('img');
+          flowerImg.className = 'flower-img';
+          flowerImg.src = flowerImagePath(i);
+          flowerImg.alt = 'Flower ' + (i + 1);
+          flowerImg.onerror = function() { this.style.visibility = 'hidden'; this.parentElement.style.background = 'rgba(255,255,255,0.5)'; };
+          stack.appendChild(flowerImg);
+          cell.appendChild(stack);
+          cell.addEventListener('click', function(idx) { return function() { handleClick(idx); }; }(i));
+          grid.appendChild(cell);
+        }
+      }
+
+      function showDiscrimination(onDone) {
+        var set = selectedWordSet || (config.wordSets && config.wordSets[0]);
+        var pairs = set ? set.pairs : [];
+        var promptEl = document.getElementById('discrimination-prompt');
+        if (promptEl && set && set.prompt) promptEl.textContent = set.prompt;
+        var overlay = document.getElementById('discrimination-overlay');
+        var container = document.getElementById('word-choices');
+        container.innerHTML = '';
+        var chosen = pickNextPair(pairs);
+        var words = chosen.words;
+        var correctIndex = chosen.correctIndex;
+        words.forEach(function(word, idx) {
+          var btn = document.createElement('button');
+          btn.className = 'word-btn';
+          var wrap = document.createElement('div');
+          wrap.className = 'word-choice-wrap';
+          var img = document.createElement('img');
+          img.src = pairImagePath(word);
+          img.alt = word;
+          img.className = 'word-pair-img';
+          img.onerror = function() { this.style.display = 'none'; };
+          wrap.appendChild(img);
+          var label = document.createElement('span');
+          label.className = 'word-label';
+          label.textContent = word;
+          wrap.appendChild(label);
+          btn.appendChild(wrap);
+          btn.addEventListener('click', function() {
+            container.querySelectorAll('.word-btn').forEach(function(b) { b.setAttribute('disabled', ''); });
+            var isCorrect = idx === correctIndex;
+            btn.classList.add(isCorrect ? 'correct' : 'incorrect');
+            if (!isCorrect) {
+              var correctBtn = container.querySelectorAll('.word-btn')[correctIndex];
+              if (correctBtn) correctBtn.classList.add('correct');
+            }
+            setTimeout(function() {
+              overlay.classList.add('hidden');
+              onDone(isCorrect);
+            }, 1200);
+          });
+          container.appendChild(btn);
+        });
+        overlay.classList.remove('hidden');
+      }
+
+      function revealFlower(cell, index) {
+        if (!cell) return;
+        cell.classList.add('found');
+        var flowerImg = cell.querySelector('.flower-img');
+        if (flowerImg) flowerImg.classList.add('gone');
+        var butterflyIdx = flowerSlots[index];
+        if (butterflyIdx) {
+          foundCount++;
+          flowerSlots[index] = null;
+          if (foundCount >= (config.numButterflies || 10)) showCelebration();
+        } else {
+          cell.classList.add('empty');
+        }
+      }
+
+      function handleClick(index) {
+        var cell = document.querySelector('#flower-grid .flower-cell[data-index="' + String(index) + '"]');
+        if (!cell || cell.classList.contains('found')) return;
+        showDiscrimination(function(correct) {
+          if (correct) revealFlower(cell, index);
+        });
+      }
+
+      function showScreen(id) {
+        document.querySelectorAll('.screen').forEach(function(s) { s.classList.add('hidden'); });
+        var el = document.getElementById(id);
+        if (el) el.classList.remove('hidden');
+      }
+
+      function showCelebration() {
+        showScreen('celebration-screen');
+        var img = document.getElementById('celebration-img');
+        var path = (config.assets && config.assets.celebration) || 'assets/celebration.png';
+        img.src = assetPath(path);
+        img.onerror = function() { this.style.display = 'none'; };
+      }
+
+      function startGame() {
+        if (!selectedWordSet) {
+          showScreen('choose-screen');
+          return;
+        }
+        placeButterflies();
+        foundCount = 0;
+        pairIndex = 0;
+        renderGrid();
+        showScreen('game-screen');
+      }
+
+      function init() {
+        loadConfig().then(function() {
+          document.getElementById('start-btn').addEventListener('click', function() {
+          showScreen('choose-screen');
+        });
+          document.getElementById('play-again-btn').addEventListener('click', function() {
+          showScreen('choose-screen');
+        });
+        });
+      }
+
+      init();
+    })();
+  </script>
+</body>
+</html>
