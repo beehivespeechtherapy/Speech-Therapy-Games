@@ -5,6 +5,16 @@
   "contrastSound": "t",
   "spotOffsetX": 200,
   "spotOffsetY": 0,
+  "wordSets": [
+    { "id": "tk-k1", "label": "T/K Minimal Pairs - Initial K", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]] },
+    { "id": "tk-t1", "label": "T/K Minimal Pairs - Initial T", "prompt": "Which word has the /t/ sound?", "targetSound": "t", "contrastSound": "k", "pairs": [["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]] },
+    { "id": "tk-k2", "label": "T/K Minimal Pairs - Final K", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]] },
+    { "id": "tk-t2", "label": "T/K Minimal Pairs - Final T", "prompt": "Which word has the /t/ sound?", "targetSound": "t", "contrastSound": "k", "pairs": [["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]] },
+    { "id": "dg-d1", "label": "D/G Minimal Pairs - Initial D", "prompt": "Which word has the /d/ sound?", "targetSound": "d", "contrastSound": "g", "pairs": [["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]] },
+    { "id": "dg-g1", "label": "D/G Minimal Pairs - Initial G", "prompt": "Which word has the /g/ sound?", "targetSound": "g", "contrastSound": "d", "pairs": [["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]] },
+    { "id": "dg-g2", "label": "D/G Minimal Pairs - Final G", "prompt": "Which word has the /g/ sound?", "targetSound": "g", "contrastSound": "d", "pairs": [["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]] },
+    { "id": "dg-d2", "label": "D/G Minimal Pairs - Final D", "prompt": "Which word has the /d/ sound?", "targetSound": "d", "contrastSound": "g", "pairs": [["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]] }
+  ],
   "dragon": {
     "name": "Henry",
     "image": "assets/dragon/dragon.png",

@@ -41,6 +41,23 @@ const gameData = {
   }
 };
 
+// Word sets for selection screen (T/K, D/G, V/B + F/TH)
+const wordSets = [
+  { id: "f_vs_th", label: "F/TH Minimal Pairs – Dragon Eggs", useGameData: "f_vs_th_dragons" },
+  { id: "tk-k1", label: "T/K Minimal Pairs - Initial K", prompt: "Which word has the /k/ sound?", pairs: [["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]] },
+  { id: "tk-t1", label: "T/K Minimal Pairs - Initial T", prompt: "Which word has the /t/ sound?", pairs: [["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]] },
+  { id: "tk-k2", label: "T/K Minimal Pairs - Final K", prompt: "Which word has the /k/ sound?", pairs: [["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]] },
+  { id: "tk-t2", label: "T/K Minimal Pairs - Final T", prompt: "Which word has the /t/ sound?", pairs: [["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]] },
+  { id: "dg-d1", label: "D/G Minimal Pairs - Initial D", prompt: "Which word has the /d/ sound?", pairs: [["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]] },
+  { id: "dg-g1", label: "D/G Minimal Pairs - Initial G", prompt: "Which word has the /g/ sound?", pairs: [["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]] },
+  { id: "dg-g2", label: "D/G Minimal Pairs - Final G", prompt: "Which word has the /g/ sound?", pairs: [["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]] },
+  { id: "dg-d2", label: "D/G Minimal Pairs - Final D", prompt: "Which word has the /d/ sound?", pairs: [["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]] },
+  { id: "vb-b1", label: "V/B Minimal Pairs - Initial B", prompt: "Which word has the /b/ sound?", pairs: [["ban","van"],["best","vest"],["broom","vroom"],["boat","vote"],["base","vase"],["bale","veil"],["berry","very"],["bow","vow"],["bent","vent"],["bat","vat"],["bee","v"],["bet","vet"],["boo","view"],["bowl","vole"],["bane","vane"]] },
+  { id: "vb-v1", label: "V/B Minimal Pairs - Initial V", prompt: "Which word has the /v/ sound?", pairs: [["veil","bale"],["vase","base"],["vat","bat"],["v","bee"],["vent","bent"],["very","berry"],["vest","best"],["vote","boat"],["view","boo"],["vroom","broom"]] },
+  { id: "vb-v2", label: "V/B Minimal Pairs - Final V", prompt: "Which word has the /v/ sound?", pairs: [["carve","carb"],["curve","curb"],["wave","web"],["drive","drib"],["five","fib"],["give","goob"],["grave","grab"],["live","lab"],["love","lobe"],["nerve","nub"]] },
+  { id: "vb-b2", label: "V/B Minimal Pairs - Final B", prompt: "Which word has the /b/ sound?", pairs: [["carb","carve"],["curb","curve"],["dob","dove"],["drib","drive"],["fib","five"],["goob","give"],["grab","grave"],["lab","live"],["lobe","love"],["nub","nerve"]] }
+];
+
 // Load game data
 const params = new URLSearchParams(window.location.search);
 let gameName = params.get("game");
@@ -50,38 +67,52 @@ if (!gameName) {
   gameName = "f_vs_th_dragons";
 }
 
+// Build game data from a word set (pairs are [target, distractor]; we need 12 for path)
+function buildDataFromWordSet(set) {
+  const pathLen = path.length;
+  const pairs = [];
+  for (let i = 0; i < pathLen; i++) {
+    const p = set.pairs[i % set.pairs.length];
+    pairs.push({ target: p[0], distractor: p[1] });
+  }
+  return {
+    title: "Help the Dragon!",
+    instruction: set.prompt || "Which word has the sound?",
+    pairs: pairs
+  };
+}
+
+// Show word set choice screen and populate buttons
+function showWordSetChoice() {
+  const screen = document.getElementById("word-set-screen");
+  const list = document.getElementById("word-set-list");
+  const board = document.getElementById("game-board");
+  if (!screen || !list) return;
+  screen.classList.remove("hidden");
+  if (board) board.classList.add("hidden");
+  list.innerHTML = "";
+  wordSets.forEach(set => {
+    const btn = document.createElement("button");
+    btn.type = "button";
+    btn.className = "word-set-btn";
+    btn.textContent = set.label;
+    btn.onclick = () => {
+      if (set.useGameData && gameData[set.useGameData]) {
+        data = gameData[set.useGameData];
+      } else {
+        data = buildDataFromWordSet(set);
+      }
+      screen.classList.add("hidden");
+      if (board) board.classList.remove("hidden");
+      initializeGame();
+    };
+    list.appendChild(btn);
+  });
+}
+
 // Wait for DOM to be ready before initializing
 function startGame() {
-  // Try to load from embedded data first, then fall back to fetch (for server use)
-  if (gameData[gameName]) {
-    // Use embedded data (works without server)
-    data = gameData[gameName];
-    initializeGame();
-  } else {
-    // Try to fetch from JSON file (works with a server)
-    fetch(`games/${gameName}.json`)
-      .then(res => {
-        if (!res.ok) {
-          throw new Error(`Failed to load game: ${res.status} ${res.statusText}`);
-        }
-        return res.json();
-      })
-      .then(json => {
-        data = json;
-        initializeGame();
-      })
-      .catch(err => {
-        console.error("Error loading game:", err);
-        document.body.innerHTML = `
-          <div style="text-align: center; padding: 50px;">
-            <h2>⚠️ Error Loading Game</h2>
-            <p>Game "${gameName}" not found.</p>
-            <p>Please check that the game exists and try again.</p>
-            <p><a href="index.html">Return to main menu</a></p>
-          </div>
-        `;
-      });
-  }
+  showWordSetChoice();
 }
 
 // Start the game when DOM is ready
@@ -450,16 +481,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
   }
   
-  // Play again button
+  // Play again button - return to word set choice
   const playAgainBtn = document.getElementById("playAgainBtn");
   if (playAgainBtn) {
     playAgainBtn.onclick = () => {
-      // Reset and restart the game
-      if (data) {
-        initializeGame();
-      } else {
-        location.reload();
-      }
+      const celebration = document.getElementById("celebration");
+      if (celebration) celebration.classList.add("hidden");
+      const board = document.getElementById("game-board");
+      if (board) board.classList.add("hidden");
+      showWordSetChoice();
     };
   }
 });

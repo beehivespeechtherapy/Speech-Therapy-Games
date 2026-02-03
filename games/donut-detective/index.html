@@ -54,6 +54,30 @@
     }
     #intro-screen .btn:active { transform: scale(0.97); }
 
+    /* Choose word set */
+    #choose-screen {
+      background: linear-gradient(180deg, #ffe4c9 0%, #fff8f0 50%);
+      justify-content: flex-start;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    #choose-screen h2 { font-size: 1.35rem; color: #4a3728; margin-bottom: 1rem; text-align: center; }
+    .word-set-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 520px; width: 100%; margin: 0 auto; }
+    .word-set-btn {
+      background: #fff;
+      border: 3px solid #d4845c;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      color: #4a3728;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .word-set-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    .word-set-btn:active { transform: translateY(0); }
+
     /* Donut grid */
     #donut-screen { background: #fff8f0; }
     #donut-screen h2 { font-size: 1.35rem; color: #4a3728; margin-bottom: 1rem; text-align: center; }
@@ -156,6 +180,12 @@
       </div>
     </section>
 
+    <!-- Choose word set -->
+    <section id="choose-screen" class="screen hidden">
+      <h2>Choose which word pairs to practice</h2>
+      <div class="word-set-list" id="word-set-list"></div>
+    </section>
+
     <!-- Donut grid -->
     <section id="donut-screen" class="screen hidden">
       <h2>Click a donut to look for an ingredient!</h2>
@@ -196,6 +226,7 @@
       const NUM_INGREDIENTS = 5;
 
       let config = null;
+      let selectedWordSet = null;
       let donutSlots = [];       // length 15: each el is null or ingredientId
       let foundIngredients = []; // ids we found (order preserved)
       let ingredientsInBowl = 0;
@@ -219,14 +250,15 @@
           config = {
             title: 'Donut Detective',
             intro: { message: "Welcome to my bakery! I've made so many donuts that I've lost track of some of my ingredients. Can you help me find them?" },
-            assets: { chef: 'assets/chef.png', donuts: 'assets/donuts/donut', bowl: 'assets/bowl.png', finishedDonut: 'assets/finished-donut.png', ingredients: { flour: 'assets/ingredients/flour.png', water: 'assets/ingredients/water.png', oil: 'assets/ingredients/oil.png', eggs: 'assets/ingredients/eggs.png', sugar: 'assets/ingredients/sugar.png' }, victoryMusic: 'assets/audio/victory.mp3' },
+            assets: { chef: 'assets/chef.png', donuts: 'assets/donuts/donut', bowl: 'assets/bowl.png', finishedDonut: 'assets/finished-donut.png', ingredients: { flour: 'assets/ingredients/flour.png', water: 'assets/ingredients/water.png', oil: 'assets/ingredients/oil.png', eggs: 'assets/ingredients/eggs.png', sugar: 'assets/ingredients/sugar.png' }, victoryMusic: 'assets/audio/victory.mp3', pairs: 'assets/pairs' },
             victoryMusicFallback: '../../assets/audio/victory.mp3',
             wordPairsFinding: [['mug','mud'],['bug','bud'],['bag','bad'],['egg','Ed'],['leg','lead'],['dig','did'],['beg','bed'],['rag','rad'],['hag','had'],['tag','tad']],
             wordPairsBowl: [['mug','mud'],['bug','bud'],['bag','bad'],['egg','Ed'],['leg','lead']],
             ingredientIds: ['flour','water','oil','eggs','sugar'],
             bowlMessage: "Let's make some donuts! Put the ingredients in the bowl!",
             victoryMessage: "You did it! Your donuts look delicious.",
-            discriminationPrompt: 'Which word has the "G" sound?'
+            discriminationPrompt: 'Which word has the "G" sound?',
+            wordSets: []
           };
         }
         document.title = config.title || 'Donut Detective';
@@ -235,6 +267,25 @@
         if (config.bowlMessage) document.getElementById('bowl-message').textContent = config.bowlMessage;
         if (config.victoryMessage) document.getElementById('victory-msg').textContent = config.victoryMessage;
         if (config.discriminationPrompt) document.getElementById('discrimination-prompt').textContent = config.discriminationPrompt;
+        renderWordSetList();
+      }
+
+      function renderWordSetList() {
+        const list = document.getElementById('word-set-list');
+        if (!list) return;
+        list.innerHTML = '';
+        const sets = config.wordSets || [];
+        sets.forEach((set) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'word-set-btn';
+          btn.textContent = set.label;
+          btn.addEventListener('click', () => {
+            selectedWordSet = set;
+            startGame();
+          });
+          list.appendChild(btn);
+        });
       }
 
       function shuffle(arr) {
@@ -357,11 +408,25 @@
         return assetPath(ing[id] || ('assets/ingredients/' + id + '.png'));
       }
 
+      function getFindingPairs() {
+        if (selectedWordSet && selectedWordSet.pairs) return selectedWordSet.pairs;
+        return config.wordPairsFinding || [];
+      }
+      function getBowlPairs() {
+        if (selectedWordSet && selectedWordSet.pairs) return selectedWordSet.pairs.slice(0, 5);
+        return config.wordPairsBowl || [];
+      }
+      function getDiscriminationPrompt() {
+        if (selectedWordSet && selectedWordSet.prompt) return selectedWordSet.prompt;
+        return config.discriminationPrompt || 'Which word has the sound?';
+      }
+
       function handleDonutClick(index) {
         const cell = document.querySelector('#donut-grid .donut-cell[data-index="' + String(index) + '"]');
         if (cell && cell.classList.contains('found')) return;
         const ingredientId = donutSlots[index];
-        showDiscrimination(config.wordPairsFinding, (correct) => {
+        document.getElementById('discrimination-prompt').textContent = getDiscriminationPrompt();
+        showDiscrimination(getFindingPairs(), (correct) => {
           if (!correct || !cell) return;
           cell.classList.add('found');
           var donutImg = cell.querySelector('.donut-img');
@@ -457,7 +522,8 @@
 
       function handleBowlIngredientClick(ingredientId, wrap, bowlZone) {
         if (wrap.classList.contains('used')) return;
-        showDiscrimination(config.wordPairsBowl, (correct) => {
+        document.getElementById('discrimination-prompt').textContent = getDiscriminationPrompt();
+        showDiscrimination(getBowlPairs(), (correct) => {
           if (correct) {
             wrap.classList.add('used');
             const img = wrap.querySelector('img');
@@ -513,8 +579,19 @@
           initAudio();
           var chefImg = document.getElementById('chef-img');
           if (chefImg) chefImg.onerror = function() { this.src = 'assets/chef.svg'; };
-          document.getElementById('start-btn').addEventListener('click', () => { unlockAudio(); startGame(); });
-          document.getElementById('play-again-btn').addEventListener('click', startGame);
+          document.getElementById('start-btn').addEventListener('click', () => {
+            unlockAudio();
+            if (config.wordSets && config.wordSets.length > 0) {
+              showScreen('choose-screen');
+            } else {
+              selectedWordSet = null;
+              startGame();
+            }
+          });
+          document.getElementById('play-again-btn').addEventListener('click', () => {
+            if (config.wordSets && config.wordSets.length > 0) showScreen('choose-screen');
+            else startGame();
+          });
           document.addEventListener('click', unlockAudio, { once: true });
         });
       }

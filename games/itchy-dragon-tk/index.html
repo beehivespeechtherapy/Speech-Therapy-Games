@@ -50,6 +50,52 @@
       display: none;
     }
 
+    /* Choose word set */
+    #choose-screen {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #87CEEB 0%, #98D8C8 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem;
+      overflow-y: auto;
+    }
+    #choose-screen.hidden {
+      display: none;
+    }
+    #choose-screen h2 {
+      font-size: 1.35rem;
+      color: #2c3e50;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .word-set-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 520px;
+      width: 100%;
+    }
+    .word-set-btn {
+      background: #fff;
+      border: 3px solid #4CAF50;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      color: #2c3e50;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .word-set-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+
     #intro-screen h1 {
       font-size: 2.5rem;
       color: #2c3e50;
@@ -345,6 +391,12 @@
       <button id="start-button">Start Game</button>
     </div>
 
+    <!-- Choose word set -->
+    <div id="choose-screen" class="hidden">
+      <h2>Choose which word pairs to practice</h2>
+      <div class="word-set-list" id="word-set-list"></div>
+    </div>
+
     <!-- Dragon Screen -->
     <div id="dragon-screen" class="hidden">
       <div id="dragon-container">
@@ -371,8 +423,15 @@
   </div>
 
   <script>
+    // Spot positions (12) for building spots from word sets
+    const SPOT_POSITIONS = [
+      { x: 62, y: 112 }, { x: 148, y: 245 }, { x: 274, y: 91 }, { x: 302, y: 260 },
+      { x: 121, y: 334 }, { x: 279, y: 323 }, { x: 352, y: 434 }, { x: 119, y: 442 },
+      { x: 191, y: 515 }, { x: 254, y: 382 }, { x: 324, y: 51 }, { x: 194, y: 250 }
+    ];
+
     // Game configuration embedded directly in HTML for file:// protocol compatibility
-    const gameConfig = {
+    let gameConfig = {
       "title": "Itchy Dragon T/K",
       "description": "Help Henry the dragon scratch his itchy back by finding the correct back sounds!",
       "targetSound": "k",
@@ -509,34 +568,106 @@
       "victory": {
         "message": "Congratulations! You helped Henry scratch all his itchy spots!",
         "gif": "assets/victory/celebration.gif"
-      }
+      },
+      "wordSets": [
+        { "id": "tk-k1", "label": "T/K Minimal Pairs - Initial K", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]] },
+        { "id": "tk-t1", "label": "T/K Minimal Pairs - Initial T", "prompt": "Which word has the /t/ sound?", "targetSound": "t", "contrastSound": "k", "pairs": [["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]] },
+        { "id": "tk-k2", "label": "T/K Minimal Pairs - Final K", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]] },
+        { "id": "tk-t2", "label": "T/K Minimal Pairs - Final T", "prompt": "Which word has the /t/ sound?", "targetSound": "t", "contrastSound": "k", "pairs": [["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]] },
+        { "id": "dg-d1", "label": "D/G Minimal Pairs - Initial D", "prompt": "Which word has the /d/ sound?", "targetSound": "d", "contrastSound": "g", "pairs": [["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]] },
+        { "id": "dg-g1", "label": "D/G Minimal Pairs - Initial G", "prompt": "Which word has the /g/ sound?", "targetSound": "g", "contrastSound": "d", "pairs": [["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]] },
+        { "id": "dg-g2", "label": "D/G Minimal Pairs - Final G", "prompt": "Which word has the /g/ sound?", "targetSound": "g", "contrastSound": "d", "pairs": [["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]] },
+        { "id": "dg-d2", "label": "D/G Minimal Pairs - Final D", "prompt": "Which word has the /d/ sound?", "targetSound": "d", "contrastSound": "g", "pairs": [["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]] }
+      ]
     };
 
     let activeSpots = [];
     let currentSpot = null;
+
+    function pairImageFile(word) {
+      return (word === "Ed" ? "ed" : word.toLowerCase()) + ".png";
+    }
+
+    function buildSpotsFromWordSet(set) {
+      const targetSound = set.targetSound || "k";
+      const contrastSound = set.contrastSound || "t";
+      const pairs = set.pairs || [];
+      return SPOT_POSITIONS.map((pos, i) => {
+        const p = pairs[i % pairs.length];
+        const targetWord = p[0];
+        const contrastWord = p[1];
+        return {
+          id: i + 1,
+          x: pos.x,
+          y: pos.y,
+          correctSound: targetSound,
+          pairs: [
+            { word: targetWord, sound: targetSound, image: "assets/pairs/" + pairImageFile(targetWord), alt: targetWord },
+            { word: contrastWord, sound: contrastSound, image: "assets/pairs/" + pairImageFile(contrastWord), alt: contrastWord }
+          ]
+        };
+      });
+    }
+
+    function renderWordSetList() {
+      const list = document.getElementById("word-set-list");
+      if (!list) return;
+      list.innerHTML = "";
+      const sets = gameConfig.wordSets || [];
+      sets.forEach(set => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "word-set-btn";
+        btn.textContent = set.label;
+        btn.addEventListener("click", () => {
+          gameConfig.spots = buildSpotsFromWordSet(set);
+          gameConfig.targetSound = set.targetSound;
+          gameConfig.contrastSound = set.contrastSound;
+          gameConfig.currentPrompt = set.prompt || ("Which word has the /" + set.targetSound + "/ sound?");
+          activeSpots = [...gameConfig.spots];
+          document.getElementById("choose-screen").classList.add("hidden");
+          showDragonScreen();
+        });
+        list.appendChild(btn);
+      });
+    }
+
+    // Load config (wordSets) from config.json when available
+    async function loadConfig() {
+      try {
+        const r = await fetch('config.json');
+        if (r.ok) {
+          const json = await r.json();
+          if (json.wordSets && json.wordSets.length > 0) gameConfig.wordSets = json.wordSets;
+        }
+      } catch (e) {}
+    }
 
     // Initialize game
     function initGame() {
       activeSpots = [...gameConfig.spots];
       setupEventHandlers();
       showIntroScreen();
+      renderWordSetList();
     }
 
     // Show introduction screen
     function showIntroScreen() {
       document.getElementById('intro-screen').classList.remove('hidden');
+      document.getElementById('choose-screen').classList.add('hidden');
       document.getElementById('dragon-screen').classList.add('hidden');
       document.getElementById('word-pair-screen').classList.add('hidden');
       document.getElementById('victory-screen').classList.add('hidden');
     }
 
-    // Show dragon screen
+// Show dragon screen
     function showDragonScreen() {
       document.getElementById('intro-screen').classList.add('hidden');
+      document.getElementById('choose-screen').classList.add('hidden');
       document.getElementById('dragon-screen').classList.remove('hidden');
       document.getElementById('word-pair-screen').classList.add('hidden');
       document.getElementById('victory-screen').classList.add('hidden');
-      
+
       renderDragonWithSpots();
     }
 
@@ -575,7 +706,7 @@
       document.getElementById('word-pair-screen').classList.remove('hidden');
 
       const prompt = document.getElementById('pair-prompt');
-      prompt.textContent = `Choose the word with the /${gameConfig.targetSound}/ sound:`;
+      prompt.textContent = gameConfig.currentPrompt || `Choose the word with the /${gameConfig.targetSound}/ sound:`;
 
       const container = document.getElementById('word-pairs-container');
       container.innerHTML = '';
@@ -684,15 +815,30 @@
 
     // Setup event handlers
     function setupEventHandlers() {
-      document.getElementById('start-button').addEventListener('click', showDragonScreen);
+      document.getElementById('start-button').addEventListener('click', () => {
+        if (gameConfig.wordSets && gameConfig.wordSets.length > 0) {
+          document.getElementById('intro-screen').classList.add('hidden');
+          document.getElementById('choose-screen').classList.remove('hidden');
+        } else {
+          showDragonScreen();
+        }
+      });
       document.getElementById('play-again-button').addEventListener('click', () => {
-        activeSpots = [...gameConfig.spots];
-        showDragonScreen();
+        if (gameConfig.wordSets && gameConfig.wordSets.length > 0) {
+          document.getElementById('victory-screen').classList.add('hidden');
+          document.getElementById('choose-screen').classList.remove('hidden');
+        } else {
+          activeSpots = [...gameConfig.spots];
+          showDragonScreen();
+        }
       });
     }
 
-    // Start the game
-    initGame();
+    // Start the game (load config then init)
+    (async function() {
+      await loadConfig();
+      initGame();
+    })();
   </script>
 </body>
 </html>
