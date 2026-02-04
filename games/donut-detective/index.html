@@ -220,6 +220,10 @@
     </section>
   </div>
 
+  <script type="application/json" id="game-config">
+  {"title":"Donut Detective","intro":{"message":"Welcome to my bakery! I've made so many donuts that I've lost track of some of my ingredients. Can you help me find them?"},"assets":{"chef":"assets/chef.png","donuts":"assets/donuts/donut","bowl":"assets/bowl.png","finishedDonut":"assets/finished-donut.png","ingredients":{"flour":"assets/ingredients/flour.png","water":"assets/ingredients/water.png","oil":"assets/ingredients/oil.png","eggs":"assets/ingredients/eggs.png","sugar":"assets/ingredients/sugar.png"},"victoryMusic":"assets/audio/victory.mp3","pairs":"assets/pairs"},"wordPairsFinding":[["mug","mud"],["bug","bud"],["bag","bad"],["egg","Ed"],["leg","lead"],["dig","did"],["beg","bed"],["rag","rad"],["hag","had"],["tag","tad"]],"wordPairsBowl":[["mug","mud"],["bug","bud"],["bag","bad"],["egg","Ed"],["leg","lead"]],"ingredientIds":["flour","water","oil","eggs","sugar"],"bowlMessage":"Let's make some donuts! Put the ingredients in the bowl!","victoryMessage":"You did it! Your donuts look delicious.","discriminationPrompt":"Which word has the \"G\" sound?","wordSets":[{"id":"tk-k1","label":"T/K Minimal Pairs - Initial K","prompt":"Which word has the /k/ sound?","pairs":[["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]]},{"id":"tk-t1","label":"T/K Minimal Pairs - Initial T","prompt":"Which word has the /t/ sound?","pairs":[["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]]},{"id":"tk-k2","label":"T/K Minimal Pairs - Final K","prompt":"Which word has the /k/ sound?","pairs":[["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]]},{"id":"tk-t2","label":"T/K Minimal Pairs - Final T","prompt":"Which word has the /t/ sound?","pairs":[["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]]},{"id":"dg-d1","label":"D/G Minimal Pairs - Initial D","prompt":"Which word has the /d/ sound?","pairs":[["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]]},{"id":"dg-g1","label":"D/G Minimal Pairs - Initial G","prompt":"Which word has the /g/ sound?","pairs":[["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]]},{"id":"dg-g2","label":"D/G Minimal Pairs - Final G","prompt":"Which word has the /g/ sound?","pairs":[["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]]},{"id":"dg-d2","label":"D/G Minimal Pairs - Final D","prompt":"Which word has the /d/ sound?","pairs":[["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]]},{"id":"vb-b1","label":"V/B Minimal Pairs - Initial B","prompt":"Which word has the /b/ sound?","pairs":[["ban","van"],["best","vest"],["broom","vroom"],["boat","vote"],["base","vase"],["bale","veil"],["berry","very"],["bow","vow"],["bent","vent"],["bat","vat"],["bee","v"],["bet","vet"],["boo","view"],["bowl","vole"],["bane","vane"]]},{"id":"vb-v1","label":"V/B Minimal Pairs - Initial V","prompt":"Which word has the /v/ sound?","pairs":[["veil","bale"],["vase","base"],["vat","bat"],["v","bee"],["vent","bent"],["very","berry"],["vest","best"],["vote","boat"],["view","boo"],["vroom","broom"]]},{"id":"vb-v2","label":"V/B Minimal Pairs - Final V","prompt":"Which word has the /v/ sound?","pairs":[["carve","carb"],["curve","curb"],["wave","web"],["drive","drib"],["five","fib"],["give","goob"],["grave","grab"],["live","lab"],["love","lobe"],["nerve","nub"]]},{"id":"vb-b2","label":"V/B Minimal Pairs - Final B","prompt":"Which word has the /b/ sound?","pairs":[["carb","carve"],["curb","curve"],["dob","dove"],["drib","drive"],["fib","five"],["goob","give"],["grab","grave"],["lab","live"],["lobe","love"],["nub","nerve"]]}]}
+  </script>
+
   <script>
     (function() {
       const NUM_DONUTS = 15;
@@ -238,7 +242,18 @@
       function assetPath(relative) {
         var loc = window.location.href.split('#')[0].split('?')[0];
         var dir = loc.lastIndexOf('/') >= 0 ? loc.substring(0, loc.lastIndexOf('/') + 1) : '';
-        return dir + relative.replace(/^\//, '');
+        var full = dir + relative.replace(/^\//, '');
+        try {
+          return new URL(full).href;
+        } catch (e) {
+          return full;
+        }
+      }
+      // Repo root URL so word-images work on GitHub Pages (e.g. .../Speech-Therapy-Games/)
+      function wordImagesRoot() {
+        var path = window.location.pathname.replace(/\/games\/[^/]+(\/.*)?$/, '');
+        if (!path.endsWith('/')) path += '/';
+        return window.location.origin + path;
       }
 
       async function loadConfig() {
@@ -246,6 +261,12 @@
           const r = await fetch('config.json');
           if (r.ok) config = await r.json();
         } catch (e) {}
+        if (!config) {
+          const el = document.getElementById('game-config');
+          if (el && el.textContent) {
+            try { config = JSON.parse(el.textContent.trim()); } catch (e2) {}
+          }
+        }
         if (!config) {
           config = {
             title: 'Donut Detective',
@@ -441,10 +462,29 @@
         }, 'finding');
       }
 
-      function pairImagePath(word) {
+      // Word images: repo-root word-images folder (reliable on GitHub Pages)
+      var WORD_SET_FOLDERS = {
+        'tk-k1': 'T:K Minimal Pairs - Initial', 'tk-t1': 'T:K Minimal Pairs - Initial',
+        'tk-k2': 'T:K Minimal Pairs - Final', 'tk-t2': 'T:K Minimal Pairs - Final',
+        'dg-d1': 'D:G Minimal Pairs - Initial', 'dg-g1': 'D:G Minimal Pairs - Initial',
+        'dg-d2': 'D:G Miminal Pairs - Final', 'dg-g2': 'D:G Miminal Pairs - Final',
+        'vb-b1': 'V:B Minimal Pairs - Initial', 'vb-v1': 'V:B Minimal Pairs - Initial',
+        'vb-b2': 'V:B Minimal Pairs - Final', 'vb-v2': 'V:B Minimal Pairs - Final'
+      };
+      function pairImagePath(word, setId) {
+        var file = (word === 'v' || word === 'V') ? 'v' : (word === 'Ed') ? 'Ed' : word.toLowerCase();
+        var filePath = file + '.png';
+        var folder = setId && WORD_SET_FOLDERS[setId];
+        if (folder) {
+          var encodedFolder = encodeURIComponent(folder).replace(/%2F/g, '/');
+          try {
+            return new URL('word-images/' + encodedFolder + '/' + filePath, wordImagesRoot()).href;
+          } catch (e) {
+            return assetPath('../../word-images/' + encodedFolder + '/' + filePath);
+          }
+        }
         var base = (config.assets && config.assets.pairs) || 'assets/pairs';
-        var file = (word === 'Ed') ? 'ed' : word.toLowerCase();
-        return assetPath(base + '/' + file + '.png');
+        return assetPath(base + '/' + filePath);
       }
 
       function showDiscrimination(pairs, onDone, cycleMode) {
@@ -459,14 +499,23 @@
         words.forEach((word, idx) => {
           const btn = document.createElement('button');
           btn.className = 'word-btn';
-          var imgPath = pairImagePath(word);
+          var setId = selectedWordSet && selectedWordSet.id;
+          var fallbackBase = (config.assets && config.assets.pairs) || 'assets/pairs';
+          var file = (word === 'v' || word === 'V') ? 'v' : (word === 'Ed') ? 'Ed' : word.toLowerCase();
+          var fallbackSrc = assetPath(fallbackBase + '/' + file + '.png');
+          var imgPath = pairImagePath(word, setId);
           var wrap = document.createElement('div');
           wrap.className = 'word-choice-wrap';
           var img = document.createElement('img');
           img.src = imgPath;
           img.alt = word;
           img.className = 'word-pair-img';
-          img.onerror = function() { this.style.display = 'none'; };
+          img.onerror = function() {
+            if (this.src !== fallbackSrc) { this.src = fallbackSrc; return; }
+            var s = this.src;
+            if (s && s.slice(-4) === '.png') { this.src = s.slice(0, -4) + '.jpg'; return; }
+            this.style.display = 'none';
+          };
           wrap.appendChild(img);
           var label = document.createElement('span');
           label.className = 'word-label';

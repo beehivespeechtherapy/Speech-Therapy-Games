@@ -41,6 +41,18 @@ const gameData = {
   }
 };
 
+// Word images: in-repo copy (works on GitHub Pages)
+const WORD_IMAGES_BASE = "../../word-images";
+const WORD_SET_FOLDERS = {
+  "tk-k1": "T:K Minimal Pairs - Initial", "tk-t1": "T:K Minimal Pairs - Initial",
+  "tk-k2": "T:K Minimal Pairs - Final", "tk-t2": "T:K Minimal Pairs - Final",
+  "dg-d1": "D:G Minimal Pairs - Initial", "dg-g1": "D:G Minimal Pairs - Initial",
+  "dg-d2": "D:G Miminal Pairs - Final", "dg-g2": "D:G Miminal Pairs - Final",
+  "vb-b1": "V:B Minimal Pairs - Initial", "vb-v1": "V:B Minimal Pairs - Initial",
+  "vb-b2": "V:B Minimal Pairs - Final", "vb-v2": "V:B Minimal Pairs - Final"
+};
+let currentWordSetId = null;
+
 // Word sets for selection screen (T/K, D/G, V/B + F/TH)
 const wordSets = [
   { id: "f_vs_th", label: "F/TH Minimal Pairs – Dragon Eggs", useGameData: "f_vs_th_dragons" },
@@ -97,6 +109,7 @@ function showWordSetChoice() {
     btn.className = "word-set-btn";
     btn.textContent = set.label;
     btn.onclick = () => {
+      currentWordSetId = set.useGameData ? null : set.id;
       if (set.useGameData && gameData[set.useGameData]) {
         data = gameData[set.useGameData];
       } else {
@@ -239,33 +252,33 @@ function showChoices() {
     const button = document.createElement("button");
     button.className = "choice-button";
     
-    // Create image element for the word
+    const imageName = choice.word.toLowerCase().replace(/\s+/g, '_');
     const img = document.createElement("img");
-    const imageName = choice.word.toLowerCase().replace(/\s+/g, '_'); // Convert to lowercase and replace spaces with underscores
     img.alt = choice.word;
     
-    // Try multiple file extensions in the images/ folder
-    // First try .png, then .jpg
-    let triedExtensions = false;
-    img.onload = function() {
-      // Image loaded successfully, make sure it's visible
-      this.style.display = "block";
-    };
+    // Prefer Word Images folder by set; fallback to images/
+    const folder = currentWordSetId && WORD_SET_FOLDERS[currentWordSetId];
+    const wordFile = (choice.word === "Ed" ? "Ed" : imageName) + ".png";
+    const wordImagesSrc = folder ? WORD_IMAGES_BASE + "/" + encodeURIComponent(folder).replace(/%2F/g, "/") + "/" + wordFile : null;
+    const imagesSrc = `images/${imageName}.png`;
+    const imagesJpg = `images/${imageName}.jpg`;
     
+    let tryCount = 0;
+    img.onload = function() { this.style.display = "block"; };
     img.onerror = function() {
-      if (!triedExtensions) {
-        // Try .jpg if .png failed
-        triedExtensions = true;
-        this.src = `images/${imageName}.jpg`;
-      } else {
-        // Both extensions failed, hide image and show text only
-        this.style.display = "none";
-        console.log(`Image not found for word: ${choice.word} (tried .png and .jpg)`);
+      tryCount++;
+      if (tryCount === 1 && wordImagesSrc && this.src.indexOf("word-images") >= 0) {
+        this.src = imagesSrc;
+        return;
       }
+      if (tryCount === 2) {
+        this.src = imagesJpg;
+        return;
+      }
+      this.style.display = "none";
     };
     
-    // Start with .png
-    img.src = `images/${imageName}.png`;
+    img.src = wordImagesSrc || imagesSrc;
     
     // Add both image and text (text as fallback/accessibility)
     button.appendChild(img);

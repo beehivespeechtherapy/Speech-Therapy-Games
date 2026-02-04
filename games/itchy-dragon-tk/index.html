@@ -584,14 +584,32 @@
     let activeSpots = [];
     let currentSpot = null;
 
+    // Word images: in-repo copy (works on GitHub Pages); fallback to assets/pairs
+    const WORD_IMAGES_BASE = "../../word-images";
+    const WORD_SET_FOLDERS = {
+      "tk-k1": "T:K Minimal Pairs - Initial", "tk-t1": "T:K Minimal Pairs - Initial",
+      "tk-k2": "T:K Minimal Pairs - Final", "tk-t2": "T:K Minimal Pairs - Final",
+      "dg-d1": "D:G Minimal Pairs - Initial", "dg-g1": "D:G Minimal Pairs - Initial",
+      "dg-d2": "D:G Miminal Pairs - Final", "dg-g2": "D:G Miminal Pairs - Final"
+    };
+    const FALLBACK_PAIRS_BASE = "assets/pairs";
+
     function pairImageFile(word) {
-      return (word === "Ed" ? "ed" : word.toLowerCase()) + ".png";
+      return (word === "Ed" ? "Ed" : word.toLowerCase()) + ".png";
+    }
+
+    function pairImageUrl(word, setId) {
+      const file = pairImageFile(word);
+      const folder = setId && WORD_SET_FOLDERS[setId];
+      if (folder) return WORD_IMAGES_BASE + "/" + encodeURIComponent(folder).replace(/%2F/g, "/") + "/" + file;
+      return FALLBACK_PAIRS_BASE + "/" + file;
     }
 
     function buildSpotsFromWordSet(set) {
       const targetSound = set.targetSound || "k";
       const contrastSound = set.contrastSound || "t";
       const pairs = set.pairs || [];
+      const setId = set.id;
       return SPOT_POSITIONS.map((pos, i) => {
         const p = pairs[i % pairs.length];
         const targetWord = p[0];
@@ -602,8 +620,8 @@
           y: pos.y,
           correctSound: targetSound,
           pairs: [
-            { word: targetWord, sound: targetSound, image: "assets/pairs/" + pairImageFile(targetWord), alt: targetWord },
-            { word: contrastWord, sound: contrastSound, image: "assets/pairs/" + pairImageFile(contrastWord), alt: contrastWord }
+            { word: targetWord, sound: targetSound, image: pairImageUrl(targetWord, setId), alt: targetWord },
+            { word: contrastWord, sound: contrastSound, image: pairImageUrl(contrastWord, setId), alt: contrastWord }
           ]
         };
       });
@@ -714,15 +732,25 @@
       // Shuffle pairs for variety
       const shuffledPairs = [...spot.pairs].sort(() => Math.random() - 0.5);
 
+      const fallbackBase = FALLBACK_PAIRS_BASE + "/";
       shuffledPairs.forEach((pair, index) => {
         const card = document.createElement('div');
         card.className = 'word-pair-card';
         const imgSrc = pair.image;
+        const fallbackSrc = fallbackBase + pairImageFile(pair.word);
         const placeholderSvg = `data:image/svg+xml,${encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200"><rect fill="#e0e0e0" width="200" height="200" rx="8"/><text x="50%" y="50%" text-anchor="middle" dy=".3em" font-size="24" font-weight="bold" fill="#666">${pair.word}</text></svg>`)}`;
-        card.innerHTML = `
-          <img src="${imgSrc}" alt="${pair.alt}" onerror="this.src='${placeholderSvg}'">
-          <div class="word">${pair.word}</div>
-        `;
+        const img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = pair.alt;
+        img.onerror = function() {
+          if (this.src.indexOf('Word Images') >= 0) { this.src = fallbackSrc; return; }
+          this.src = placeholderSvg;
+        };
+        card.appendChild(img);
+        const wordDiv = document.createElement('div');
+        wordDiv.className = 'word';
+        wordDiv.textContent = pair.word;
+        card.appendChild(wordDiv);
         card.addEventListener('click', () => handleWordSelection(pair, card));
         container.appendChild(card);
       });

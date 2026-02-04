@@ -233,7 +233,17 @@
       function assetPath(relative) {
         var loc = window.location.href.split('#')[0].split('?')[0];
         var dir = loc.lastIndexOf('/') >= 0 ? loc.substring(0, loc.lastIndexOf('/') + 1) : '';
-        return dir + relative.replace(/^\//, '');
+        var full = dir + relative.replace(/^\//, '');
+        try {
+          return new URL(full).href;
+        } catch (e) {
+          return full;
+        }
+      }
+      function wordImagesRoot() {
+        var path = window.location.pathname.replace(/\/games\/[^/]+(\/.*)?$/, '');
+        if (!path.endsWith('/')) path += '/';
+        return window.location.origin + path;
       }
 
       async function loadConfig() {
@@ -289,10 +299,29 @@
         });
       }
 
-      function pairImagePath(word) {
+      // Word images: repo-root word-images folder (reliable on GitHub Pages)
+      var WORD_SET_FOLDERS = {
+        'tk-k1': 'T:K Minimal Pairs - Initial', 'tk-t1': 'T:K Minimal Pairs - Initial',
+        'tk-k2': 'T:K Minimal Pairs - Final', 'tk-t2': 'T:K Minimal Pairs - Final',
+        'dg-d1': 'D:G Minimal Pairs - Initial', 'dg-g1': 'D:G Minimal Pairs - Initial',
+        'dg-d2': 'D:G Miminal Pairs - Final', 'dg-g2': 'D:G Miminal Pairs - Final',
+        'vb-b1': 'V:B Minimal Pairs - Initial', 'vb-v1': 'V:B Minimal Pairs - Initial',
+        'vb-b2': 'V:B Minimal Pairs - Final', 'vb-v2': 'V:B Minimal Pairs - Final'
+      };
+      function pairImagePath(word, setId) {
+        var file = (word === 'v' || word === 'V') ? 'v' : (word === 'Ed') ? 'Ed' : word.toLowerCase();
+        var filePath = file + '.png';
+        var folder = setId && WORD_SET_FOLDERS[setId];
+        if (folder) {
+          var encodedFolder = encodeURIComponent(folder).replace(/%2F/g, '/');
+          try {
+            return new URL('word-images/' + encodedFolder + '/' + filePath, wordImagesRoot()).href;
+          } catch (e) {
+            return assetPath('../../word-images/' + encodedFolder + '/' + filePath);
+          }
+        }
         var base = (config.assets && config.assets.pairs) || 'assets/pairs';
-        var file = (word === 'v') ? 'v' : (word === 'Ed') ? 'ed' : word.toLowerCase();
-        return assetPath(base + '/' + file + '.png');
+        return assetPath(base + '/' + filePath);
       }
 
       function pickNextPair(pairs) {
@@ -382,10 +411,17 @@
           var wrap = document.createElement('div');
           wrap.className = 'word-choice-wrap';
           var img = document.createElement('img');
-          img.src = pairImagePath(word);
+          var fallbackBase = (config.assets && config.assets.pairs) || 'assets/pairs';
+          var fallbackSrc = assetPath(fallbackBase + '/' + ((word === 'v' || word === 'V') ? 'v' : (word === 'Ed') ? 'Ed' : word.toLowerCase()) + '.png');
+          img.src = pairImagePath(word, set && set.id);
           img.alt = word;
           img.className = 'word-pair-img';
-          img.onerror = function() { this.style.display = 'none'; };
+          img.onerror = function() {
+            if (this.src !== fallbackSrc) { this.src = fallbackSrc; return; }
+            var s = this.src;
+            if (s && s.slice(-4) === '.png') { this.src = s.slice(0, -4) + '.jpg'; return; }
+            this.style.display = 'none';
+          };
           wrap.appendChild(img);
           var label = document.createElement('span');
           label.className = 'word-label';
