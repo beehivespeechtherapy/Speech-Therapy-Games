@@ -102,9 +102,13 @@ Every time you make changes:
 
 ### Changes not showing up
 
-- Hard refresh your browser: `Cmd+Shift+R` (Mac) or `Ctrl+Shift+R` (Windows)
-- Check the Actions tab to ensure deployment completed
-- Wait a few more minutes
+- **Check your Pages source (most common fix):** Go to **Settings → Pages**. Under "Build and deployment", look at **Source**.
+  - If it says **"Deploy from a branch"** and the branch is **gh-pages**, the site will not update when you push to **master**. Either:
+    - Change the branch to **master** and folder to **/ (root)**, then Save; or
+    - Change Source to **"GitHub Actions"** so the workflow (which runs on push to master) deploys the site.
+  - After changing, wait 2–3 minutes, then open the game in an **incognito/private** window or add **?v=2** to the URL to avoid cache.
+- Hard refresh: `Cmd+Shift+R` (Mac) or `Ctrl+Shift+R` (Windows)
+- Try the direct game URL with cache buster: `https://beehivespeechtherapy.github.io/Speech-Therapy-Games/games/k-vs-t/?v=2`
 
 ### Need help?
 
