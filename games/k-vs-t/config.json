@@ -14,51 +14,58 @@
   "map": {
     "theme": "candy mountain",
     "pathstyle": "mountainous",
-    "backgroundImage": "../../assets/maps/candymountain.png"
+    "backgroundImage": "../../assets/maps/candymountain.png",
+    "waypoints": [
+      { "x": 137, "y": 164 },
+      { "x": 326, "y": 217 },
+      { "x": 541, "y": 290 },
+      { "x": 290, "y": 372 },
+      { "x": 350, "y": 463 },
+      { "x": 630, "y": 449 },
+      { "x": 753, "y": 519 },
+      { "x": 604, "y": 608 },
+      { "x": 357, "y": 642 },
+      { "x": 191, "y": 758 },
+      { "x": 437, "y": 840 },
+      { "x": 741, "y": 855 },
+      { "x": 804, "y": 913 },
+      { "x": 804, "y": 913 }
+    ],
+    "viewBoxWidth": 1000,
+    "viewBoxHeight": 400
   },
   "challenges": [
-    {
-      "id": 1,
-      "correctWord": "cab",
-      "correctSound": "k",
-      "pairs": [
-        {
-          "word": "cab",
-          "sound": "k",
-          "image": "assets/pairs/cab.jpg",
-          "alt": "taxi cab clipart"
-        },
-        {
-          "word": "tab",
-          "sound": "t",
-          "image": "assets/pairs/tab.png",
-          "alt": "soda can tab clipart"
-        }
-      ]
-    },
-    {
-      "id": 2,
-      "correctWord": "car",
-      "correctSound": "k",
-      "pairs": [
-        {
-          "word": "car",
-          "sound": "k",
-          "image": "assets/pairs/car.jpg",
-          "alt": "car clipart"
-        },
-        {
-          "word": "tar",
-          "sound": "t",
-          "image": "assets/pairs/tar.jpg",
-          "alt": "tar clipart"
-        }
-      ]
-    }
+    { "id": 1, "correctWord": "can", "correctSound": "k", "pairs": [ { "word": "can", "sound": "k", "image": "assets/pairs/can.png", "alt": "can" }, { "word": "tan", "sound": "t", "image": "assets/pairs/tan.png", "alt": "tan" } ] },
+    { "id": 2, "correctWord": "cap", "correctSound": "k", "pairs": [ { "word": "cap", "sound": "k", "image": "assets/pairs/cap.png", "alt": "cap" }, { "word": "tap", "sound": "t", "image": "assets/pairs/tap.png", "alt": "tap" } ] },
+    { "id": 3, "correctWord": "cape", "correctSound": "k", "pairs": [ { "word": "cape", "sound": "k", "image": "assets/pairs/cape.png", "alt": "cape" }, { "word": "tape", "sound": "t", "image": "assets/pairs/tape.png", "alt": "tape" } ] },
+    { "id": 4, "correctWord": "car", "correctSound": "k", "pairs": [ { "word": "car", "sound": "k", "image": "assets/pairs/car.jpg", "alt": "car" }, { "word": "tar", "sound": "t", "image": "assets/pairs/tar.jpg", "alt": "tar" } ] },
+    { "id": 5, "correctWord": "cart", "correctSound": "k", "pairs": [ { "word": "cart", "sound": "k", "image": "assets/pairs/cart.png", "alt": "cart" }, { "word": "tart", "sound": "t", "image": "assets/pairs/tart.png", "alt": "tart" } ] },
+    { "id": 6, "correctWord": "cod", "correctSound": "k", "pairs": [ { "word": "cod", "sound": "k", "image": "assets/pairs/cod.png", "alt": "cod" }, { "word": "todd", "sound": "t", "image": "assets/pairs/todd.png", "alt": "todd" } ] },
+    { "id": 7, "correctWord": "code", "correctSound": "k", "pairs": [ { "word": "code", "sound": "k", "image": "assets/pairs/code.png", "alt": "code" }, { "word": "toad", "sound": "t", "image": "assets/pairs/toad.png", "alt": "toad" } ] },
+    { "id": 8, "correctWord": "cop", "correctSound": "k", "pairs": [ { "word": "cop", "sound": "k", "image": "assets/pairs/cop.png", "alt": "cop" }, { "word": "top", "sound": "t", "image": "assets/pairs/top.png", "alt": "top" } ] },
+    { "id": 9, "correctWord": "core", "correctSound": "k", "pairs": [ { "word": "core", "sound": "k", "image": "assets/pairs/core.png", "alt": "core" }, { "word": "tore", "sound": "t", "image": "assets/pairs/tore.png", "alt": "tore" } ] },
+    { "id": 10, "correctWord": "cub", "correctSound": "k", "pairs": [ { "word": "cub", "sound": "k", "image": "assets/pairs/cub.png", "alt": "cub" }, { "word": "tub", "sound": "t", "image": "assets/pairs/tub.png", "alt": "tub" } ] },
+    { "id": 11, "correctWord": "ken", "correctSound": "k", "pairs": [ { "word": "ken", "sound": "k", "image": "assets/pairs/ken.png", "alt": "ken" }, { "word": "ten", "sound": "t", "image": "assets/pairs/ten.png", "alt": "ten" } ] },
+    { "id": 12, "correctWord": "key", "correctSound": "k", "pairs": [ { "word": "key", "sound": "k", "image": "assets/pairs/key.png", "alt": "key" }, { "word": "tea", "sound": "t", "image": "assets/pairs/tea.png", "alt": "tea" } ] }
   ],
   "victory": {
     "message": "Congratulations! You've mastered these sounds!",
     "music": "../../assets/audio/victory.mp3",
     "gif": "https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExOTlsenFrbmVwYjBrdHR5d2pyN3Azbzl3MXgxcHk3ZTFqZjVjcmppZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/d3RObx3BG7pTASeyZ0/giphy.gif"
-  }
+  },
+  "wordSets": [
+    { "id": "candy-default", "label": "Candy Mountain (K vs T) - Default", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"],["ken","ten"],["key","tea"]] },
+    { "id": "tk-k1", "label": "T/K Minimal Pairs - Initial K", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]] },
+    { "id": "tk-t1", "label": "T/K Minimal Pairs - Initial T", "prompt": "Which word has the /t/ sound?", "targetSound": "t", "contrastSound": "k", "pairs": [["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]] },
+    { "id": "tk-k2", "label": "T/K Minimal Pairs - Final K", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]] },
+    { "id": "tk-t2", "label": "T/K Minimal Pairs - Final T", "prompt": "Which word has the /t/ sound?", "targetSound": "t", "contrastSound": "k", "pairs": [["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]] },
+    { "id": "dg-d1", "label": "D/G Minimal Pairs - Initial D", "prompt": "Which word has the /d/ sound?", "targetSound": "d", "contrastSound": "g", "pairs": [["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]] },
+    { "id": "dg-g1", "label": "D/G Minimal Pairs - Initial G", "prompt": "Which word has the /g/ sound?", "targetSound": "g", "contrastSound": "d", "pairs": [["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]] },
+    { "id": "dg-g2", "label": "D/G Minimal Pairs - Final G", "prompt": "Which word has the /g/ sound?", "targetSound": "g", "contrastSound": "d", "pairs": [["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]] },
+    { "id": "dg-d2", "label": "D/G Minimal Pairs - Final D", "prompt": "Which word has the /d/ sound?", "targetSound": "d", "contrastSound": "g", "pairs": [["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]] },
+    { "id": "vb-b1", "label": "V/B Minimal Pairs - Initial B", "prompt": "Which word has the /b/ sound?", "targetSound": "b", "contrastSound": "v", "pairs": [["ban","van"],["best","vest"],["broom","vroom"],["boat","vote"],["base","vase"],["bale","veil"],["berry","very"],["bow","vow"],["bent","vent"],["bat","vat"],["bee","v"],["bet","vet"],["boo","view"],["bowl","vole"],["bane","vane"]] },
+    { "id": "vb-v1", "label": "V/B Minimal Pairs - Initial V", "prompt": "Which word has the /v/ sound?", "targetSound": "v", "contrastSound": "b", "pairs": [["veil","bale"],["vase","base"],["vat","bat"],["v","bee"],["vent","bent"],["very","berry"],["vest","best"],["vote","boat"],["view","boo"],["vroom","broom"]] },
+    { "id": "vb-v2", "label": "V/B Minimal Pairs - Final V", "prompt": "Which word has the /v/ sound?", "targetSound": "v", "contrastSound": "b", "pairs": [["carve","carb"],["curve","curb"],["wave","web"],["drive","drib"],["five","fib"],["give","goob"],["grave","grab"],["live","lab"],["love","lobe"],["nerve","nub"]] },
+    { "id": "vb-b2", "label": "V/B Minimal Pairs - Final B", "prompt": "Which word has the /b/ sound?", "targetSound": "b", "contrastSound": "v", "pairs": [["carb","carve"],["curb","curve"],["dob","dove"],["drib","drive"],["fib","five"],["goob","give"],["grab","grave"],["lab","live"],["lobe","love"],["nub","nerve"]] }
+  ]
 }

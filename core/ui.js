@@ -347,22 +347,30 @@ class GameUI {
     const theme = mapConfig.theme || 'default';
     this.mapContainer.setAttribute('data-theme', theme);
 
-    // Map dimensions
-    const mapWidth = 1000;
-    const mapHeight = 400;
-    const padding = 80;
+    // Map dimensions (use custom waypoints + viewBox from config, or generated path in 1000×400)
+    const customWaypoints = mapConfig.waypoints && Array.isArray(mapConfig.waypoints) ? mapConfig.waypoints : null;
+    const needCount = totalChallenges + 1;
+    const useCustom = customWaypoints && customWaypoints.length === needCount &&
+      customWaypoints.every(p => typeof p.x === 'number' && typeof p.y === 'number');
 
-    // Get path style
-    const pathStyle = mapConfig.pathStyle || 'winding';
-
-    // Generate checkpoint positions based on path style
-    const checkpoints = this.generatePathCoordinates(
-      pathStyle,
-      totalChallenges,
-      mapWidth,
-      mapHeight,
-      padding
-    );
+    let checkpoints;
+    let mapWidth, mapHeight;
+    if (useCustom) {
+      checkpoints = customWaypoints.map(p => ({ x: p.x, y: p.y }));
+      mapWidth = typeof mapConfig.viewBoxWidth === 'number' ? mapConfig.viewBoxWidth : 1000;
+      mapHeight = typeof mapConfig.viewBoxHeight === 'number' ? mapConfig.viewBoxHeight : 400;
+    } else {
+      mapWidth = 1000;
+      mapHeight = 400;
+      const padding = 80;
+      checkpoints = this.generatePathCoordinates(
+        mapConfig.pathStyle || 'winding',
+        totalChallenges,
+        mapWidth,
+        mapHeight,
+        padding
+      );
+    }
 
     // Create SVG container
     const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
@@ -373,7 +381,8 @@ class GameUI {
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
     const pathD = this.createSVGPath(checkpoints);
     path.setAttribute('d', pathD);
-    path.setAttribute('class', `path-line path-${pathStyle}`);
+    const pathStyleClass = useCustom ? 'custom' : (mapConfig.pathStyle || 'winding');
+    path.setAttribute('class', `path-line path-${pathStyleClass}`);
     path.setAttribute('stroke', '#8B4513');
     path.setAttribute('stroke-width', '8');
     path.setAttribute('stroke-linecap', 'round');

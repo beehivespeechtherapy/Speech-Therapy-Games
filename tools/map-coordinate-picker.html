@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Map coordinate picker – Candy Mountain / K vs T</title>
+  <link rel="stylesheet" href="../core/styles.css">
+  <style>
+    body { padding: 12px; background: #1a1a1a; color: #eee; }
+    h1 { font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .instructions {
+      font-size: 0.9rem; color: #aaa; margin-bottom: 12px; max-width: 560px;
+    }
+    .controls {
+      margin-bottom: 12px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px;
+    }
+    .controls label { display: flex; align-items: center; gap: 6px; }
+    .controls input[type="text"] { width: 280px; padding: 6px 8px; }
+    .picker-wrap {
+      margin: 0 auto;
+      width: 100%; max-width: 100%;
+      border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    }
+    .map-inner {
+      position: relative;
+      display: inline-block;
+      max-width: 100%;
+    }
+    .map-inner img {
+      display: block;
+      max-width: 100%;
+      max-height: 85vh;
+      width: auto;
+      height: auto;
+      vertical-align: top;
+    }
+    .path-svg {
+      position: absolute; top: 0; left: 0;
+      width: 100%; height: 100%;
+      cursor: crosshair;
+    }
+    .path-svg path { stroke: rgba(255,255,255,0.4); stroke-width: 4; fill: none; }
+    .path-svg circle { fill: rgba(255,200,0,0.7); stroke: #fff; stroke-width: 2; }
+    .path-svg line { stroke: rgba(255,255,255,0.6); stroke-width: 2; }
+    .out {
+      margin-top: 12px; font-family: monospace; font-size: 0.85rem;
+      background: #333; padding: 10px; border-radius: 8px; max-height: 200px; overflow: auto;
+    }
+    .out .label { color: #8af; }
+    .out div { margin: 4px 0; }
+    .copy-btn { margin-left: 8px; padding: 4px 10px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <h1>Map coordinate picker</h1>
+  <p class="instructions">
+    Use this page with the <strong>same</strong> background image and layout as the game. Load your new
+    background (e.g. <code>../assets/maps/your-new-background.png</code>), then click on the map to get
+    coordinates in the game’s coordinate system (0 to image width × 0 to image height). Use these when placing path waypoints; they can be scaled to the game's 1000×400 space if needed. (GIMP gives image pixels, which don’t match when the image is scaled on the page, so this picker
+    avoids the shift.
+  </p>
+  <div class="controls">
+    <label>
+      Background image path (relative to repo root, e.g. <code>assets/maps/candymountain.png</code>):
+      <input type="text" id="bg-input" value="../assets/maps/candymountain.png" />
+    </label>
+    <button type="button" id="load-btn">Load image</button>
+    <label><input type="checkbox" id="show-path" checked /> Show path</label>
+    <button type="button" id="clear-list">Clear list</button>
+    <button type="button" id="copy-list" class="copy-btn">Copy list as JSON</button>
+  </div>
+  <div class="picker-wrap">
+    <div class="map-inner">
+      <img id="bg-img" alt="Map background" />
+      <svg id="path-svg" class="path-svg" viewBox="0 0 1000 400" preserveAspectRatio="xMidYMid meet"></svg>
+    </div>
+  </div>
+  <div class="out" id="output">
+    <div class="label">Click the map to add points. Last point:</div>
+    <div id="last-point">—</div>
+    <div class="label" style="margin-top:8px">All points (for waypoints):</div>
+    <pre id="points-list">[]</pre>
+  </div>
+  <div class="out" style="margin-top:12px">
+    <div class="label">Next steps — use in Candy Mountain (K vs T) game:</div>
+    <ol style="margin:8px 0 0 18px; color:#ccc; font-size:0.85rem; line-height:1.6">
+      <li>Open <code>games/k-vs-t/config.json</code>.</li>
+      <li>In the <code>"map"</code> object, add <code>"waypoints"</code>: paste your copied JSON array here.</li>
+      <li>Add <code>"viewBoxWidth"</code> and <code>"viewBoxHeight"</code> with your image dimensions (the picker shows them as 0–width × 0–height).</li>
+      <li>You need exactly <strong>one more point than the number of challenges</strong> (e.g. 2 challenges → 3 waypoints: start, after challenge 1, finish). Add or remove points as needed.</li>
+      <li>If using a new background image, set <code>"backgroundImage"</code> to its path (e.g. <code>"../../assets/maps/your-new-background.png"</code>).</li>
+    </ol>
+  </div>
+
+  <script>
+    (function() {
+      const imgEl = document.getElementById('bg-img');
+      const svg = document.getElementById('path-svg');
+      const bgInput = document.getElementById('bg-input');
+      const loadBtn = document.getElementById('load-btn');
+      const showPath = document.getElementById('show-path');
+      const clearList = document.getElementById('clear-list');
+      const copyList = document.getElementById('copy-list');
+      const lastPoint = document.getElementById('last-point');
+      const pointsList = document.getElementById('points-list');
+
+      let viewBoxW = 1000;
+      let viewBoxH = 400;
+      const points = [];
+
+      function resolveUrl(url) {
+        url = url.trim();
+        if (!url) return '';
+        if (/^https?:\/\//.test(url) || url.startsWith('data:')) return url;
+        try {
+          return new URL(url, window.location.href).href;
+        } catch (e) {
+          return url;
+        }
+      }
+
+      function loadImage() {
+        const src = resolveUrl(bgInput.value.trim() || '../assets/maps/candymountain.png');
+        if (!src) return;
+        points.length = 0;
+        updateOutput();
+        imgEl.onload = function() {
+          viewBoxW = imgEl.naturalWidth;
+          viewBoxH = imgEl.naturalHeight;
+          svg.setAttribute('viewBox', '0 0 ' + viewBoxW + ' ' + viewBoxH);
+          updateOutput();
+        };
+        imgEl.onerror = function() {
+          lastPoint.textContent = 'Failed to load image. Check the path.';
+        };
+        imgEl.src = src;
+      }
+
+      loadBtn.addEventListener('click', loadImage);
+      loadImage();
+
+      function drawPath() {
+        if (!showPath.checked || points.length < 2) {
+          svg.querySelectorAll('path.picker-path, circle.picker-pt, line.picker-line').forEach(function(n) { n.remove(); });
+          return;
+        }
+        svg.querySelectorAll('path.picker-path, circle.picker-pt, line.picker-line').forEach(function(n) { n.remove(); });
+        const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+        path.setAttribute('class', 'picker-path');
+        path.setAttribute('d', 'M ' + points.map(function(p) { return p.x + ',' + p.y; }).join(' L '));
+        path.setAttribute('fill', 'none');
+        svg.appendChild(path);
+        const baseR = Math.max(4, Math.min(14, 0.008 * Math.min(viewBoxW, viewBoxH)));
+        points.forEach(function(p, i) {
+          const c = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+          c.setAttribute('class', 'picker-pt');
+          c.setAttribute('cx', p.x);
+          c.setAttribute('cy', p.y);
+          c.setAttribute('r', i === 0 ? baseR * 1.2 : (i === points.length - 1 ? baseR * 1.5 : baseR));
+          svg.appendChild(c);
+        });
+        for (let i = 0; i < points.length - 1; i++) {
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('class', 'picker-line');
+          line.setAttribute('x1', points[i].x);
+          line.setAttribute('y1', points[i].y);
+          line.setAttribute('x2', points[i + 1].x);
+          line.setAttribute('y2', points[i + 1].y);
+          svg.appendChild(line);
+        }
+      }
+
+      function screenToViewBox(clientX, clientY) {
+        const rect = svg.getBoundingClientRect();
+        const pt = svg.createSVGPoint();
+        pt.x = clientX;
+        pt.y = clientY;
+        const m = svg.getScreenCTM();
+        if (!m) return null;
+        const t = m.inverse();
+        const p = pt.matrixTransform(t);
+        return {
+          x: Math.round(p.x),
+          y: Math.round(p.y)
+        };
+      }
+
+      function updateOutput() {
+        if (points.length === 0) {
+          lastPoint.textContent = '—';
+        } else {
+          const p = points[points.length - 1];
+          lastPoint.textContent = 'x: ' + p.x + ', y: ' + p.y + '  (image pixels, 0–' + viewBoxW + ' × 0–' + viewBoxH + ')';
+        }
+        pointsList.textContent = JSON.stringify(points, null, 2);
+        drawPath();
+      }
+
+      svg.addEventListener('click', function(evt) {
+        const p = screenToViewBox(evt.clientX, evt.clientY);
+        if (!p) return;
+        points.push(p);
+        updateOutput();
+      });
+
+      showPath.addEventListener('change', drawPath);
+      clearList.addEventListener('click', function() {
+        points.length = 0;
+        updateOutput();
+      });
+      copyList.addEventListener('click', function() {
+        const text = JSON.stringify(points, null, 2);
+        navigator.clipboard.writeText(text).then(function() {
+          copyList.textContent = 'Copied!';
+          setTimeout(function() { copyList.textContent = 'Copy list as JSON'; }, 1500);
+        });
+      });
+
+      updateOutput();
+    })();
+  </script>
+</body>
+</html>

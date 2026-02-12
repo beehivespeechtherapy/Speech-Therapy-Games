@@ -12,16 +12,32 @@
 
   <!-- Optional game-specific style overrides -->
   <style>
-    /* You can override CSS variables here for game-specific theming */
-    /* :root {
-      --primary-color: #4CAF50;
-      --secondary-color: #FF9800;
-    } */
+    #choose-screen {
+      position: fixed; inset: 0; z-index: 100;
+      background: linear-gradient(180deg, #87CEEB 0%, #98D8C8 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding: 1.5rem; overflow-y: auto;
+    }
+    #choose-screen.hidden { display: none; }
+    #choose-screen h2 { font-size: 1.35rem; color: #333; margin-bottom: 1rem; text-align: center; }
+    .word-set-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 520px; width: 100%; margin: 0 auto; }
+    .word-set-btn {
+      background: #fff; border: 3px solid var(--secondary-color, #FF9800);
+      border-radius: 12px; padding: 1rem 1.25rem; font-size: 1rem; color: #333;
+      text-align: left; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .word-set-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
   </style>
 </head>
 <body>
   <div id="game-container">
-    <!-- Full-screen map (always visible) -->
+    <!-- Choose word set (shown first when wordSets exist) -->
+    <div id="choose-screen">
+      <h2>Choose which word pairs to practice</h2>
+      <div id="word-set-list" class="word-set-list"></div>
+    </div>
+    <!-- Full-screen map (always visible once game starts) -->
     <section class="map-section fullscreen">
       <div id="game-map"></div>
     </section>
@@ -71,6 +87,80 @@
     // Game state
     let isProcessing = false;
 
+    const NUM_CHALLENGES = 12;
+    const WORD_SET_FOLDERS = {
+      'candy-default': 'T:K Minimal Pairs - Initial',
+      'tk-k1': 'T:K Minimal Pairs - Initial', 'tk-t1': 'T:K Minimal Pairs - Initial',
+      'tk-k2': 'T:K Minimal Pairs - Final', 'tk-t2': 'T:K Minimal Pairs - Final',
+      'dg-d1': 'D:G Minimal Pairs - Initial', 'dg-g1': 'D:G Minimal Pairs - Initial',
+      'dg-d2': 'D:G Miminal Pairs - Final', 'dg-g2': 'D:G Miminal Pairs - Final',
+      'vb-b1': 'V:B Minimal Pairs - Initial', 'vb-v1': 'V:B Minimal Pairs - Initial',
+      'vb-b2': 'V:B Minimal Pairs - Final', 'vb-v2': 'V:B Minimal Pairs - Final'
+    };
+
+    function wordImagesRoot() {
+      const path = window.location.pathname.replace(/\/games\/[^/]+(\/.*)?$/, '');
+      return window.location.origin + (path.endsWith('/') ? path : path + '/');
+    }
+
+    function pairImagePath(word, setId) {
+      const file = (word === 'v' || word === 'V') ? 'v' : (word === 'Ed') ? 'Ed' : word.toLowerCase();
+      const filename = file + '.png';
+      const folder = setId && WORD_SET_FOLDERS[setId];
+      if (folder) {
+        const encodedFolder = encodeURIComponent(folder).replace(/%2F/g, '/');
+        try {
+          return new URL('word-images/' + encodedFolder + '/' + filename, wordImagesRoot()).href;
+        } catch (e) {
+          return '../../word-images/' + encodedFolder + '/' + filename;
+        }
+      }
+      return 'assets/pairs/' + filename;
+    }
+
+    function buildChallengesFromWordSet(set) {
+      const pairs = set.pairs || [];
+      const targetSound = set.targetSound || 'k';
+      const contrastSound = set.contrastSound || 't';
+      const setId = set.id;
+      const challenges = [];
+      for (let i = 0; i < NUM_CHALLENGES; i++) {
+        const pair = pairs[i % pairs.length];
+        const targetWord = pair[0];
+        const contrastWord = pair[1];
+        challenges.push({
+          id: i + 1,
+          correctWord: targetWord,
+          correctSound: targetSound,
+          pairs: [
+            { word: targetWord, sound: targetSound, image: pairImagePath(targetWord, setId), alt: targetWord },
+            { word: contrastWord, sound: contrastSound, image: pairImagePath(contrastWord, setId), alt: contrastWord }
+          ]
+        });
+      }
+      return challenges;
+    }
+
+    function showChooseScreen() {
+      const list = document.getElementById('word-set-list');
+      const chooseScreen = document.getElementById('choose-screen');
+      if (!list || !chooseScreen) return;
+      const sets = engine.config.wordSets || [];
+      list.innerHTML = '';
+      sets.forEach((set) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'word-set-btn';
+        btn.textContent = set.label;
+        btn.addEventListener('click', () => {
+          engine.config.challenges = buildChallengesFromWordSet(set);
+          chooseScreen.classList.add('hidden');
+          renderGame();
+        });
+        list.appendChild(btn);
+      });
+    }
+
     // Initialize and start game
     async function initGame() {
       try {
@@ -88,16 +178,22 @@
           audio.init(engine.config.victory.music);
         }
 
-        // Render initial state
-        renderGame();
-
-        // Set up event handlers
+        // Set up event handlers (before any screen flow)
         setupEventHandlers();
 
         // Unlock audio on first user interaction (iOS requirement)
         document.addEventListener('click', () => {
           audio.unlockAudio();
         }, { once: true });
+
+        const wordSets = engine.config.wordSets || [];
+        if (wordSets.length > 0) {
+          showChooseScreen();
+          return;
+        }
+
+        // No word sets: start with config challenges
+        renderGame();
 
       } catch (error) {
         console.error('Failed to initialize game:', error);
@@ -182,7 +278,12 @@
       ui.onPlayAgain(() => {
         engine.reset();
         ui.hideVictory();
-        renderGame();
+        if (engine.config.wordSets && engine.config.wordSets.length > 0) {
+          document.getElementById('choose-screen').classList.remove('hidden');
+          showChooseScreen();
+        } else {
+          renderGame();
+        }
       });
     }
 
