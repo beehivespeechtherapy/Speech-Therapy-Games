@@ -17,17 +17,16 @@ class GameEngine {
    */
   async loadConfig() {
     try {
-      // Try fetch first (works when served over http/https)
-      try {
-        const response = await fetch(this.configPath);
-        if (!response.ok) throw new Error(`Failed to load config: ${response.statusText}`);
-        this.config = await response.json();
-      } catch (fetchErr) {
-        // Fallback: use embedded config (enables file:// protocol)
-        const el = document.getElementById('game-config');
-        if (el && el.textContent && el.textContent.trim()) {
-          this.config = JSON.parse(el.textContent.trim());
-        } else {
+      // Prefer embedded config when present (avoids cached config.json on CDN/browser)
+      const el = document.getElementById('game-config');
+      if (el && el.textContent && el.textContent.trim()) {
+        this.config = JSON.parse(el.textContent.trim());
+      } else {
+        try {
+          const response = await fetch(this.configPath);
+          if (!response.ok) throw new Error(`Failed to load config: ${response.statusText}`);
+          this.config = await response.json();
+        } catch (fetchErr) {
           throw fetchErr;
         }
       }
