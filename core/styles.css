@@ -85,6 +85,13 @@ button, a {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
+/* Custom waypoints: container matches image aspect ratio so full image shows */
+#game-map[data-custom-map="true"] {
+  height: auto;
+  max-height: 90vh;
+  background-size: contain !important;
+}
+
 /* Theme-specific map backgrounds */
 #game-map[data-theme="jungle"] {
   background-color: #2d5016;

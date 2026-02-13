@@ -339,8 +339,12 @@ class GameUI {
     // Set background image if provided
     if (mapConfig.backgroundImage) {
       this.mapContainer.style.backgroundImage = `url(${mapConfig.backgroundImage})`;
-      this.mapContainer.style.backgroundSize = 'cover';
+      // Use 'contain' when custom waypoints so full image shows and path aligns; otherwise 'cover'
+      const useCustomWaypoints = mapConfig.waypoints && Array.isArray(mapConfig.waypoints) &&
+        mapConfig.waypoints.length === totalChallenges + 1;
+      this.mapContainer.style.backgroundSize = useCustomWaypoints ? 'contain' : 'cover';
       this.mapContainer.style.backgroundPosition = 'center';
+      this.mapContainer.style.backgroundRepeat = 'no-repeat';
     }
 
     // Add theme class
@@ -359,7 +363,15 @@ class GameUI {
       checkpoints = customWaypoints.map(p => ({ x: p.x, y: p.y }));
       mapWidth = typeof mapConfig.viewBoxWidth === 'number' ? mapConfig.viewBoxWidth : 1000;
       mapHeight = typeof mapConfig.viewBoxHeight === 'number' ? mapConfig.viewBoxHeight : 400;
+      this.mapContainer.setAttribute('data-custom-map', 'true');
+      this.mapContainer.style.aspectRatio = mapWidth + ' / ' + mapHeight;
+      this.mapContainer.style.height = 'auto';
+      this.mapContainer.style.maxHeight = '90vh';
     } else {
+      this.mapContainer.removeAttribute('data-custom-map');
+      this.mapContainer.style.aspectRatio = '';
+      this.mapContainer.style.height = '';
+      this.mapContainer.style.maxHeight = '';
       mapWidth = 1000;
       mapHeight = 400;
       const padding = 80;
@@ -377,9 +389,11 @@ class GameUI {
     svg.setAttribute('viewBox', `0 0 ${mapWidth} ${mapHeight}`);
     svg.setAttribute('class', 'path-svg');
 
-    // Create smooth path through checkpoints
+    // Create path: polyline for custom waypoints (follows points exactly), smooth curves for generated path
     const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
-    const pathD = this.createSVGPath(checkpoints);
+    const pathD = useCustom
+      ? checkpoints.reduce((d, p, i) => (i === 0 ? `M ${p.x},${p.y}` : `${d} L ${p.x},${p.y}`), '')
+      : this.createSVGPath(checkpoints);
     path.setAttribute('d', pathD);
     const pathStyleClass = useCustom ? 'custom' : (mapConfig.pathStyle || 'winding');
     path.setAttribute('class', `path-line path-${pathStyleClass}`);

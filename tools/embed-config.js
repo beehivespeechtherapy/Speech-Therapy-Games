@@ -1,0 +1,10 @@
+const fs = require('fs');
+const config = JSON.parse(fs.readFileSync('games/k-vs-t/config.json', 'utf8'));
+const htmlPath = 'games/k-vs-t/index.html';
+let html = fs.readFileSync(htmlPath, 'utf8');
+const minified = JSON.stringify(config);
+const re = /<script type="application\/json" id="game-config">[\s\S]*?<\/script>/;
+const newBlock = '<script type="application/json" id="game-config">\n  ' + minified + '\n  </script>';
+html = html.replace(re, newBlock);
+fs.writeFileSync(htmlPath, html);
+console.log('Updated embedded config, length:', minified.length);
