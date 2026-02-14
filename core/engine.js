@@ -123,12 +123,14 @@ class GameEngine {
       timestamp: Date.now()
     });
 
-    // Update position
+    // Update position (optional: wrong answer does not move back, e.g. config.wrongAnswerMovesBack === false)
     let newPosition = this.currentPosition;
     if (isCorrect) {
       newPosition = Math.min(this.currentPosition + 1, this.config.challenges.length);
     } else {
-      newPosition = Math.max(this.currentPosition - 1, 0);
+      if (this.config.wrongAnswerMovesBack !== false) {
+        newPosition = Math.max(this.currentPosition - 1, 0);
+      }
     }
 
     this.currentPosition = newPosition;

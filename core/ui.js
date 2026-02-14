@@ -341,7 +341,7 @@ class GameUI {
       this.mapContainer.style.backgroundImage = `url(${mapConfig.backgroundImage})`;
       // Use 'contain' when custom waypoints so full image shows and path aligns; otherwise 'cover'
       const useCustomWaypoints = mapConfig.waypoints && Array.isArray(mapConfig.waypoints) &&
-        mapConfig.waypoints.length === totalChallenges + 1;
+        mapConfig.waypoints.length >= totalChallenges + 1;
       this.mapContainer.style.backgroundSize = useCustomWaypoints ? 'contain' : 'cover';
       this.mapContainer.style.backgroundPosition = 'center';
       this.mapContainer.style.backgroundRepeat = 'no-repeat';
@@ -354,13 +354,13 @@ class GameUI {
     // Map dimensions (use custom waypoints + viewBox from config, or generated path in 1000×400)
     const customWaypoints = mapConfig.waypoints && Array.isArray(mapConfig.waypoints) ? mapConfig.waypoints : null;
     const needCount = totalChallenges + 1;
-    const useCustom = customWaypoints && customWaypoints.length === needCount &&
+    const useCustom = customWaypoints && customWaypoints.length >= needCount &&
       customWaypoints.every(p => typeof p.x === 'number' && typeof p.y === 'number');
 
     let checkpoints;
     let mapWidth, mapHeight;
     if (useCustom) {
-      checkpoints = customWaypoints.map(p => ({ x: p.x, y: p.y }));
+      checkpoints = customWaypoints.slice(0, needCount).map(p => ({ x: p.x, y: p.y }));
       mapWidth = typeof mapConfig.viewBoxWidth === 'number' ? mapConfig.viewBoxWidth : 1000;
       mapHeight = typeof mapConfig.viewBoxHeight === 'number' ? mapConfig.viewBoxHeight : 400;
       this.mapContainer.setAttribute('data-custom-map', 'true');

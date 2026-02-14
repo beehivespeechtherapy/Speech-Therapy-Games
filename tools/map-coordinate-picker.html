@@ -78,17 +78,19 @@
   <div class="out" id="output">
     <div class="label">Click the map to add points. Last point:</div>
     <div id="last-point">—</div>
+    <div class="label" style="margin-top:8px"><strong>Image size (use for viewBoxWidth × viewBoxHeight):</strong></div>
+    <div id="image-size" style="margin:4px 0; color:#8af;">Load an image to see dimensions</div>
     <div class="label" style="margin-top:8px">All points (for waypoints):</div>
     <pre id="points-list">[]</pre>
   </div>
   <div class="out" style="margin-top:12px">
-    <div class="label">Next steps — use in Candy Mountain (K vs T) game:</div>
+    <div class="label">Next steps — use in Candy Mountain game:</div>
     <ol style="margin:8px 0 0 18px; color:#ccc; font-size:0.85rem; line-height:1.6">
-      <li>Open <code>games/k-vs-t/config.json</code>.</li>
-      <li>In the <code>"map"</code> object, add <code>"waypoints"</code>: paste your copied JSON array here.</li>
-      <li>Add <code>"viewBoxWidth"</code> and <code>"viewBoxHeight"</code> with your image dimensions (the picker shows them as 0–width × 0–height).</li>
-      <li>You need exactly <strong>one more point than the number of challenges</strong> (e.g. 2 challenges → 3 waypoints: start, after challenge 1, finish). Add or remove points as needed.</li>
-      <li>If using a new background image, set <code>"backgroundImage"</code> to its path (e.g. <code>"../../assets/maps/your-new-background.png"</code>).</li>
+      <li>Open <code>games/candy-mountain/config.json</code>.</li>
+      <li>In the <code>"map"</code> object, set <code>"waypoints"</code> to your copied JSON array.</li>
+      <li>Set <code>"viewBoxWidth"</code> and <code>"viewBoxHeight"</code> to the <strong>Image size</strong> shown above (width × height).</li>
+      <li>You need exactly <strong>13 points</strong> for Candy Mountain (start + 12 candies).</li>
+      <li>Set <code>"backgroundImage"</code> to your map image path (e.g. <code>"../../assets/maps/candymountain.png"</code>).</li>
     </ol>
   </div>
 
@@ -103,6 +105,7 @@
       const copyList = document.getElementById('copy-list');
       const lastPoint = document.getElementById('last-point');
       const pointsList = document.getElementById('points-list');
+      const imageSizeEl = document.getElementById('image-size');
 
       let viewBoxW = 1000;
       let viewBoxH = 400;
@@ -128,6 +131,7 @@
           viewBoxW = imgEl.naturalWidth;
           viewBoxH = imgEl.naturalHeight;
           svg.setAttribute('viewBox', '0 0 ' + viewBoxW + ' ' + viewBoxH);
+          if (imageSizeEl) imageSizeEl.textContent = viewBoxW + ' × ' + viewBoxH + '  (viewBoxWidth: ' + viewBoxW + ', viewBoxHeight: ' + viewBoxH + ')';
           updateOutput();
         };
         imgEl.onerror = function() {

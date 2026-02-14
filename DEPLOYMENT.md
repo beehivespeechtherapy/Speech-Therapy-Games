@@ -62,9 +62,9 @@ Once deployed, your individual games will be at:
   https://beehivespeechtherapy.github.io/Speech-Therapy-Games/
   ```
 
-- **Candy Mountain (K vs T):**
+- **Candy Mountain (pick up candies, K vs T word pairs):**
   ```
-  https://beehivespeechtherapy.github.io/Speech-Therapy-Games/games/k-vs-t/index.html
+  https://beehivespeechtherapy.github.io/Speech-Therapy-Games/games/candy-mountain/index.html
   ```
 
 - **S vs SH Sounds:**
