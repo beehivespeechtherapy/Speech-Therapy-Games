@@ -43,7 +43,7 @@ const gameData = {
 
 // Word images: in-repo copy (works on GitHub Pages)
 const WORD_IMAGES_BASE = "../../word-images";
-const WORD_SET_FOLDERS = {
+let WORD_SET_FOLDERS = {
   "tk-k1": "T:K Minimal Pairs - Initial", "tk-t1": "T:K Minimal Pairs - Initial",
   "tk-k2": "T:K Minimal Pairs - Final", "tk-t2": "T:K Minimal Pairs - Final",
   "dg-d1": "D:G Minimal Pairs - Initial", "dg-g1": "D:G Minimal Pairs - Initial",
@@ -53,9 +53,10 @@ const WORD_SET_FOLDERS = {
 };
 let currentWordSetId = null;
 
-// Word sets for selection screen (T/K, D/G, V/B + F/TH)
-const wordSets = [
-  { id: "f_vs_th", label: "F/TH Minimal Pairs – Dragon Eggs", useGameData: "f_vs_th_dragons" },
+// Word sets for selection screen (T/K, D/G, V/B + F/TH); overridden when word-sets.json loads
+const DEFAULT_F_VS_TH_SET = { id: "f_vs_th", label: "F/TH Minimal Pairs – Dragon Eggs", useGameData: "f_vs_th_dragons" };
+let wordSets = [
+  DEFAULT_F_VS_TH_SET,
   { id: "tk-k1", label: "T/K Minimal Pairs - Initial K", prompt: "Which word has the /k/ sound?", pairs: [["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]] },
   { id: "tk-t1", label: "T/K Minimal Pairs - Initial T", prompt: "Which word has the /t/ sound?", pairs: [["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]] },
   { id: "tk-k2", label: "T/K Minimal Pairs - Final K", prompt: "Which word has the /k/ sound?", pairs: [["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]] },
@@ -123,16 +124,25 @@ function showWordSetChoice() {
   });
 }
 
-// Wait for DOM to be ready before initializing
-function startGame() {
+// Wait for DOM to be ready, then optionally load central word-sets.json and show word set choice
+async function startGame() {
+  try {
+    const listRes = await fetch("../../word-lists/word-sets.json");
+    if (listRes.ok) {
+      const wordSetsData = await listRes.json();
+      if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
+        wordSets = [DEFAULT_F_VS_TH_SET].concat(wordSetsData);
+        WORD_SET_FOLDERS = Object.fromEntries(wordSetsData.map(s => [s.id, s.folder || ""]));
+      }
+    }
+  } catch (_) {}
   showWordSetChoice();
 }
 
 // Start the game when DOM is ready
 if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', startGame);
+  document.addEventListener('DOMContentLoaded', () => startGame());
 } else {
-  // DOM is already ready
   startGame();
 }
 

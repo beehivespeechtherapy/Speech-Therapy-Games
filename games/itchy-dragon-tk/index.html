@@ -586,7 +586,7 @@
 
     // Word images: in-repo copy (works on GitHub Pages); fallback to assets/pairs
     const WORD_IMAGES_BASE = "../../word-images";
-    const WORD_SET_FOLDERS = {
+    let WORD_SET_FOLDERS = {
       "tk-k1": "T:K Minimal Pairs - Initial", "tk-t1": "T:K Minimal Pairs - Initial",
       "tk-k2": "T:K Minimal Pairs - Final", "tk-t2": "T:K Minimal Pairs - Final",
       "dg-d1": "D:G Minimal Pairs - Initial", "dg-g1": "D:G Minimal Pairs - Initial",
@@ -650,7 +650,7 @@
       });
     }
 
-    // Load config (wordSets) from config.json when available
+    // Load config (wordSets) from config.json when available; then try central word-lists/word-sets.json
     async function loadConfig() {
       try {
         const r = await fetch('config.json');
@@ -659,6 +659,16 @@
           if (json.wordSets && json.wordSets.length > 0) gameConfig.wordSets = json.wordSets;
         }
       } catch (e) {}
+      try {
+        const listRes = await fetch('../../word-lists/word-sets.json');
+        if (listRes.ok) {
+          const wordSetsData = await listRes.json();
+          if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
+            gameConfig.wordSets = wordSetsData;
+            WORD_SET_FOLDERS = Object.fromEntries(wordSetsData.map(s => [s.id, s.folder || '']));
+          }
+        }
+      } catch (_) {}
     }
 
     // Initialize game

@@ -288,6 +288,16 @@
         if (config.bowlMessage) document.getElementById('bowl-message').textContent = config.bowlMessage;
         if (config.victoryMessage) document.getElementById('victory-msg').textContent = config.victoryMessage;
         if (config.discriminationPrompt) document.getElementById('discrimination-prompt').textContent = config.discriminationPrompt;
+        try {
+          const listRes = await fetch('../../word-lists/word-sets.json');
+          if (listRes.ok) {
+            const wordSetsData = await listRes.json();
+            if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
+              config.wordSets = wordSetsData;
+              WORD_SET_FOLDERS = Object.fromEntries(wordSetsData.map(s => [s.id, s.folder || '']));
+            }
+          }
+        } catch (_) {}
         renderWordSetList();
       }
 

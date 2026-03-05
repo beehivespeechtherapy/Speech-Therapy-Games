@@ -1,0 +1,130 @@
+{
+  "title": "Sound Ninjas",
+  "description": "Guide your ninja through the castle! At each stop, choose the correct word. Collect 5 weapons, then defeat the boss.",
+  "wrongAnswerMovesBack": false,
+  "intro": {
+    "message": "Collect weapons and complete sound challenges to defeat the samurai boss!"
+  },
+  "protagonist": {
+    "character": "ninja",
+    "images": {
+      "idle": "../../assets/protagonist/ninja.png",
+      "walking": "../../assets/protagonist/ninja-walking.png",
+      "celebrating": "../../assets/protagonist/celebrating.png"
+    },
+    "walkingSpriteSheet": {
+      "url": "../../assets/protagonist/ninja-walking.png",
+      "frameWidth": 29,
+      "frameHeight": 48,
+      "frames": 5,
+      "columns": 3,
+      "displayWidth": 109,
+      "displayHeight": 180
+    }
+  },
+  "map": {
+    "theme": "castle",
+    "backgroundImage": "../../assets/maps/ninja-castle.png",
+    "waypoints":
+      [
+        {
+          "x": 113,
+          "y": 1395
+        },
+        {
+          "x": 704,
+          "y": 1249
+        },
+        {
+          "x": 166,
+          "y": 1091
+        },
+        {
+          "x": 151,
+          "y": 924
+        },
+        {
+          "x": 814,
+          "y": 871
+        },
+        {
+          "x": 440,
+          "y": 737
+        },
+        {
+          "x": 921,
+          "y": 689
+        },
+        {
+          "x": 471,
+          "y": 576
+        },
+        {
+          "x": 146,
+          "y": 599
+        },
+        {
+          "x": 284,
+          "y": 461
+        },
+        {
+          "x": 653,
+          "y": 456
+        },
+        {
+          "x": 706,
+          "y": 336
+        },
+        {
+          "x": 612,
+          "y": 154
+        }
+    ],
+    "viewBoxWidth": 1024,
+    "viewBoxHeight": 1536
+  },
+  "numChallenges": 12,
+  "weapons": [
+    {"id": "weapon1", "label": "Weapon 1", "icon": "⚔️", "image": "weapons/weapon1.png"},
+    {"id": "weapon2", "label": "Weapon 2", "icon": "🥷", "image": "weapons/weapon2.png"},
+    {"id": "weapon3", "label": "Weapon 3", "icon": "🦾", "image": "weapons/weapon3.png"},
+    {"id": "weapon4", "label": "Weapon 4", "icon": "🏹", "image": "weapons/weapon4.png"},
+    {"id": "weapon5", "label": "Weapon 5", "icon": "🥢", "image": "weapons/weapon5.png"}
+  ],
+  "boss": {
+    "hitsToDefeat": 5,
+    "message": "Defeat the samurai! Choose the correct word to attack."
+  },
+  "victory": {
+    "message": "You defeated the samurai! Great job, Sound Ninja!",
+    "music": "../../assets/audio/victory.mp3"
+  },
+  "challenges": [
+    {"id":1,"correctWord":"can","correctSound":"k","pairs":[{"word":"can","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/can.png","alt":"can"},{"word":"tan","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tan.png","alt":"tan"}]},
+    {"id":2,"correctWord":"cap","correctSound":"k","pairs":[{"word":"cap","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cap.png","alt":"cap"},{"word":"tap","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tap.png","alt":"tap"}]},
+    {"id":3,"correctWord":"cape","correctSound":"k","pairs":[{"word":"cape","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cape.png","alt":"cape"},{"word":"tape","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tape.png","alt":"tape"}]},
+    {"id":4,"correctWord":"car","correctSound":"k","pairs":[{"word":"car","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/car.png","alt":"car"},{"word":"tar","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tar.png","alt":"tar"}]},
+    {"id":5,"correctWord":"cart","correctSound":"k","pairs":[{"word":"cart","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cart.png","alt":"cart"},{"word":"tart","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tart.png","alt":"tart"}]},
+    {"id":6,"correctWord":"cod","correctSound":"k","pairs":[{"word":"cod","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cod.png","alt":"cod"},{"word":"todd","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/todd.png","alt":"todd"}]},
+    {"id":7,"correctWord":"code","correctSound":"k","pairs":[{"word":"code","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/code.png","alt":"code"},{"word":"toad","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/toad.png","alt":"toad"}]},
+    {"id":8,"correctWord":"cop","correctSound":"k","pairs":[{"word":"cop","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cop.png","alt":"cop"},{"word":"top","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/top.png","alt":"top"}]},
+    {"id":9,"correctWord":"core","correctSound":"k","pairs":[{"word":"core","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/core.png","alt":"core"},{"word":"tore","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tore.png","alt":"tore"}]},
+    {"id":10,"correctWord":"cub","correctSound":"k","pairs":[{"word":"cub","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cub.png","alt":"cub"},{"word":"tub","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tub.png","alt":"tub"}]},
+    {"id":11,"correctWord":"can","correctSound":"k","pairs":[{"word":"can","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/can.png","alt":"can"},{"word":"tan","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tan.png","alt":"tan"}]},
+    {"id":12,"correctWord":"cap","correctSound":"k","pairs":[{"word":"cap","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cap.png","alt":"cap"},{"word":"tap","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tap.png","alt":"tap"}]}
+  ],
+  "wordSets": [
+    {"id": "tk-k1", "label": "T/K Minimal Pairs - Initial K", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]]},
+    {"id": "tk-t1", "label": "T/K Minimal Pairs - Initial T", "prompt": "Which word has the /t/ sound?", "targetSound": "t", "contrastSound": "k", "pairs": [["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]]},
+    {"id": "tk-k2", "label": "T/K Minimal Pairs - Final K", "prompt": "Which word has the /k/ sound?", "targetSound": "k", "contrastSound": "t", "pairs": [["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]]},
+    {"id": "tk-t2", "label": "T/K Minimal Pairs - Final T", "prompt": "Which word has the /t/ sound?", "targetSound": "t", "contrastSound": "k", "pairs": [["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]]},
+    {"id": "dg-d1", "label": "D/G Minimal Pairs - Initial D", "prompt": "Which word has the /d/ sound?", "targetSound": "d", "contrastSound": "g", "pairs": [["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]]},
+    {"id": "dg-g1", "label": "D/G Minimal Pairs - Initial G", "prompt": "Which word has the /g/ sound?", "targetSound": "g", "contrastSound": "d", "pairs": [["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]]},
+    {"id": "dg-g2", "label": "D/G Minimal Pairs - Final G", "prompt": "Which word has the /g/ sound?", "targetSound": "g", "contrastSound": "d", "pairs": [["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]]},
+    {"id": "dg-d2", "label": "D/G Minimal Pairs - Final D", "prompt": "Which word has the /d/ sound?", "targetSound": "d", "contrastSound": "g", "pairs": [["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]]},
+    {"id": "vb-b1", "label": "V/B Minimal Pairs - Initial B", "prompt": "Which word has the /b/ sound?", "targetSound": "b", "contrastSound": "v", "pairs": [["ban","van"],["best","vest"],["broom","vroom"],["boat","vote"],["base","vase"],["bale","veil"],["berry","very"],["bow","vow"],["bent","vent"],["bat","vat"]]},
+    {"id": "vb-v1", "label": "V/B Minimal Pairs - Initial V", "prompt": "Which word has the /v/ sound?", "targetSound": "v", "contrastSound": "b", "pairs": [["veil","bale"],["vase","base"],["vat","bat"],["vent","bent"],["very","berry"],["vest","best"],["vote","boat"],["view","boo"],["vroom","broom"]]},
+    {"id": "vb-v2", "label": "V/B Minimal Pairs - Final V", "prompt": "Which word has the /v/ sound?", "targetSound": "v", "contrastSound": "b", "pairs": [["carve","carb"],["curve","curb"],["wave","web"],["drive","drib"],["five","fib"],["give","goob"],["grave","grab"],["live","lab"],["love","lobe"],["nerve","nub"]]},
+    {"id": "vb-b2", "label": "V/B Minimal Pairs - Final B", "prompt": "Which word has the /b/ sound?", "targetSound": "b", "contrastSound": "v", "pairs": [["carb","carve"],["curb","curve"],["drib","drive"],["fib","five"],["goob","give"],["grab","grave"],["lab","live"],["lobe","love"],["nub","nerve"]]}
+  ]
+}

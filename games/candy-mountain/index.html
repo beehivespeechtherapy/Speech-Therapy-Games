@@ -94,7 +94,7 @@
     let isProcessing = false;
     let candyElements = [];
 
-    const WORD_SET_FOLDERS = {
+    let WORD_SET_FOLDERS = {
       'candy-default': 'T:K Minimal Pairs - Initial',
       'tk-k1': 'T:K Minimal Pairs - Initial', 'tk-t1': 'T:K Minimal Pairs - Initial',
       'tk-k2': 'T:K Minimal Pairs - Final', 'tk-t2': 'T:K Minimal Pairs - Final',
@@ -305,6 +305,16 @@
     async function initGame() {
       try {
         await engine.loadConfig();
+        try {
+          const listRes = await fetch('../../word-lists/word-sets.json');
+          if (listRes.ok) {
+            const wordSetsData = await listRes.json();
+            if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
+              engine.config.wordSets = wordSetsData;
+              WORD_SET_FOLDERS = Object.fromEntries(wordSetsData.map(s => [s.id, s.folder || '']));
+            }
+          }
+        } catch (_) { /* use config wordSets and existing WORD_SET_FOLDERS */ }
         document.title = engine.config.title || 'Candy Mountain';
         ui.init();
         if (engine.config.victory && engine.config.victory.music) {

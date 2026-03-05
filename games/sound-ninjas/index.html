@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Sound Ninjas</title>
+  <link rel="stylesheet" href="../../core/styles.css">
+  <style>
+    .map-and-actions {
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      max-width: 100%; max-height: 100vh; flex-wrap: wrap; padding: 8px;
+    }
+    body.sound-ninjas-game #game-map {
+      width: min(90vw, 90vh) !important;
+      height: min(90vw, 90vh) !important;
+      max-width: min(90vw, 90vh) !important;
+      max-height: 90vh !important;
+      background-size: contain !important;
+      background-position: center !important;
+      background-repeat: no-repeat !important;
+    }
+    #choose-screen {
+      position: fixed; inset: 0; z-index: 100;
+      background: linear-gradient(180deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      display: flex; flex-direction: column; align-items: center; justify-content: flex-start;
+      padding: 1.5rem; overflow-y: auto;
+    }
+    #choose-screen.hidden { display: none; }
+    #choose-screen h2 { font-size: 1.35rem; color: #e94560; margin-bottom: 0.5rem; text-align: center; }
+    #choose-screen p { color: #a2a8d3; margin-bottom: 1rem; text-align: center; }
+    .word-set-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 520px; width: 100%; margin: 0 auto; }
+    .word-set-btn {
+      background: rgba(255,255,255,0.08); border: 2px solid #e94560;
+      border-radius: 12px; padding: 1rem 1.25rem; font-size: 1rem; color: #eee;
+      text-align: left; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .word-set-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px rgba(233,69,96,0.3); }
+
+    #weapons-box {
+      position: fixed; top: 8%; left: 8%; z-index: 50;
+      background: rgba(0,0,0,0.6); border: 2px solid #e94560; border-radius: 14px;
+      padding: 12px 16px; display: flex; gap: 10px; align-items: center;
+    }
+    #weapons-box .weapon-slots { display: flex; gap: 10px; flex-wrap: wrap; }
+    #weapons-box .weapon-slot {
+      width: 52px; height: 52px; display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.1); border-radius: 10px; font-size: 1.4rem;
+      overflow: hidden;
+    }
+    #weapons-box .weapon-slot img {
+      width: 100%; height: 100%; object-fit: contain;
+    }
+    #weapons-box .weapons-label { color: #a2a8d3; font-size: 1rem; margin-right: 4px; }
+    #weapons-box .weapon-slot.collected { background: rgba(233,69,96,0.3); }
+
+    .stop-marker { cursor: pointer; }
+    .stop-marker image, .stop-marker text { filter: drop-shadow(0 0 2px #000); }
+    .stop-marker.collected { opacity: 0.5; pointer-events: none; }
+    .stop-marker.not-next { cursor: default; pointer-events: none; opacity: 0.6; }
+    body.sound-ninjas-game #game-map .path-line { stroke: rgba(233,69,96,0.5); }
+    body.sound-ninjas-game #game-map .waypoint { display: none; }
+    /* Ninja size: both idle and walking are 60x60 in SVG, scaled to 180px so they match */
+    body.sound-ninjas-game #game-map .protagonist-idle,
+    body.sound-ninjas-game #game-map .protagonist-walking-sprite image.protagonist-sprite {
+      width: 180px !important; height: 180px !important;
+      transform: translate(-60px, -60px);
+    }
+
+    #boss-screen {
+      position: fixed; inset: 0; z-index: 100; background: linear-gradient(180deg, #1a1a2e 0%, #16213e 100%);
+      display: none; flex-direction: column; align-items: center; justify-content: center; padding: 1rem;
+    }
+    #boss-screen.show { display: flex; }
+    #boss-screen .boss-title { color: #e94560; font-size: 1.5rem; margin-bottom: 0.5rem; }
+    #boss-screen .boss-visual { font-size: 5rem; margin: 1rem 0; filter: drop-shadow(0 0 20px rgba(233,69,96,0.5)); }
+    #boss-screen .boss-health { display: flex; gap: 8px; margin: 0.5rem 0; }
+    #boss-screen .boss-health .heart { font-size: 1.8rem; opacity: 0.3; }
+    #boss-screen .boss-health .heart.hit { opacity: 1; }
+    #boss-screen .attack-feedback { position: absolute; font-size: 3rem; pointer-events: none; animation: attackFly 0.6s ease-out forwards; }
+    @keyframes attackFly {
+      0% { transform: scale(0.5); opacity: 1; }
+      100% { transform: scale(1.5) translateY(-80px); opacity: 0; }
+    }
+    #boss-screen .boss-hit { animation: bossHit 0.4s ease-out; }
+    @keyframes bossHit {
+      0% { transform: translateX(0); }
+      25% { transform: translateX(-15px); }
+      75% { transform: translateX(10px); }
+      100% { transform: translateX(0); }
+    }
+    #sneak-btn {
+      flex-shrink: 0; z-index: 50;
+      padding: 12px 24px; font-size: 1.1rem; font-weight: bold;
+      background: #e94560; color: #fff; border: 2px solid #fff;
+      border-radius: 12px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    #sneak-btn:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(233,69,96,0.5); }
+    #sneak-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    #sneak-btn.hidden { display: none; }
+  </style>
+</head>
+<body class="sound-ninjas-game">
+  <div id="game-container">
+    <div id="weapons-box" class="hidden">
+      <span class="weapons-label">Weapons</span>
+      <div id="weapon-slots" class="weapon-slots"></div>
+    </div>
+    <div id="choose-screen">
+      <h2>Sound Ninjas</h2>
+      <p>Choose your word pairs, then guide the ninja through the castle. Collect 5 weapons and defeat the samurai boss!</p>
+      <div id="word-set-list" class="word-set-list"></div>
+    </div>
+    <section class="map-section fullscreen">
+      <div class="map-and-actions">
+        <div id="game-map"></div>
+        <button type="button" id="sneak-btn" class="hidden" aria-label="Sneak to next spot">Sneak!</button>
+      </div>
+    </section>
+    <div id="challenge-modal" class="modal challenge-modal hidden">
+      <div class="modal-content challenge-content">
+        <h2 id="challenge-prompt">Choose the correct word:</h2>
+        <div id="word-pairs" class="pair-container"></div>
+      </div>
+    </div>
+    <div id="boss-screen">
+      <div class="boss-title">Samurai Boss</div>
+      <div id="boss-visual" class="boss-visual">🗡️</div>
+      <div id="boss-health" class="boss-health"></div>
+      <p id="boss-prompt" style="color:#a2a8d3;margin:0.5rem 0;">Choose the correct word to attack!</p>
+      <div id="boss-word-pairs" class="pair-container" style="max-width:400px;"></div>
+    </div>
+    <div id="victory-modal" class="modal victory-modal hidden">
+      <div class="modal-content">
+        <h1>Victory!</h1>
+        <p id="victory-message"></p>
+        <button id="play-again">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="application/json" id="game-config">
+  {"title":"Sound Ninjas","description":"Guide your ninja through the castle! At each stop, choose the correct word. Collect 5 weapons, then defeat the boss.","wrongAnswerMovesBack":false,"intro":{"message":"Collect weapons and complete sound challenges to defeat the samurai boss!"},"protagonist":{"character":"ninja","images":{"idle":"../../assets/protagonist/ninja.png","walking":"../../assets/protagonist/ninja-walking.png","celebrating":"../../assets/protagonist/celebrating.png"},"walkingSpriteSheet":{"url":"../../assets/protagonist/ninja-walking.png","frameWidth":29,"frameHeight":48,"frames":5,"columns":3,"displayWidth":109,"displayHeight":180}},"map":{"theme":"castle","backgroundImage":"../../assets/maps/ninja-castle.png","waypoints":[{"x":113,"y":1395},{"x":704,"y":1249},{"x":166,"y":1091},{"x":151,"y":924},{"x":814,"y":871},{"x":440,"y":737},{"x":921,"y":689},{"x":471,"y":576},{"x":146,"y":599},{"x":284,"y":461},{"x":653,"y":456},{"x":706,"y":336},{"x":612,"y":154}],"viewBoxWidth":1024,"viewBoxHeight":1536},"numChallenges":12,"weapons":[{"id":"weapon1","label":"Weapon 1","icon":"⚔️","image":"weapons/weapon1.png"},{"id":"weapon2","label":"Weapon 2","icon":"🥷","image":"weapons/weapon2.png"},{"id":"weapon3","label":"Weapon 3","icon":"🦾","image":"weapons/weapon3.png"},{"id":"weapon4","label":"Weapon 4","icon":"🏹","image":"weapons/weapon4.png"},{"id":"weapon5","label":"Weapon 5","icon":"🥢","image":"weapons/weapon5.png"}],"boss":{"hitsToDefeat":5,"message":"Defeat the samurai! Choose the correct word to attack."},"victory":{"message":"You defeated the samurai! Great job, Sound Ninja!","music":"../../assets/audio/victory.mp3"},"challenges":[{"id":1,"correctWord":"can","correctSound":"k","pairs":[{"word":"can","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/can.png","alt":"can"},{"word":"tan","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tan.png","alt":"tan"}]},{"id":2,"correctWord":"cap","correctSound":"k","pairs":[{"word":"cap","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cap.png","alt":"cap"},{"word":"tap","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tap.png","alt":"tap"}]},{"id":3,"correctWord":"cape","correctSound":"k","pairs":[{"word":"cape","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cape.png","alt":"cape"},{"word":"tape","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tape.png","alt":"tape"}]},{"id":4,"correctWord":"car","correctSound":"k","pairs":[{"word":"car","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/car.png","alt":"car"},{"word":"tar","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tar.png","alt":"tar"}]},{"id":5,"correctWord":"cart","correctSound":"k","pairs":[{"word":"cart","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cart.png","alt":"cart"},{"word":"tart","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tart.png","alt":"tart"}]},{"id":6,"correctWord":"cod","correctSound":"k","pairs":[{"word":"cod","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cod.png","alt":"cod"},{"word":"todd","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/todd.png","alt":"todd"}]},{"id":7,"correctWord":"code","correctSound":"k","pairs":[{"word":"code","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/code.png","alt":"code"},{"word":"toad","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/toad.png","alt":"toad"}]},{"id":8,"correctWord":"cop","correctSound":"k","pairs":[{"word":"cop","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cop.png","alt":"cop"},{"word":"top","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/top.png","alt":"top"}]},{"id":9,"correctWord":"core","correctSound":"k","pairs":[{"word":"core","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/core.png","alt":"core"},{"word":"tore","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tore.png","alt":"tore"}]},{"id":10,"correctWord":"cub","correctSound":"k","pairs":[{"word":"cub","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cub.png","alt":"cub"},{"word":"tub","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tub.png","alt":"tub"}]},{"id":11,"correctWord":"can","correctSound":"k","pairs":[{"word":"can","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/can.png","alt":"can"},{"word":"tan","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tan.png","alt":"tan"}]},{"id":12,"correctWord":"cap","correctSound":"k","pairs":[{"word":"cap","sound":"k","image":"../../word-images/T:K Minimal Pairs - Initial/cap.png","alt":"cap"},{"word":"tap","sound":"t","image":"../../word-images/T:K Minimal Pairs - Initial/tap.png","alt":"tap"}]}],"wordSets":[{"id":"tk-k1","label":"T/K Minimal Pairs - Initial K","prompt":"Which word has the /k/ sound?","targetSound":"k","contrastSound":"t","pairs":[["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]]},{"id":"tk-t1","label":"T/K Minimal Pairs - Initial T","prompt":"Which word has the /t/ sound?","targetSound":"t","contrastSound":"k","pairs":[["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]]},{"id":"tk-k2","label":"T/K Minimal Pairs - Final K","prompt":"Which word has the /k/ sound?","targetSound":"k","contrastSound":"t","pairs":[["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]]},{"id":"tk-t2","label":"T/K Minimal Pairs - Final T","prompt":"Which word has the /t/ sound?","targetSound":"t","contrastSound":"k","pairs":[["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]]},{"id":"dg-d1","label":"D/G Minimal Pairs - Initial D","prompt":"Which word has the /d/ sound?","targetSound":"d","contrastSound":"g","pairs":[["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]]},{"id":"dg-g1","label":"D/G Minimal Pairs - Initial G","prompt":"Which word has the /g/ sound?","targetSound":"g","contrastSound":"d","pairs":[["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]]},{"id":"dg-g2","label":"D/G Minimal Pairs - Final G","prompt":"Which word has the /g/ sound?","targetSound":"g","contrastSound":"d","pairs":[["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]]},{"id":"dg-d2","label":"D/G Minimal Pairs - Final D","prompt":"Which word has the /d/ sound?","targetSound":"d","contrastSound":"g","pairs":[["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]]},{"id":"vb-b1","label":"V/B Minimal Pairs - Initial B","prompt":"Which word has the /b/ sound?","targetSound":"b","contrastSound":"v","pairs":[["ban","van"],["best","vest"],["broom","vroom"],["boat","vote"],["base","vase"],["bale","veil"],["berry","very"],["bow","vow"],["bent","vent"],["bat","vat"]]},{"id":"vb-v1","label":"V/B Minimal Pairs - Initial V","prompt":"Which word has the /v/ sound?","targetSound":"v","contrastSound":"b","pairs":[["veil","bale"],["vase","base"],["vat","bat"],["vent","bent"],["very","berry"],["vest","best"],["vote","boat"],["view","boo"],["vroom","broom"]]},{"id":"vb-v2","label":"V/B Minimal Pairs - Final V","prompt":"Which word has the /v/ sound?","targetSound":"v","contrastSound":"b","pairs":[["carve","carb"],["curve","curb"],["wave","web"],["drive","drib"],["five","fib"],["give","goob"],["grave","grab"],["live","lab"],["love","lobe"],["nerve","nub"]]},{"id":"vb-b2","label":"V/B Minimal Pairs - Final B","prompt":"Which word has the /b/ sound?","targetSound":"b","contrastSound":"v","pairs":[["carb","carve"],["curb","curve"],["drib","drive"],["fib","five"],["goob","give"],["grab","grave"],["lab","live"],["lobe","love"],["nub","nerve"]]}]}
+  </script>
+  <script src="../../core/engine.js"></script>
+  <script src="../../core/ui.js"></script>
+  <script src="../../core/animator.js"></script>
+  <script src="../../core/audio.js"></script>
+
+  <script>
+    const NUM_CHALLENGES = 12;
+    const NUM_WEAPONS = 5;
+    let WORD_SET_FOLDERS = {
+      'tk-k1': 'T:K Minimal Pairs - Initial', 'tk-t1': 'T:K Minimal Pairs - Initial',
+      'tk-k2': 'T:K Minimal Pairs - Final', 'tk-t2': 'T:K Minimal Pairs - Final',
+      'dg-d1': 'D:G Minimal Pairs - Initial', 'dg-g1': 'D:G Minimal Pairs - Initial',
+      'dg-d2': 'D:G Minimal Pairs - Final', 'dg-g2': 'D:G Minimal Pairs - Final',
+      'vb-b1': 'V:B Minimal Pairs - Initial', 'vb-v1': 'V:B Minimal Pairs - Initial',
+      'vb-b2': 'V:B Minimal Pairs - Final', 'vb-v2': 'V:B Minimal Pairs - Final'
+    };
+
+    const engine = new GameEngine('./config.json');
+    const ui = new GameUI(document.getElementById('game-container'));
+    const animator = new PathAnimator(ui);
+    const audio = new AudioManager();
+
+    let isProcessing = false;
+    let stopElements = [];
+    let weaponStopIndices = [];
+    let collectedWeapons = [];
+    let bossHits = 0;
+    let bossChallenges = [];
+    let selectedWordSet = null;
+
+    function wordImagesRoot() {
+      const path = window.location.pathname.replace(/\/games\/[^/]+(\/.*)?$/, '');
+      return window.location.origin + (path.endsWith('/') ? path : path + '/');
+    }
+
+    function pairImagePath(word, setId) {
+      const file = (word === 'v' || word === 'V') ? 'v' : (word === 'Ed') ? 'Ed' : word.toLowerCase();
+      const filename = file + '.png';
+      const folder = setId && WORD_SET_FOLDERS[setId];
+      if (folder) {
+        const encodedFolder = encodeURIComponent(folder).replace(/%2F/g, '/');
+        try {
+          return new URL('word-images/' + encodedFolder + '/' + filename, wordImagesRoot()).href;
+        } catch (e) {
+          return '../../word-images/' + encodedFolder + '/' + filename;
+        }
+      }
+      return 'assets/pairs/' + filename;
+    }
+
+    function buildChallengesFromWordSet(set) {
+      const pairs = set.pairs || [];
+      const targetSound = set.targetSound || 'k';
+      const contrastSound = set.contrastSound || 't';
+      const setId = set.id;
+      const challenges = [];
+      for (let i = 0; i < NUM_CHALLENGES; i++) {
+        const pair = pairs[i % pairs.length];
+        const targetWord = pair[0];
+        const contrastWord = pair[1];
+        challenges.push({
+          id: i + 1,
+          correctWord: targetWord,
+          correctSound: targetSound,
+          pairs: [
+            { word: targetWord, sound: targetSound, image: pairImagePath(targetWord, setId), alt: targetWord },
+            { word: contrastWord, sound: contrastSound, image: pairImagePath(contrastWord, setId), alt: contrastWord }
+          ]
+        });
+      }
+      return challenges;
+    }
+
+    function buildBossChallenges(set, count) {
+      const pairs = set.pairs || [];
+      const targetSound = set.targetSound || 'k';
+      const contrastSound = set.contrastSound || 't';
+      const setId = set.id;
+      const out = [];
+      const used = new Set();
+      while (out.length < count) {
+        const pair = pairs[Math.floor(Math.random() * pairs.length)];
+        const key = pair.join('-');
+        if (used.has(key)) continue;
+        used.add(key);
+        const targetWord = pair[0];
+        const contrastWord = pair[1];
+        out.push({
+          correctWord: targetWord,
+          correctSound: targetSound,
+          pairs: [
+            { word: targetWord, sound: targetSound, image: pairImagePath(targetWord, setId), alt: targetWord },
+            { word: contrastWord, sound: contrastSound, image: pairImagePath(contrastWord, setId), alt: contrastWord }
+          ]
+        });
+      }
+      return out;
+    }
+
+    function pickWeaponStops() {
+      const indices = [];
+      while (indices.length < NUM_WEAPONS) {
+        const r = Math.floor(Math.random() * NUM_CHALLENGES) + 1;
+        if (!indices.includes(r)) indices.push(r);
+      }
+      indices.sort((a, b) => a - b);
+      return indices;
+    }
+
+    function showChooseScreen() {
+      const list = document.getElementById('word-set-list');
+      const chooseScreen = document.getElementById('choose-screen');
+      if (!list || !chooseScreen) return;
+      const sets = engine.config.wordSets || [];
+      list.innerHTML = '';
+      sets.forEach((set) => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'word-set-btn';
+        btn.textContent = set.label;
+        btn.addEventListener('click', () => {
+          selectedWordSet = set;
+          engine.config.discriminationPrompt = set.prompt;
+          engine.config.challenges = buildChallengesFromWordSet(set);
+          weaponStopIndices = pickWeaponStops();
+          collectedWeapons = [];
+          chooseScreen.classList.add('hidden');
+          startMapAndStops();
+        });
+        list.appendChild(btn);
+      });
+    }
+
+    function applyCustomWaypoints() {
+      const totalChallenges = engine.config.challenges.length;
+      const needWp = totalChallenges + 1;
+      let mapCfg = engine.config.map || {};
+      let rawWp = mapCfg.waypoints;
+      if (!Array.isArray(rawWp) || rawWp.length < needWp) return;
+      const wp = rawWp.slice(0, needWp);
+      const mapEl = document.getElementById('game-map');
+      if (!mapEl) return;
+      const vw = Number(mapCfg.viewBoxWidth) || 1024;
+      const vh = Number(mapCfg.viewBoxHeight) || 1024;
+      const pts = wp.map(p => ({ x: Number(p.x), y: Number(p.y) }));
+      const svg = mapEl.firstElementChild && mapEl.firstElementChild.tagName && mapEl.firstElementChild.tagName.toLowerCase() === 'svg' ? mapEl.firstElementChild : mapEl.querySelector('svg');
+      if (!svg || !pts.length) return;
+      try {
+        svg.setAttribute('viewBox', '0 0 ' + vw + ' ' + vh);
+        const path = svg.querySelector('path');
+        if (path) {
+          let d = 'M ' + pts[0].x + ',' + pts[0].y;
+          for (let i = 1; i < pts.length; i++) d += ' L ' + pts[i].x + ',' + pts[i].y;
+          path.setAttribute('d', d);
+        }
+        const circles = Array.from(svg.querySelectorAll('circle'));
+        circles.forEach((circle, i) => {
+          if (pts[i]) { circle.setAttribute('cx', pts[i].x); circle.setAttribute('cy', pts[i].y); }
+        });
+        const flagText = svg.querySelector('text');
+        if (flagText && pts[pts.length - 1]) {
+          flagText.setAttribute('x', pts[pts.length - 1].x);
+          flagText.setAttribute('y', pts[pts.length - 1].y - 25);
+        }
+        ui.checkpoints = pts;
+      } catch (e) { console.warn('Custom waypoints failed', e); }
+    }
+
+    function addStopMarkers(svg, checkpoints) {
+      const ns = 'http://www.w3.org/2000/svg';
+      const group = document.createElementNS(ns, 'g');
+      group.setAttribute('class', 'stop-markers');
+      const size = 40;
+      const offset = size / 2;
+      for (let i = 1; i <= NUM_CHALLENGES; i++) {
+        const pt = checkpoints[i];
+        if (!pt) continue;
+        const g = document.createElementNS(ns, 'g');
+        g.setAttribute('class', 'stop-marker');
+        g.setAttribute('data-stop-index', i);
+        const text = document.createElementNS(ns, 'text');
+        text.setAttribute('x', pt.x);
+        text.setAttribute('y', pt.y);
+        text.setAttribute('text-anchor', 'middle');
+        text.setAttribute('dominant-baseline', 'middle');
+        text.setAttribute('font-size', '28');
+        text.textContent = '🏯';
+        g.appendChild(text);
+        group.appendChild(g);
+        stopElements.push(g);
+      }
+      svg.appendChild(group);
+      updateStopClickability();
+    }
+
+    function updateStopClickability() {
+      const pos = engine.currentPosition;
+      const nextIndex = pos + 1;
+      stopElements.forEach((el, i) => {
+        const index = i + 1;
+        el.classList.remove('collected', 'not-next');
+        if (index <= pos) el.classList.add('collected');
+        else if (index > nextIndex) el.classList.add('not-next');
+      });
+      const sneakBtn = document.getElementById('sneak-btn');
+      if (sneakBtn) {
+        if (pos >= NUM_CHALLENGES) sneakBtn.classList.add('hidden');
+        else sneakBtn.classList.remove('hidden');
+      }
+    }
+
+    function updateWeaponsBox() {
+      const box = document.getElementById('weapons-box');
+      const slotsEl = document.getElementById('weapon-slots');
+      if (!box || !slotsEl) return;
+      const weapons = engine.config.weapons || [];
+      slotsEl.innerHTML = '';
+      weapons.forEach((w, i) => {
+        const slot = document.createElement('div');
+        slot.className = 'weapon-slot' + (i < collectedWeapons.length ? ' collected' : '');
+        if (i < collectedWeapons.length) {
+          const weapon = collectedWeapons[i];
+          if (weapon.image) {
+            const img = document.createElement('img');
+            img.src = weapon.image;
+            img.alt = weapon.label || '';
+            slot.appendChild(img);
+          } else {
+            slot.textContent = weapon.icon || '?';
+          }
+        } else {
+          slot.textContent = '?';
+        }
+        slotsEl.appendChild(slot);
+      });
+    }
+
+    function startMapAndStops() {
+      document.getElementById('weapons-box').classList.remove('hidden');
+      const sneakBtn = document.getElementById('sneak-btn');
+      if (sneakBtn) sneakBtn.classList.remove('hidden');
+      updateWeaponsBox();
+      const totalChallenges = engine.config.challenges.length;
+      const mapConfig = {
+        ...(engine.config.map || {}),
+        protagonist: engine.config.protagonist
+      };
+      ui.renderMap(totalChallenges, engine.currentPosition, mapConfig);
+      applyCustomWaypoints();
+      animator.init();
+      const mapEl = document.getElementById('game-map');
+      const svg = mapEl && (mapEl.firstElementChild && (mapEl.firstElementChild.tagName || '').toLowerCase() === 'svg' ? mapEl.firstElementChild : mapEl.querySelector('svg'));
+      stopElements = [];
+      if (svg && ui.checkpoints && ui.checkpoints.length >= NUM_CHALLENGES + 1) {
+        addStopMarkers(svg, ui.checkpoints);
+        stopElements.forEach((g, i) => {
+          const index = i + 1;
+          g.addEventListener('click', () => {
+            if (engine.currentPosition + 1 !== index) return;
+            if (isProcessing) return;
+            openChallengeForStop();
+          });
+        });
+      }
+    }
+
+    function openChallengeForStop() {
+      const challenge = engine.getCurrentChallenge();
+      if (!challenge) return;
+      engine.config.discriminationPrompt = selectedWordSet ? selectedWordSet.prompt : engine.config.discriminationPrompt;
+      ui.renderChallenge(challenge, engine.config);
+      ui.showChallengeModal();
+    }
+
+    function onSneakClick() {
+      if (isProcessing) return;
+      if (engine.currentPosition >= NUM_CHALLENGES) return;
+      openChallengeForStop();
+    }
+
+    async function initGame() {
+      try {
+        await engine.loadConfig();
+        try {
+          const listRes = await fetch('../../word-lists/word-sets.json');
+          if (listRes.ok) {
+            const wordSetsData = await listRes.json();
+            if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
+              engine.config.wordSets = wordSetsData;
+              WORD_SET_FOLDERS = Object.fromEntries(wordSetsData.map(s => [s.id, s.folder || '']));
+            }
+          }
+        } catch (_) { /* use config wordSets and existing WORD_SET_FOLDERS */ }
+        document.title = engine.config.title || 'Sound Ninjas';
+        ui.init();
+        if (engine.config.victory && engine.config.victory.music) {
+          audio.init(engine.config.victory.music);
+        }
+        setupEventHandlers();
+        const sneakBtn = document.getElementById('sneak-btn');
+        if (sneakBtn) sneakBtn.addEventListener('click', onSneakClick);
+        document.addEventListener('click', () => audio.unlockAudio(), { once: true });
+
+        const wordSets = engine.config.wordSets || [];
+        if (wordSets.length > 0) {
+          showChooseScreen();
+          return;
+        }
+        weaponStopIndices = pickWeaponStops();
+        collectedWeapons = [];
+        startMapAndStops();
+      } catch (error) {
+        console.error('Failed to initialize game:', error);
+        alert('Failed to load game. Please check the console for details.');
+      }
+    }
+
+    function setupEventHandlers() {
+      ui.onAnswer(async (choiceIndex) => {
+        if (isProcessing) return;
+        isProcessing = true;
+        const result = await engine.submitAnswer(choiceIndex);
+        ui.showFeedback(result.correct);
+        await new Promise(r => setTimeout(r, 800));
+        ui.hideChallengeModal();
+        await new Promise(r => setTimeout(r, 400));
+
+        if (result.correct) {
+          const newPos = result.newPosition;
+          if (weaponStopIndices.indexOf(newPos) !== -1) {
+            const weapons = engine.config.weapons || [];
+            const idx = weaponStopIndices.indexOf(newPos);
+            if (weapons[idx] && collectedWeapons.length < NUM_WEAPONS) {
+              collectedWeapons.push(weapons[idx]);
+              updateWeaponsBox();
+            }
+          }
+          if (engine.currentPosition > 0) animator.playForwardFeedback();
+          await animator.moveToPosition(result.newPosition, 1500);
+          updateStopClickability();
+        } else {
+          ui.showTemporaryMessage('Try again! Click the next stop when ready.', false);
+          await new Promise(r => setTimeout(r, 600));
+        }
+        await new Promise(r => setTimeout(r, 400));
+
+        if (engine.isVictory()) {
+          await startBossFight();
+        }
+        isProcessing = false;
+      });
+
+      ui.onPlayAgain(() => {
+        engine.reset();
+        ui.hideVictory();
+        document.getElementById('boss-screen').classList.remove('show');
+        if (engine.config.wordSets && engine.config.wordSets.length > 0) {
+          document.getElementById('choose-screen').classList.remove('hidden');
+          showChooseScreen();
+        } else {
+          weaponStopIndices = pickWeaponStops();
+          collectedWeapons = [];
+          startMapAndStops();
+        }
+      });
+    }
+
+    async function startBossFight() {
+      const bossScreen = document.getElementById('boss-screen');
+      const healthEl = document.getElementById('boss-health');
+      const promptEl = document.getElementById('boss-prompt');
+      const pairsEl = document.getElementById('boss-word-pairs');
+      if (!bossScreen || !healthEl || !pairsEl) return;
+      const hitsNeeded = (engine.config.boss && engine.config.boss.hitsToDefeat) || 5;
+      bossHits = 0;
+      bossChallenges = buildBossChallenges(selectedWordSet || engine.config.wordSets[0], Math.max(hitsNeeded, 10));
+      healthEl.innerHTML = '';
+      for (let i = 0; i < hitsNeeded; i++) {
+        const h = document.createElement('span');
+        h.className = 'heart';
+        h.textContent = '❤️';
+        healthEl.appendChild(h);
+      }
+      if (engine.config.boss && engine.config.boss.message) promptEl.textContent = engine.config.boss.message;
+      bossScreen.classList.add('show');
+      showNextBossChallenge();
+    }
+
+    function showNextBossChallenge() {
+      const pairsEl = document.getElementById('boss-word-pairs');
+      if (!pairsEl) return;
+      const challenge = bossChallenges[bossHits];
+      if (!challenge) {
+        endBossVictory();
+        return;
+      }
+      pairsEl.innerHTML = '';
+      const shuffled = [...challenge.pairs].sort(() => Math.random() - 0.5);
+      shuffled.forEach((pair, idx) => {
+        const origIndex = challenge.pairs.indexOf(pair);
+        const btn = document.createElement('button');
+        btn.className = 'pair-button';
+        btn.setAttribute('data-index', origIndex);
+        const img = document.createElement('img');
+        img.src = pair.image;
+        img.alt = pair.alt || pair.word;
+        img.className = 'pair-image';
+        btn.appendChild(img);
+        const label = document.createElement('span');
+        label.className = 'word-label';
+        label.textContent = pair.word;
+        btn.appendChild(label);
+        btn.addEventListener('click', () => handleBossAnswer(origIndex, challenge, btn));
+        pairsEl.appendChild(btn);
+      });
+    }
+
+    async function handleBossAnswer(choiceIndex, challenge, buttonEl) {
+      if (isProcessing) return;
+      const pair = challenge.pairs[choiceIndex];
+      const correct = pair.sound === challenge.correctSound;
+      if (correct) {
+        isProcessing = true;
+        const hearts = document.querySelectorAll('#boss-health .heart');
+        const nextHeart = hearts[bossHits];
+        if (nextHeart) nextHeart.classList.add('hit');
+        playAttackAnimation(buttonEl);
+        bossHits++;
+        const hitsNeeded = (engine.config.boss && engine.config.boss.hitsToDefeat) || 5;
+        if (bossHits >= hitsNeeded) {
+          await new Promise(r => setTimeout(r, 600));
+          endBossVictory();
+        } else {
+          await new Promise(r => setTimeout(r, 500));
+          showNextBossChallenge();
+        }
+        isProcessing = false;
+      } else {
+        ui.showTemporaryMessage('Try again!', false);
+      }
+    }
+
+    function playAttackAnimation(fromButton) {
+      const bossVisual = document.getElementById('boss-visual');
+      const container = document.getElementById('boss-screen');
+      if (!container || !bossVisual) return;
+      const weapon = collectedWeapons[Math.floor(Math.random() * collectedWeapons.length)];
+      const icon = weapon ? weapon.icon : '⚔️';
+      const feedback = document.createElement('div');
+      feedback.className = 'attack-feedback';
+      feedback.textContent = icon;
+      feedback.style.left = (container.offsetWidth / 2 - 24) + 'px';
+      feedback.style.top = '40%';
+      container.appendChild(feedback);
+      setTimeout(() => feedback.remove(), 700);
+      bossVisual.classList.add('boss-hit');
+      setTimeout(() => bossVisual.classList.remove('boss-hit'), 400);
+    }
+
+    async function endBossVictory() {
+      document.getElementById('boss-screen').classList.remove('show');
+      await ui.showVictory(engine.config);
+      await audio.playVictory();
+    }
+
+    initGame();
+  </script>
+</body>
+</html>

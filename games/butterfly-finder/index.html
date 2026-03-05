@@ -270,6 +270,16 @@
             ]
           };
         }
+        try {
+          var listRes = await fetch('../../word-lists/word-sets.json');
+          if (listRes.ok) {
+            var wordSetsData = await listRes.json();
+            if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
+              config.wordSets = wordSetsData;
+              WORD_SET_FOLDERS = Object.fromEntries(wordSetsData.map(function(s) { return [s.id, s.folder || '']; }));
+            }
+          }
+        } catch (_) {}
         document.title = config.title || 'Butterfly Finder';
         var msgEl = document.getElementById('intro-message');
         if (msgEl && config.intro && config.intro.message) msgEl.textContent = config.intro.message;
@@ -299,7 +309,7 @@
         });
       }
 
-      // Word images: repo-root word-images folder (reliable on GitHub Pages)
+      // Word images: repo-root word-images folder (reliable on GitHub Pages); overridden when word-sets.json loads
       var WORD_SET_FOLDERS = {
         'tk-k1': 'T:K Minimal Pairs - Initial', 'tk-t1': 'T:K Minimal Pairs - Initial',
         'tk-k2': 'T:K Minimal Pairs - Final', 'tk-t2': 'T:K Minimal Pairs - Final',
