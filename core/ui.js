@@ -124,11 +124,15 @@ class GameUI {
     // Clear previous challenge
     this.challengeContainer.innerHTML = '';
 
-    // Update prompt based on target sound
+    // Update prompt: use custom discrimination prompt from config (e.g. word set) or fall back to target sound
     if (this.challengePrompt) {
-      const targetSound = challenge.correctSound || gameConfig.targetSound || '';
-      const soundDisplay = targetSound.toUpperCase();
-      this.challengePrompt.textContent = `Listen for the "${soundDisplay}" sound`;
+      if (gameConfig.discriminationPrompt && typeof gameConfig.discriminationPrompt === 'string') {
+        this.challengePrompt.textContent = gameConfig.discriminationPrompt;
+      } else {
+        const targetSound = challenge.correctSound || gameConfig.targetSound || '';
+        const soundDisplay = targetSound.toUpperCase();
+        this.challengePrompt.textContent = `Listen for the "${soundDisplay}" sound`;
+      }
     }
 
     // Shuffle pairs for randomness (optional - makes game less predictable)
@@ -450,6 +454,8 @@ class GameUI {
     // Add protagonist to SVG (before appending SVG to container)
     const protagonistConfig = mapConfig.protagonist || {};
     const protagonistImages = protagonistConfig.images || {};
+    const spriteSheet = protagonistConfig.walkingSpriteSheet;
+    const ns = 'http://www.w3.org/2000/svg';
 
     // Store protagonist images for animator
     this.protagonistImages = {
@@ -458,34 +464,107 @@ class GameUI {
       celebrating: protagonistImages.celebrating || '../../assets/protagonist/celebrating.png'
     };
 
-    // Create protagonist as SVG image element
-    const protagonistGroup = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+    this.walkingSpriteConfig = null;
+    this.protagonistIdleImage = null;
+    this.walkingSpriteImage = null;
+
+    const protagonistGroup = document.createElementNS(ns, 'g');
     protagonistGroup.setAttribute('class', 'protagonist-group');
 
-    const protagonistImage = document.createElementNS('http://www.w3.org/2000/svg', 'image');
-    protagonistImage.setAttribute('href', this.protagonistImages.idle);
-    protagonistImage.setAttribute('width', '60');
-    protagonistImage.setAttribute('height', '60');
-    protagonistImage.setAttribute('class', 'protagonist-svg-image');
+    const centerOffset = 30;
+    const displaySize = 60;
 
-    // Position at current checkpoint
-    if (currentPosition >= 0 && currentPosition <= totalChallenges) {
-      const checkpoint = checkpoints[currentPosition];
-      // Center the image on the checkpoint (image is 60x60, so offset by -30)
-      protagonistImage.setAttribute('x', checkpoint.x - 30);
-      protagonistImage.setAttribute('y', checkpoint.y - 30);
+    if (spriteSheet && spriteSheet.url && spriteSheet.frameWidth && spriteSheet.frameHeight && spriteSheet.frames) {
+      // Sprite sheet walking animation: group is moved by animator; idle image + walking sprite inside
+      const fw = Number(spriteSheet.frameWidth) || 48;
+      const fh = Number(spriteSheet.frameHeight) || 48;
+      const frames = Math.max(1, Number(spriteSheet.frames) || 8);
+      const columns = typeof spriteSheet.columns === 'number' && spriteSheet.columns > 0
+        ? spriteSheet.columns
+        : frames;
+      const sheetWidth = fw * columns;
+      const rows = Math.ceil(frames / columns);
+      const sheetHeight = fh * rows;
+
+      const clipId = 'protagonist-walk-clip-' + Math.random().toString(36).slice(2, 9);
+      const defs = document.createElementNS(ns, 'defs');
+      const clipPath = document.createElementNS(ns, 'clipPath');
+      clipPath.setAttribute('id', clipId);
+      const clipRect = document.createElementNS(ns, 'rect');
+      clipRect.setAttribute('x', 0);
+      clipRect.setAttribute('y', 0);
+      clipRect.setAttribute('width', fw);
+      clipRect.setAttribute('height', fh);
+      clipPath.appendChild(clipRect);
+      defs.appendChild(clipPath);
+      svg.appendChild(defs);
+
+      const idleImg = document.createElementNS(ns, 'image');
+      idleImg.setAttribute('href', this.protagonistImages.idle);
+      idleImg.setAttribute('x', 0);
+      idleImg.setAttribute('y', 0);
+      idleImg.setAttribute('width', displaySize);
+      idleImg.setAttribute('height', displaySize);
+      idleImg.setAttribute('class', 'protagonist-svg-image protagonist-idle');
+      protagonistGroup.appendChild(idleImg);
+
+      const walkingWrap = document.createElementNS(ns, 'g');
+      walkingWrap.setAttribute('class', 'protagonist-walking-sprite');
+      walkingWrap.setAttribute('visibility', 'hidden');
+      const dispW = typeof spriteSheet.displayWidth === 'number' ? spriteSheet.displayWidth : fw;
+      const dispH = typeof spriteSheet.displayHeight === 'number' ? spriteSheet.displayHeight : fh;
+      const useDisplaySize = typeof spriteSheet.displayWidth === 'number' && typeof spriteSheet.displayHeight === 'number';
+      const wrapX = useDisplaySize ? centerOffset : centerOffset - fw / 2;
+      const wrapY = useDisplaySize ? centerOffset : centerOffset - fh / 2;
+      walkingWrap.setAttribute('transform', `translate(${wrapX}, ${wrapY})`);
+
+      const scaleGroup = document.createElementNS(ns, 'g');
+      if (useDisplaySize) {
+        scaleGroup.setAttribute('transform', `translate(${-displaySize / 2}, ${-displaySize / 2}) scale(${displaySize / fw}, ${displaySize / fh})`);
+      }
+      const walkingImg = document.createElementNS(ns, 'image');
+      walkingImg.setAttribute('href', spriteSheet.url);
+      walkingImg.setAttribute('x', 0);
+      walkingImg.setAttribute('y', 0);
+      walkingImg.setAttribute('width', sheetWidth);
+      walkingImg.setAttribute('height', sheetHeight);
+      walkingImg.setAttribute('clip-path', `url(#${clipId})`);
+      walkingImg.setAttribute('class', 'protagonist-svg-image protagonist-sprite');
+      scaleGroup.appendChild(walkingImg);
+      walkingWrap.appendChild(scaleGroup);
+
+      if (currentPosition >= 0 && currentPosition <= totalChallenges) {
+        const checkpoint = checkpoints[currentPosition];
+        protagonistGroup.setAttribute('transform', `translate(${checkpoint.x - centerOffset}, ${checkpoint.y - centerOffset})`);
+      }
+
+      this.walkingSpriteConfig = { frameWidth: fw, frameHeight: fh, frames, columns };
+      this.protagonistIdleImage = idleImg;
+      this.walkingSpriteImage = walkingImg;
+      this.protagonistWalkingWrap = walkingWrap;
+      this.protagonistElement = protagonistGroup;
+    } else {
+      // Single image (no sprite sheet)
+      const protagonistImage = document.createElementNS(ns, 'image');
+      protagonistImage.setAttribute('href', this.protagonistImages.idle);
+      protagonistImage.setAttribute('width', String(displaySize));
+      protagonistImage.setAttribute('height', String(displaySize));
+      protagonistImage.setAttribute('class', 'protagonist-svg-image');
+
+      if (currentPosition >= 0 && currentPosition <= totalChallenges) {
+        const checkpoint = checkpoints[currentPosition];
+        protagonistImage.setAttribute('x', checkpoint.x - centerOffset);
+        protagonistImage.setAttribute('y', checkpoint.y - centerOffset);
+      }
+
+      protagonistGroup.appendChild(protagonistImage);
+      this.protagonistElement = protagonistImage;
     }
 
-    protagonistGroup.appendChild(protagonistImage);
     svg.appendChild(protagonistGroup);
-
     this.mapContainer.appendChild(svg);
 
-    // Store checkpoints for animator
     this.checkpoints = checkpoints;
-
-    // Store reference to protagonist SVG element
-    this.protagonistElement = protagonistImage;
   }
 
   /**
@@ -680,6 +759,22 @@ class GameUI {
    */
   getProtagonistElement() {
     return this.protagonistElement;
+  }
+
+  getWalkingSpriteConfig() {
+    return this.walkingSpriteConfig || null;
+  }
+
+  getWalkingSpriteImage() {
+    return this.walkingSpriteImage || null;
+  }
+
+  getProtagonistIdleImage() {
+    return this.protagonistIdleImage || null;
+  }
+
+  getProtagonistWalkingWrap() {
+    return this.protagonistWalkingWrap || null;
   }
 
   /**

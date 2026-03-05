@@ -61,8 +61,8 @@
   </p>
   <div class="controls">
     <label>
-      Background image path (relative to repo root, e.g. <code>assets/maps/candymountain.png</code>):
-      <input type="text" id="bg-input" value="../assets/maps/candymountain.png" />
+      Background image path (from repo root: <code>assets/maps/ninja-castle.png</code>):
+      <input type="text" id="bg-input" value="assets/maps/candymountain.png" placeholder="assets/maps/your-image.png" />
     </label>
     <button type="button" id="load-btn">Load image</button>
     <label><input type="checkbox" id="show-path" checked /> Show path</label>
@@ -115,6 +115,10 @@
         url = url.trim();
         if (!url) return '';
         if (/^https?:\/\//.test(url) || url.startsWith('data:')) return url;
+        // Paths like "assets/maps/..." are relative to repo root; this page is in tools/, so go up one level
+        if (url.startsWith('assets/') && !url.startsWith('../')) {
+          url = '../' + url;
+        }
         try {
           return new URL(url, window.location.href).href;
         } catch (e) {
@@ -123,7 +127,7 @@
       }
 
       function loadImage() {
-        const src = resolveUrl(bgInput.value.trim() || '../assets/maps/candymountain.png');
+        const src = resolveUrl(bgInput.value.trim() || 'assets/maps/candymountain.png');
         if (!src) return;
         points.length = 0;
         updateOutput();

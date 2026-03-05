@@ -1,0 +1,333 @@
+phonological_process,process_category,sound_a,sound_b,position,folder_name,folder_name_slash
+Final Consonant Deletion,Syllable Structure,B,(deleted),Final,Final B Minimal Pairs - Final,B/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,B,(deleted),Initial,Initial B Minimal Pairs - Initial,B/(deleted) Minimal Pairs - Initial
+Final Consonant Devoicing,Assimilation,B,P,Final,B-P Minimal Pairs - Final,B/P Minimal Pairs - Final
+Cluster Reduction,Syllable Structure,BL,B,Initial,BL Cluster Minimal Pairs - Initial,BL Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,BR,B,Initial,BR Cluster Minimal Pairs - Initial,BR Cluster Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,CH,(deleted),Final,Final CH Minimal Pairs - Final,CH/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,CH,(deleted),Initial,Initial CH Minimal Pairs - Initial,CH/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,CH,B,Final,CH-B Minimal Pairs - Final,CH/B Minimal Pairs - Final
+Stopping,Substitution,CH,B,Initial,CH-B Minimal Pairs - Initial,CH/B Minimal Pairs - Initial
+Stopping,Substitution,CH,B,Medial,CH-B Minimal Pairs - Medial,CH/B Minimal Pairs - Medial
+Stopping,Substitution,CH,D,Final,CH-D Minimal Pairs - Final,CH/D Minimal Pairs - Final
+Stopping,Substitution,CH,D,Initial,CH-D Minimal Pairs - Initial,CH/D Minimal Pairs - Initial
+Stopping,Substitution,CH,D,Medial,CH-D Minimal Pairs - Medial,CH/D Minimal Pairs - Medial
+Stopping,Substitution,CH,G,Final,CH-G Minimal Pairs - Final,CH/G Minimal Pairs - Final
+Stopping,Substitution,CH,G,Initial,CH-G Minimal Pairs - Initial,CH/G Minimal Pairs - Initial
+Stopping,Substitution,CH,G,Medial,CH-G Minimal Pairs - Medial,CH/G Minimal Pairs - Medial
+Stopping,Substitution,CH,K,Final,CH-K Minimal Pairs - Final,CH/K Minimal Pairs - Final
+Stopping,Substitution,CH,K,Initial,CH-K Minimal Pairs - Initial,CH/K Minimal Pairs - Initial
+Stopping,Substitution,CH,K,Medial,CH-K Minimal Pairs - Medial,CH/K Minimal Pairs - Medial
+Stopping,Substitution,CH,P,Final,CH-P Minimal Pairs - Final,CH/P Minimal Pairs - Final
+Stopping,Substitution,CH,P,Initial,CH-P Minimal Pairs - Initial,CH/P Minimal Pairs - Initial
+Stopping,Substitution,CH,P,Medial,CH-P Minimal Pairs - Medial,CH/P Minimal Pairs - Medial
+Deaffrication,Substitution,CH,SH,Final,CH-SH Minimal Pairs - Final,CH/SH Minimal Pairs - Final
+Deaffrication,Substitution,CH,SH,Initial,CH-SH Minimal Pairs - Initial,CH/SH Minimal Pairs - Initial
+Deaffrication,Substitution,CH,SH,Medial,CH-SH Minimal Pairs - Medial,CH/SH Minimal Pairs - Medial
+Stopping,Substitution,CH,T,Final,CH-T Minimal Pairs - Final,CH/T Minimal Pairs - Final
+Stopping,Substitution,CH,T,Initial,CH-T Minimal Pairs - Initial,CH/T Minimal Pairs - Initial
+Stopping,Substitution,CH,T,Medial,CH-T Minimal Pairs - Medial,CH/T Minimal Pairs - Medial
+Final Consonant Deletion,Syllable Structure,D,(deleted),Final,Final D Minimal Pairs - Final,D/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,D,(deleted),Initial,Initial D Minimal Pairs - Initial,D/(deleted) Minimal Pairs - Initial
+Backing,Substitution,D,G,Final,D-G Minimal Pairs - Final,D/G Minimal Pairs - Final
+Backing,Substitution,D,G,Initial,D-G Minimal Pairs - Initial,D/G Minimal Pairs - Initial
+Backing,Substitution,D,G,Medial,D-G Minimal Pairs - Medial,D/G Minimal Pairs - Medial
+Affrication,Substitution,D,J,Final,D-J Minimal Pairs - Final,D/J Minimal Pairs - Final
+Affrication,Substitution,D,J,Initial,D-J Minimal Pairs - Initial,D/J Minimal Pairs - Initial
+Affrication,Substitution,D,J,Medial,D-J Minimal Pairs - Medial,D/J Minimal Pairs - Medial
+Final Consonant Devoicing,Assimilation,D,T,Final,D-T Minimal Pairs - Final,D/T Minimal Pairs - Final
+Stopping,Substitution,DH,B,Final,DH-B Minimal Pairs - Final,DH/B Minimal Pairs - Final
+Stopping,Substitution,DH,B,Initial,DH-B Minimal Pairs - Initial,DH/B Minimal Pairs - Initial
+Stopping,Substitution,DH,B,Medial,DH-B Minimal Pairs - Medial,DH/B Minimal Pairs - Medial
+Stopping,Substitution,DH,D,Final,DH-D Minimal Pairs - Final,DH/D Minimal Pairs - Final
+Stopping,Substitution,DH,D,Initial,DH-D Minimal Pairs - Initial,DH/D Minimal Pairs - Initial
+Stopping,Substitution,DH,D,Medial,DH-D Minimal Pairs - Medial,DH/D Minimal Pairs - Medial
+Stopping,Substitution,DH,G,Final,DH-G Minimal Pairs - Final,DH/G Minimal Pairs - Final
+Stopping,Substitution,DH,G,Initial,DH-G Minimal Pairs - Initial,DH/G Minimal Pairs - Initial
+Stopping,Substitution,DH,G,Medial,DH-G Minimal Pairs - Medial,DH/G Minimal Pairs - Medial
+Stopping,Substitution,DH,K,Final,DH-K Minimal Pairs - Final,DH/K Minimal Pairs - Final
+Stopping,Substitution,DH,K,Initial,DH-K Minimal Pairs - Initial,DH/K Minimal Pairs - Initial
+Stopping,Substitution,DH,K,Medial,DH-K Minimal Pairs - Medial,DH/K Minimal Pairs - Medial
+Stopping,Substitution,DH,P,Final,DH-P Minimal Pairs - Final,DH/P Minimal Pairs - Final
+Stopping,Substitution,DH,P,Initial,DH-P Minimal Pairs - Initial,DH/P Minimal Pairs - Initial
+Stopping,Substitution,DH,P,Medial,DH-P Minimal Pairs - Medial,DH/P Minimal Pairs - Medial
+Stopping,Substitution,DH,T,Final,DH-T Minimal Pairs - Final,DH/T Minimal Pairs - Final
+Stopping,Substitution,DH,T,Initial,DH-T Minimal Pairs - Initial,DH/T Minimal Pairs - Initial
+Stopping,Substitution,DH,T,Medial,DH-T Minimal Pairs - Medial,DH/T Minimal Pairs - Medial
+Cluster Reduction,Syllable Structure,DR,D,Initial,DR Cluster Minimal Pairs - Initial,DR Cluster Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,F,(deleted),Final,Final F Minimal Pairs - Final,F/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,F,(deleted),Initial,Initial F Minimal Pairs - Initial,F/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,F,B,Final,F-B Minimal Pairs - Final,F/B Minimal Pairs - Final
+Stopping,Substitution,F,B,Initial,F-B Minimal Pairs - Initial,F/B Minimal Pairs - Initial
+Stopping,Substitution,F,B,Medial,F-B Minimal Pairs - Medial,F/B Minimal Pairs - Medial
+Stopping,Substitution,F,D,Final,F-D Minimal Pairs - Final,F/D Minimal Pairs - Final
+Stopping,Substitution,F,D,Initial,F-D Minimal Pairs - Initial,F/D Minimal Pairs - Initial
+Stopping,Substitution,F,D,Medial,F-D Minimal Pairs - Medial,F/D Minimal Pairs - Medial
+Stopping,Substitution,F,G,Final,F-G Minimal Pairs - Final,F/G Minimal Pairs - Final
+Stopping,Substitution,F,G,Initial,F-G Minimal Pairs - Initial,F/G Minimal Pairs - Initial
+Stopping,Substitution,F,G,Medial,F-G Minimal Pairs - Medial,F/G Minimal Pairs - Medial
+Stopping,Substitution,F,K,Final,F-K Minimal Pairs - Final,F/K Minimal Pairs - Final
+Stopping,Substitution,F,K,Initial,F-K Minimal Pairs - Initial,F/K Minimal Pairs - Initial
+Stopping,Substitution,F,K,Medial,F-K Minimal Pairs - Medial,F/K Minimal Pairs - Medial
+Stopping,Substitution,F,P,Final,F-P Minimal Pairs - Final,F/P Minimal Pairs - Final
+Stopping,Substitution,F,P,Initial,F-P Minimal Pairs - Initial,F/P Minimal Pairs - Initial
+Stopping,Substitution,F,P,Medial,F-P Minimal Pairs - Medial,F/P Minimal Pairs - Medial
+Stopping,Substitution,F,T,Final,F-T Minimal Pairs - Final,F/T Minimal Pairs - Final
+Stopping,Substitution,F,T,Initial,F-T Minimal Pairs - Initial,F/T Minimal Pairs - Initial
+Stopping,Substitution,F,T,Medial,F-T Minimal Pairs - Medial,F/T Minimal Pairs - Medial
+Prevocalic Voicing,Assimilation,F,V,Initial,F-V Minimal Pairs - Initial,F/V Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,FL,F,Initial,FL Cluster Minimal Pairs - Initial,FL Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,FR,F,Initial,FR Cluster Minimal Pairs - Initial,FR Cluster Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,G,(deleted),Final,Final G Minimal Pairs - Final,G/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,G,(deleted),Initial,Initial G Minimal Pairs - Initial,G/(deleted) Minimal Pairs - Initial
+Fronting,Substitution,G,D,Final,G-D Minimal Pairs - Final,G/D Minimal Pairs - Final
+Fronting,Substitution,G,D,Initial,G-D Minimal Pairs - Initial,G/D Minimal Pairs - Initial
+Fronting,Substitution,G,D,Medial,G-D Minimal Pairs - Medial,G/D Minimal Pairs - Medial
+Final Consonant Devoicing,Assimilation,G,K,Final,G-K Minimal Pairs - Final,G/K Minimal Pairs - Final
+Cluster Reduction,Syllable Structure,GL,G,Initial,GL Cluster Minimal Pairs - Initial,GL Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,GR,G,Initial,GR Cluster Minimal Pairs - Initial,GR Cluster Minimal Pairs - Initial
+Initial Consonant Deletion,Syllable Structure,H,(deleted),Initial,Initial H Minimal Pairs - Initial,H/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,H,B,Final,H-B Minimal Pairs - Final,H/B Minimal Pairs - Final
+Stopping,Substitution,H,B,Initial,H-B Minimal Pairs - Initial,H/B Minimal Pairs - Initial
+Stopping,Substitution,H,B,Medial,H-B Minimal Pairs - Medial,H/B Minimal Pairs - Medial
+Stopping,Substitution,H,D,Final,H-D Minimal Pairs - Final,H/D Minimal Pairs - Final
+Stopping,Substitution,H,D,Initial,H-D Minimal Pairs - Initial,H/D Minimal Pairs - Initial
+Stopping,Substitution,H,D,Medial,H-D Minimal Pairs - Medial,H/D Minimal Pairs - Medial
+Stopping,Substitution,H,G,Final,H-G Minimal Pairs - Final,H/G Minimal Pairs - Final
+Stopping,Substitution,H,G,Initial,H-G Minimal Pairs - Initial,H/G Minimal Pairs - Initial
+Stopping,Substitution,H,G,Medial,H-G Minimal Pairs - Medial,H/G Minimal Pairs - Medial
+Stopping,Substitution,H,K,Final,H-K Minimal Pairs - Final,H/K Minimal Pairs - Final
+Stopping,Substitution,H,K,Initial,H-K Minimal Pairs - Initial,H/K Minimal Pairs - Initial
+Stopping,Substitution,H,K,Medial,H-K Minimal Pairs - Medial,H/K Minimal Pairs - Medial
+Stopping,Substitution,H,P,Final,H-P Minimal Pairs - Final,H/P Minimal Pairs - Final
+Stopping,Substitution,H,P,Initial,H-P Minimal Pairs - Initial,H/P Minimal Pairs - Initial
+Stopping,Substitution,H,P,Medial,H-P Minimal Pairs - Medial,H/P Minimal Pairs - Medial
+Stopping,Substitution,H,T,Final,H-T Minimal Pairs - Final,H/T Minimal Pairs - Final
+Stopping,Substitution,H,T,Initial,H-T Minimal Pairs - Initial,H/T Minimal Pairs - Initial
+Stopping,Substitution,H,T,Medial,H-T Minimal Pairs - Medial,H/T Minimal Pairs - Medial
+Initial Consonant Deletion,Syllable Structure,J,(deleted),Initial,Initial J Minimal Pairs - Initial,J/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,J,B,Final,J-B Minimal Pairs - Final,J/B Minimal Pairs - Final
+Stopping,Substitution,J,B,Initial,J-B Minimal Pairs - Initial,J/B Minimal Pairs - Initial
+Stopping,Substitution,J,B,Medial,J-B Minimal Pairs - Medial,J/B Minimal Pairs - Medial
+Stopping,Substitution,J,D,Final,J-D Minimal Pairs - Final,J/D Minimal Pairs - Final
+Stopping,Substitution,J,D,Initial,J-D Minimal Pairs - Initial,J/D Minimal Pairs - Initial
+Stopping,Substitution,J,D,Medial,J-D Minimal Pairs - Medial,J/D Minimal Pairs - Medial
+Stopping,Substitution,J,G,Final,J-G Minimal Pairs - Final,J/G Minimal Pairs - Final
+Stopping,Substitution,J,G,Initial,J-G Minimal Pairs - Initial,J/G Minimal Pairs - Initial
+Stopping,Substitution,J,G,Medial,J-G Minimal Pairs - Medial,J/G Minimal Pairs - Medial
+Stopping,Substitution,J,K,Final,J-K Minimal Pairs - Final,J/K Minimal Pairs - Final
+Stopping,Substitution,J,K,Initial,J-K Minimal Pairs - Initial,J/K Minimal Pairs - Initial
+Stopping,Substitution,J,K,Medial,J-K Minimal Pairs - Medial,J/K Minimal Pairs - Medial
+Stopping,Substitution,J,P,Final,J-P Minimal Pairs - Final,J/P Minimal Pairs - Final
+Stopping,Substitution,J,P,Initial,J-P Minimal Pairs - Initial,J/P Minimal Pairs - Initial
+Stopping,Substitution,J,P,Medial,J-P Minimal Pairs - Medial,J/P Minimal Pairs - Medial
+Stopping,Substitution,J,T,Final,J-T Minimal Pairs - Final,J/T Minimal Pairs - Final
+Stopping,Substitution,J,T,Initial,J-T Minimal Pairs - Initial,J/T Minimal Pairs - Initial
+Stopping,Substitution,J,T,Medial,J-T Minimal Pairs - Medial,J/T Minimal Pairs - Medial
+Deaffrication,Substitution,J,Z,Final,J-Z Minimal Pairs - Final,J/Z Minimal Pairs - Final
+Deaffrication,Substitution,J,Z,Initial,J-Z Minimal Pairs - Initial,J/Z Minimal Pairs - Initial
+Deaffrication,Substitution,J,Z,Medial,J-Z Minimal Pairs - Medial,J/Z Minimal Pairs - Medial
+Final Consonant Deletion,Syllable Structure,K,(deleted),Final,Final K Minimal Pairs - Final,K/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,K,(deleted),Initial,Initial K Minimal Pairs - Initial,K/(deleted) Minimal Pairs - Initial
+Prevocalic Voicing,Assimilation,K,G,Initial,K-G Minimal Pairs - Initial,K/G Minimal Pairs - Initial
+Fronting,Substitution,K,T,Final,K-T Minimal Pairs - Final,K/T Minimal Pairs - Final
+Fronting,Substitution,K,T,Initial,K-T Minimal Pairs - Initial,K/T Minimal Pairs - Initial
+Fronting,Substitution,K,T,Medial,K-T Minimal Pairs - Medial,K/T Minimal Pairs - Medial
+Cluster Reduction,Syllable Structure,KL,K,Initial,KL Cluster Minimal Pairs - Initial,KL Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,KR,K,Initial,KR Cluster Minimal Pairs - Initial,KR Cluster Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,L,(deleted),Final,Final L Minimal Pairs - Final,L/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,L,(deleted),Initial,Initial L Minimal Pairs - Initial,L/(deleted) Minimal Pairs - Initial
+Vowelization,Substitution,L,UH,Final,L-UH Minimal Pairs - Final,L/UH Minimal Pairs - Final
+Vowelization,Substitution,L,UH,Initial,L-UH Minimal Pairs - Initial,L/UH Minimal Pairs - Initial
+Vowelization,Substitution,L,UH,Medial,L-UH Minimal Pairs - Medial,L/UH Minimal Pairs - Medial
+Gliding,Substitution,L,W,Final,L-W Minimal Pairs - Final,L/W Minimal Pairs - Final
+Gliding,Substitution,L,W,Initial,L-W Minimal Pairs - Initial,L/W Minimal Pairs - Initial
+Gliding,Substitution,L,W,Medial,L-W Minimal Pairs - Medial,L/W Minimal Pairs - Medial
+Gliding,Substitution,L,Y,Final,L-Y Minimal Pairs - Final,L/Y Minimal Pairs - Final
+Gliding,Substitution,L,Y,Initial,L-Y Minimal Pairs - Initial,L/Y Minimal Pairs - Initial
+Gliding,Substitution,L,Y,Medial,L-Y Minimal Pairs - Medial,L/Y Minimal Pairs - Medial
+Final Consonant Deletion,Syllable Structure,M,(deleted),Final,Final M Minimal Pairs - Final,M/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,M,(deleted),Initial,Initial M Minimal Pairs - Initial,M/(deleted) Minimal Pairs - Initial
+Denasalization,Assimilation,M,B,Final,M-B Minimal Pairs - Final,M/B Minimal Pairs - Final
+Denasalization,Assimilation,M,B,Initial,M-B Minimal Pairs - Initial,M/B Minimal Pairs - Initial
+Denasalization,Assimilation,M,B,Medial,M-B Minimal Pairs - Medial,M/B Minimal Pairs - Medial
+Final Consonant Deletion,Syllable Structure,N,(deleted),Final,Final N Minimal Pairs - Final,N/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,N,(deleted),Initial,Initial N Minimal Pairs - Initial,N/(deleted) Minimal Pairs - Initial
+Denasalization,Assimilation,N,D,Final,N-D Minimal Pairs - Final,N/D Minimal Pairs - Final
+Denasalization,Assimilation,N,D,Initial,N-D Minimal Pairs - Initial,N/D Minimal Pairs - Initial
+Denasalization,Assimilation,N,D,Medial,N-D Minimal Pairs - Medial,N/D Minimal Pairs - Medial
+Final Consonant Deletion,Syllable Structure,NG,(deleted),Final,Final NG Minimal Pairs - Final,NG/(deleted) Minimal Pairs - Final
+Denasalization,Assimilation,NG,G,Final,NG-G Minimal Pairs - Final,NG/G Minimal Pairs - Final
+Denasalization,Assimilation,NG,G,Initial,NG-G Minimal Pairs - Initial,NG/G Minimal Pairs - Initial
+Denasalization,Assimilation,NG,G,Medial,NG-G Minimal Pairs - Medial,NG/G Minimal Pairs - Medial
+Fronting,Substitution,NG,N,Final,NG-N Minimal Pairs - Final,NG/N Minimal Pairs - Final
+Fronting,Substitution,NG,N,Initial,NG-N Minimal Pairs - Initial,NG/N Minimal Pairs - Initial
+Fronting,Substitution,NG,N,Medial,NG-N Minimal Pairs - Medial,NG/N Minimal Pairs - Medial
+Final Consonant Deletion,Syllable Structure,P,(deleted),Final,Final P Minimal Pairs - Final,P/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,P,(deleted),Initial,Initial P Minimal Pairs - Initial,P/(deleted) Minimal Pairs - Initial
+Prevocalic Voicing,Assimilation,P,B,Initial,P-B Minimal Pairs - Initial,P/B Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,PL,P,Initial,PL Cluster Minimal Pairs - Initial,PL Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,PR,P,Initial,PR Cluster Minimal Pairs - Initial,PR Cluster Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,R,(deleted),Final,Final R Minimal Pairs - Final,R/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,R,(deleted),Initial,Initial R Minimal Pairs - Initial,R/(deleted) Minimal Pairs - Initial
+Vowelization,Substitution,R,ER,Final,R-ER Minimal Pairs - Final,R/ER Minimal Pairs - Final
+Vowelization,Substitution,R,ER,Initial,R-ER Minimal Pairs - Initial,R/ER Minimal Pairs - Initial
+Vowelization,Substitution,R,ER,Medial,R-ER Minimal Pairs - Medial,R/ER Minimal Pairs - Medial
+Gliding,Substitution,R,W,Final,R-W Minimal Pairs - Final,R/W Minimal Pairs - Final
+Gliding,Substitution,R,W,Initial,R-W Minimal Pairs - Initial,R/W Minimal Pairs - Initial
+Gliding,Substitution,R,W,Medial,R-W Minimal Pairs - Medial,R/W Minimal Pairs - Medial
+Gliding,Substitution,R,Y,Final,R-Y Minimal Pairs - Final,R/Y Minimal Pairs - Final
+Gliding,Substitution,R,Y,Initial,R-Y Minimal Pairs - Initial,R/Y Minimal Pairs - Initial
+Gliding,Substitution,R,Y,Medial,R-Y Minimal Pairs - Medial,R/Y Minimal Pairs - Medial
+Final Consonant Deletion,Syllable Structure,S,(deleted),Final,Final S Minimal Pairs - Final,S/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,S,(deleted),Initial,Initial S Minimal Pairs - Initial,S/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,S,B,Final,S-B Minimal Pairs - Final,S/B Minimal Pairs - Final
+Stopping,Substitution,S,B,Initial,S-B Minimal Pairs - Initial,S/B Minimal Pairs - Initial
+Stopping,Substitution,S,B,Medial,S-B Minimal Pairs - Medial,S/B Minimal Pairs - Medial
+Affrication,Substitution,S,CH,Final,S-CH Minimal Pairs - Final,S/CH Minimal Pairs - Final
+Affrication,Substitution,S,CH,Initial,S-CH Minimal Pairs - Initial,S/CH Minimal Pairs - Initial
+Affrication,Substitution,S,CH,Medial,S-CH Minimal Pairs - Medial,S/CH Minimal Pairs - Medial
+Stopping,Substitution,S,D,Final,S-D Minimal Pairs - Final,S/D Minimal Pairs - Final
+Stopping,Substitution,S,D,Initial,S-D Minimal Pairs - Initial,S/D Minimal Pairs - Initial
+Stopping,Substitution,S,D,Medial,S-D Minimal Pairs - Medial,S/D Minimal Pairs - Medial
+Stopping,Substitution,S,G,Final,S-G Minimal Pairs - Final,S/G Minimal Pairs - Final
+Stopping,Substitution,S,G,Initial,S-G Minimal Pairs - Initial,S/G Minimal Pairs - Initial
+Stopping,Substitution,S,G,Medial,S-G Minimal Pairs - Medial,S/G Minimal Pairs - Medial
+Stopping,Substitution,S,K,Final,S-K Minimal Pairs - Final,S/K Minimal Pairs - Final
+Stopping,Substitution,S,K,Initial,S-K Minimal Pairs - Initial,S/K Minimal Pairs - Initial
+Stopping,Substitution,S,K,Medial,S-K Minimal Pairs - Medial,S/K Minimal Pairs - Medial
+Stopping,Substitution,S,P,Final,S-P Minimal Pairs - Final,S/P Minimal Pairs - Final
+Stopping,Substitution,S,P,Initial,S-P Minimal Pairs - Initial,S/P Minimal Pairs - Initial
+Stopping,Substitution,S,P,Medial,S-P Minimal Pairs - Medial,S/P Minimal Pairs - Medial
+Stopping,Substitution,S,T,Final,S-T Minimal Pairs - Final,S/T Minimal Pairs - Final
+Stopping,Substitution,S,T,Initial,S-T Minimal Pairs - Initial,S/T Minimal Pairs - Initial
+Stopping,Substitution,S,T,Medial,S-T Minimal Pairs - Medial,S/T Minimal Pairs - Medial
+Prevocalic Voicing,Assimilation,S,Z,Initial,S-Z Minimal Pairs - Initial,S/Z Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,SH,(deleted),Final,Final SH Minimal Pairs - Final,SH/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,SH,(deleted),Initial,Initial SH Minimal Pairs - Initial,SH/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,SH,B,Final,SH-B Minimal Pairs - Final,SH/B Minimal Pairs - Final
+Stopping,Substitution,SH,B,Initial,SH-B Minimal Pairs - Initial,SH/B Minimal Pairs - Initial
+Stopping,Substitution,SH,B,Medial,SH-B Minimal Pairs - Medial,SH/B Minimal Pairs - Medial
+Affrication,Substitution,SH,CH,Final,SH-CH Minimal Pairs - Final,SH/CH Minimal Pairs - Final
+Affrication,Substitution,SH,CH,Initial,SH-CH Minimal Pairs - Initial,SH/CH Minimal Pairs - Initial
+Affrication,Substitution,SH,CH,Medial,SH-CH Minimal Pairs - Medial,SH/CH Minimal Pairs - Medial
+Stopping,Substitution,SH,D,Final,SH-D Minimal Pairs - Final,SH/D Minimal Pairs - Final
+Stopping,Substitution,SH,D,Initial,SH-D Minimal Pairs - Initial,SH/D Minimal Pairs - Initial
+Stopping,Substitution,SH,D,Medial,SH-D Minimal Pairs - Medial,SH/D Minimal Pairs - Medial
+Stopping,Substitution,SH,G,Final,SH-G Minimal Pairs - Final,SH/G Minimal Pairs - Final
+Stopping,Substitution,SH,G,Initial,SH-G Minimal Pairs - Initial,SH/G Minimal Pairs - Initial
+Stopping,Substitution,SH,G,Medial,SH-G Minimal Pairs - Medial,SH/G Minimal Pairs - Medial
+Stopping,Substitution,SH,K,Final,SH-K Minimal Pairs - Final,SH/K Minimal Pairs - Final
+Stopping,Substitution,SH,K,Initial,SH-K Minimal Pairs - Initial,SH/K Minimal Pairs - Initial
+Stopping,Substitution,SH,K,Medial,SH-K Minimal Pairs - Medial,SH/K Minimal Pairs - Medial
+Stopping,Substitution,SH,P,Final,SH-P Minimal Pairs - Final,SH/P Minimal Pairs - Final
+Stopping,Substitution,SH,P,Initial,SH-P Minimal Pairs - Initial,SH/P Minimal Pairs - Initial
+Stopping,Substitution,SH,P,Medial,SH-P Minimal Pairs - Medial,SH/P Minimal Pairs - Medial
+Depalatalization,Substitution,SH,S,Final,SH-S Minimal Pairs - Final,SH/S Minimal Pairs - Final
+Depalatalization,Substitution,SH,S,Initial,SH-S Minimal Pairs - Initial,SH/S Minimal Pairs - Initial
+Depalatalization,Substitution,SH,S,Medial,SH-S Minimal Pairs - Medial,SH/S Minimal Pairs - Medial
+Stopping,Substitution,SH,T,Final,SH-T Minimal Pairs - Final,SH/T Minimal Pairs - Final
+Stopping,Substitution,SH,T,Initial,SH-T Minimal Pairs - Initial,SH/T Minimal Pairs - Initial
+Stopping,Substitution,SH,T,Medial,SH-T Minimal Pairs - Medial,SH/T Minimal Pairs - Medial
+Cluster Reduction,Syllable Structure,SK,K,Initial,SK Cluster Minimal Pairs - Initial,SK Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,SL,L,Initial,SL Cluster Minimal Pairs - Initial,SL Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,SM,M,Initial,SM Cluster Minimal Pairs - Initial,SM Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,SN,N,Initial,SN Cluster Minimal Pairs - Initial,SN Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,SP,P,Initial,SP Cluster Minimal Pairs - Initial,SP Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,ST,T,Initial,ST Cluster Minimal Pairs - Initial,ST Cluster Minimal Pairs - Initial
+Cluster Reduction,Syllable Structure,SW,W,Initial,SW Cluster Minimal Pairs - Initial,SW Cluster Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,T,(deleted),Final,Final T Minimal Pairs - Final,T/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,T,(deleted),Initial,Initial T Minimal Pairs - Initial,T/(deleted) Minimal Pairs - Initial
+Affrication,Substitution,T,CH,Final,T-CH Minimal Pairs - Final,T/CH Minimal Pairs - Final
+Affrication,Substitution,T,CH,Initial,T-CH Minimal Pairs - Initial,T/CH Minimal Pairs - Initial
+Affrication,Substitution,T,CH,Medial,T-CH Minimal Pairs - Medial,T/CH Minimal Pairs - Medial
+Prevocalic Voicing,Assimilation,T,D,Initial,T-D Minimal Pairs - Initial,T/D Minimal Pairs - Initial
+Backing,Substitution,T,K,Final,T-K Minimal Pairs - Final,T/K Minimal Pairs - Final
+Backing,Substitution,T,K,Initial,T-K Minimal Pairs - Initial,T/K Minimal Pairs - Initial
+Backing,Substitution,T,K,Medial,T-K Minimal Pairs - Medial,T/K Minimal Pairs - Medial
+Final Consonant Deletion,Syllable Structure,TH,(deleted),Final,Final TH Minimal Pairs - Final,TH/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,TH,(deleted),Initial,Initial TH Minimal Pairs - Initial,TH/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,TH,B,Final,TH-B Minimal Pairs - Final,TH/B Minimal Pairs - Final
+Stopping,Substitution,TH,B,Initial,TH-B Minimal Pairs - Initial,TH/B Minimal Pairs - Initial
+Stopping,Substitution,TH,B,Medial,TH-B Minimal Pairs - Medial,TH/B Minimal Pairs - Medial
+Stopping,Substitution,TH,D,Final,TH-D Minimal Pairs - Final,TH/D Minimal Pairs - Final
+Stopping,Substitution,TH,D,Initial,TH-D Minimal Pairs - Initial,TH/D Minimal Pairs - Initial
+Stopping,Substitution,TH,D,Medial,TH-D Minimal Pairs - Medial,TH/D Minimal Pairs - Medial
+Labialization,Substitution,TH,F,Final,TH-F Minimal Pairs - Final,TH/F Minimal Pairs - Final
+Labialization,Substitution,TH,F,Initial,TH-F Minimal Pairs - Initial,TH/F Minimal Pairs - Initial
+Labialization,Substitution,TH,F,Medial,TH-F Minimal Pairs - Medial,TH/F Minimal Pairs - Medial
+Stopping,Substitution,TH,G,Final,TH-G Minimal Pairs - Final,TH/G Minimal Pairs - Final
+Stopping,Substitution,TH,G,Initial,TH-G Minimal Pairs - Initial,TH/G Minimal Pairs - Initial
+Stopping,Substitution,TH,G,Medial,TH-G Minimal Pairs - Medial,TH/G Minimal Pairs - Medial
+Stopping,Substitution,TH,K,Final,TH-K Minimal Pairs - Final,TH/K Minimal Pairs - Final
+Stopping,Substitution,TH,K,Initial,TH-K Minimal Pairs - Initial,TH/K Minimal Pairs - Initial
+Stopping,Substitution,TH,K,Medial,TH-K Minimal Pairs - Medial,TH/K Minimal Pairs - Medial
+Stopping,Substitution,TH,P,Final,TH-P Minimal Pairs - Final,TH/P Minimal Pairs - Final
+Stopping,Substitution,TH,P,Initial,TH-P Minimal Pairs - Initial,TH/P Minimal Pairs - Initial
+Stopping,Substitution,TH,P,Medial,TH-P Minimal Pairs - Medial,TH/P Minimal Pairs - Medial
+Stopping,Substitution,TH,T,Final,TH-T Minimal Pairs - Final,TH/T Minimal Pairs - Final
+Stopping,Substitution,TH,T,Initial,TH-T Minimal Pairs - Initial,TH/T Minimal Pairs - Initial
+Stopping,Substitution,TH,T,Medial,TH-T Minimal Pairs - Medial,TH/T Minimal Pairs - Medial
+Cluster Reduction,Syllable Structure,TR,T,Initial,TR Cluster Minimal Pairs - Initial,TR Cluster Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,V,(deleted),Final,Final V Minimal Pairs - Final,V/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,V,(deleted),Initial,Initial V Minimal Pairs - Initial,V/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,V,B,Final,V-B Minimal Pairs - Final,V/B Minimal Pairs - Final
+Stopping,Substitution,V,B,Initial,V-B Minimal Pairs - Initial,V/B Minimal Pairs - Initial
+Stopping,Substitution,V,B,Medial,V-B Minimal Pairs - Medial,V/B Minimal Pairs - Medial
+Stopping,Substitution,V,D,Final,V-D Minimal Pairs - Final,V/D Minimal Pairs - Final
+Stopping,Substitution,V,D,Initial,V-D Minimal Pairs - Initial,V/D Minimal Pairs - Initial
+Stopping,Substitution,V,D,Medial,V-D Minimal Pairs - Medial,V/D Minimal Pairs - Medial
+Final Consonant Devoicing,Assimilation,V,F,Final,V-F Minimal Pairs - Final,V/F Minimal Pairs - Final
+Stopping,Substitution,V,G,Final,V-G Minimal Pairs - Final,V/G Minimal Pairs - Final
+Stopping,Substitution,V,G,Initial,V-G Minimal Pairs - Initial,V/G Minimal Pairs - Initial
+Stopping,Substitution,V,G,Medial,V-G Minimal Pairs - Medial,V/G Minimal Pairs - Medial
+Stopping,Substitution,V,K,Final,V-K Minimal Pairs - Final,V/K Minimal Pairs - Final
+Stopping,Substitution,V,K,Initial,V-K Minimal Pairs - Initial,V/K Minimal Pairs - Initial
+Stopping,Substitution,V,K,Medial,V-K Minimal Pairs - Medial,V/K Minimal Pairs - Medial
+Stopping,Substitution,V,P,Final,V-P Minimal Pairs - Final,V/P Minimal Pairs - Final
+Stopping,Substitution,V,P,Initial,V-P Minimal Pairs - Initial,V/P Minimal Pairs - Initial
+Stopping,Substitution,V,P,Medial,V-P Minimal Pairs - Medial,V/P Minimal Pairs - Medial
+Stopping,Substitution,V,T,Final,V-T Minimal Pairs - Final,V/T Minimal Pairs - Final
+Stopping,Substitution,V,T,Initial,V-T Minimal Pairs - Initial,V/T Minimal Pairs - Initial
+Stopping,Substitution,V,T,Medial,V-T Minimal Pairs - Medial,V/T Minimal Pairs - Medial
+Initial Consonant Deletion,Syllable Structure,W,(deleted),Initial,Initial W Minimal Pairs - Initial,W/(deleted) Minimal Pairs - Initial
+Initial Consonant Deletion,Syllable Structure,Y,(deleted),Initial,Initial Y Minimal Pairs - Initial,Y/(deleted) Minimal Pairs - Initial
+Final Consonant Deletion,Syllable Structure,Z,(deleted),Final,Final Z Minimal Pairs - Final,Z/(deleted) Minimal Pairs - Final
+Initial Consonant Deletion,Syllable Structure,Z,(deleted),Initial,Initial Z Minimal Pairs - Initial,Z/(deleted) Minimal Pairs - Initial
+Stopping,Substitution,Z,B,Final,Z-B Minimal Pairs - Final,Z/B Minimal Pairs - Final
+Stopping,Substitution,Z,B,Initial,Z-B Minimal Pairs - Initial,Z/B Minimal Pairs - Initial
+Stopping,Substitution,Z,B,Medial,Z-B Minimal Pairs - Medial,Z/B Minimal Pairs - Medial
+Stopping,Substitution,Z,D,Final,Z-D Minimal Pairs - Final,Z/D Minimal Pairs - Final
+Stopping,Substitution,Z,D,Initial,Z-D Minimal Pairs - Initial,Z/D Minimal Pairs - Initial
+Stopping,Substitution,Z,D,Medial,Z-D Minimal Pairs - Medial,Z/D Minimal Pairs - Medial
+Stopping,Substitution,Z,G,Final,Z-G Minimal Pairs - Final,Z/G Minimal Pairs - Final
+Stopping,Substitution,Z,G,Initial,Z-G Minimal Pairs - Initial,Z/G Minimal Pairs - Initial
+Stopping,Substitution,Z,G,Medial,Z-G Minimal Pairs - Medial,Z/G Minimal Pairs - Medial
+Stopping,Substitution,Z,K,Final,Z-K Minimal Pairs - Final,Z/K Minimal Pairs - Final
+Stopping,Substitution,Z,K,Initial,Z-K Minimal Pairs - Initial,Z/K Minimal Pairs - Initial
+Stopping,Substitution,Z,K,Medial,Z-K Minimal Pairs - Medial,Z/K Minimal Pairs - Medial
+Stopping,Substitution,Z,P,Final,Z-P Minimal Pairs - Final,Z/P Minimal Pairs - Final
+Stopping,Substitution,Z,P,Initial,Z-P Minimal Pairs - Initial,Z/P Minimal Pairs - Initial
+Stopping,Substitution,Z,P,Medial,Z-P Minimal Pairs - Medial,Z/P Minimal Pairs - Medial
+Final Consonant Devoicing,Assimilation,Z,S,Final,Z-S Minimal Pairs - Final,Z/S Minimal Pairs - Final
+Stopping,Substitution,Z,T,Final,Z-T Minimal Pairs - Final,Z/T Minimal Pairs - Final
+Stopping,Substitution,Z,T,Initial,Z-T Minimal Pairs - Initial,Z/T Minimal Pairs - Initial
+Stopping,Substitution,Z,T,Medial,Z-T Minimal Pairs - Medial,Z/T Minimal Pairs - Medial
+Stopping,Substitution,ZH,B,Final,ZH-B Minimal Pairs - Final,ZH/B Minimal Pairs - Final
+Stopping,Substitution,ZH,B,Initial,ZH-B Minimal Pairs - Initial,ZH/B Minimal Pairs - Initial
+Stopping,Substitution,ZH,B,Medial,ZH-B Minimal Pairs - Medial,ZH/B Minimal Pairs - Medial
+Stopping,Substitution,ZH,D,Final,ZH-D Minimal Pairs - Final,ZH/D Minimal Pairs - Final
+Stopping,Substitution,ZH,D,Initial,ZH-D Minimal Pairs - Initial,ZH/D Minimal Pairs - Initial
+Stopping,Substitution,ZH,D,Medial,ZH-D Minimal Pairs - Medial,ZH/D Minimal Pairs - Medial
+Stopping,Substitution,ZH,G,Final,ZH-G Minimal Pairs - Final,ZH/G Minimal Pairs - Final
+Stopping,Substitution,ZH,G,Initial,ZH-G Minimal Pairs - Initial,ZH/G Minimal Pairs - Initial
+Stopping,Substitution,ZH,G,Medial,ZH-G Minimal Pairs - Medial,ZH/G Minimal Pairs - Medial
+Stopping,Substitution,ZH,K,Final,ZH-K Minimal Pairs - Final,ZH/K Minimal Pairs - Final
+Stopping,Substitution,ZH,K,Initial,ZH-K Minimal Pairs - Initial,ZH/K Minimal Pairs - Initial
+Stopping,Substitution,ZH,K,Medial,ZH-K Minimal Pairs - Medial,ZH/K Minimal Pairs - Medial
+Stopping,Substitution,ZH,P,Final,ZH-P Minimal Pairs - Final,ZH/P Minimal Pairs - Final
+Stopping,Substitution,ZH,P,Initial,ZH-P Minimal Pairs - Initial,ZH/P Minimal Pairs - Initial
+Stopping,Substitution,ZH,P,Medial,ZH-P Minimal Pairs - Medial,ZH/P Minimal Pairs - Medial
+Stopping,Substitution,ZH,T,Final,ZH-T Minimal Pairs - Final,ZH/T Minimal Pairs - Final
+Stopping,Substitution,ZH,T,Initial,ZH-T Minimal Pairs - Initial,ZH/T Minimal Pairs - Initial
+Stopping,Substitution,ZH,T,Medial,ZH-T Minimal Pairs - Medial,ZH/T Minimal Pairs - Medial

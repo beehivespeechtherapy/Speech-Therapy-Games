@@ -16,6 +16,11 @@ class PathAnimator {
   init() {
     this.protagonistElement = this.ui.getProtagonistElement();
     this.checkpoints = this.ui.getCheckpoints();
+    this.walkingSpriteConfig = this.ui.getWalkingSpriteConfig();
+    this.walkingSpriteImage = this.ui.getWalkingSpriteImage();
+    this.protagonistIdleImage = this.ui.getProtagonistIdleImage();
+    this.protagonistWalkingWrap = this.ui.getProtagonistWalkingWrap();
+    this.useSpriteSheet = !!(this.walkingSpriteConfig && this.walkingSpriteImage);
   }
 
   /**
@@ -24,6 +29,29 @@ class PathAnimator {
    * @param {number} duration - Animation duration in milliseconds
    * @returns {Promise} - Resolves when animation completes
    */
+  _getPosition() {
+    if (!this.protagonistElement) return { x: 0, y: 0 };
+    const t = this.protagonistElement.getAttribute('transform');
+    if (t) {
+      const m = t.match(/translate\s*\(\s*([-\d.]+)\s*[, ]\s*([-\d.]+)\s*\)/);
+      if (m) return { x: parseFloat(m[1]), y: parseFloat(m[2]) };
+    }
+    return {
+      x: parseFloat(this.protagonistElement.getAttribute('x')) || 0,
+      y: parseFloat(this.protagonistElement.getAttribute('y')) || 0
+    };
+  }
+
+  _setPosition(x, y) {
+    if (!this.protagonistElement) return;
+    if (this.useSpriteSheet && this.protagonistElement.tagName && this.protagonistElement.tagName.toLowerCase() === 'g') {
+      this.protagonistElement.setAttribute('transform', `translate(${x}, ${y})`);
+    } else {
+      this.protagonistElement.setAttribute('x', x);
+      this.protagonistElement.setAttribute('y', y);
+    }
+  }
+
   moveToPosition(position, duration = 800) {
     return new Promise((resolve) => {
       if (!this.protagonistElement || !this.checkpoints || position < 0 || position >= this.checkpoints.length) {
@@ -33,24 +61,26 @@ class PathAnimator {
       }
 
       const checkpoint = this.checkpoints[position];
+      const centerOffset = 30;
+      const targetX = checkpoint.x - centerOffset;
+      const targetY = checkpoint.y - centerOffset;
 
-      // Update protagonist image to walking
       this.setAnimationState('walking');
 
-      // Get current position
-      const currentX = parseFloat(this.protagonistElement.getAttribute('x')) || 0;
-      const currentY = parseFloat(this.protagonistElement.getAttribute('y')) || 0;
+      const pos = this._getPosition();
+      const currentX = pos.x;
+      const currentY = pos.y;
 
-      // Animate using SVG attributes
       const startTime = Date.now();
-      const targetX = checkpoint.x - 30; // Center the 60x60 image
-      const targetY = checkpoint.y - 30;
+      let lastFrameTime = startTime;
+      let frameIndex = 0;
+      const spriteConfig = this.walkingSpriteConfig;
+      const frameDuration = spriteConfig ? Math.max(50, duration / (spriteConfig.frames * 2)) : 0;
 
       const animate = () => {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        // Ease-in-out function
         const easeProgress = progress < 0.5
           ? 2 * progress * progress
           : 1 - Math.pow(-2 * progress + 2, 2) / 2;
@@ -58,13 +88,24 @@ class PathAnimator {
         const x = currentX + (targetX - currentX) * easeProgress;
         const y = currentY + (targetY - currentY) * easeProgress;
 
-        this.protagonistElement.setAttribute('x', x);
-        this.protagonistElement.setAttribute('y', y);
+        this._setPosition(x, y);
+
+        if (spriteConfig && this.walkingSpriteImage) {
+          const now = Date.now();
+          if (now - lastFrameTime >= frameDuration) {
+            lastFrameTime = now;
+            frameIndex = (frameIndex + 1) % spriteConfig.frames;
+            const cols = spriteConfig.columns || spriteConfig.frames;
+            const frameX = (frameIndex % cols) * spriteConfig.frameWidth;
+            const frameY = Math.floor(frameIndex / cols) * spriteConfig.frameHeight;
+            this.walkingSpriteImage.setAttribute('x', -frameX);
+            this.walkingSpriteImage.setAttribute('y', -frameY);
+          }
+        }
 
         if (progress < 1) {
           requestAnimationFrame(animate);
         } else {
-          // After animation completes, return to idle
           this.setAnimationState('idle');
           resolve();
         }
@@ -83,13 +124,25 @@ class PathAnimator {
 
     this.currentAnimationState = state;
 
-    // Update image source based on state (SVG image element)
-    const protagonistImages = this.ui.protagonistImages || {};
-    const imagePath = protagonistImages[state] || `../../assets/protagonist/${state}.png`;
-    this.protagonistElement.setAttribute('href', imagePath);
-
-    // Update class for additional CSS animations
-    this.protagonistElement.setAttribute('class', `protagonist-svg-image ${state}`);
+    if (this.useSpriteSheet && this.protagonistIdleImage && this.protagonistWalkingWrap) {
+      if (state === 'walking') {
+        // Keep idle visible during walk so ninja is never invisible (walking sprite has rendering issues)
+        this.protagonistIdleImage.setAttribute('visibility', 'visible');
+        this.protagonistWalkingWrap.setAttribute('visibility', 'hidden');
+      } else {
+        this.protagonistIdleImage.setAttribute('visibility', 'visible');
+        this.protagonistWalkingWrap.setAttribute('visibility', 'hidden');
+        const protagonistImages = this.ui.protagonistImages || {};
+        const imagePath = protagonistImages[state] || `../../assets/protagonist/${state}.png`;
+        this.protagonistIdleImage.setAttribute('href', imagePath);
+      }
+      this.protagonistElement.setAttribute('class', 'protagonist-group ' + state);
+    } else {
+      const protagonistImages = this.ui.protagonistImages || {};
+      const imagePath = protagonistImages[state] || `../../assets/protagonist/${state}.png`;
+      this.protagonistElement.setAttribute('href', imagePath);
+      this.protagonistElement.setAttribute('class', `protagonist-svg-image ${state}`);
+    }
   }
 
   /**
@@ -103,14 +156,12 @@ class PathAnimator {
         return;
       }
 
-      // Set to celebrating state
       this.setAnimationState('celebrating');
 
-      // Get current position
-      const currentX = parseFloat(this.protagonistElement.getAttribute('x')) || 0;
-      const currentY = parseFloat(this.protagonistElement.getAttribute('y')) || 0;
-      const centerX = currentX + 30; // Center of 60x60 image
-      const centerY = currentY + 30;
+      const pos = this._getPosition();
+      const centerOffset = 30;
+      const centerX = pos.x + centerOffset;
+      const centerY = pos.y + centerOffset;
 
       // Energetic bouncing and rotating animation
       const startTime = Date.now();
@@ -138,8 +189,10 @@ class PathAnimator {
 
           requestAnimationFrame(animate);
         } else {
-          // Reset transform
           this.protagonistElement.removeAttribute('transform');
+          if (this.useSpriteSheet && this.protagonistElement.tagName && this.protagonistElement.tagName.toLowerCase() === 'g') {
+            this._setPosition(pos.x, pos.y);
+          }
           resolve();
         }
       };

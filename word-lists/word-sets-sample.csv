@@ -1,0 +1,21 @@
+setId,setLabel,prompt,targetSound,contrastSound,folder,word1,word2
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,can,tan
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,cap,tap
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,cape,tape
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,car,tar
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,cart,tart
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,cod,todd
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,code,toad
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,cop,top
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,core,tore
+tk-k1,T/K Minimal Pairs - Initial K,Which word has the /k/ sound?,k,t,T:K Minimal Pairs - Initial,cub,tub
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,tan,can
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,tap,cap
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,tape,cape
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,tar,car
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,tart,cart
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,todd,cod
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,toad,code
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,top,cop
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,tore,core
+tk-t1,T/K Minimal Pairs - Initial T,Which word has the /t/ sound?,t,k,T:K Minimal Pairs - Initial,tub,cub

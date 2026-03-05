@@ -4,6 +4,15 @@ A web-based framework for creating interactive speech therapy games focused on m
 
 ---
 
+## 🛠 Tools
+
+- **[Word list tool](tools/word-list-tool.html)** — Convert your word-pair CSV (e.g. from Google Sheets) into `word-lists/word-sets.json`. All games in the repo use this file for their word sets, so you maintain one list and every game stays in sync. See [word-lists/README.md](word-lists/README.md) for CSV format and workflow.
+- **[Map coordinate picker](tools/map-coordinate-picker.html)** — Click on a background image to get coordinates for placing waypoints in a game’s `config.json`.
+
+Open the tool HTML files in a browser (e.g. after running a local server from the project root).
+
+---
+
 ## 🎯 Complete Tutorial: Creating a T vs D Game from Scratch
 
 This tutorial walks through every step of creating a new minimal pairs game, from setup to deployment. We'll create a "T vs D Sounds" game with a ninja dojo theme as our example.

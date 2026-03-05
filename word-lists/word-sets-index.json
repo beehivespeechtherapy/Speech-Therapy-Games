@@ -1,0 +1,4684 @@
+{
+  "byProcess": {
+    "Affrication": [
+      {
+        "folder": "D:J Minimal Pairs - Final",
+        "label": "D/J – Final",
+        "sound_a": "D",
+        "sound_b": "J",
+        "position": "Final"
+      },
+      {
+        "folder": "D:J Minimal Pairs - Initial",
+        "label": "D/J – Initial",
+        "sound_a": "D",
+        "sound_b": "J",
+        "position": "Initial"
+      },
+      {
+        "folder": "D:J Minimal Pairs - Medial",
+        "label": "D/J – Medial",
+        "sound_a": "D",
+        "sound_b": "J",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:CH Minimal Pairs - Final",
+        "label": "S/CH – Final",
+        "sound_a": "S",
+        "sound_b": "CH",
+        "position": "Final"
+      },
+      {
+        "folder": "S:CH Minimal Pairs - Initial",
+        "label": "S/CH – Initial",
+        "sound_a": "S",
+        "sound_b": "CH",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:CH Minimal Pairs - Medial",
+        "label": "S/CH – Medial",
+        "sound_a": "S",
+        "sound_b": "CH",
+        "position": "Medial"
+      },
+      {
+        "folder": "SH:CH Minimal Pairs - Final",
+        "label": "SH/CH – Final",
+        "sound_a": "SH",
+        "sound_b": "CH",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:CH Minimal Pairs - Initial",
+        "label": "SH/CH – Initial",
+        "sound_a": "SH",
+        "sound_b": "CH",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:CH Minimal Pairs - Medial",
+        "label": "SH/CH – Medial",
+        "sound_a": "SH",
+        "sound_b": "CH",
+        "position": "Medial"
+      },
+      {
+        "folder": "T:CH Minimal Pairs - Final",
+        "label": "T/CH – Final",
+        "sound_a": "T",
+        "sound_b": "CH",
+        "position": "Final"
+      },
+      {
+        "folder": "T:CH Minimal Pairs - Initial",
+        "label": "T/CH – Initial",
+        "sound_a": "T",
+        "sound_b": "CH",
+        "position": "Initial"
+      },
+      {
+        "folder": "T:CH Minimal Pairs - Medial",
+        "label": "T/CH – Medial",
+        "sound_a": "T",
+        "sound_b": "CH",
+        "position": "Medial"
+      }
+    ],
+    "Backing": [
+      {
+        "folder": "D:G Minimal Pairs - Final",
+        "label": "D/G – Final",
+        "sound_a": "D",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "D:G Minimal Pairs - Initial",
+        "label": "D/G – Initial",
+        "sound_a": "D",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "D:G Minimal Pairs - Medial",
+        "label": "D/G – Medial",
+        "sound_a": "D",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "T:K Minimal Pairs - Final",
+        "label": "T/K – Final",
+        "sound_a": "T",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "T:K Minimal Pairs - Initial",
+        "label": "T/K – Initial",
+        "sound_a": "T",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "T:K Minimal Pairs - Medial",
+        "label": "T/K – Medial",
+        "sound_a": "T",
+        "sound_b": "K",
+        "position": "Medial"
+      }
+    ],
+    "Cluster Reduction": [
+      {
+        "folder": "BL Cluster Minimal Pairs - Initial",
+        "label": "BL/B – Initial",
+        "sound_a": "BL",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "BR Cluster Minimal Pairs - Initial",
+        "label": "BR/B – Initial",
+        "sound_a": "BR",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "DR Cluster Minimal Pairs - Initial",
+        "label": "DR/D – Initial",
+        "sound_a": "DR",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "FL Cluster Minimal Pairs - Initial",
+        "label": "FL/F – Initial",
+        "sound_a": "FL",
+        "sound_b": "F",
+        "position": "Initial"
+      },
+      {
+        "folder": "FR Cluster Minimal Pairs - Initial",
+        "label": "FR/F – Initial",
+        "sound_a": "FR",
+        "sound_b": "F",
+        "position": "Initial"
+      },
+      {
+        "folder": "GL Cluster Minimal Pairs - Initial",
+        "label": "GL/G – Initial",
+        "sound_a": "GL",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "GR Cluster Minimal Pairs - Initial",
+        "label": "GR/G – Initial",
+        "sound_a": "GR",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "KL Cluster Minimal Pairs - Initial",
+        "label": "KL/K – Initial",
+        "sound_a": "KL",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "KR Cluster Minimal Pairs - Initial",
+        "label": "KR/K – Initial",
+        "sound_a": "KR",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "PL Cluster Minimal Pairs - Initial",
+        "label": "PL/P – Initial",
+        "sound_a": "PL",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "PR Cluster Minimal Pairs - Initial",
+        "label": "PR/P – Initial",
+        "sound_a": "PR",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "SK Cluster Minimal Pairs - Initial",
+        "label": "SK/K – Initial",
+        "sound_a": "SK",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "SL Cluster Minimal Pairs - Initial",
+        "label": "SL/L – Initial",
+        "sound_a": "SL",
+        "sound_b": "L",
+        "position": "Initial"
+      },
+      {
+        "folder": "SM Cluster Minimal Pairs - Initial",
+        "label": "SM/M – Initial",
+        "sound_a": "SM",
+        "sound_b": "M",
+        "position": "Initial"
+      },
+      {
+        "folder": "SN Cluster Minimal Pairs - Initial",
+        "label": "SN/N – Initial",
+        "sound_a": "SN",
+        "sound_b": "N",
+        "position": "Initial"
+      },
+      {
+        "folder": "SP Cluster Minimal Pairs - Initial",
+        "label": "SP/P – Initial",
+        "sound_a": "SP",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "ST Cluster Minimal Pairs - Initial",
+        "label": "ST/T – Initial",
+        "sound_a": "ST",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "SW Cluster Minimal Pairs - Initial",
+        "label": "SW/W – Initial",
+        "sound_a": "SW",
+        "sound_b": "W",
+        "position": "Initial"
+      },
+      {
+        "folder": "TR Cluster Minimal Pairs - Initial",
+        "label": "TR/T – Initial",
+        "sound_a": "TR",
+        "sound_b": "T",
+        "position": "Initial"
+      }
+    ],
+    "Deaffrication": [
+      {
+        "folder": "CH:SH Minimal Pairs - Final",
+        "label": "CH/SH – Final",
+        "sound_a": "CH",
+        "sound_b": "SH",
+        "position": "Final"
+      },
+      {
+        "folder": "CH:SH Minimal Pairs - Initial",
+        "label": "CH/SH – Initial",
+        "sound_a": "CH",
+        "sound_b": "SH",
+        "position": "Initial"
+      },
+      {
+        "folder": "CH:SH Minimal Pairs - Medial",
+        "label": "CH/SH – Medial",
+        "sound_a": "CH",
+        "sound_b": "SH",
+        "position": "Medial"
+      },
+      {
+        "folder": "J:Z Minimal Pairs - Final",
+        "label": "J/Z – Final",
+        "sound_a": "J",
+        "sound_b": "Z",
+        "position": "Final"
+      },
+      {
+        "folder": "J:Z Minimal Pairs - Initial",
+        "label": "J/Z – Initial",
+        "sound_a": "J",
+        "sound_b": "Z",
+        "position": "Initial"
+      },
+      {
+        "folder": "J:Z Minimal Pairs - Medial",
+        "label": "J/Z – Medial",
+        "sound_a": "J",
+        "sound_b": "Z",
+        "position": "Medial"
+      }
+    ],
+    "Denasalization": [
+      {
+        "folder": "M:B Minimal Pairs - Final",
+        "label": "M/B – Final",
+        "sound_a": "M",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "M:B Minimal Pairs - Initial",
+        "label": "M/B – Initial",
+        "sound_a": "M",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "M:B Minimal Pairs - Medial",
+        "label": "M/B – Medial",
+        "sound_a": "M",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "N:D Minimal Pairs - Final",
+        "label": "N/D – Final",
+        "sound_a": "N",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "N:D Minimal Pairs - Initial",
+        "label": "N/D – Initial",
+        "sound_a": "N",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "N:D Minimal Pairs - Medial",
+        "label": "N/D – Medial",
+        "sound_a": "N",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "NG:G Minimal Pairs - Final",
+        "label": "NG/G – Final",
+        "sound_a": "NG",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "NG:G Minimal Pairs - Initial",
+        "label": "NG/G – Initial",
+        "sound_a": "NG",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "NG:G Minimal Pairs - Medial",
+        "label": "NG/G – Medial",
+        "sound_a": "NG",
+        "sound_b": "G",
+        "position": "Medial"
+      }
+    ],
+    "Depalatalization": [
+      {
+        "folder": "SH:S Minimal Pairs - Final",
+        "label": "SH/S – Final",
+        "sound_a": "SH",
+        "sound_b": "S",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:S Minimal Pairs - Initial",
+        "label": "SH/S – Initial",
+        "sound_a": "SH",
+        "sound_b": "S",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:S Minimal Pairs - Medial",
+        "label": "SH/S – Medial",
+        "sound_a": "SH",
+        "sound_b": "S",
+        "position": "Medial"
+      }
+    ],
+    "Final Consonant Deletion": [
+      {
+        "folder": "B:(deleted) Minimal Pairs - Final",
+        "label": "B/(deleted) – Final",
+        "sound_a": "B",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "CH:(deleted) Minimal Pairs - Final",
+        "label": "CH/(deleted) – Final",
+        "sound_a": "CH",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "D:(deleted) Minimal Pairs - Final",
+        "label": "D/(deleted) – Final",
+        "sound_a": "D",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "F:(deleted) Minimal Pairs - Final",
+        "label": "F/(deleted) – Final",
+        "sound_a": "F",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "G:(deleted) Minimal Pairs - Final",
+        "label": "G/(deleted) – Final",
+        "sound_a": "G",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "K:(deleted) Minimal Pairs - Final",
+        "label": "K/(deleted) – Final",
+        "sound_a": "K",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "L:(deleted) Minimal Pairs - Final",
+        "label": "L/(deleted) – Final",
+        "sound_a": "L",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "M:(deleted) Minimal Pairs - Final",
+        "label": "M/(deleted) – Final",
+        "sound_a": "M",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "N:(deleted) Minimal Pairs - Final",
+        "label": "N/(deleted) – Final",
+        "sound_a": "N",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "NG:(deleted) Minimal Pairs - Final",
+        "label": "NG/(deleted) – Final",
+        "sound_a": "NG",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "P:(deleted) Minimal Pairs - Final",
+        "label": "P/(deleted) – Final",
+        "sound_a": "P",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "R:(deleted) Minimal Pairs - Final",
+        "label": "R/(deleted) – Final",
+        "sound_a": "R",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "S:(deleted) Minimal Pairs - Final",
+        "label": "S/(deleted) – Final",
+        "sound_a": "S",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:(deleted) Minimal Pairs - Final",
+        "label": "SH/(deleted) – Final",
+        "sound_a": "SH",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "T:(deleted) Minimal Pairs - Final",
+        "label": "T/(deleted) – Final",
+        "sound_a": "T",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "TH:(deleted) Minimal Pairs - Final",
+        "label": "TH/(deleted) – Final",
+        "sound_a": "TH",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "V:(deleted) Minimal Pairs - Final",
+        "label": "V/(deleted) – Final",
+        "sound_a": "V",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      },
+      {
+        "folder": "Z:(deleted) Minimal Pairs - Final",
+        "label": "Z/(deleted) – Final",
+        "sound_a": "Z",
+        "sound_b": "(deleted)",
+        "position": "Final"
+      }
+    ],
+    "Final Consonant Devoicing": [
+      {
+        "folder": "B:P Minimal Pairs - Final",
+        "label": "B/P – Final",
+        "sound_a": "B",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "D:T Minimal Pairs - Final",
+        "label": "D/T – Final",
+        "sound_a": "D",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "G:K Minimal Pairs - Final",
+        "label": "G/K – Final",
+        "sound_a": "G",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "V:F Minimal Pairs - Final",
+        "label": "V/F – Final",
+        "sound_a": "V",
+        "sound_b": "F",
+        "position": "Final"
+      },
+      {
+        "folder": "Z:S Minimal Pairs - Final",
+        "label": "Z/S – Final",
+        "sound_a": "Z",
+        "sound_b": "S",
+        "position": "Final"
+      }
+    ],
+    "Fronting": [
+      {
+        "folder": "G:D Minimal Pairs - Final",
+        "label": "G/D – Final",
+        "sound_a": "G",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "G:D Minimal Pairs - Initial",
+        "label": "G/D – Initial",
+        "sound_a": "G",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "G:D Minimal Pairs - Medial",
+        "label": "G/D – Medial",
+        "sound_a": "G",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "K:T Minimal Pairs - Final",
+        "label": "K/T – Final",
+        "sound_a": "K",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "K:T Minimal Pairs - Initial",
+        "label": "K/T – Initial",
+        "sound_a": "K",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "K:T Minimal Pairs - Medial",
+        "label": "K/T – Medial",
+        "sound_a": "K",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "NG:N Minimal Pairs - Final",
+        "label": "NG/N – Final",
+        "sound_a": "NG",
+        "sound_b": "N",
+        "position": "Final"
+      },
+      {
+        "folder": "NG:N Minimal Pairs - Initial",
+        "label": "NG/N – Initial",
+        "sound_a": "NG",
+        "sound_b": "N",
+        "position": "Initial"
+      },
+      {
+        "folder": "NG:N Minimal Pairs - Medial",
+        "label": "NG/N – Medial",
+        "sound_a": "NG",
+        "sound_b": "N",
+        "position": "Medial"
+      }
+    ],
+    "Gliding": [
+      {
+        "folder": "L:W Minimal Pairs - Final",
+        "label": "L/W – Final",
+        "sound_a": "L",
+        "sound_b": "W",
+        "position": "Final"
+      },
+      {
+        "folder": "L:W Minimal Pairs - Initial",
+        "label": "L/W – Initial",
+        "sound_a": "L",
+        "sound_b": "W",
+        "position": "Initial"
+      },
+      {
+        "folder": "L:W Minimal Pairs - Medial",
+        "label": "L/W – Medial",
+        "sound_a": "L",
+        "sound_b": "W",
+        "position": "Medial"
+      },
+      {
+        "folder": "L:Y Minimal Pairs - Final",
+        "label": "L/Y – Final",
+        "sound_a": "L",
+        "sound_b": "Y",
+        "position": "Final"
+      },
+      {
+        "folder": "L:Y Minimal Pairs - Initial",
+        "label": "L/Y – Initial",
+        "sound_a": "L",
+        "sound_b": "Y",
+        "position": "Initial"
+      },
+      {
+        "folder": "L:Y Minimal Pairs - Medial",
+        "label": "L/Y – Medial",
+        "sound_a": "L",
+        "sound_b": "Y",
+        "position": "Medial"
+      },
+      {
+        "folder": "R:W Minimal Pairs - Final",
+        "label": "R/W – Final",
+        "sound_a": "R",
+        "sound_b": "W",
+        "position": "Final"
+      },
+      {
+        "folder": "R:W Minimal Pairs - Initial",
+        "label": "R/W – Initial",
+        "sound_a": "R",
+        "sound_b": "W",
+        "position": "Initial"
+      },
+      {
+        "folder": "R:W Minimal Pairs - Medial",
+        "label": "R/W – Medial",
+        "sound_a": "R",
+        "sound_b": "W",
+        "position": "Medial"
+      },
+      {
+        "folder": "R:Y Minimal Pairs - Final",
+        "label": "R/Y – Final",
+        "sound_a": "R",
+        "sound_b": "Y",
+        "position": "Final"
+      },
+      {
+        "folder": "R:Y Minimal Pairs - Initial",
+        "label": "R/Y – Initial",
+        "sound_a": "R",
+        "sound_b": "Y",
+        "position": "Initial"
+      },
+      {
+        "folder": "R:Y Minimal Pairs - Medial",
+        "label": "R/Y – Medial",
+        "sound_a": "R",
+        "sound_b": "Y",
+        "position": "Medial"
+      }
+    ],
+    "Initial Consonant Deletion": [
+      {
+        "folder": "B:(deleted) Minimal Pairs - Initial",
+        "label": "B/(deleted) – Initial",
+        "sound_a": "B",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "CH:(deleted) Minimal Pairs - Initial",
+        "label": "CH/(deleted) – Initial",
+        "sound_a": "CH",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "D:(deleted) Minimal Pairs - Initial",
+        "label": "D/(deleted) – Initial",
+        "sound_a": "D",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "F:(deleted) Minimal Pairs - Initial",
+        "label": "F/(deleted) – Initial",
+        "sound_a": "F",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "G:(deleted) Minimal Pairs - Initial",
+        "label": "G/(deleted) – Initial",
+        "sound_a": "G",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "H:(deleted) Minimal Pairs - Initial",
+        "label": "H/(deleted) – Initial",
+        "sound_a": "H",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "J:(deleted) Minimal Pairs - Initial",
+        "label": "J/(deleted) – Initial",
+        "sound_a": "J",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "K:(deleted) Minimal Pairs - Initial",
+        "label": "K/(deleted) – Initial",
+        "sound_a": "K",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "L:(deleted) Minimal Pairs - Initial",
+        "label": "L/(deleted) – Initial",
+        "sound_a": "L",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "M:(deleted) Minimal Pairs - Initial",
+        "label": "M/(deleted) – Initial",
+        "sound_a": "M",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "N:(deleted) Minimal Pairs - Initial",
+        "label": "N/(deleted) – Initial",
+        "sound_a": "N",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "P:(deleted) Minimal Pairs - Initial",
+        "label": "P/(deleted) – Initial",
+        "sound_a": "P",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "R:(deleted) Minimal Pairs - Initial",
+        "label": "R/(deleted) – Initial",
+        "sound_a": "R",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:(deleted) Minimal Pairs - Initial",
+        "label": "S/(deleted) – Initial",
+        "sound_a": "S",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:(deleted) Minimal Pairs - Initial",
+        "label": "SH/(deleted) – Initial",
+        "sound_a": "SH",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "T:(deleted) Minimal Pairs - Initial",
+        "label": "T/(deleted) – Initial",
+        "sound_a": "T",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "TH:(deleted) Minimal Pairs - Initial",
+        "label": "TH/(deleted) – Initial",
+        "sound_a": "TH",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "V:(deleted) Minimal Pairs - Initial",
+        "label": "V/(deleted) – Initial",
+        "sound_a": "V",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "W:(deleted) Minimal Pairs - Initial",
+        "label": "W/(deleted) – Initial",
+        "sound_a": "W",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "Y:(deleted) Minimal Pairs - Initial",
+        "label": "Y/(deleted) – Initial",
+        "sound_a": "Y",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      },
+      {
+        "folder": "Z:(deleted) Minimal Pairs - Initial",
+        "label": "Z/(deleted) – Initial",
+        "sound_a": "Z",
+        "sound_b": "(deleted)",
+        "position": "Initial"
+      }
+    ],
+    "Labialization": [
+      {
+        "folder": "TH:F Minimal Pairs - Final",
+        "label": "TH/F – Final",
+        "sound_a": "TH",
+        "sound_b": "F",
+        "position": "Final"
+      },
+      {
+        "folder": "TH:F Minimal Pairs - Initial",
+        "label": "TH/F – Initial",
+        "sound_a": "TH",
+        "sound_b": "F",
+        "position": "Initial"
+      },
+      {
+        "folder": "TH:F Minimal Pairs - Medial",
+        "label": "TH/F – Medial",
+        "sound_a": "TH",
+        "sound_b": "F",
+        "position": "Medial"
+      }
+    ],
+    "Prevocalic Voicing": [
+      {
+        "folder": "F:V Minimal Pairs - Initial",
+        "label": "F/V – Initial",
+        "sound_a": "F",
+        "sound_b": "V",
+        "position": "Initial"
+      },
+      {
+        "folder": "K:G Minimal Pairs - Initial",
+        "label": "K/G – Initial",
+        "sound_a": "K",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "P:B Minimal Pairs - Initial",
+        "label": "P/B – Initial",
+        "sound_a": "P",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:Z Minimal Pairs - Initial",
+        "label": "S/Z – Initial",
+        "sound_a": "S",
+        "sound_b": "Z",
+        "position": "Initial"
+      },
+      {
+        "folder": "T:D Minimal Pairs - Initial",
+        "label": "T/D – Initial",
+        "sound_a": "T",
+        "sound_b": "D",
+        "position": "Initial"
+      }
+    ],
+    "Stopping": [
+      {
+        "folder": "CH:B Minimal Pairs - Final",
+        "label": "CH/B – Final",
+        "sound_a": "CH",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "CH:B Minimal Pairs - Initial",
+        "label": "CH/B – Initial",
+        "sound_a": "CH",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "CH:B Minimal Pairs - Medial",
+        "label": "CH/B – Medial",
+        "sound_a": "CH",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "CH:D Minimal Pairs - Final",
+        "label": "CH/D – Final",
+        "sound_a": "CH",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "CH:D Minimal Pairs - Initial",
+        "label": "CH/D – Initial",
+        "sound_a": "CH",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "CH:D Minimal Pairs - Medial",
+        "label": "CH/D – Medial",
+        "sound_a": "CH",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "CH:G Minimal Pairs - Final",
+        "label": "CH/G – Final",
+        "sound_a": "CH",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "CH:G Minimal Pairs - Initial",
+        "label": "CH/G – Initial",
+        "sound_a": "CH",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "CH:G Minimal Pairs - Medial",
+        "label": "CH/G – Medial",
+        "sound_a": "CH",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "CH:K Minimal Pairs - Final",
+        "label": "CH/K – Final",
+        "sound_a": "CH",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "CH:K Minimal Pairs - Initial",
+        "label": "CH/K – Initial",
+        "sound_a": "CH",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "CH:K Minimal Pairs - Medial",
+        "label": "CH/K – Medial",
+        "sound_a": "CH",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "CH:P Minimal Pairs - Final",
+        "label": "CH/P – Final",
+        "sound_a": "CH",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "CH:P Minimal Pairs - Initial",
+        "label": "CH/P – Initial",
+        "sound_a": "CH",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "CH:P Minimal Pairs - Medial",
+        "label": "CH/P – Medial",
+        "sound_a": "CH",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "CH:T Minimal Pairs - Final",
+        "label": "CH/T – Final",
+        "sound_a": "CH",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "CH:T Minimal Pairs - Initial",
+        "label": "CH/T – Initial",
+        "sound_a": "CH",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "CH:T Minimal Pairs - Medial",
+        "label": "CH/T – Medial",
+        "sound_a": "CH",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "DH:B Minimal Pairs - Final",
+        "label": "DH/B – Final",
+        "sound_a": "DH",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "DH:B Minimal Pairs - Initial",
+        "label": "DH/B – Initial",
+        "sound_a": "DH",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "DH:B Minimal Pairs - Medial",
+        "label": "DH/B – Medial",
+        "sound_a": "DH",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "DH:D Minimal Pairs - Final",
+        "label": "DH/D – Final",
+        "sound_a": "DH",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "DH:D Minimal Pairs - Initial",
+        "label": "DH/D – Initial",
+        "sound_a": "DH",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "DH:D Minimal Pairs - Medial",
+        "label": "DH/D – Medial",
+        "sound_a": "DH",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "DH:G Minimal Pairs - Final",
+        "label": "DH/G – Final",
+        "sound_a": "DH",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "DH:G Minimal Pairs - Initial",
+        "label": "DH/G – Initial",
+        "sound_a": "DH",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "DH:G Minimal Pairs - Medial",
+        "label": "DH/G – Medial",
+        "sound_a": "DH",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "DH:K Minimal Pairs - Final",
+        "label": "DH/K – Final",
+        "sound_a": "DH",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "DH:K Minimal Pairs - Initial",
+        "label": "DH/K – Initial",
+        "sound_a": "DH",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "DH:K Minimal Pairs - Medial",
+        "label": "DH/K – Medial",
+        "sound_a": "DH",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "DH:P Minimal Pairs - Final",
+        "label": "DH/P – Final",
+        "sound_a": "DH",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "DH:P Minimal Pairs - Initial",
+        "label": "DH/P – Initial",
+        "sound_a": "DH",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "DH:P Minimal Pairs - Medial",
+        "label": "DH/P – Medial",
+        "sound_a": "DH",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "DH:T Minimal Pairs - Final",
+        "label": "DH/T – Final",
+        "sound_a": "DH",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "DH:T Minimal Pairs - Initial",
+        "label": "DH/T – Initial",
+        "sound_a": "DH",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "DH:T Minimal Pairs - Medial",
+        "label": "DH/T – Medial",
+        "sound_a": "DH",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "F:B Minimal Pairs - Final",
+        "label": "F/B – Final",
+        "sound_a": "F",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "F:B Minimal Pairs - Initial",
+        "label": "F/B – Initial",
+        "sound_a": "F",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "F:B Minimal Pairs - Medial",
+        "label": "F/B – Medial",
+        "sound_a": "F",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "F:D Minimal Pairs - Final",
+        "label": "F/D – Final",
+        "sound_a": "F",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "F:D Minimal Pairs - Initial",
+        "label": "F/D – Initial",
+        "sound_a": "F",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "F:D Minimal Pairs - Medial",
+        "label": "F/D – Medial",
+        "sound_a": "F",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "F:G Minimal Pairs - Final",
+        "label": "F/G – Final",
+        "sound_a": "F",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "F:G Minimal Pairs - Initial",
+        "label": "F/G – Initial",
+        "sound_a": "F",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "F:G Minimal Pairs - Medial",
+        "label": "F/G – Medial",
+        "sound_a": "F",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "F:K Minimal Pairs - Final",
+        "label": "F/K – Final",
+        "sound_a": "F",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "F:K Minimal Pairs - Initial",
+        "label": "F/K – Initial",
+        "sound_a": "F",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "F:K Minimal Pairs - Medial",
+        "label": "F/K – Medial",
+        "sound_a": "F",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "F:P Minimal Pairs - Final",
+        "label": "F/P – Final",
+        "sound_a": "F",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "F:P Minimal Pairs - Initial",
+        "label": "F/P – Initial",
+        "sound_a": "F",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "F:P Minimal Pairs - Medial",
+        "label": "F/P – Medial",
+        "sound_a": "F",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "F:T Minimal Pairs - Final",
+        "label": "F/T – Final",
+        "sound_a": "F",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "F:T Minimal Pairs - Initial",
+        "label": "F/T – Initial",
+        "sound_a": "F",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "F:T Minimal Pairs - Medial",
+        "label": "F/T – Medial",
+        "sound_a": "F",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "H:B Minimal Pairs - Final",
+        "label": "H/B – Final",
+        "sound_a": "H",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "H:B Minimal Pairs - Initial",
+        "label": "H/B – Initial",
+        "sound_a": "H",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "H:B Minimal Pairs - Medial",
+        "label": "H/B – Medial",
+        "sound_a": "H",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "H:D Minimal Pairs - Final",
+        "label": "H/D – Final",
+        "sound_a": "H",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "H:D Minimal Pairs - Initial",
+        "label": "H/D – Initial",
+        "sound_a": "H",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "H:D Minimal Pairs - Medial",
+        "label": "H/D – Medial",
+        "sound_a": "H",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "H:G Minimal Pairs - Final",
+        "label": "H/G – Final",
+        "sound_a": "H",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "H:G Minimal Pairs - Initial",
+        "label": "H/G – Initial",
+        "sound_a": "H",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "H:G Minimal Pairs - Medial",
+        "label": "H/G – Medial",
+        "sound_a": "H",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "H:K Minimal Pairs - Final",
+        "label": "H/K – Final",
+        "sound_a": "H",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "H:K Minimal Pairs - Initial",
+        "label": "H/K – Initial",
+        "sound_a": "H",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "H:K Minimal Pairs - Medial",
+        "label": "H/K – Medial",
+        "sound_a": "H",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "H:P Minimal Pairs - Final",
+        "label": "H/P – Final",
+        "sound_a": "H",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "H:P Minimal Pairs - Initial",
+        "label": "H/P – Initial",
+        "sound_a": "H",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "H:P Minimal Pairs - Medial",
+        "label": "H/P – Medial",
+        "sound_a": "H",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "H:T Minimal Pairs - Final",
+        "label": "H/T – Final",
+        "sound_a": "H",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "H:T Minimal Pairs - Initial",
+        "label": "H/T – Initial",
+        "sound_a": "H",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "H:T Minimal Pairs - Medial",
+        "label": "H/T – Medial",
+        "sound_a": "H",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "J:B Minimal Pairs - Final",
+        "label": "J/B – Final",
+        "sound_a": "J",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "J:B Minimal Pairs - Initial",
+        "label": "J/B – Initial",
+        "sound_a": "J",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "J:B Minimal Pairs - Medial",
+        "label": "J/B – Medial",
+        "sound_a": "J",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "J:D Minimal Pairs - Final",
+        "label": "J/D – Final",
+        "sound_a": "J",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "J:D Minimal Pairs - Initial",
+        "label": "J/D – Initial",
+        "sound_a": "J",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "J:D Minimal Pairs - Medial",
+        "label": "J/D – Medial",
+        "sound_a": "J",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "J:G Minimal Pairs - Final",
+        "label": "J/G – Final",
+        "sound_a": "J",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "J:G Minimal Pairs - Initial",
+        "label": "J/G – Initial",
+        "sound_a": "J",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "J:G Minimal Pairs - Medial",
+        "label": "J/G – Medial",
+        "sound_a": "J",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "J:K Minimal Pairs - Final",
+        "label": "J/K – Final",
+        "sound_a": "J",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "J:K Minimal Pairs - Initial",
+        "label": "J/K – Initial",
+        "sound_a": "J",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "J:K Minimal Pairs - Medial",
+        "label": "J/K – Medial",
+        "sound_a": "J",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "J:P Minimal Pairs - Final",
+        "label": "J/P – Final",
+        "sound_a": "J",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "J:P Minimal Pairs - Initial",
+        "label": "J/P – Initial",
+        "sound_a": "J",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "J:P Minimal Pairs - Medial",
+        "label": "J/P – Medial",
+        "sound_a": "J",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "J:T Minimal Pairs - Final",
+        "label": "J/T – Final",
+        "sound_a": "J",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "J:T Minimal Pairs - Initial",
+        "label": "J/T – Initial",
+        "sound_a": "J",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "J:T Minimal Pairs - Medial",
+        "label": "J/T – Medial",
+        "sound_a": "J",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:B Minimal Pairs - Final",
+        "label": "S/B – Final",
+        "sound_a": "S",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "S:B Minimal Pairs - Initial",
+        "label": "S/B – Initial",
+        "sound_a": "S",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:B Minimal Pairs - Medial",
+        "label": "S/B – Medial",
+        "sound_a": "S",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:D Minimal Pairs - Final",
+        "label": "S/D – Final",
+        "sound_a": "S",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "S:D Minimal Pairs - Initial",
+        "label": "S/D – Initial",
+        "sound_a": "S",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:D Minimal Pairs - Medial",
+        "label": "S/D – Medial",
+        "sound_a": "S",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:G Minimal Pairs - Final",
+        "label": "S/G – Final",
+        "sound_a": "S",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "S:G Minimal Pairs - Initial",
+        "label": "S/G – Initial",
+        "sound_a": "S",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:G Minimal Pairs - Medial",
+        "label": "S/G – Medial",
+        "sound_a": "S",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:K Minimal Pairs - Final",
+        "label": "S/K – Final",
+        "sound_a": "S",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "S:K Minimal Pairs - Initial",
+        "label": "S/K – Initial",
+        "sound_a": "S",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:K Minimal Pairs - Medial",
+        "label": "S/K – Medial",
+        "sound_a": "S",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:P Minimal Pairs - Final",
+        "label": "S/P – Final",
+        "sound_a": "S",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "S:P Minimal Pairs - Initial",
+        "label": "S/P – Initial",
+        "sound_a": "S",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:P Minimal Pairs - Medial",
+        "label": "S/P – Medial",
+        "sound_a": "S",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:T Minimal Pairs - Final",
+        "label": "S/T – Final",
+        "sound_a": "S",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "S:T Minimal Pairs - Initial",
+        "label": "S/T – Initial",
+        "sound_a": "S",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:T Minimal Pairs - Medial",
+        "label": "S/T – Medial",
+        "sound_a": "S",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "SH:B Minimal Pairs - Final",
+        "label": "SH/B – Final",
+        "sound_a": "SH",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:B Minimal Pairs - Initial",
+        "label": "SH/B – Initial",
+        "sound_a": "SH",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:B Minimal Pairs - Medial",
+        "label": "SH/B – Medial",
+        "sound_a": "SH",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "SH:D Minimal Pairs - Final",
+        "label": "SH/D – Final",
+        "sound_a": "SH",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:D Minimal Pairs - Initial",
+        "label": "SH/D – Initial",
+        "sound_a": "SH",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:D Minimal Pairs - Medial",
+        "label": "SH/D – Medial",
+        "sound_a": "SH",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "SH:G Minimal Pairs - Final",
+        "label": "SH/G – Final",
+        "sound_a": "SH",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:G Minimal Pairs - Initial",
+        "label": "SH/G – Initial",
+        "sound_a": "SH",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:G Minimal Pairs - Medial",
+        "label": "SH/G – Medial",
+        "sound_a": "SH",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "SH:K Minimal Pairs - Final",
+        "label": "SH/K – Final",
+        "sound_a": "SH",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:K Minimal Pairs - Initial",
+        "label": "SH/K – Initial",
+        "sound_a": "SH",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:K Minimal Pairs - Medial",
+        "label": "SH/K – Medial",
+        "sound_a": "SH",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "SH:P Minimal Pairs - Final",
+        "label": "SH/P – Final",
+        "sound_a": "SH",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:P Minimal Pairs - Initial",
+        "label": "SH/P – Initial",
+        "sound_a": "SH",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:P Minimal Pairs - Medial",
+        "label": "SH/P – Medial",
+        "sound_a": "SH",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "SH:T Minimal Pairs - Final",
+        "label": "SH/T – Final",
+        "sound_a": "SH",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "SH:T Minimal Pairs - Initial",
+        "label": "SH/T – Initial",
+        "sound_a": "SH",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "SH:T Minimal Pairs - Medial",
+        "label": "SH/T – Medial",
+        "sound_a": "SH",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "TH:B Minimal Pairs - Final",
+        "label": "TH/B – Final",
+        "sound_a": "TH",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "TH:B Minimal Pairs - Initial",
+        "label": "TH/B – Initial",
+        "sound_a": "TH",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "TH:B Minimal Pairs - Medial",
+        "label": "TH/B – Medial",
+        "sound_a": "TH",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "TH:D Minimal Pairs - Final",
+        "label": "TH/D – Final",
+        "sound_a": "TH",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "TH:D Minimal Pairs - Initial",
+        "label": "TH/D – Initial",
+        "sound_a": "TH",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "TH:D Minimal Pairs - Medial",
+        "label": "TH/D – Medial",
+        "sound_a": "TH",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "TH:G Minimal Pairs - Final",
+        "label": "TH/G – Final",
+        "sound_a": "TH",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "TH:G Minimal Pairs - Initial",
+        "label": "TH/G – Initial",
+        "sound_a": "TH",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "TH:G Minimal Pairs - Medial",
+        "label": "TH/G – Medial",
+        "sound_a": "TH",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "TH:K Minimal Pairs - Final",
+        "label": "TH/K – Final",
+        "sound_a": "TH",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "TH:K Minimal Pairs - Initial",
+        "label": "TH/K – Initial",
+        "sound_a": "TH",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "TH:K Minimal Pairs - Medial",
+        "label": "TH/K – Medial",
+        "sound_a": "TH",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "TH:P Minimal Pairs - Final",
+        "label": "TH/P – Final",
+        "sound_a": "TH",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "TH:P Minimal Pairs - Initial",
+        "label": "TH/P – Initial",
+        "sound_a": "TH",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "TH:P Minimal Pairs - Medial",
+        "label": "TH/P – Medial",
+        "sound_a": "TH",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "TH:T Minimal Pairs - Final",
+        "label": "TH/T – Final",
+        "sound_a": "TH",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "TH:T Minimal Pairs - Initial",
+        "label": "TH/T – Initial",
+        "sound_a": "TH",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "TH:T Minimal Pairs - Medial",
+        "label": "TH/T – Medial",
+        "sound_a": "TH",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "V:B Minimal Pairs - Final",
+        "label": "V/B – Final",
+        "sound_a": "V",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "V:B Minimal Pairs - Initial",
+        "label": "V/B – Initial",
+        "sound_a": "V",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "V:B Minimal Pairs - Medial",
+        "label": "V/B – Medial",
+        "sound_a": "V",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "V:D Minimal Pairs - Final",
+        "label": "V/D – Final",
+        "sound_a": "V",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "V:D Minimal Pairs - Initial",
+        "label": "V/D – Initial",
+        "sound_a": "V",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "V:D Minimal Pairs - Medial",
+        "label": "V/D – Medial",
+        "sound_a": "V",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "V:G Minimal Pairs - Final",
+        "label": "V/G – Final",
+        "sound_a": "V",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "V:G Minimal Pairs - Initial",
+        "label": "V/G – Initial",
+        "sound_a": "V",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "V:G Minimal Pairs - Medial",
+        "label": "V/G – Medial",
+        "sound_a": "V",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "V:K Minimal Pairs - Final",
+        "label": "V/K – Final",
+        "sound_a": "V",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "V:K Minimal Pairs - Initial",
+        "label": "V/K – Initial",
+        "sound_a": "V",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "V:K Minimal Pairs - Medial",
+        "label": "V/K – Medial",
+        "sound_a": "V",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "V:P Minimal Pairs - Final",
+        "label": "V/P – Final",
+        "sound_a": "V",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "V:P Minimal Pairs - Initial",
+        "label": "V/P – Initial",
+        "sound_a": "V",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "V:P Minimal Pairs - Medial",
+        "label": "V/P – Medial",
+        "sound_a": "V",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "V:T Minimal Pairs - Final",
+        "label": "V/T – Final",
+        "sound_a": "V",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "V:T Minimal Pairs - Initial",
+        "label": "V/T – Initial",
+        "sound_a": "V",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "V:T Minimal Pairs - Medial",
+        "label": "V/T – Medial",
+        "sound_a": "V",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "Z:B Minimal Pairs - Final",
+        "label": "Z/B – Final",
+        "sound_a": "Z",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "Z:B Minimal Pairs - Initial",
+        "label": "Z/B – Initial",
+        "sound_a": "Z",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "Z:B Minimal Pairs - Medial",
+        "label": "Z/B – Medial",
+        "sound_a": "Z",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "Z:D Minimal Pairs - Final",
+        "label": "Z/D – Final",
+        "sound_a": "Z",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "Z:D Minimal Pairs - Initial",
+        "label": "Z/D – Initial",
+        "sound_a": "Z",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "Z:D Minimal Pairs - Medial",
+        "label": "Z/D – Medial",
+        "sound_a": "Z",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "Z:G Minimal Pairs - Final",
+        "label": "Z/G – Final",
+        "sound_a": "Z",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "Z:G Minimal Pairs - Initial",
+        "label": "Z/G – Initial",
+        "sound_a": "Z",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "Z:G Minimal Pairs - Medial",
+        "label": "Z/G – Medial",
+        "sound_a": "Z",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "Z:K Minimal Pairs - Final",
+        "label": "Z/K – Final",
+        "sound_a": "Z",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "Z:K Minimal Pairs - Initial",
+        "label": "Z/K – Initial",
+        "sound_a": "Z",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "Z:K Minimal Pairs - Medial",
+        "label": "Z/K – Medial",
+        "sound_a": "Z",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "Z:P Minimal Pairs - Final",
+        "label": "Z/P – Final",
+        "sound_a": "Z",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "Z:P Minimal Pairs - Initial",
+        "label": "Z/P – Initial",
+        "sound_a": "Z",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "Z:P Minimal Pairs - Medial",
+        "label": "Z/P – Medial",
+        "sound_a": "Z",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "Z:T Minimal Pairs - Final",
+        "label": "Z/T – Final",
+        "sound_a": "Z",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "Z:T Minimal Pairs - Initial",
+        "label": "Z/T – Initial",
+        "sound_a": "Z",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "Z:T Minimal Pairs - Medial",
+        "label": "Z/T – Medial",
+        "sound_a": "Z",
+        "sound_b": "T",
+        "position": "Medial"
+      },
+      {
+        "folder": "ZH:B Minimal Pairs - Final",
+        "label": "ZH/B – Final",
+        "sound_a": "ZH",
+        "sound_b": "B",
+        "position": "Final"
+      },
+      {
+        "folder": "ZH:B Minimal Pairs - Initial",
+        "label": "ZH/B – Initial",
+        "sound_a": "ZH",
+        "sound_b": "B",
+        "position": "Initial"
+      },
+      {
+        "folder": "ZH:B Minimal Pairs - Medial",
+        "label": "ZH/B – Medial",
+        "sound_a": "ZH",
+        "sound_b": "B",
+        "position": "Medial"
+      },
+      {
+        "folder": "ZH:D Minimal Pairs - Final",
+        "label": "ZH/D – Final",
+        "sound_a": "ZH",
+        "sound_b": "D",
+        "position": "Final"
+      },
+      {
+        "folder": "ZH:D Minimal Pairs - Initial",
+        "label": "ZH/D – Initial",
+        "sound_a": "ZH",
+        "sound_b": "D",
+        "position": "Initial"
+      },
+      {
+        "folder": "ZH:D Minimal Pairs - Medial",
+        "label": "ZH/D – Medial",
+        "sound_a": "ZH",
+        "sound_b": "D",
+        "position": "Medial"
+      },
+      {
+        "folder": "ZH:G Minimal Pairs - Final",
+        "label": "ZH/G – Final",
+        "sound_a": "ZH",
+        "sound_b": "G",
+        "position": "Final"
+      },
+      {
+        "folder": "ZH:G Minimal Pairs - Initial",
+        "label": "ZH/G – Initial",
+        "sound_a": "ZH",
+        "sound_b": "G",
+        "position": "Initial"
+      },
+      {
+        "folder": "ZH:G Minimal Pairs - Medial",
+        "label": "ZH/G – Medial",
+        "sound_a": "ZH",
+        "sound_b": "G",
+        "position": "Medial"
+      },
+      {
+        "folder": "ZH:K Minimal Pairs - Final",
+        "label": "ZH/K – Final",
+        "sound_a": "ZH",
+        "sound_b": "K",
+        "position": "Final"
+      },
+      {
+        "folder": "ZH:K Minimal Pairs - Initial",
+        "label": "ZH/K – Initial",
+        "sound_a": "ZH",
+        "sound_b": "K",
+        "position": "Initial"
+      },
+      {
+        "folder": "ZH:K Minimal Pairs - Medial",
+        "label": "ZH/K – Medial",
+        "sound_a": "ZH",
+        "sound_b": "K",
+        "position": "Medial"
+      },
+      {
+        "folder": "ZH:P Minimal Pairs - Final",
+        "label": "ZH/P – Final",
+        "sound_a": "ZH",
+        "sound_b": "P",
+        "position": "Final"
+      },
+      {
+        "folder": "ZH:P Minimal Pairs - Initial",
+        "label": "ZH/P – Initial",
+        "sound_a": "ZH",
+        "sound_b": "P",
+        "position": "Initial"
+      },
+      {
+        "folder": "ZH:P Minimal Pairs - Medial",
+        "label": "ZH/P – Medial",
+        "sound_a": "ZH",
+        "sound_b": "P",
+        "position": "Medial"
+      },
+      {
+        "folder": "ZH:T Minimal Pairs - Final",
+        "label": "ZH/T – Final",
+        "sound_a": "ZH",
+        "sound_b": "T",
+        "position": "Final"
+      },
+      {
+        "folder": "ZH:T Minimal Pairs - Initial",
+        "label": "ZH/T – Initial",
+        "sound_a": "ZH",
+        "sound_b": "T",
+        "position": "Initial"
+      },
+      {
+        "folder": "ZH:T Minimal Pairs - Medial",
+        "label": "ZH/T – Medial",
+        "sound_a": "ZH",
+        "sound_b": "T",
+        "position": "Medial"
+      }
+    ],
+    "Vowelization": [
+      {
+        "folder": "L:UH Minimal Pairs - Final",
+        "label": "L/UH – Final",
+        "sound_a": "L",
+        "sound_b": "UH",
+        "position": "Final"
+      },
+      {
+        "folder": "L:UH Minimal Pairs - Initial",
+        "label": "L/UH – Initial",
+        "sound_a": "L",
+        "sound_b": "UH",
+        "position": "Initial"
+      },
+      {
+        "folder": "L:UH Minimal Pairs - Medial",
+        "label": "L/UH – Medial",
+        "sound_a": "L",
+        "sound_b": "UH",
+        "position": "Medial"
+      },
+      {
+        "folder": "R:ER Minimal Pairs - Final",
+        "label": "R/ER – Final",
+        "sound_a": "R",
+        "sound_b": "ER",
+        "position": "Final"
+      },
+      {
+        "folder": "R:ER Minimal Pairs - Initial",
+        "label": "R/ER – Initial",
+        "sound_a": "R",
+        "sound_b": "ER",
+        "position": "Initial"
+      },
+      {
+        "folder": "R:ER Minimal Pairs - Medial",
+        "label": "R/ER – Medial",
+        "sound_a": "R",
+        "sound_b": "ER",
+        "position": "Medial"
+      }
+    ]
+  },
+  "byPhoneme": [
+    {
+      "folder": "D:J Minimal Pairs - Final",
+      "label": "D/J – Final",
+      "sound_a": "D",
+      "sound_b": "J",
+      "position": "Final"
+    },
+    {
+      "folder": "D:J Minimal Pairs - Initial",
+      "label": "D/J – Initial",
+      "sound_a": "D",
+      "sound_b": "J",
+      "position": "Initial"
+    },
+    {
+      "folder": "D:J Minimal Pairs - Medial",
+      "label": "D/J – Medial",
+      "sound_a": "D",
+      "sound_b": "J",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:CH Minimal Pairs - Final",
+      "label": "S/CH – Final",
+      "sound_a": "S",
+      "sound_b": "CH",
+      "position": "Final"
+    },
+    {
+      "folder": "S:CH Minimal Pairs - Initial",
+      "label": "S/CH – Initial",
+      "sound_a": "S",
+      "sound_b": "CH",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:CH Minimal Pairs - Medial",
+      "label": "S/CH – Medial",
+      "sound_a": "S",
+      "sound_b": "CH",
+      "position": "Medial"
+    },
+    {
+      "folder": "SH:CH Minimal Pairs - Final",
+      "label": "SH/CH – Final",
+      "sound_a": "SH",
+      "sound_b": "CH",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:CH Minimal Pairs - Initial",
+      "label": "SH/CH – Initial",
+      "sound_a": "SH",
+      "sound_b": "CH",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:CH Minimal Pairs - Medial",
+      "label": "SH/CH – Medial",
+      "sound_a": "SH",
+      "sound_b": "CH",
+      "position": "Medial"
+    },
+    {
+      "folder": "T:CH Minimal Pairs - Final",
+      "label": "T/CH – Final",
+      "sound_a": "T",
+      "sound_b": "CH",
+      "position": "Final"
+    },
+    {
+      "folder": "T:CH Minimal Pairs - Initial",
+      "label": "T/CH – Initial",
+      "sound_a": "T",
+      "sound_b": "CH",
+      "position": "Initial"
+    },
+    {
+      "folder": "T:CH Minimal Pairs - Medial",
+      "label": "T/CH – Medial",
+      "sound_a": "T",
+      "sound_b": "CH",
+      "position": "Medial"
+    },
+    {
+      "folder": "D:G Minimal Pairs - Final",
+      "label": "D/G – Final",
+      "sound_a": "D",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "D:G Minimal Pairs - Initial",
+      "label": "D/G – Initial",
+      "sound_a": "D",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "D:G Minimal Pairs - Medial",
+      "label": "D/G – Medial",
+      "sound_a": "D",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "T:K Minimal Pairs - Final",
+      "label": "T/K – Final",
+      "sound_a": "T",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "T:K Minimal Pairs - Initial",
+      "label": "T/K – Initial",
+      "sound_a": "T",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "T:K Minimal Pairs - Medial",
+      "label": "T/K – Medial",
+      "sound_a": "T",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "BL Cluster Minimal Pairs - Initial",
+      "label": "BL/B – Initial",
+      "sound_a": "BL",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "BR Cluster Minimal Pairs - Initial",
+      "label": "BR/B – Initial",
+      "sound_a": "BR",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "DR Cluster Minimal Pairs - Initial",
+      "label": "DR/D – Initial",
+      "sound_a": "DR",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "FL Cluster Minimal Pairs - Initial",
+      "label": "FL/F – Initial",
+      "sound_a": "FL",
+      "sound_b": "F",
+      "position": "Initial"
+    },
+    {
+      "folder": "FR Cluster Minimal Pairs - Initial",
+      "label": "FR/F – Initial",
+      "sound_a": "FR",
+      "sound_b": "F",
+      "position": "Initial"
+    },
+    {
+      "folder": "GL Cluster Minimal Pairs - Initial",
+      "label": "GL/G – Initial",
+      "sound_a": "GL",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "GR Cluster Minimal Pairs - Initial",
+      "label": "GR/G – Initial",
+      "sound_a": "GR",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "KL Cluster Minimal Pairs - Initial",
+      "label": "KL/K – Initial",
+      "sound_a": "KL",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "KR Cluster Minimal Pairs - Initial",
+      "label": "KR/K – Initial",
+      "sound_a": "KR",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "PL Cluster Minimal Pairs - Initial",
+      "label": "PL/P – Initial",
+      "sound_a": "PL",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "PR Cluster Minimal Pairs - Initial",
+      "label": "PR/P – Initial",
+      "sound_a": "PR",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "SK Cluster Minimal Pairs - Initial",
+      "label": "SK/K – Initial",
+      "sound_a": "SK",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "SL Cluster Minimal Pairs - Initial",
+      "label": "SL/L – Initial",
+      "sound_a": "SL",
+      "sound_b": "L",
+      "position": "Initial"
+    },
+    {
+      "folder": "SM Cluster Minimal Pairs - Initial",
+      "label": "SM/M – Initial",
+      "sound_a": "SM",
+      "sound_b": "M",
+      "position": "Initial"
+    },
+    {
+      "folder": "SN Cluster Minimal Pairs - Initial",
+      "label": "SN/N – Initial",
+      "sound_a": "SN",
+      "sound_b": "N",
+      "position": "Initial"
+    },
+    {
+      "folder": "SP Cluster Minimal Pairs - Initial",
+      "label": "SP/P – Initial",
+      "sound_a": "SP",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "ST Cluster Minimal Pairs - Initial",
+      "label": "ST/T – Initial",
+      "sound_a": "ST",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "SW Cluster Minimal Pairs - Initial",
+      "label": "SW/W – Initial",
+      "sound_a": "SW",
+      "sound_b": "W",
+      "position": "Initial"
+    },
+    {
+      "folder": "TR Cluster Minimal Pairs - Initial",
+      "label": "TR/T – Initial",
+      "sound_a": "TR",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:SH Minimal Pairs - Final",
+      "label": "CH/SH – Final",
+      "sound_a": "CH",
+      "sound_b": "SH",
+      "position": "Final"
+    },
+    {
+      "folder": "CH:SH Minimal Pairs - Initial",
+      "label": "CH/SH – Initial",
+      "sound_a": "CH",
+      "sound_b": "SH",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:SH Minimal Pairs - Medial",
+      "label": "CH/SH – Medial",
+      "sound_a": "CH",
+      "sound_b": "SH",
+      "position": "Medial"
+    },
+    {
+      "folder": "J:Z Minimal Pairs - Final",
+      "label": "J/Z – Final",
+      "sound_a": "J",
+      "sound_b": "Z",
+      "position": "Final"
+    },
+    {
+      "folder": "J:Z Minimal Pairs - Initial",
+      "label": "J/Z – Initial",
+      "sound_a": "J",
+      "sound_b": "Z",
+      "position": "Initial"
+    },
+    {
+      "folder": "J:Z Minimal Pairs - Medial",
+      "label": "J/Z – Medial",
+      "sound_a": "J",
+      "sound_b": "Z",
+      "position": "Medial"
+    },
+    {
+      "folder": "M:B Minimal Pairs - Final",
+      "label": "M/B – Final",
+      "sound_a": "M",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "M:B Minimal Pairs - Initial",
+      "label": "M/B – Initial",
+      "sound_a": "M",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "M:B Minimal Pairs - Medial",
+      "label": "M/B – Medial",
+      "sound_a": "M",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "N:D Minimal Pairs - Final",
+      "label": "N/D – Final",
+      "sound_a": "N",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "N:D Minimal Pairs - Initial",
+      "label": "N/D – Initial",
+      "sound_a": "N",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "N:D Minimal Pairs - Medial",
+      "label": "N/D – Medial",
+      "sound_a": "N",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "NG:G Minimal Pairs - Final",
+      "label": "NG/G – Final",
+      "sound_a": "NG",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "NG:G Minimal Pairs - Initial",
+      "label": "NG/G – Initial",
+      "sound_a": "NG",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "NG:G Minimal Pairs - Medial",
+      "label": "NG/G – Medial",
+      "sound_a": "NG",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "SH:S Minimal Pairs - Final",
+      "label": "SH/S – Final",
+      "sound_a": "SH",
+      "sound_b": "S",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:S Minimal Pairs - Initial",
+      "label": "SH/S – Initial",
+      "sound_a": "SH",
+      "sound_b": "S",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:S Minimal Pairs - Medial",
+      "label": "SH/S – Medial",
+      "sound_a": "SH",
+      "sound_b": "S",
+      "position": "Medial"
+    },
+    {
+      "folder": "B:(deleted) Minimal Pairs - Final",
+      "label": "B/(deleted) – Final",
+      "sound_a": "B",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "CH:(deleted) Minimal Pairs - Final",
+      "label": "CH/(deleted) – Final",
+      "sound_a": "CH",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "D:(deleted) Minimal Pairs - Final",
+      "label": "D/(deleted) – Final",
+      "sound_a": "D",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "F:(deleted) Minimal Pairs - Final",
+      "label": "F/(deleted) – Final",
+      "sound_a": "F",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "G:(deleted) Minimal Pairs - Final",
+      "label": "G/(deleted) – Final",
+      "sound_a": "G",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "K:(deleted) Minimal Pairs - Final",
+      "label": "K/(deleted) – Final",
+      "sound_a": "K",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "L:(deleted) Minimal Pairs - Final",
+      "label": "L/(deleted) – Final",
+      "sound_a": "L",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "M:(deleted) Minimal Pairs - Final",
+      "label": "M/(deleted) – Final",
+      "sound_a": "M",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "N:(deleted) Minimal Pairs - Final",
+      "label": "N/(deleted) – Final",
+      "sound_a": "N",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "NG:(deleted) Minimal Pairs - Final",
+      "label": "NG/(deleted) – Final",
+      "sound_a": "NG",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "P:(deleted) Minimal Pairs - Final",
+      "label": "P/(deleted) – Final",
+      "sound_a": "P",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "R:(deleted) Minimal Pairs - Final",
+      "label": "R/(deleted) – Final",
+      "sound_a": "R",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "S:(deleted) Minimal Pairs - Final",
+      "label": "S/(deleted) – Final",
+      "sound_a": "S",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:(deleted) Minimal Pairs - Final",
+      "label": "SH/(deleted) – Final",
+      "sound_a": "SH",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "T:(deleted) Minimal Pairs - Final",
+      "label": "T/(deleted) – Final",
+      "sound_a": "T",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "TH:(deleted) Minimal Pairs - Final",
+      "label": "TH/(deleted) – Final",
+      "sound_a": "TH",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "V:(deleted) Minimal Pairs - Final",
+      "label": "V/(deleted) – Final",
+      "sound_a": "V",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "Z:(deleted) Minimal Pairs - Final",
+      "label": "Z/(deleted) – Final",
+      "sound_a": "Z",
+      "sound_b": "(deleted)",
+      "position": "Final"
+    },
+    {
+      "folder": "B:P Minimal Pairs - Final",
+      "label": "B/P – Final",
+      "sound_a": "B",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "D:T Minimal Pairs - Final",
+      "label": "D/T – Final",
+      "sound_a": "D",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "G:K Minimal Pairs - Final",
+      "label": "G/K – Final",
+      "sound_a": "G",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "V:F Minimal Pairs - Final",
+      "label": "V/F – Final",
+      "sound_a": "V",
+      "sound_b": "F",
+      "position": "Final"
+    },
+    {
+      "folder": "Z:S Minimal Pairs - Final",
+      "label": "Z/S – Final",
+      "sound_a": "Z",
+      "sound_b": "S",
+      "position": "Final"
+    },
+    {
+      "folder": "G:D Minimal Pairs - Final",
+      "label": "G/D – Final",
+      "sound_a": "G",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "G:D Minimal Pairs - Initial",
+      "label": "G/D – Initial",
+      "sound_a": "G",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "G:D Minimal Pairs - Medial",
+      "label": "G/D – Medial",
+      "sound_a": "G",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "K:T Minimal Pairs - Final",
+      "label": "K/T – Final",
+      "sound_a": "K",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "K:T Minimal Pairs - Initial",
+      "label": "K/T – Initial",
+      "sound_a": "K",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "K:T Minimal Pairs - Medial",
+      "label": "K/T – Medial",
+      "sound_a": "K",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "NG:N Minimal Pairs - Final",
+      "label": "NG/N – Final",
+      "sound_a": "NG",
+      "sound_b": "N",
+      "position": "Final"
+    },
+    {
+      "folder": "NG:N Minimal Pairs - Initial",
+      "label": "NG/N – Initial",
+      "sound_a": "NG",
+      "sound_b": "N",
+      "position": "Initial"
+    },
+    {
+      "folder": "NG:N Minimal Pairs - Medial",
+      "label": "NG/N – Medial",
+      "sound_a": "NG",
+      "sound_b": "N",
+      "position": "Medial"
+    },
+    {
+      "folder": "L:W Minimal Pairs - Final",
+      "label": "L/W – Final",
+      "sound_a": "L",
+      "sound_b": "W",
+      "position": "Final"
+    },
+    {
+      "folder": "L:W Minimal Pairs - Initial",
+      "label": "L/W – Initial",
+      "sound_a": "L",
+      "sound_b": "W",
+      "position": "Initial"
+    },
+    {
+      "folder": "L:W Minimal Pairs - Medial",
+      "label": "L/W – Medial",
+      "sound_a": "L",
+      "sound_b": "W",
+      "position": "Medial"
+    },
+    {
+      "folder": "L:Y Minimal Pairs - Final",
+      "label": "L/Y – Final",
+      "sound_a": "L",
+      "sound_b": "Y",
+      "position": "Final"
+    },
+    {
+      "folder": "L:Y Minimal Pairs - Initial",
+      "label": "L/Y – Initial",
+      "sound_a": "L",
+      "sound_b": "Y",
+      "position": "Initial"
+    },
+    {
+      "folder": "L:Y Minimal Pairs - Medial",
+      "label": "L/Y – Medial",
+      "sound_a": "L",
+      "sound_b": "Y",
+      "position": "Medial"
+    },
+    {
+      "folder": "R:W Minimal Pairs - Final",
+      "label": "R/W – Final",
+      "sound_a": "R",
+      "sound_b": "W",
+      "position": "Final"
+    },
+    {
+      "folder": "R:W Minimal Pairs - Initial",
+      "label": "R/W – Initial",
+      "sound_a": "R",
+      "sound_b": "W",
+      "position": "Initial"
+    },
+    {
+      "folder": "R:W Minimal Pairs - Medial",
+      "label": "R/W – Medial",
+      "sound_a": "R",
+      "sound_b": "W",
+      "position": "Medial"
+    },
+    {
+      "folder": "R:Y Minimal Pairs - Final",
+      "label": "R/Y – Final",
+      "sound_a": "R",
+      "sound_b": "Y",
+      "position": "Final"
+    },
+    {
+      "folder": "R:Y Minimal Pairs - Initial",
+      "label": "R/Y – Initial",
+      "sound_a": "R",
+      "sound_b": "Y",
+      "position": "Initial"
+    },
+    {
+      "folder": "R:Y Minimal Pairs - Medial",
+      "label": "R/Y – Medial",
+      "sound_a": "R",
+      "sound_b": "Y",
+      "position": "Medial"
+    },
+    {
+      "folder": "B:(deleted) Minimal Pairs - Initial",
+      "label": "B/(deleted) – Initial",
+      "sound_a": "B",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:(deleted) Minimal Pairs - Initial",
+      "label": "CH/(deleted) – Initial",
+      "sound_a": "CH",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "D:(deleted) Minimal Pairs - Initial",
+      "label": "D/(deleted) – Initial",
+      "sound_a": "D",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "F:(deleted) Minimal Pairs - Initial",
+      "label": "F/(deleted) – Initial",
+      "sound_a": "F",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "G:(deleted) Minimal Pairs - Initial",
+      "label": "G/(deleted) – Initial",
+      "sound_a": "G",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "H:(deleted) Minimal Pairs - Initial",
+      "label": "H/(deleted) – Initial",
+      "sound_a": "H",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "J:(deleted) Minimal Pairs - Initial",
+      "label": "J/(deleted) – Initial",
+      "sound_a": "J",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "K:(deleted) Minimal Pairs - Initial",
+      "label": "K/(deleted) – Initial",
+      "sound_a": "K",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "L:(deleted) Minimal Pairs - Initial",
+      "label": "L/(deleted) – Initial",
+      "sound_a": "L",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "M:(deleted) Minimal Pairs - Initial",
+      "label": "M/(deleted) – Initial",
+      "sound_a": "M",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "N:(deleted) Minimal Pairs - Initial",
+      "label": "N/(deleted) – Initial",
+      "sound_a": "N",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "P:(deleted) Minimal Pairs - Initial",
+      "label": "P/(deleted) – Initial",
+      "sound_a": "P",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "R:(deleted) Minimal Pairs - Initial",
+      "label": "R/(deleted) – Initial",
+      "sound_a": "R",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:(deleted) Minimal Pairs - Initial",
+      "label": "S/(deleted) – Initial",
+      "sound_a": "S",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:(deleted) Minimal Pairs - Initial",
+      "label": "SH/(deleted) – Initial",
+      "sound_a": "SH",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "T:(deleted) Minimal Pairs - Initial",
+      "label": "T/(deleted) – Initial",
+      "sound_a": "T",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:(deleted) Minimal Pairs - Initial",
+      "label": "TH/(deleted) – Initial",
+      "sound_a": "TH",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "V:(deleted) Minimal Pairs - Initial",
+      "label": "V/(deleted) – Initial",
+      "sound_a": "V",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "W:(deleted) Minimal Pairs - Initial",
+      "label": "W/(deleted) – Initial",
+      "sound_a": "W",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "Y:(deleted) Minimal Pairs - Initial",
+      "label": "Y/(deleted) – Initial",
+      "sound_a": "Y",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "Z:(deleted) Minimal Pairs - Initial",
+      "label": "Z/(deleted) – Initial",
+      "sound_a": "Z",
+      "sound_b": "(deleted)",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:F Minimal Pairs - Final",
+      "label": "TH/F – Final",
+      "sound_a": "TH",
+      "sound_b": "F",
+      "position": "Final"
+    },
+    {
+      "folder": "TH:F Minimal Pairs - Initial",
+      "label": "TH/F – Initial",
+      "sound_a": "TH",
+      "sound_b": "F",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:F Minimal Pairs - Medial",
+      "label": "TH/F – Medial",
+      "sound_a": "TH",
+      "sound_b": "F",
+      "position": "Medial"
+    },
+    {
+      "folder": "F:V Minimal Pairs - Initial",
+      "label": "F/V – Initial",
+      "sound_a": "F",
+      "sound_b": "V",
+      "position": "Initial"
+    },
+    {
+      "folder": "K:G Minimal Pairs - Initial",
+      "label": "K/G – Initial",
+      "sound_a": "K",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "P:B Minimal Pairs - Initial",
+      "label": "P/B – Initial",
+      "sound_a": "P",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:Z Minimal Pairs - Initial",
+      "label": "S/Z – Initial",
+      "sound_a": "S",
+      "sound_b": "Z",
+      "position": "Initial"
+    },
+    {
+      "folder": "T:D Minimal Pairs - Initial",
+      "label": "T/D – Initial",
+      "sound_a": "T",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:B Minimal Pairs - Final",
+      "label": "CH/B – Final",
+      "sound_a": "CH",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "CH:B Minimal Pairs - Initial",
+      "label": "CH/B – Initial",
+      "sound_a": "CH",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:B Minimal Pairs - Medial",
+      "label": "CH/B – Medial",
+      "sound_a": "CH",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "CH:D Minimal Pairs - Final",
+      "label": "CH/D – Final",
+      "sound_a": "CH",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "CH:D Minimal Pairs - Initial",
+      "label": "CH/D – Initial",
+      "sound_a": "CH",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:D Minimal Pairs - Medial",
+      "label": "CH/D – Medial",
+      "sound_a": "CH",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "CH:G Minimal Pairs - Final",
+      "label": "CH/G – Final",
+      "sound_a": "CH",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "CH:G Minimal Pairs - Initial",
+      "label": "CH/G – Initial",
+      "sound_a": "CH",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:G Minimal Pairs - Medial",
+      "label": "CH/G – Medial",
+      "sound_a": "CH",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "CH:K Minimal Pairs - Final",
+      "label": "CH/K – Final",
+      "sound_a": "CH",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "CH:K Minimal Pairs - Initial",
+      "label": "CH/K – Initial",
+      "sound_a": "CH",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:K Minimal Pairs - Medial",
+      "label": "CH/K – Medial",
+      "sound_a": "CH",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "CH:P Minimal Pairs - Final",
+      "label": "CH/P – Final",
+      "sound_a": "CH",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "CH:P Minimal Pairs - Initial",
+      "label": "CH/P – Initial",
+      "sound_a": "CH",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:P Minimal Pairs - Medial",
+      "label": "CH/P – Medial",
+      "sound_a": "CH",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "CH:T Minimal Pairs - Final",
+      "label": "CH/T – Final",
+      "sound_a": "CH",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "CH:T Minimal Pairs - Initial",
+      "label": "CH/T – Initial",
+      "sound_a": "CH",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "CH:T Minimal Pairs - Medial",
+      "label": "CH/T – Medial",
+      "sound_a": "CH",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "DH:B Minimal Pairs - Final",
+      "label": "DH/B – Final",
+      "sound_a": "DH",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "DH:B Minimal Pairs - Initial",
+      "label": "DH/B – Initial",
+      "sound_a": "DH",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "DH:B Minimal Pairs - Medial",
+      "label": "DH/B – Medial",
+      "sound_a": "DH",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "DH:D Minimal Pairs - Final",
+      "label": "DH/D – Final",
+      "sound_a": "DH",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "DH:D Minimal Pairs - Initial",
+      "label": "DH/D – Initial",
+      "sound_a": "DH",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "DH:D Minimal Pairs - Medial",
+      "label": "DH/D – Medial",
+      "sound_a": "DH",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "DH:G Minimal Pairs - Final",
+      "label": "DH/G – Final",
+      "sound_a": "DH",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "DH:G Minimal Pairs - Initial",
+      "label": "DH/G – Initial",
+      "sound_a": "DH",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "DH:G Minimal Pairs - Medial",
+      "label": "DH/G – Medial",
+      "sound_a": "DH",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "DH:K Minimal Pairs - Final",
+      "label": "DH/K – Final",
+      "sound_a": "DH",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "DH:K Minimal Pairs - Initial",
+      "label": "DH/K – Initial",
+      "sound_a": "DH",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "DH:K Minimal Pairs - Medial",
+      "label": "DH/K – Medial",
+      "sound_a": "DH",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "DH:P Minimal Pairs - Final",
+      "label": "DH/P – Final",
+      "sound_a": "DH",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "DH:P Minimal Pairs - Initial",
+      "label": "DH/P – Initial",
+      "sound_a": "DH",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "DH:P Minimal Pairs - Medial",
+      "label": "DH/P – Medial",
+      "sound_a": "DH",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "DH:T Minimal Pairs - Final",
+      "label": "DH/T – Final",
+      "sound_a": "DH",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "DH:T Minimal Pairs - Initial",
+      "label": "DH/T – Initial",
+      "sound_a": "DH",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "DH:T Minimal Pairs - Medial",
+      "label": "DH/T – Medial",
+      "sound_a": "DH",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "F:B Minimal Pairs - Final",
+      "label": "F/B – Final",
+      "sound_a": "F",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "F:B Minimal Pairs - Initial",
+      "label": "F/B – Initial",
+      "sound_a": "F",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "F:B Minimal Pairs - Medial",
+      "label": "F/B – Medial",
+      "sound_a": "F",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "F:D Minimal Pairs - Final",
+      "label": "F/D – Final",
+      "sound_a": "F",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "F:D Minimal Pairs - Initial",
+      "label": "F/D – Initial",
+      "sound_a": "F",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "F:D Minimal Pairs - Medial",
+      "label": "F/D – Medial",
+      "sound_a": "F",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "F:G Minimal Pairs - Final",
+      "label": "F/G – Final",
+      "sound_a": "F",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "F:G Minimal Pairs - Initial",
+      "label": "F/G – Initial",
+      "sound_a": "F",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "F:G Minimal Pairs - Medial",
+      "label": "F/G – Medial",
+      "sound_a": "F",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "F:K Minimal Pairs - Final",
+      "label": "F/K – Final",
+      "sound_a": "F",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "F:K Minimal Pairs - Initial",
+      "label": "F/K – Initial",
+      "sound_a": "F",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "F:K Minimal Pairs - Medial",
+      "label": "F/K – Medial",
+      "sound_a": "F",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "F:P Minimal Pairs - Final",
+      "label": "F/P – Final",
+      "sound_a": "F",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "F:P Minimal Pairs - Initial",
+      "label": "F/P – Initial",
+      "sound_a": "F",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "F:P Minimal Pairs - Medial",
+      "label": "F/P – Medial",
+      "sound_a": "F",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "F:T Minimal Pairs - Final",
+      "label": "F/T – Final",
+      "sound_a": "F",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "F:T Minimal Pairs - Initial",
+      "label": "F/T – Initial",
+      "sound_a": "F",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "F:T Minimal Pairs - Medial",
+      "label": "F/T – Medial",
+      "sound_a": "F",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "H:B Minimal Pairs - Final",
+      "label": "H/B – Final",
+      "sound_a": "H",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "H:B Minimal Pairs - Initial",
+      "label": "H/B – Initial",
+      "sound_a": "H",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "H:B Minimal Pairs - Medial",
+      "label": "H/B – Medial",
+      "sound_a": "H",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "H:D Minimal Pairs - Final",
+      "label": "H/D – Final",
+      "sound_a": "H",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "H:D Minimal Pairs - Initial",
+      "label": "H/D – Initial",
+      "sound_a": "H",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "H:D Minimal Pairs - Medial",
+      "label": "H/D – Medial",
+      "sound_a": "H",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "H:G Minimal Pairs - Final",
+      "label": "H/G – Final",
+      "sound_a": "H",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "H:G Minimal Pairs - Initial",
+      "label": "H/G – Initial",
+      "sound_a": "H",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "H:G Minimal Pairs - Medial",
+      "label": "H/G – Medial",
+      "sound_a": "H",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "H:K Minimal Pairs - Final",
+      "label": "H/K – Final",
+      "sound_a": "H",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "H:K Minimal Pairs - Initial",
+      "label": "H/K – Initial",
+      "sound_a": "H",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "H:K Minimal Pairs - Medial",
+      "label": "H/K – Medial",
+      "sound_a": "H",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "H:P Minimal Pairs - Final",
+      "label": "H/P – Final",
+      "sound_a": "H",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "H:P Minimal Pairs - Initial",
+      "label": "H/P – Initial",
+      "sound_a": "H",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "H:P Minimal Pairs - Medial",
+      "label": "H/P – Medial",
+      "sound_a": "H",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "H:T Minimal Pairs - Final",
+      "label": "H/T – Final",
+      "sound_a": "H",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "H:T Minimal Pairs - Initial",
+      "label": "H/T – Initial",
+      "sound_a": "H",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "H:T Minimal Pairs - Medial",
+      "label": "H/T – Medial",
+      "sound_a": "H",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "J:B Minimal Pairs - Final",
+      "label": "J/B – Final",
+      "sound_a": "J",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "J:B Minimal Pairs - Initial",
+      "label": "J/B – Initial",
+      "sound_a": "J",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "J:B Minimal Pairs - Medial",
+      "label": "J/B – Medial",
+      "sound_a": "J",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "J:D Minimal Pairs - Final",
+      "label": "J/D – Final",
+      "sound_a": "J",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "J:D Minimal Pairs - Initial",
+      "label": "J/D – Initial",
+      "sound_a": "J",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "J:D Minimal Pairs - Medial",
+      "label": "J/D – Medial",
+      "sound_a": "J",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "J:G Minimal Pairs - Final",
+      "label": "J/G – Final",
+      "sound_a": "J",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "J:G Minimal Pairs - Initial",
+      "label": "J/G – Initial",
+      "sound_a": "J",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "J:G Minimal Pairs - Medial",
+      "label": "J/G – Medial",
+      "sound_a": "J",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "J:K Minimal Pairs - Final",
+      "label": "J/K – Final",
+      "sound_a": "J",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "J:K Minimal Pairs - Initial",
+      "label": "J/K – Initial",
+      "sound_a": "J",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "J:K Minimal Pairs - Medial",
+      "label": "J/K – Medial",
+      "sound_a": "J",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "J:P Minimal Pairs - Final",
+      "label": "J/P – Final",
+      "sound_a": "J",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "J:P Minimal Pairs - Initial",
+      "label": "J/P – Initial",
+      "sound_a": "J",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "J:P Minimal Pairs - Medial",
+      "label": "J/P – Medial",
+      "sound_a": "J",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "J:T Minimal Pairs - Final",
+      "label": "J/T – Final",
+      "sound_a": "J",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "J:T Minimal Pairs - Initial",
+      "label": "J/T – Initial",
+      "sound_a": "J",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "J:T Minimal Pairs - Medial",
+      "label": "J/T – Medial",
+      "sound_a": "J",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:B Minimal Pairs - Final",
+      "label": "S/B – Final",
+      "sound_a": "S",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "S:B Minimal Pairs - Initial",
+      "label": "S/B – Initial",
+      "sound_a": "S",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:B Minimal Pairs - Medial",
+      "label": "S/B – Medial",
+      "sound_a": "S",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:D Minimal Pairs - Final",
+      "label": "S/D – Final",
+      "sound_a": "S",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "S:D Minimal Pairs - Initial",
+      "label": "S/D – Initial",
+      "sound_a": "S",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:D Minimal Pairs - Medial",
+      "label": "S/D – Medial",
+      "sound_a": "S",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:G Minimal Pairs - Final",
+      "label": "S/G – Final",
+      "sound_a": "S",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "S:G Minimal Pairs - Initial",
+      "label": "S/G – Initial",
+      "sound_a": "S",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:G Minimal Pairs - Medial",
+      "label": "S/G – Medial",
+      "sound_a": "S",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:K Minimal Pairs - Final",
+      "label": "S/K – Final",
+      "sound_a": "S",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "S:K Minimal Pairs - Initial",
+      "label": "S/K – Initial",
+      "sound_a": "S",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:K Minimal Pairs - Medial",
+      "label": "S/K – Medial",
+      "sound_a": "S",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:P Minimal Pairs - Final",
+      "label": "S/P – Final",
+      "sound_a": "S",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "S:P Minimal Pairs - Initial",
+      "label": "S/P – Initial",
+      "sound_a": "S",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:P Minimal Pairs - Medial",
+      "label": "S/P – Medial",
+      "sound_a": "S",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:T Minimal Pairs - Final",
+      "label": "S/T – Final",
+      "sound_a": "S",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "S:T Minimal Pairs - Initial",
+      "label": "S/T – Initial",
+      "sound_a": "S",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:T Minimal Pairs - Medial",
+      "label": "S/T – Medial",
+      "sound_a": "S",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "SH:B Minimal Pairs - Final",
+      "label": "SH/B – Final",
+      "sound_a": "SH",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:B Minimal Pairs - Initial",
+      "label": "SH/B – Initial",
+      "sound_a": "SH",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:B Minimal Pairs - Medial",
+      "label": "SH/B – Medial",
+      "sound_a": "SH",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "SH:D Minimal Pairs - Final",
+      "label": "SH/D – Final",
+      "sound_a": "SH",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:D Minimal Pairs - Initial",
+      "label": "SH/D – Initial",
+      "sound_a": "SH",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:D Minimal Pairs - Medial",
+      "label": "SH/D – Medial",
+      "sound_a": "SH",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "SH:G Minimal Pairs - Final",
+      "label": "SH/G – Final",
+      "sound_a": "SH",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:G Minimal Pairs - Initial",
+      "label": "SH/G – Initial",
+      "sound_a": "SH",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:G Minimal Pairs - Medial",
+      "label": "SH/G – Medial",
+      "sound_a": "SH",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "SH:K Minimal Pairs - Final",
+      "label": "SH/K – Final",
+      "sound_a": "SH",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:K Minimal Pairs - Initial",
+      "label": "SH/K – Initial",
+      "sound_a": "SH",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:K Minimal Pairs - Medial",
+      "label": "SH/K – Medial",
+      "sound_a": "SH",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "SH:P Minimal Pairs - Final",
+      "label": "SH/P – Final",
+      "sound_a": "SH",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:P Minimal Pairs - Initial",
+      "label": "SH/P – Initial",
+      "sound_a": "SH",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:P Minimal Pairs - Medial",
+      "label": "SH/P – Medial",
+      "sound_a": "SH",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "SH:T Minimal Pairs - Final",
+      "label": "SH/T – Final",
+      "sound_a": "SH",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "SH:T Minimal Pairs - Initial",
+      "label": "SH/T – Initial",
+      "sound_a": "SH",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "SH:T Minimal Pairs - Medial",
+      "label": "SH/T – Medial",
+      "sound_a": "SH",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "TH:B Minimal Pairs - Final",
+      "label": "TH/B – Final",
+      "sound_a": "TH",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "TH:B Minimal Pairs - Initial",
+      "label": "TH/B – Initial",
+      "sound_a": "TH",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:B Minimal Pairs - Medial",
+      "label": "TH/B – Medial",
+      "sound_a": "TH",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "TH:D Minimal Pairs - Final",
+      "label": "TH/D – Final",
+      "sound_a": "TH",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "TH:D Minimal Pairs - Initial",
+      "label": "TH/D – Initial",
+      "sound_a": "TH",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:D Minimal Pairs - Medial",
+      "label": "TH/D – Medial",
+      "sound_a": "TH",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "TH:G Minimal Pairs - Final",
+      "label": "TH/G – Final",
+      "sound_a": "TH",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "TH:G Minimal Pairs - Initial",
+      "label": "TH/G – Initial",
+      "sound_a": "TH",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:G Minimal Pairs - Medial",
+      "label": "TH/G – Medial",
+      "sound_a": "TH",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "TH:K Minimal Pairs - Final",
+      "label": "TH/K – Final",
+      "sound_a": "TH",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "TH:K Minimal Pairs - Initial",
+      "label": "TH/K – Initial",
+      "sound_a": "TH",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:K Minimal Pairs - Medial",
+      "label": "TH/K – Medial",
+      "sound_a": "TH",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "TH:P Minimal Pairs - Final",
+      "label": "TH/P – Final",
+      "sound_a": "TH",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "TH:P Minimal Pairs - Initial",
+      "label": "TH/P – Initial",
+      "sound_a": "TH",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:P Minimal Pairs - Medial",
+      "label": "TH/P – Medial",
+      "sound_a": "TH",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "TH:T Minimal Pairs - Final",
+      "label": "TH/T – Final",
+      "sound_a": "TH",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "TH:T Minimal Pairs - Initial",
+      "label": "TH/T – Initial",
+      "sound_a": "TH",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "TH:T Minimal Pairs - Medial",
+      "label": "TH/T – Medial",
+      "sound_a": "TH",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "V:B Minimal Pairs - Final",
+      "label": "V/B – Final",
+      "sound_a": "V",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "V:B Minimal Pairs - Initial",
+      "label": "V/B – Initial",
+      "sound_a": "V",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "V:B Minimal Pairs - Medial",
+      "label": "V/B – Medial",
+      "sound_a": "V",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "V:D Minimal Pairs - Final",
+      "label": "V/D – Final",
+      "sound_a": "V",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "V:D Minimal Pairs - Initial",
+      "label": "V/D – Initial",
+      "sound_a": "V",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "V:D Minimal Pairs - Medial",
+      "label": "V/D – Medial",
+      "sound_a": "V",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "V:G Minimal Pairs - Final",
+      "label": "V/G – Final",
+      "sound_a": "V",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "V:G Minimal Pairs - Initial",
+      "label": "V/G – Initial",
+      "sound_a": "V",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "V:G Minimal Pairs - Medial",
+      "label": "V/G – Medial",
+      "sound_a": "V",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "V:K Minimal Pairs - Final",
+      "label": "V/K – Final",
+      "sound_a": "V",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "V:K Minimal Pairs - Initial",
+      "label": "V/K – Initial",
+      "sound_a": "V",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "V:K Minimal Pairs - Medial",
+      "label": "V/K – Medial",
+      "sound_a": "V",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "V:P Minimal Pairs - Final",
+      "label": "V/P – Final",
+      "sound_a": "V",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "V:P Minimal Pairs - Initial",
+      "label": "V/P – Initial",
+      "sound_a": "V",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "V:P Minimal Pairs - Medial",
+      "label": "V/P – Medial",
+      "sound_a": "V",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "V:T Minimal Pairs - Final",
+      "label": "V/T – Final",
+      "sound_a": "V",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "V:T Minimal Pairs - Initial",
+      "label": "V/T – Initial",
+      "sound_a": "V",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "V:T Minimal Pairs - Medial",
+      "label": "V/T – Medial",
+      "sound_a": "V",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "Z:B Minimal Pairs - Final",
+      "label": "Z/B – Final",
+      "sound_a": "Z",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "Z:B Minimal Pairs - Initial",
+      "label": "Z/B – Initial",
+      "sound_a": "Z",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "Z:B Minimal Pairs - Medial",
+      "label": "Z/B – Medial",
+      "sound_a": "Z",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "Z:D Minimal Pairs - Final",
+      "label": "Z/D – Final",
+      "sound_a": "Z",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "Z:D Minimal Pairs - Initial",
+      "label": "Z/D – Initial",
+      "sound_a": "Z",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "Z:D Minimal Pairs - Medial",
+      "label": "Z/D – Medial",
+      "sound_a": "Z",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "Z:G Minimal Pairs - Final",
+      "label": "Z/G – Final",
+      "sound_a": "Z",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "Z:G Minimal Pairs - Initial",
+      "label": "Z/G – Initial",
+      "sound_a": "Z",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "Z:G Minimal Pairs - Medial",
+      "label": "Z/G – Medial",
+      "sound_a": "Z",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "Z:K Minimal Pairs - Final",
+      "label": "Z/K – Final",
+      "sound_a": "Z",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "Z:K Minimal Pairs - Initial",
+      "label": "Z/K – Initial",
+      "sound_a": "Z",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "Z:K Minimal Pairs - Medial",
+      "label": "Z/K – Medial",
+      "sound_a": "Z",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "Z:P Minimal Pairs - Final",
+      "label": "Z/P – Final",
+      "sound_a": "Z",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "Z:P Minimal Pairs - Initial",
+      "label": "Z/P – Initial",
+      "sound_a": "Z",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "Z:P Minimal Pairs - Medial",
+      "label": "Z/P – Medial",
+      "sound_a": "Z",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "Z:T Minimal Pairs - Final",
+      "label": "Z/T – Final",
+      "sound_a": "Z",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "Z:T Minimal Pairs - Initial",
+      "label": "Z/T – Initial",
+      "sound_a": "Z",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "Z:T Minimal Pairs - Medial",
+      "label": "Z/T – Medial",
+      "sound_a": "Z",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "ZH:B Minimal Pairs - Final",
+      "label": "ZH/B – Final",
+      "sound_a": "ZH",
+      "sound_b": "B",
+      "position": "Final"
+    },
+    {
+      "folder": "ZH:B Minimal Pairs - Initial",
+      "label": "ZH/B – Initial",
+      "sound_a": "ZH",
+      "sound_b": "B",
+      "position": "Initial"
+    },
+    {
+      "folder": "ZH:B Minimal Pairs - Medial",
+      "label": "ZH/B – Medial",
+      "sound_a": "ZH",
+      "sound_b": "B",
+      "position": "Medial"
+    },
+    {
+      "folder": "ZH:D Minimal Pairs - Final",
+      "label": "ZH/D – Final",
+      "sound_a": "ZH",
+      "sound_b": "D",
+      "position": "Final"
+    },
+    {
+      "folder": "ZH:D Minimal Pairs - Initial",
+      "label": "ZH/D – Initial",
+      "sound_a": "ZH",
+      "sound_b": "D",
+      "position": "Initial"
+    },
+    {
+      "folder": "ZH:D Minimal Pairs - Medial",
+      "label": "ZH/D – Medial",
+      "sound_a": "ZH",
+      "sound_b": "D",
+      "position": "Medial"
+    },
+    {
+      "folder": "ZH:G Minimal Pairs - Final",
+      "label": "ZH/G – Final",
+      "sound_a": "ZH",
+      "sound_b": "G",
+      "position": "Final"
+    },
+    {
+      "folder": "ZH:G Minimal Pairs - Initial",
+      "label": "ZH/G – Initial",
+      "sound_a": "ZH",
+      "sound_b": "G",
+      "position": "Initial"
+    },
+    {
+      "folder": "ZH:G Minimal Pairs - Medial",
+      "label": "ZH/G – Medial",
+      "sound_a": "ZH",
+      "sound_b": "G",
+      "position": "Medial"
+    },
+    {
+      "folder": "ZH:K Minimal Pairs - Final",
+      "label": "ZH/K – Final",
+      "sound_a": "ZH",
+      "sound_b": "K",
+      "position": "Final"
+    },
+    {
+      "folder": "ZH:K Minimal Pairs - Initial",
+      "label": "ZH/K – Initial",
+      "sound_a": "ZH",
+      "sound_b": "K",
+      "position": "Initial"
+    },
+    {
+      "folder": "ZH:K Minimal Pairs - Medial",
+      "label": "ZH/K – Medial",
+      "sound_a": "ZH",
+      "sound_b": "K",
+      "position": "Medial"
+    },
+    {
+      "folder": "ZH:P Minimal Pairs - Final",
+      "label": "ZH/P – Final",
+      "sound_a": "ZH",
+      "sound_b": "P",
+      "position": "Final"
+    },
+    {
+      "folder": "ZH:P Minimal Pairs - Initial",
+      "label": "ZH/P – Initial",
+      "sound_a": "ZH",
+      "sound_b": "P",
+      "position": "Initial"
+    },
+    {
+      "folder": "ZH:P Minimal Pairs - Medial",
+      "label": "ZH/P – Medial",
+      "sound_a": "ZH",
+      "sound_b": "P",
+      "position": "Medial"
+    },
+    {
+      "folder": "ZH:T Minimal Pairs - Final",
+      "label": "ZH/T – Final",
+      "sound_a": "ZH",
+      "sound_b": "T",
+      "position": "Final"
+    },
+    {
+      "folder": "ZH:T Minimal Pairs - Initial",
+      "label": "ZH/T – Initial",
+      "sound_a": "ZH",
+      "sound_b": "T",
+      "position": "Initial"
+    },
+    {
+      "folder": "ZH:T Minimal Pairs - Medial",
+      "label": "ZH/T – Medial",
+      "sound_a": "ZH",
+      "sound_b": "T",
+      "position": "Medial"
+    },
+    {
+      "folder": "L:UH Minimal Pairs - Final",
+      "label": "L/UH – Final",
+      "sound_a": "L",
+      "sound_b": "UH",
+      "position": "Final"
+    },
+    {
+      "folder": "L:UH Minimal Pairs - Initial",
+      "label": "L/UH – Initial",
+      "sound_a": "L",
+      "sound_b": "UH",
+      "position": "Initial"
+    },
+    {
+      "folder": "L:UH Minimal Pairs - Medial",
+      "label": "L/UH – Medial",
+      "sound_a": "L",
+      "sound_b": "UH",
+      "position": "Medial"
+    },
+    {
+      "folder": "R:ER Minimal Pairs - Final",
+      "label": "R/ER – Final",
+      "sound_a": "R",
+      "sound_b": "ER",
+      "position": "Final"
+    },
+    {
+      "folder": "R:ER Minimal Pairs - Initial",
+      "label": "R/ER – Initial",
+      "sound_a": "R",
+      "sound_b": "ER",
+      "position": "Initial"
+    },
+    {
+      "folder": "R:ER Minimal Pairs - Medial",
+      "label": "R/ER – Medial",
+      "sound_a": "R",
+      "sound_b": "ER",
+      "position": "Medial"
+    }
+  ]
+}

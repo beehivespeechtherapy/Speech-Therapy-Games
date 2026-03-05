@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word list tool – CSV to word-sets.json</title>
+  <link rel="stylesheet" href="../core/styles.css">
+  <style>
+    body { padding: 16px; max-width: 720px; margin: 0 auto; background: #1a1a2e; color: #eee; }
+    h1 { font-size: 1.35rem; margin-bottom: 0.5rem; color: #e94560; }
+    .instructions { font-size: 0.9rem; color: #a2a8d3; margin-bottom: 16px; line-height: 1.5; }
+    .instructions a { color: #8af; }
+    .controls { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin-bottom: 12px; }
+    .controls label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+    .controls input[type="file"] { display: none; }
+    .btn {
+      padding: 10px 18px; font-size: 1rem; border-radius: 10px; cursor: pointer;
+      background: #e94560; color: #fff; border: none; font-weight: bold;
+    }
+    .btn:hover { filter: brightness(1.1); }
+    .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .btn.secondary { background: #2a2a4e; color: #a2a8d3; }
+    textarea {
+      width: 100%; min-height: 180px; padding: 12px; font-family: monospace; font-size: 0.85rem;
+      background: #0f0f1a; color: #eee; border: 2px solid #2a2a4e; border-radius: 10px;
+      margin-bottom: 12px; resize: vertical;
+    }
+    .preview {
+      margin-top: 16px; padding: 12px; background: #0f0f1a; border-radius: 10px; font-size: 0.9rem;
+      border: 1px solid #2a2a4e;
+    }
+    .preview h3 { margin: 0 0 8px 0; font-size: 1rem; color: #a2a8d3; }
+    .preview ul { margin: 0; padding-left: 20px; }
+    .preview .error { color: #f44336; }
+    .preview .success { color: #4caf50; }
+  </style>
+</head>
+<body>
+  <h1>Word list tool</h1>
+  <p class="instructions">
+    Paste CSV from Google Sheets (or upload a file). Two layouts supported:<br>
+    <strong>Transposed (columns = sets):</strong> Row 1 = setID, row 2 = setLabel, prompt, targetSound, contrastSound, folder, then word1, word2, word3… Each column (after the first) is one word set. You can repeat this block below (same row labels) to add more sets when you run out of columns (e.g. past column Z).<br>
+    <strong>Row-per-pair:</strong> Header row with setId, setLabel, prompt, targetSound, contrastSound, folder, word1, word2 — then one data row per pair.
+    Then download <code>word-sets.json</code> and save as <code>word-lists/word-sets.json</code>.
+    <a href="../word-lists/README.md">Full format details</a>.
+  </p>
+  <div class="controls">
+    <label>
+      <span class="btn secondary">Choose CSV file</span>
+      <input type="file" id="file" accept=".csv,text/csv">
+    </label>
+    <button type="button" class="btn" id="download" disabled>Download word-sets.json</button>
+  </div>
+  <textarea id="csv" placeholder="Paste your CSV here (with header row)…"></textarea>
+  <div class="preview" id="preview" style="display: none;"></div>
+
+  <script>
+    (function () {
+      const fileInput = document.getElementById('file');
+      const csvEl = document.getElementById('csv');
+      const downloadBtn = document.getElementById('download');
+      const previewEl = document.getElementById('preview');
+
+      const HEADER_MAP = {
+        'set id': 'setId', 'setid': 'setId',
+        'set label': 'setLabel', 'setlabel': 'setLabel',
+        'prompt': 'prompt',
+        'target sound': 'targetSound', 'targetsound': 'targetSound',
+        'contrast sound': 'contrastSound', 'contrastsound': 'contrastSound',
+        'folder': 'folder',
+        'word 1': 'word1', 'word1': 'word1',
+        'word 2': 'word2', 'word2': 'word2',
+        'word 3': 'word3', 'word 4': 'word4', 'word 5': 'word5', 'word 6': 'word6',
+        'word 7': 'word7', 'word 8': 'word8', 'word 9': 'word9', 'word 10': 'word10',
+        'word 11': 'word11', 'word 12': 'word12', 'word 13': 'word13', 'word 14': 'word14',
+        'word 15': 'word15', 'word 16': 'word16', 'word 17': 'word17', 'word 18': 'word18',
+        'word 19': 'word19', 'word 20': 'word20'
+      };
+
+      function parseCSV(text) {
+        text = text.trim().replace(/^\uFEFF/, '');
+        const rows = [];
+        let i = 0;
+        while (i < text.length) {
+          const row = [];
+          while (i < text.length) {
+            if (text[i] === '"') {
+              i++;
+              let cell = '';
+              while (i < text.length && text[i] !== '"') {
+                if (text[i] === '\\') { i++; cell += text[i++] || ''; continue; }
+                cell += text[i++];
+              }
+              if (text[i] === '"') i++;
+              row.push(cell);
+            } else {
+              let cell = '';
+              while (i < text.length && text[i] !== ',' && text[i] !== '\n' && text[i] !== '\r') {
+                cell += text[i++];
+              }
+              row.push(cell.trim());
+            }
+            if (text[i] === ',') { i++; continue; }
+            if (text[i] === '\r') { i++; if (text[i] === '\n') i++; break; }
+            if (text[i] === '\n') { i++; break; }
+            break;
+          }
+          rows.push(row);
+        }
+        return rows;
+      }
+
+      function normalizeHeader(name) {
+        const key = name.trim().toLowerCase().replace(/\s+/g, ' ');
+        if (HEADER_MAP[key]) return HEADER_MAP[key];
+        if (/^word\s*\d+$/.test(key)) return 'word' + key.replace(/\D/g, '');
+        return name.trim();
+      }
+
+      function isSetIdRow(firstCell) {
+        const k = (firstCell || '').trim().toLowerCase().replace(/\s+/g, ' ');
+        return k === 'setid' || k === 'set id';
+      }
+
+      function isEmptyRow(row) {
+        return !row.length || row.every(function (c) { return !(c || '').trim(); });
+      }
+
+      function parseTransposedBlocks(rows) {
+        const wordSets = [];
+        let i = 0;
+        while (i < rows.length) {
+          if (isEmptyRow(rows[i])) { i++; continue; }
+          if (!isSetIdRow(rows[i][0])) break;
+          const blockRows = [];
+          while (i < rows.length && !isEmptyRow(rows[i])) {
+            blockRows.push(rows[i]);
+            i++;
+          }
+          if (blockRows.length < 7) continue;
+          const rowLabels = blockRows.map(function (r) { return normalizeHeader(r[0] || ''); });
+          const numCols = Math.max.apply(null, blockRows.map(function (r) { return r.length; }));
+          if (numCols < 2) continue;
+          const wordIndices = [];
+          for (let ri = 0; ri < blockRows.length; ri++) {
+            const lab = rowLabels[ri];
+            if (lab && lab.indexOf('word') === 0) wordIndices.push({ row: ri, key: lab });
+          }
+          wordIndices.sort(function (a, b) {
+            const na = parseInt(a.key.replace(/\D/g, ''), 10) || 0;
+            const nb = parseInt(b.key.replace(/\D/g, ''), 10) || 0;
+            return na - nb;
+          });
+          for (let col = 1; col < numCols; col++) {
+            const setId = (blockRows[0][col] || '').trim();
+            const setLabel = (blockRows[1][col] || '').trim();
+            const prompt = (blockRows[2][col] || '').trim();
+            const targetSound = (blockRows[3][col] || '').trim();
+            const contrastSound = (blockRows[4][col] || '').trim();
+            const folder = (blockRows[5][col] || '').trim();
+            if (!setId) continue;
+            const pairs = [];
+            for (let wi = 0; wi + 1 < wordIndices.length; wi += 2) {
+              const w1 = (blockRows[wordIndices[wi].row][col] || '').trim();
+              const w2 = (blockRows[wordIndices[wi + 1].row][col] || '').trim();
+              if (w1 && w2) pairs.push([w1, w2]);
+            }
+            if (pairs.length) {
+              wordSets.push({
+                id: setId,
+                label: setLabel,
+                prompt: prompt,
+                targetSound: targetSound,
+                contrastSound: contrastSound,
+                folder: folder,
+                pairs: pairs
+              });
+            }
+          }
+        }
+        return wordSets;
+      }
+
+      function csvToWordSets(csvText) {
+        const rows = parseCSV(csvText);
+        if (rows.length < 2) return { error: 'CSV needs at least a header row and one data row or one transposed block.' };
+
+        const firstCell = (rows[0][0] || '').trim();
+        if (isSetIdRow(firstCell)) {
+          const transposed = parseTransposedBlocks(rows);
+          if (transposed.length === 0) return { error: 'Transposed format: no complete set blocks found. Each block should start with a row whose first cell is setID, then setLabel, prompt, targetSound, contrastSound, folder, then word1, word2, …' };
+          return { wordSets: transposed };
+        }
+
+        const rawHeaders = rows[0];
+        const headers = rawHeaders.map(normalizeHeader);
+        const required = ['setId', 'setLabel', 'prompt', 'targetSound', 'contrastSound', 'folder', 'word1', 'word2'];
+        const missing = required.filter(function (r) { return headers.indexOf(r) === -1; });
+        if (missing.length) return { error: 'Row-per-pair format: missing columns: ' + missing.join(', ') + '. Or use transposed format (first cell of first row = setID).' };
+
+        const bySet = {};
+        for (let r = 1; r < rows.length; r++) {
+          const row = rows[r];
+          const obj = {};
+          headers.forEach(function (h, i) { obj[h] = (row[i] || '').trim(); });
+          if (!obj.word1 || !obj.word2) continue;
+          const id = obj.setId;
+          if (!bySet[id]) {
+            bySet[id] = {
+              id: id,
+              label: obj.setLabel,
+              prompt: obj.prompt,
+              targetSound: obj.targetSound,
+              contrastSound: obj.contrastSound,
+              folder: obj.folder,
+              pairs: []
+            };
+          }
+          bySet[id].pairs.push([obj.word1, obj.word2]);
+        }
+
+        const wordSets = Object.keys(bySet).map(function (id) { return bySet[id]; });
+        return { wordSets: wordSets };
+      }
+
+      function updatePreview() {
+        const text = csvEl.value.trim();
+        if (!text) {
+          previewEl.style.display = 'none';
+          downloadBtn.disabled = true;
+          return;
+        }
+        const result = csvToWordSets(text);
+        previewEl.style.display = 'block';
+        if (result.error) {
+          previewEl.innerHTML = '<h3>Error</h3><p class="error">' + result.error + '</p>';
+          downloadBtn.disabled = true;
+          return;
+        }
+        const sets = result.wordSets;
+        let html = '<h3 class="success">Ready</h3><p>' + sets.length + ' word set(s).</p><ul>';
+        sets.forEach(function (s) {
+          html += '<li><strong>' + s.label + '</strong> (' + s.pairs.length + ' pairs) – folder: ' + (s.folder || '—') + '</li>';
+        });
+        html += '</ul>';
+        previewEl.innerHTML = html;
+        downloadBtn.disabled = false;
+        previewEl._wordSets = sets;
+      }
+
+      function triggerDownload() {
+        const sets = previewEl._wordSets;
+        if (!sets || !sets.length) return;
+        const blob = new Blob([JSON.stringify(sets, null, 2)], { type: 'application/json' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = 'word-sets.json';
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }
+
+      csvEl.addEventListener('input', updatePreview);
+      csvEl.addEventListener('paste', function () { setTimeout(updatePreview, 0); });
+      downloadBtn.addEventListener('click', triggerDownload);
+
+      fileInput.addEventListener('change', function () {
+        const f = fileInput.files && fileInput.files[0];
+        if (!f) return;
+        const reader = new FileReader();
+        reader.onload = function () {
+          csvEl.value = reader.result;
+          updatePreview();
+        };
+        reader.readAsText(f, 'UTF-8');
+        fileInput.value = '';
+      });
+
+      updatePreview();
+    })();
+  </script>
+</body>
+</html>
