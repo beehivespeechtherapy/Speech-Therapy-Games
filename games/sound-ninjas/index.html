@@ -662,7 +662,7 @@
       try {
         await engine.loadConfig();
         try {
-          const listRes = await fetch('../../word-lists/word-sets.json');
+          const listRes = await fetch('../../word-lists/word-sets.json?v=2');
           if (listRes.ok) {
             const wordSetsData = await listRes.json();
             if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
@@ -672,7 +672,7 @@
           }
         } catch (_) { /* use config wordSets and existing WORD_SET_FOLDERS */ }
         try {
-          const indexRes = await fetch('../../word-lists/word-sets-index.json');
+          const indexRes = await fetch('../../word-lists/word-sets-index.json?v=2');
           if (indexRes.ok) wordSetsIndex = await indexRes.json();
         } catch (_) {}
         document.title = engine.config.title || 'Sound Ninjas';
