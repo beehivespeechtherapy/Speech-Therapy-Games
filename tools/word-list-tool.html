@@ -157,14 +157,30 @@
             const prompt = (blockRows[2][col] || '').trim();
             const targetSound = (blockRows[3][col] || '').trim();
             const contrastSound = (blockRows[4][col] || '').trim();
-            const folder = (blockRows[5][col] || '').trim();
+            let folder = (blockRows[5][col] || '').trim();
             if (!setId) continue;
             const pairs = [];
-            for (let wi = 0; wi + 1 < wordIndices.length; wi += 2) {
-              const w1 = (blockRows[wordIndices[wi].row][col] || '').trim();
-              const w2 = (blockRows[wordIndices[wi + 1].row][col] || '').trim();
-              if (w1 && w2) pairs.push([w1, w2]);
+            const firstWordCell = wordIndices.length > 0 ? (blockRows[wordIndices[0].row][col] || '').trim() : '';
+            const slashFormat = firstWordCell.indexOf('/') >= 0;
+            if (slashFormat) {
+              for (let wi = 0; wi < wordIndices.length; wi++) {
+                const cell = (blockRows[wordIndices[wi].row][col] || '').trim();
+                if (!cell) continue;
+                const idx = cell.indexOf('/');
+                if (idx >= 0) {
+                  const w1 = cell.slice(0, idx).trim();
+                  const w2 = cell.slice(idx + 1).trim();
+                  if (w1 && w2) pairs.push([w1, w2]);
+                }
+              }
+            } else {
+              for (let wi = 0; wi + 1 < wordIndices.length; wi += 2) {
+                const w1 = (blockRows[wordIndices[wi].row][col] || '').trim();
+                const w2 = (blockRows[wordIndices[wi + 1].row][col] || '').trim();
+                if (w1 && w2) pairs.push([w1, w2]);
+              }
             }
+            if (folder && folder.indexOf('/') >= 0) folder = folder.replace(/\//g, ':');
             if (pairs.length) {
               wordSets.push({
                 id: setId,
