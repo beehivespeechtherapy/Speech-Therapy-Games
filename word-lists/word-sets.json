@@ -1,14 +1,5238 @@
 [
-  {"id":"tk-k1","label":"T/K Minimal Pairs - Initial K","prompt":"Which word has the /k/ sound?","targetSound":"k","contrastSound":"t","folder":"T:K Minimal Pairs - Initial","pairs":[["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]]},
-  {"id":"tk-t1","label":"T/K Minimal Pairs - Initial T","prompt":"Which word has the /t/ sound?","targetSound":"t","contrastSound":"k","folder":"T:K Minimal Pairs - Initial","pairs":[["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]]},
-  {"id":"tk-k2","label":"T/K Minimal Pairs - Final K","prompt":"Which word has the /k/ sound?","targetSound":"k","contrastSound":"t","folder":"T:K Minimal Pairs - Final","pairs":[["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]]},
-  {"id":"tk-t2","label":"T/K Minimal Pairs - Final T","prompt":"Which word has the /t/ sound?","targetSound":"t","contrastSound":"k","folder":"T:K Minimal Pairs - Final","pairs":[["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]]},
-  {"id":"dg-d1","label":"D/G Minimal Pairs - Initial D","prompt":"Which word has the /d/ sound?","targetSound":"d","contrastSound":"g","folder":"D:G Minimal Pairs - Initial","pairs":[["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]]},
-  {"id":"dg-g1","label":"D/G Minimal Pairs - Initial G","prompt":"Which word has the /g/ sound?","targetSound":"g","contrastSound":"d","folder":"D:G Minimal Pairs - Initial","pairs":[["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]]},
-  {"id":"dg-g2","label":"D/G Minimal Pairs - Final G","prompt":"Which word has the /g/ sound?","targetSound":"g","contrastSound":"d","folder":"D:G Minimal Pairs - Final","pairs":[["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]]},
-  {"id":"dg-d2","label":"D/G Minimal Pairs - Final D","prompt":"Which word has the /d/ sound?","targetSound":"d","contrastSound":"g","folder":"D:G Minimal Pairs - Final","pairs":[["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]]},
-  {"id":"vb-b1","label":"V/B Minimal Pairs - Initial B","prompt":"Which word has the /b/ sound?","targetSound":"b","contrastSound":"v","folder":"V:B Minimal Pairs - Initial","pairs":[["ban","van"],["best","vest"],["broom","vroom"],["boat","vote"],["base","vase"],["bale","veil"],["berry","very"],["bow","vow"],["bent","vent"],["bat","vat"]]},
-  {"id":"vb-v1","label":"V/B Minimal Pairs - Initial V","prompt":"Which word has the /v/ sound?","targetSound":"v","contrastSound":"b","folder":"V:B Minimal Pairs - Initial","pairs":[["veil","bale"],["vase","base"],["vat","bat"],["vent","bent"],["very","berry"],["vest","best"],["vote","boat"],["view","boo"],["vroom","broom"]]},
-  {"id":"vb-v2","label":"V/B Minimal Pairs - Final V","prompt":"Which word has the /v/ sound?","targetSound":"v","contrastSound":"b","folder":"V:B Minimal Pairs - Final","pairs":[["carve","carb"],["curve","curb"],["wave","web"],["drive","drib"],["five","fib"],["give","goob"],["grave","grab"],["live","lab"],["love","lobe"],["nerve","nub"]]},
-  {"id":"vb-b2","label":"V/B Minimal Pairs - Final B","prompt":"Which word has the /b/ sound?","targetSound":"b","contrastSound":"v","folder":"V:B Minimal Pairs - Final","pairs":[["carb","carve"],["curb","curve"],["drib","drive"],["fib","five"],["goob","give"],["grab","grave"],["lab","live"],["lobe","love"],["nub","nerve"]]}
+  {
+    "id": "tk-ki",
+    "label": "T/K Minimal Pairs - Initial K",
+    "prompt": "Which word has the /k/ sound?",
+    "targetSound": "k",
+    "contrastSound": "t",
+    "folder": "T:K Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "can",
+        "tan"
+      ],
+      [
+        "cap",
+        "tap"
+      ],
+      [
+        "cape",
+        "tape"
+      ],
+      [
+        "car",
+        "tar"
+      ],
+      [
+        "cod",
+        "todd"
+      ],
+      [
+        "code",
+        "toad"
+      ],
+      [
+        "cop",
+        "top"
+      ],
+      [
+        "cub",
+        "tub"
+      ],
+      [
+        "ken",
+        "ten"
+      ],
+      [
+        "key",
+        "tea"
+      ],
+      [
+        "kick",
+        "tick"
+      ],
+      [
+        "corn",
+        "torn"
+      ],
+      [
+        "kale",
+        "tail"
+      ],
+      [
+        "cool",
+        "tool"
+      ]
+    ]
+  },
+  {
+    "id": "tk-ti",
+    "label": "T/K Minimal Pairs - Initial T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "k",
+    "folder": "T:K Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "can",
+        "tan"
+      ],
+      [
+        "cap",
+        "tap"
+      ],
+      [
+        "cape",
+        "tape"
+      ],
+      [
+        "car",
+        "tar"
+      ],
+      [
+        "cod",
+        "todd"
+      ],
+      [
+        "code",
+        "toad"
+      ],
+      [
+        "cop",
+        "top"
+      ],
+      [
+        "cub",
+        "tub"
+      ],
+      [
+        "ken",
+        "ten"
+      ],
+      [
+        "key",
+        "tea"
+      ],
+      [
+        "kick",
+        "tick"
+      ],
+      [
+        "corn",
+        "torn"
+      ],
+      [
+        "kale",
+        "tail"
+      ],
+      [
+        "cool",
+        "tool"
+      ]
+    ]
+  },
+  {
+    "id": "tk-km",
+    "label": "T/K Minimal Pairs - Medial K",
+    "prompt": "Which word has the /k/ sound?",
+    "targetSound": "k",
+    "contrastSound": "t",
+    "folder": "T:K Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "biting",
+        "biking"
+      ],
+      [
+        "tattle",
+        "tackle"
+      ],
+      [
+        "later",
+        "lacquer"
+      ],
+      [
+        "petal",
+        "pickle"
+      ],
+      [
+        "matter",
+        "maker"
+      ],
+      [
+        "mitten",
+        "market"
+      ],
+      [
+        "rating",
+        "raking"
+      ],
+      [
+        "eating",
+        "leaking"
+      ],
+      [
+        "tater",
+        "taker"
+      ],
+      [
+        "attack",
+        "a cat"
+      ],
+      [
+        "star",
+        "scar"
+      ],
+      [
+        "baiter",
+        "baker"
+      ]
+    ]
+  },
+  {
+    "id": "tk-tm",
+    "label": "T/K Minimal Pairs - Medial T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "k",
+    "folder": "T:K Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "biting",
+        "biking"
+      ],
+      [
+        "tattle",
+        "tackle"
+      ],
+      [
+        "later",
+        "lacquer"
+      ],
+      [
+        "petal",
+        "pickle"
+      ],
+      [
+        "matter",
+        "maker"
+      ],
+      [
+        "mitten",
+        "market"
+      ],
+      [
+        "rating",
+        "raking"
+      ],
+      [
+        "eating",
+        "leaking"
+      ],
+      [
+        "tater",
+        "taker"
+      ],
+      [
+        "attack",
+        "a cat"
+      ],
+      [
+        "star",
+        "scar"
+      ],
+      [
+        "baiter",
+        "baker"
+      ]
+    ]
+  },
+  {
+    "id": "tk-kf",
+    "label": "T/K Minimal Pairs - Final K",
+    "prompt": "Which word has the /k/ sound?",
+    "targetSound": "k",
+    "contrastSound": "t",
+    "folder": "T:K Minimal Pairs - Final",
+    "pairs": [
+      [
+        "back",
+        "bat"
+      ],
+      [
+        "beak",
+        "beet"
+      ],
+      [
+        "bike",
+        "bite"
+      ],
+      [
+        "height",
+        "hike"
+      ],
+      [
+        "kick",
+        "kit"
+      ],
+      [
+        "lick",
+        "lit"
+      ],
+      [
+        "lock",
+        "lot"
+      ],
+      [
+        "pick",
+        "pit"
+      ],
+      [
+        "puck",
+        "putt"
+      ],
+      [
+        "rack",
+        "rat"
+      ],
+      [
+        "shock",
+        "short"
+      ],
+      [
+        "sick",
+        "sit"
+      ]
+    ]
+  },
+  {
+    "id": "tk-tf",
+    "label": "T/K Minimal Pairs - Final T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "k",
+    "folder": "T:K Minimal Pairs - Final",
+    "pairs": [
+      [
+        "back",
+        "bat"
+      ],
+      [
+        "beak",
+        "beet"
+      ],
+      [
+        "bike",
+        "bite"
+      ],
+      [
+        "height",
+        "hike"
+      ],
+      [
+        "kick",
+        "kit"
+      ],
+      [
+        "lick",
+        "lit"
+      ],
+      [
+        "lock",
+        "lot"
+      ],
+      [
+        "pick",
+        "pit"
+      ],
+      [
+        "puck",
+        "putt"
+      ],
+      [
+        "rack",
+        "rat"
+      ],
+      [
+        "shock",
+        "short"
+      ],
+      [
+        "sick",
+        "sit"
+      ]
+    ]
+  },
+  {
+    "id": "dg-di",
+    "label": "G/D Minimal Pairs - Initial D",
+    "prompt": "Which word has the /d/ sound?",
+    "targetSound": "d",
+    "contrastSound": "g",
+    "folder": "G:D Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "dame",
+        "game"
+      ],
+      [
+        "date",
+        "gate"
+      ],
+      [
+        "dawn",
+        "gone"
+      ],
+      [
+        "deer",
+        "gear"
+      ],
+      [
+        "doe",
+        "go"
+      ],
+      [
+        "done",
+        "gun"
+      ],
+      [
+        "dot",
+        "got"
+      ],
+      [
+        "down",
+        "gown"
+      ],
+      [
+        "dust",
+        "gust"
+      ],
+      [
+        "dye",
+        "guy"
+      ],
+      [
+        "do",
+        "goo"
+      ],
+      [
+        "dale",
+        "gale"
+      ]
+    ]
+  },
+  {
+    "id": "dg-gi",
+    "label": "G/D Minimal Pairs - Initial G",
+    "prompt": "Which word has the /g/ sound?",
+    "targetSound": "g",
+    "contrastSound": "d",
+    "folder": "G:D Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "dame",
+        "game"
+      ],
+      [
+        "date",
+        "gate"
+      ],
+      [
+        "dawn",
+        "gone"
+      ],
+      [
+        "deer",
+        "gear"
+      ],
+      [
+        "doe",
+        "go"
+      ],
+      [
+        "done",
+        "gun"
+      ],
+      [
+        "dot",
+        "got"
+      ],
+      [
+        "down",
+        "gown"
+      ],
+      [
+        "dust",
+        "gust"
+      ],
+      [
+        "dye",
+        "guy"
+      ],
+      [
+        "do",
+        "goo"
+      ],
+      [
+        "dale",
+        "gale"
+      ]
+    ]
+  },
+  {
+    "id": "dg-dm",
+    "label": "G/D Minimal Pairs - Medial D",
+    "prompt": "Which word has the /d/ sound?",
+    "targetSound": "d",
+    "contrastSound": "g",
+    "folder": "G:D Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "batter",
+        "bagger"
+      ],
+      [
+        "shudder",
+        "sugar"
+      ],
+      [
+        "baddy",
+        "baggy"
+      ],
+      [
+        "muddy",
+        "muggy"
+      ],
+      [
+        "a den",
+        "again"
+      ],
+      [
+        "wading",
+        "wagging"
+      ],
+      [
+        "ladder",
+        "lagger"
+      ],
+      [
+        "battle",
+        "bagel"
+      ],
+      [
+        "fiddle",
+        "giggle"
+      ],
+      [
+        "puddle",
+        "wiggle"
+      ],
+      [
+        "huddle",
+        "hugging"
+      ]
+    ]
+  },
+  {
+    "id": "dg-gm",
+    "label": "G/D Minimal Pairs - Medial G",
+    "prompt": "Which word has the /g/ sound?",
+    "targetSound": "g",
+    "contrastSound": "d",
+    "folder": "G:D Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "batter",
+        "bagger"
+      ],
+      [
+        "wader",
+        "wager"
+      ],
+      [
+        "shudder",
+        "sugar"
+      ],
+      [
+        "baddy",
+        "baggy"
+      ],
+      [
+        "muddy",
+        "muggy"
+      ],
+      [
+        "a den",
+        "again"
+      ],
+      [
+        "wading",
+        "wagging"
+      ],
+      [
+        "daddy",
+        "dagger"
+      ],
+      [
+        "battle",
+        "bagel"
+      ],
+      [
+        "fiddle",
+        "giggle"
+      ],
+      [
+        "puddle",
+        "wiggle"
+      ],
+      [
+        "huddle",
+        "hugging"
+      ]
+    ]
+  },
+  {
+    "id": "dg-df",
+    "label": "G/D Minimal Pairs - Final D",
+    "prompt": "Which word has the /d/ sound?",
+    "targetSound": "d",
+    "contrastSound": "g",
+    "folder": "G:D Minimal Pairs - Final",
+    "pairs": [
+      [
+        "bad",
+        "bag"
+      ],
+      [
+        "bed",
+        "beg"
+      ],
+      [
+        "bud",
+        "bug"
+      ],
+      [
+        "did",
+        "dig"
+      ],
+      [
+        "Ed",
+        "egg"
+      ],
+      [
+        "had",
+        "hag"
+      ],
+      [
+        "lead",
+        "leg"
+      ],
+      [
+        "mud",
+        "mug"
+      ],
+      [
+        "rad",
+        "rag"
+      ],
+      [
+        "tad",
+        "tag"
+      ],
+      [
+        "dud",
+        "dug"
+      ],
+      [
+        "lad",
+        "lag"
+      ]
+    ]
+  },
+  {
+    "id": "dg-gf",
+    "label": "G/D Minimal Pairs - Final G",
+    "prompt": "Which word has the /g/ sound?",
+    "targetSound": "g",
+    "contrastSound": "d",
+    "folder": "G:D Minimal Pairs - Final",
+    "pairs": [
+      [
+        "bad",
+        "bag"
+      ],
+      [
+        "bed",
+        "beg"
+      ],
+      [
+        "bud",
+        "bug"
+      ],
+      [
+        "did",
+        "dig"
+      ],
+      [
+        "Ed",
+        "egg"
+      ],
+      [
+        "had",
+        "hag"
+      ],
+      [
+        "lead",
+        "leg"
+      ],
+      [
+        "mud",
+        "mug"
+      ],
+      [
+        "rad",
+        "rag"
+      ],
+      [
+        "tad",
+        "tag"
+      ],
+      [
+        "dud",
+        "dug"
+      ],
+      [
+        "lad",
+        "lag"
+      ]
+    ]
+  },
+  {
+    "id": "vb-vi",
+    "label": "V/B Minimal Pairs - Initial V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "b",
+    "folder": "V:B Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "van",
+        "ban"
+      ],
+      [
+        "vest",
+        "best"
+      ],
+      [
+        "vroom",
+        "broom"
+      ],
+      [
+        "vote",
+        "boat"
+      ],
+      [
+        "vase",
+        "base"
+      ],
+      [
+        "veil",
+        "bale"
+      ],
+      [
+        "very",
+        "berry"
+      ],
+      [
+        "vow",
+        "bow"
+      ],
+      [
+        "vent",
+        "bent"
+      ],
+      [
+        "vat",
+        "bat"
+      ],
+      [
+        "v",
+        "bee"
+      ],
+      [
+        "vet",
+        "bet"
+      ],
+      [
+        "view",
+        "boo"
+      ],
+      [
+        "vole",
+        "bowl"
+      ]
+    ]
+  },
+  {
+    "id": "vb-bi",
+    "label": "V/B Minimal Pairs - Initial B",
+    "prompt": "Which word has the /b/ sound?",
+    "targetSound": "b",
+    "contrastSound": "v",
+    "folder": "V:B Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "van",
+        "ban"
+      ],
+      [
+        "vest",
+        "best"
+      ],
+      [
+        "vroom",
+        "broom"
+      ],
+      [
+        "vote",
+        "boat"
+      ],
+      [
+        "vase",
+        "base"
+      ],
+      [
+        "veil",
+        "bale"
+      ],
+      [
+        "very",
+        "berry"
+      ],
+      [
+        "vow",
+        "bow"
+      ],
+      [
+        "vent",
+        "bent"
+      ],
+      [
+        "vat",
+        "bat"
+      ],
+      [
+        "v",
+        "bee"
+      ],
+      [
+        "vet",
+        "bet"
+      ],
+      [
+        "view",
+        "boo"
+      ],
+      [
+        "vole",
+        "bowl"
+      ]
+    ]
+  },
+  {
+    "id": "vb-vm",
+    "label": "V/B Minimal Pairs - Medial V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "b",
+    "folder": "V:B Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "kevin",
+        "cabin"
+      ],
+      [
+        "river",
+        "rubber"
+      ],
+      [
+        "rivet",
+        "ribbit"
+      ],
+      [
+        "hovel",
+        "hobby"
+      ],
+      [
+        "tv",
+        "tabby"
+      ],
+      [
+        "wavy",
+        "baby"
+      ],
+      [
+        "waving",
+        "webbing"
+      ],
+      [
+        "raven",
+        "rabbit"
+      ],
+      [
+        "hover",
+        "hobby"
+      ],
+      [
+        "over",
+        "a bear"
+      ],
+      [
+        "beaver",
+        "bubble"
+      ],
+      [
+        "travel",
+        "table"
+      ]
+    ]
+  },
+  {
+    "id": "vb-bm",
+    "label": "V/B Minimal Pairs - Medial B",
+    "prompt": "Which word has the /b/ sound?",
+    "targetSound": "b",
+    "contrastSound": "v",
+    "folder": "V:B Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "kevin",
+        "cabin"
+      ],
+      [
+        "river",
+        "rubber"
+      ],
+      [
+        "rivet",
+        "ribbit"
+      ],
+      [
+        "hovel",
+        "hobby"
+      ],
+      [
+        "tv",
+        "tabby"
+      ],
+      [
+        "wavy",
+        "baby"
+      ],
+      [
+        "waving",
+        "webbing"
+      ],
+      [
+        "raven",
+        "rabbit"
+      ],
+      [
+        "hover",
+        "hobby"
+      ],
+      [
+        "over",
+        "a bear"
+      ],
+      [
+        "beaver",
+        "bubble"
+      ],
+      [
+        "travel",
+        "table"
+      ]
+    ]
+  },
+  {
+    "id": "vb-vf",
+    "label": "V/B Minimal Pairs - Final V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "b",
+    "folder": "V:B Minimal Pairs - Final",
+    "pairs": [
+      [
+        "carb",
+        "carve"
+      ],
+      [
+        "curb",
+        "curve"
+      ],
+      [
+        "dob",
+        "dove"
+      ],
+      [
+        "drib",
+        "drive"
+      ],
+      [
+        "fib",
+        "five"
+      ],
+      [
+        "goob",
+        "give"
+      ],
+      [
+        "grab",
+        "grave"
+      ],
+      [
+        "lab",
+        "live"
+      ],
+      [
+        "lobe",
+        "love"
+      ],
+      [
+        "nub",
+        "nerve"
+      ],
+      [
+        "robe",
+        "rove"
+      ],
+      [
+        "slab",
+        "save"
+      ],
+      [
+        "web",
+        "wave"
+      ],
+      [
+        "cube",
+        "move"
+      ]
+    ]
+  },
+  {
+    "id": "vb-bf",
+    "label": "V/B Minimal Pairs - Final B",
+    "prompt": "Which word has the /b/ sound?",
+    "targetSound": "b",
+    "contrastSound": "v",
+    "folder": "V:B Minimal Pairs - Final",
+    "pairs": [
+      [
+        "carb",
+        "carve"
+      ],
+      [
+        "curb",
+        "curve"
+      ],
+      [
+        "dob",
+        "dove"
+      ],
+      [
+        "drib",
+        "drive"
+      ],
+      [
+        "fib",
+        "five"
+      ],
+      [
+        "goob",
+        "give"
+      ],
+      [
+        "grab",
+        "grave"
+      ],
+      [
+        "lab",
+        "live"
+      ],
+      [
+        "lobe",
+        "love"
+      ],
+      [
+        "nub",
+        "nerve"
+      ],
+      [
+        "robe",
+        "rove"
+      ],
+      [
+        "slab",
+        "save"
+      ],
+      [
+        "web",
+        "wave"
+      ],
+      [
+        "cube",
+        "move"
+      ]
+    ]
+  },
+  {
+    "id": "th/f-thi",
+    "label": "TH/F Minimal Pairs - Initial TH",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "f",
+    "folder": "TH:F Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "thirty",
+        "furry"
+      ],
+      [
+        "thigh",
+        "five"
+      ],
+      [
+        "thin",
+        "fin"
+      ],
+      [
+        "thirst",
+        "first"
+      ],
+      [
+        "thank",
+        "Frank"
+      ],
+      [
+        "thought",
+        "fought"
+      ],
+      [
+        "thor",
+        "four"
+      ],
+      [
+        "thread",
+        "fred"
+      ],
+      [
+        "three",
+        "free"
+      ],
+      [
+        "thresh",
+        "fresh"
+      ],
+      [
+        "thrill",
+        "frill"
+      ],
+      [
+        "thumb",
+        "fun"
+      ]
+    ]
+  },
+  {
+    "id": "th/f-fi",
+    "label": "TH/F Minimal Pairs - Initial F",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "th",
+    "folder": "TH:F Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "thirty",
+        "furry"
+      ],
+      [
+        "thigh",
+        "five"
+      ],
+      [
+        "thin",
+        "fin"
+      ],
+      [
+        "thirst",
+        "first"
+      ],
+      [
+        "thank",
+        "Frank"
+      ],
+      [
+        "thought",
+        "fought"
+      ],
+      [
+        "thor",
+        "four"
+      ],
+      [
+        "thread",
+        "fred"
+      ],
+      [
+        "three",
+        "free"
+      ],
+      [
+        "thresh",
+        "fresh"
+      ],
+      [
+        "thrill",
+        "frill"
+      ],
+      [
+        "thumb",
+        "fun"
+      ]
+    ]
+  },
+  {
+    "id": "th/f-thm",
+    "label": "TH/F Minimal Pairs - Medial TH",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "f",
+    "folder": "TH:F Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "bathroom",
+        "buffalo"
+      ],
+      [
+        "bathtub",
+        "breakfast"
+      ],
+      [
+        "toothpaste",
+        "tofu"
+      ],
+      [
+        "earthquake",
+        "elephant"
+      ],
+      [
+        "toothbrush",
+        "traffic"
+      ],
+      [
+        "birthday",
+        "blindfold"
+      ],
+      [
+        "mouthwash",
+        "muffin"
+      ],
+      [
+        "something",
+        "stuffing"
+      ],
+      [
+        "healthy",
+        "heifer"
+      ],
+      [
+        "filthy",
+        "fluffy"
+      ],
+      [
+        "pathway",
+        "perfume"
+      ],
+      [
+        "wealthy",
+        "waffle"
+      ]
+    ]
+  },
+  {
+    "id": "th/f-fm",
+    "label": "TH/F Minimal Pairs - Medial F",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "th",
+    "folder": "TH:F Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "bathroom",
+        "buffalo"
+      ],
+      [
+        "bathtub",
+        "breakfast"
+      ],
+      [
+        "toothpaste",
+        "tofu"
+      ],
+      [
+        "earthquake",
+        "elephant"
+      ],
+      [
+        "toothbrush",
+        "traffic"
+      ],
+      [
+        "birthday",
+        "blindfold"
+      ],
+      [
+        "mouthwash",
+        "muffin"
+      ],
+      [
+        "something",
+        "stuffing"
+      ],
+      [
+        "healthy",
+        "heifer"
+      ],
+      [
+        "filthy",
+        "fluffy"
+      ],
+      [
+        "pathway",
+        "perfume"
+      ],
+      [
+        "wealthy",
+        "waffle"
+      ]
+    ]
+  },
+  {
+    "id": "th/f-thf",
+    "label": "TH/F Minimal Pairs - Final TH",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "f",
+    "folder": "TH:F Minimal Pairs - Final",
+    "pairs": [
+      [
+        "ruth",
+        "roof"
+      ],
+      [
+        "wreath",
+        "reef"
+      ],
+      [
+        "death",
+        "deaf"
+      ],
+      [
+        "with",
+        "whiff"
+      ],
+      [
+        "oath",
+        "oaf"
+      ],
+      [
+        "myth",
+        "miff"
+      ],
+      [
+        "tooth",
+        "tough"
+      ],
+      [
+        "bath",
+        "buff"
+      ],
+      [
+        "moth",
+        "off"
+      ],
+      [
+        "teeth",
+        "leaf"
+      ],
+      [
+        "mouth",
+        "muff"
+      ],
+      [
+        "health",
+        "half"
+      ]
+    ]
+  },
+  {
+    "id": "th/f-ff",
+    "label": "TH/F Minimal Pairs - Final F",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "th",
+    "folder": "TH:F Minimal Pairs - Final",
+    "pairs": [
+      [
+        "ruth",
+        "roof"
+      ],
+      [
+        "wreath",
+        "reef"
+      ],
+      [
+        "death",
+        "deaf"
+      ],
+      [
+        "with",
+        "whiff"
+      ],
+      [
+        "oath",
+        "oaf"
+      ],
+      [
+        "myth",
+        "miff"
+      ],
+      [
+        "tooth",
+        "tough"
+      ],
+      [
+        "bath",
+        "buff"
+      ],
+      [
+        "moth",
+        "off"
+      ],
+      [
+        "teeth",
+        "leaf"
+      ],
+      [
+        "mouth",
+        "muff"
+      ],
+      [
+        "health",
+        "half"
+      ]
+    ]
+  },
+  {
+    "id": "s/sh-si",
+    "label": "S/SH Minimal Pairs - Initial S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "sh",
+    "folder": "S:SH Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "saggy",
+        "shaggy"
+      ],
+      [
+        "sale",
+        "shale"
+      ],
+      [
+        "sea",
+        "she"
+      ],
+      [
+        "seat",
+        "shet"
+      ],
+      [
+        "sell",
+        "shell"
+      ],
+      [
+        "sign",
+        "shine"
+      ],
+      [
+        "stare",
+        "share"
+      ],
+      [
+        "sue",
+        "suit"
+      ],
+      [
+        "sty",
+        "shy"
+      ],
+      [
+        "spot",
+        "shot"
+      ],
+      [
+        "sore",
+        "shore"
+      ],
+      [
+        "stir",
+        "sure"
+      ]
+    ]
+  },
+  {
+    "id": "s/sh-shi",
+    "label": "S/SH Minimal Pairs - Initial SH",
+    "prompt": "Which word has the /sh/ sound?",
+    "targetSound": "sh",
+    "contrastSound": "s",
+    "folder": "S:SH Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "saggy",
+        "shaggy"
+      ],
+      [
+        "sale",
+        "shale"
+      ],
+      [
+        "sea",
+        "she"
+      ],
+      [
+        "seat",
+        "shet"
+      ],
+      [
+        "sell",
+        "shell"
+      ],
+      [
+        "sign",
+        "shine"
+      ],
+      [
+        "stare",
+        "share"
+      ],
+      [
+        "sue",
+        "suit"
+      ],
+      [
+        "sty",
+        "shy"
+      ],
+      [
+        "spot",
+        "shot"
+      ],
+      [
+        "sore",
+        "shore"
+      ],
+      [
+        "stir",
+        "sure"
+      ]
+    ]
+  },
+  {
+    "id": "s/sh-sm",
+    "label": "S/SH Minimal Pairs - Medial S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "sh",
+    "folder": "S:SH Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "mustard",
+        "mushroom"
+      ],
+      [
+        "custard",
+        "cashew"
+      ],
+      [
+        "tassle",
+        "trash can"
+      ],
+      [
+        "faster",
+        "flashlight"
+      ],
+      [
+        "whistle",
+        "washer"
+      ],
+      [
+        "dancer",
+        "dasher"
+      ],
+      [
+        "sassy",
+        "seashell"
+      ],
+      [
+        "muscle",
+        "marshmallow"
+      ],
+      [
+        "pacifier",
+        "pushing"
+      ],
+      [
+        "cassette",
+        "cashier"
+      ],
+      [
+        "braces",
+        "brushes"
+      ],
+      [
+        "faucet",
+        "fashion"
+      ]
+    ]
+  },
+  {
+    "id": "s/sh-shm",
+    "label": "S/SH Minimal Pairs - Medial SH",
+    "prompt": "Which word has the /sh/ sound?",
+    "targetSound": "sh",
+    "contrastSound": "s",
+    "folder": "S:SH Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "mustard",
+        "mushroom"
+      ],
+      [
+        "custard",
+        "cashew"
+      ],
+      [
+        "tassle",
+        "trash can"
+      ],
+      [
+        "faster",
+        "flashlight"
+      ],
+      [
+        "whistle",
+        "washer"
+      ],
+      [
+        "dancer",
+        "dasher"
+      ],
+      [
+        "sassy",
+        "seashell"
+      ],
+      [
+        "muscle",
+        "marshmallow"
+      ],
+      [
+        "pacifier",
+        "pushing"
+      ],
+      [
+        "cassette",
+        "cashier"
+      ],
+      [
+        "braces",
+        "brushes"
+      ],
+      [
+        "faucet",
+        "fashion"
+      ]
+    ]
+  },
+  {
+    "id": "s/sh-sf",
+    "label": "S/SH Minimal Pairs - Final S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "sh",
+    "folder": "S:SH Minimal Pairs - Final",
+    "pairs": [
+      [
+        "bus",
+        "bush"
+      ],
+      [
+        "lass",
+        "lash"
+      ],
+      [
+        "mess",
+        "mesh"
+      ],
+      [
+        "gas",
+        "gash"
+      ],
+      [
+        "class",
+        "clash"
+      ],
+      [
+        "race",
+        "rash"
+      ],
+      [
+        "case",
+        "cash"
+      ],
+      [
+        "brass",
+        "brush"
+      ],
+      [
+        "rice",
+        "rush"
+      ],
+      [
+        "less",
+        "leash"
+      ],
+      [
+        "nice",
+        "Nash"
+      ],
+      [
+        "peace",
+        "push"
+      ]
+    ]
+  },
+  {
+    "id": "s/sh-shf",
+    "label": "S/SH Minimal Pairs - Final SH",
+    "prompt": "Which word has the /sh/ sound?",
+    "targetSound": "sh",
+    "contrastSound": "s",
+    "folder": "S:SH Minimal Pairs - Final",
+    "pairs": [
+      [
+        "bus",
+        "bush"
+      ],
+      [
+        "lass",
+        "lash"
+      ],
+      [
+        "mess",
+        "mesh"
+      ],
+      [
+        "gas",
+        "gash"
+      ],
+      [
+        "class",
+        "clash"
+      ],
+      [
+        "race",
+        "rash"
+      ],
+      [
+        "case",
+        "cash"
+      ],
+      [
+        "brass",
+        "brush"
+      ],
+      [
+        "rice",
+        "rush"
+      ],
+      [
+        "less",
+        "leash"
+      ],
+      [
+        "nice",
+        "Nash"
+      ],
+      [
+        "peace",
+        "push"
+      ]
+    ]
+  },
+  {
+    "id": "l/w-li",
+    "label": "L/W Minimal Pairs - Initial L",
+    "prompt": "Which word has the /l/ sound?",
+    "targetSound": "l",
+    "contrastSound": "w",
+    "folder": "L:W Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "low",
+        "woah"
+      ],
+      [
+        "lie",
+        "why"
+      ],
+      [
+        "lair",
+        "where"
+      ],
+      [
+        "late",
+        "weight"
+      ],
+      [
+        "Lynn",
+        "win"
+      ],
+      [
+        "liar",
+        "wire"
+      ],
+      [
+        "listen",
+        "whistle"
+      ],
+      [
+        "let",
+        "wet"
+      ],
+      [
+        "lamb",
+        "wham"
+      ],
+      [
+        "lime",
+        "whine"
+      ],
+      [
+        "land",
+        "wand"
+      ],
+      [
+        "lace",
+        "waist"
+      ]
+    ]
+  },
+  {
+    "id": "l/w-wi",
+    "label": "L/W Minimal Pairs - Initial W",
+    "prompt": "Which word has the /w/ sound?",
+    "targetSound": "w",
+    "contrastSound": "l",
+    "folder": "L:W Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "low",
+        "woah"
+      ],
+      [
+        "lie",
+        "why"
+      ],
+      [
+        "lair",
+        "where"
+      ],
+      [
+        "late",
+        "weight"
+      ],
+      [
+        "Lynn",
+        "win"
+      ],
+      [
+        "liar",
+        "wire"
+      ],
+      [
+        "listen",
+        "whistle"
+      ],
+      [
+        "let",
+        "wet"
+      ],
+      [
+        "lamb",
+        "wham"
+      ],
+      [
+        "lime",
+        "whine"
+      ],
+      [
+        "land",
+        "wand"
+      ],
+      [
+        "lace",
+        "waist"
+      ]
+    ]
+  },
+  {
+    "id": "l/w-lm",
+    "label": "L/W Minimal Pairs - Medial L",
+    "prompt": "Which word has the /l/ sound?",
+    "targetSound": "l",
+    "contrastSound": "w",
+    "folder": "L:W Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "Callie",
+        "kiwi"
+      ],
+      [
+        "Molly",
+        "mower"
+      ],
+      [
+        "Polly",
+        "power"
+      ],
+      [
+        "hilly",
+        "Hawaii"
+      ],
+      [
+        "salamander",
+        "sandwich"
+      ],
+      [
+        "alone",
+        "award"
+      ],
+      [
+        "alien",
+        "awake"
+      ],
+      [
+        "Sally",
+        "seaweed"
+      ],
+      [
+        "a leak",
+        "a week"
+      ],
+      [
+        "tally",
+        "towel"
+      ],
+      [
+        "Shelly",
+        "shower"
+      ],
+      [
+        "hollow",
+        "homework"
+      ]
+    ]
+  },
+  {
+    "id": "l/w-lm",
+    "label": "L/W Minimal Pairs - Medial W",
+    "prompt": "Which word has the /w/ sound?",
+    "targetSound": "w",
+    "contrastSound": "l",
+    "folder": "L:W Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "Callie",
+        "kiwi"
+      ],
+      [
+        "Molly",
+        "mower"
+      ],
+      [
+        "Polly",
+        "power"
+      ],
+      [
+        "hilly",
+        "Hawaii"
+      ],
+      [
+        "salamander",
+        "sandwich"
+      ],
+      [
+        "alone",
+        "award"
+      ],
+      [
+        "alien",
+        "awake"
+      ],
+      [
+        "Sally",
+        "seaweed"
+      ],
+      [
+        "a leak",
+        "a week"
+      ],
+      [
+        "tally",
+        "towel"
+      ],
+      [
+        "Shelly",
+        "shower"
+      ],
+      [
+        "hollow",
+        "homework"
+      ]
+    ]
+  },
+  {
+    "id": "l/w-lf",
+    "label": "L/W Minimal Pairs - Final L",
+    "prompt": "Which word has the /l/ sound?",
+    "targetSound": "l",
+    "contrastSound": "w",
+    "folder": "L:W Minimal Pairs - Final",
+    "pairs": [
+      [
+        "call",
+        "caw"
+      ],
+      [
+        "whale",
+        "wow"
+      ],
+      [
+        "owl",
+        "ow"
+      ],
+      [
+        "veil",
+        "vow"
+      ],
+      [
+        "bowl",
+        "bow"
+      ],
+      [
+        "seal",
+        "sew"
+      ],
+      [
+        "shell",
+        "show"
+      ],
+      [
+        "goal",
+        "grow"
+      ],
+      [
+        "snail",
+        "snow"
+      ],
+      [
+        "tall",
+        "tow"
+      ],
+      [
+        "roll",
+        "row"
+      ],
+      [
+        "rail",
+        "raw"
+      ],
+      [
+        "mole",
+        "mow"
+      ]
+    ]
+  },
+  {
+    "id": "l/w-wf",
+    "label": "L/W Minimal Pairs - Final W",
+    "prompt": "Which word has the /w/ sound?",
+    "targetSound": "w",
+    "contrastSound": "l",
+    "folder": "L:W Minimal Pairs - Final",
+    "pairs": [
+      [
+        "call",
+        "caw"
+      ],
+      [
+        "whale",
+        "wow"
+      ],
+      [
+        "owl",
+        "ow"
+      ],
+      [
+        "veil",
+        "vow"
+      ],
+      [
+        "bowl",
+        "bow"
+      ],
+      [
+        "seal",
+        "sew"
+      ],
+      [
+        "shell",
+        "show"
+      ],
+      [
+        "goal",
+        "grow"
+      ],
+      [
+        "snail",
+        "snow"
+      ],
+      [
+        "tall",
+        "tow"
+      ],
+      [
+        "roll",
+        "row"
+      ],
+      [
+        "rail",
+        "raw"
+      ],
+      [
+        "mole",
+        "mow"
+      ]
+    ]
+  },
+  {
+    "id": "t/d-ti",
+    "label": "T/D Minimal Pairs - Initial T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "d",
+    "folder": "T:D Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "ten",
+        "den"
+      ],
+      [
+        "toe",
+        "dough"
+      ],
+      [
+        "tart",
+        "dart"
+      ],
+      [
+        "time",
+        "dime"
+      ],
+      [
+        "town",
+        "down"
+      ],
+      [
+        "tip",
+        "dip"
+      ],
+      [
+        "tear",
+        "deer"
+      ],
+      [
+        "tent",
+        "dent"
+      ],
+      [
+        "t",
+        "d"
+      ],
+      [
+        "tune",
+        "dune"
+      ],
+      [
+        "tie",
+        "dye"
+      ],
+      [
+        "tow",
+        "doe"
+      ],
+      [
+        "tore",
+        "door"
+      ]
+    ]
+  },
+  {
+    "id": "t/d-di",
+    "label": "T/D Minimal Pairs - Initial D",
+    "prompt": "Which word has the /d/ sound?",
+    "targetSound": "d",
+    "contrastSound": "t",
+    "folder": "T:D Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "ten",
+        "den"
+      ],
+      [
+        "toe",
+        "dough"
+      ],
+      [
+        "tart",
+        "dart"
+      ],
+      [
+        "time",
+        "dime"
+      ],
+      [
+        "town",
+        "down"
+      ],
+      [
+        "tip",
+        "dip"
+      ],
+      [
+        "tear",
+        "deer"
+      ],
+      [
+        "tent",
+        "dent"
+      ],
+      [
+        "t",
+        "d"
+      ],
+      [
+        "tune",
+        "dune"
+      ],
+      [
+        "tie",
+        "dye"
+      ],
+      [
+        "tow",
+        "doe"
+      ],
+      [
+        "tore",
+        "door"
+      ]
+    ]
+  },
+  {
+    "id": "t/d-tm",
+    "label": "T/D Minimal Pairs - Medial T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "d",
+    "folder": "T:D Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "writer",
+        "rider"
+      ],
+      [
+        "waiting",
+        "wading"
+      ],
+      [
+        "water",
+        "wader"
+      ],
+      [
+        "petal",
+        "pedal"
+      ],
+      [
+        "kitty",
+        "kiddy"
+      ],
+      [
+        "later",
+        "ladder"
+      ],
+      [
+        "metal",
+        "medal"
+      ],
+      [
+        "mighty",
+        "muddy"
+      ],
+      [
+        "batty",
+        "baddy"
+      ],
+      [
+        "battle",
+        "bandaid"
+      ],
+      [
+        "cutie",
+        "Cody"
+      ],
+      [
+        "mitten",
+        "middle"
+      ]
+    ]
+  },
+  {
+    "id": "t/d-dm",
+    "label": "T/D Minimal Pairs - Medial D",
+    "prompt": "Which word has the /d/ sound?",
+    "targetSound": "d",
+    "contrastSound": "t",
+    "folder": "T:D Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "writer",
+        "rider"
+      ],
+      [
+        "waiting",
+        "wading"
+      ],
+      [
+        "water",
+        "wader"
+      ],
+      [
+        "petal",
+        "pedal"
+      ],
+      [
+        "kitty",
+        "kiddy"
+      ],
+      [
+        "later",
+        "ladder"
+      ],
+      [
+        "metal",
+        "medal"
+      ],
+      [
+        "mighty",
+        "muddy"
+      ],
+      [
+        "batty",
+        "baddy"
+      ],
+      [
+        "battle",
+        "bandaid"
+      ],
+      [
+        "cutie",
+        "Cody"
+      ],
+      [
+        "mitten",
+        "middle"
+      ]
+    ]
+  },
+  {
+    "id": "t/d-tf",
+    "label": "T/D Minimal Pairs - Final T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "d",
+    "folder": "T:D Minimal Pairs - Final",
+    "pairs": [
+      [
+        "bat",
+        "bad"
+      ],
+      [
+        "coat",
+        "code"
+      ],
+      [
+        "feet",
+        "feed"
+      ],
+      [
+        "hat",
+        "had"
+      ],
+      [
+        "hit",
+        "hid"
+      ],
+      [
+        "kit",
+        "kid"
+      ],
+      [
+        "light",
+        "lied"
+      ],
+      [
+        "pot",
+        "pod"
+      ],
+      [
+        "root",
+        "rude"
+      ],
+      [
+        "seat",
+        "seed"
+      ],
+      [
+        "tight",
+        "tied"
+      ],
+      [
+        "wet",
+        "wed"
+      ],
+      [
+        "write",
+        "ride"
+      ]
+    ]
+  },
+  {
+    "id": "t/d-df",
+    "label": "T/D Minimal Pairs - Final D",
+    "prompt": "Which word has the /d/ sound?",
+    "targetSound": "d",
+    "contrastSound": "t",
+    "folder": "T:D Minimal Pairs - Final",
+    "pairs": [
+      [
+        "bat",
+        "bad"
+      ],
+      [
+        "coat",
+        "code"
+      ],
+      [
+        "feet",
+        "feed"
+      ],
+      [
+        "hat",
+        "had"
+      ],
+      [
+        "hit",
+        "hid"
+      ],
+      [
+        "kit",
+        "kid"
+      ],
+      [
+        "light",
+        "lied"
+      ],
+      [
+        "pot",
+        "pod"
+      ],
+      [
+        "root",
+        "rude"
+      ],
+      [
+        "seat",
+        "seed"
+      ],
+      [
+        "tight",
+        "tied"
+      ],
+      [
+        "wet",
+        "wed"
+      ],
+      [
+        "write",
+        "ride"
+      ]
+    ]
+  },
+  {
+    "id": "th/v-thi",
+    "label": "TH/V Minimal Pairs - Initial TH",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "v",
+    "folder": "TH:V Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "those",
+        "vote"
+      ],
+      [
+        "they",
+        "vase"
+      ],
+      [
+        "that",
+        "vat"
+      ],
+      [
+        "them",
+        "vent"
+      ],
+      [
+        "than",
+        "van"
+      ],
+      [
+        "these",
+        "Vs"
+      ],
+      [
+        "there",
+        "very"
+      ],
+      [
+        "this",
+        "visit"
+      ],
+      [
+        "the",
+        "vanilla"
+      ],
+      [
+        "though",
+        "vote"
+      ],
+      [
+        "then",
+        "vet"
+      ],
+      [
+        "their",
+        "veggie"
+      ]
+    ]
+  },
+  {
+    "id": "th/v-vi",
+    "label": "TH/V Minimal Pairs - Initial V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "th",
+    "folder": "TH:V Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "those",
+        "vote"
+      ],
+      [
+        "they",
+        "vase"
+      ],
+      [
+        "that",
+        "vat"
+      ],
+      [
+        "them",
+        "vent"
+      ],
+      [
+        "than",
+        "van"
+      ],
+      [
+        "these",
+        "Vs"
+      ],
+      [
+        "there",
+        "very"
+      ],
+      [
+        "this",
+        "visit"
+      ],
+      [
+        "the",
+        "vanilla"
+      ],
+      [
+        "though",
+        "vote"
+      ],
+      [
+        "then",
+        "vet"
+      ],
+      [
+        "their",
+        "veggie"
+      ]
+    ]
+  },
+  {
+    "id": "th/v-thm",
+    "label": "TH/V Minimal Pairs - Medial TH",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "v",
+    "folder": "TH:V Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "other",
+        "over"
+      ],
+      [
+        "tether",
+        "Trevor"
+      ],
+      [
+        "brother",
+        "river"
+      ],
+      [
+        "mother",
+        "moving"
+      ],
+      [
+        "slither",
+        "seven"
+      ],
+      [
+        "Heather",
+        "heavy"
+      ],
+      [
+        "weather",
+        "wavy"
+      ],
+      [
+        "feather",
+        "favorite"
+      ],
+      [
+        "leather",
+        "lava"
+      ],
+      [
+        "smoothie",
+        "movie"
+      ],
+      [
+        "dither",
+        "diver"
+      ],
+      [
+        "father",
+        "favor"
+      ]
+    ]
+  },
+  {
+    "id": "th/v-vm",
+    "label": "TH/V Minimal Pairs - Medial V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "th",
+    "folder": "TH:V Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "other",
+        "over"
+      ],
+      [
+        "tether",
+        "Trevor"
+      ],
+      [
+        "brother",
+        "river"
+      ],
+      [
+        "mother",
+        "moving"
+      ],
+      [
+        "slither",
+        "seven"
+      ],
+      [
+        "Heather",
+        "heavy"
+      ],
+      [
+        "weather",
+        "wavy"
+      ],
+      [
+        "feather",
+        "favorite"
+      ],
+      [
+        "leather",
+        "lava"
+      ],
+      [
+        "smoothie",
+        "movie"
+      ],
+      [
+        "dither",
+        "diver"
+      ],
+      [
+        "father",
+        "favor"
+      ]
+    ]
+  },
+  {
+    "id": "th/v-thf",
+    "label": "TH/V Minimal Pairs - Final TH",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "v",
+    "folder": "TH:V Minimal Pairs - Final",
+    "pairs": [
+      [
+        "smooth",
+        "stove"
+      ],
+      [
+        "soothe",
+        "sleeve"
+      ],
+      [
+        "bathe",
+        "brave"
+      ],
+      [
+        "breathe",
+        "leave"
+      ],
+      [
+        "clothe",
+        "clove"
+      ],
+      [
+        "teethe",
+        "weave"
+      ],
+      [
+        "seethe",
+        "Steve"
+      ],
+      [
+        "loathe",
+        "love"
+      ],
+      [
+        "lathe",
+        "cave"
+      ],
+      [
+        "sunbathe",
+        "a wave"
+      ],
+      [
+        "wreathe",
+        "heave"
+      ],
+      [
+        "unclothe",
+        "above"
+      ]
+    ]
+  },
+  {
+    "id": "th/v-vf",
+    "label": "TH/V Minimal Pairs - Final V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "th",
+    "folder": "TH:V Minimal Pairs - Final",
+    "pairs": [
+      [
+        "smooth",
+        "stove"
+      ],
+      [
+        "soothe",
+        "sleeve"
+      ],
+      [
+        "bathe",
+        "brave"
+      ],
+      [
+        "breathe",
+        "leave"
+      ],
+      [
+        "clothe",
+        "clove"
+      ],
+      [
+        "teethe",
+        "weave"
+      ],
+      [
+        "seethe",
+        "Steve"
+      ],
+      [
+        "loathe",
+        "love"
+      ],
+      [
+        "lathe",
+        "cave"
+      ],
+      [
+        "sunbathe",
+        "a wave"
+      ],
+      [
+        "wreathe",
+        "heave"
+      ],
+      [
+        "unclothe",
+        "above"
+      ]
+    ]
+  },
+  {
+    "id": "g/k-ig",
+    "label": "G/K Minimal Pairs - Initial G",
+    "prompt": "Which word has the /g/ sound?",
+    "targetSound": "g",
+    "contrastSound": "k",
+    "folder": "G:K Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "card",
+        "guard"
+      ],
+      [
+        "cold",
+        "gold"
+      ],
+      [
+        "coat",
+        "goat"
+      ],
+      [
+        "cap",
+        "gap"
+      ],
+      [
+        "coal",
+        "goal"
+      ],
+      [
+        "curl",
+        "girl"
+      ],
+      [
+        "cave",
+        "gave"
+      ],
+      [
+        "crow",
+        "grow"
+      ],
+      [
+        "coast",
+        "ghost"
+      ],
+      [
+        "come",
+        "gum"
+      ],
+      [
+        "cot",
+        "got"
+      ],
+      [
+        "cane",
+        "gain"
+      ]
+    ]
+  },
+  {
+    "id": "g/k-ik",
+    "label": "G/K Minimal Pairs - Initial K",
+    "prompt": "Which word has the /k/ sound?",
+    "targetSound": "k",
+    "contrastSound": "g",
+    "folder": "G:K Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "card",
+        "guard"
+      ],
+      [
+        "cold",
+        "gold"
+      ],
+      [
+        "coat",
+        "goat"
+      ],
+      [
+        "cap",
+        "gap"
+      ],
+      [
+        "coal",
+        "goal"
+      ],
+      [
+        "curl",
+        "girl"
+      ],
+      [
+        "cave",
+        "gave"
+      ],
+      [
+        "crow",
+        "grow"
+      ],
+      [
+        "coast",
+        "ghost"
+      ],
+      [
+        "come",
+        "gum"
+      ],
+      [
+        "cot",
+        "got"
+      ],
+      [
+        "cane",
+        "gain"
+      ]
+    ]
+  },
+  {
+    "id": "g/k-mg",
+    "label": "G/K Minimal Pairs - Medial G",
+    "prompt": "Which word has the /g/ sound?",
+    "targetSound": "g",
+    "contrastSound": "k",
+    "folder": "G:K Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "hacker",
+        "hugger"
+      ],
+      [
+        "soccer",
+        "soggy"
+      ],
+      [
+        "wagon",
+        "wacky"
+      ],
+      [
+        "locker",
+        "logger"
+      ],
+      [
+        "bacon",
+        "bagel"
+      ],
+      [
+        "raccon",
+        "rangoon"
+      ],
+      [
+        "ticket",
+        "tiger"
+      ],
+      [
+        "biker",
+        "burger"
+      ],
+      [
+        "bucket",
+        "buggy"
+      ],
+      [
+        "chicken",
+        "chugging"
+      ],
+      [
+        "jacket",
+        "jaguar"
+      ],
+      [
+        "sucker",
+        "sugar"
+      ]
+    ]
+  },
+  {
+    "id": "g/k-mk",
+    "label": "G/K Minimal Pairs - Medial K",
+    "prompt": "Which word has the /k/ sound?",
+    "targetSound": "k",
+    "contrastSound": "g",
+    "folder": "G:K Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "hacker",
+        "hugger"
+      ],
+      [
+        "soccer",
+        "soggy"
+      ],
+      [
+        "wagon",
+        "wacky"
+      ],
+      [
+        "locker",
+        "logger"
+      ],
+      [
+        "bacon",
+        "bagel"
+      ],
+      [
+        "raccon",
+        "rangoon"
+      ],
+      [
+        "ticket",
+        "tiger"
+      ],
+      [
+        "biker",
+        "burger"
+      ],
+      [
+        "bucket",
+        "buggy"
+      ],
+      [
+        "chicken",
+        "chugging"
+      ],
+      [
+        "jacket",
+        "jaguar"
+      ],
+      [
+        "sucker",
+        "sugar"
+      ]
+    ]
+  },
+  {
+    "id": "g/k-fg",
+    "label": "G/K Minimal Pairs - Final G",
+    "prompt": "Which word has the /g/ sound?",
+    "targetSound": "g",
+    "contrastSound": "k",
+    "folder": "G:K Minimal Pairs - Final",
+    "pairs": [
+      [
+        "back",
+        "bag"
+      ],
+      [
+        "pick",
+        "pig"
+      ],
+      [
+        "clock",
+        "clog"
+      ],
+      [
+        "dock",
+        "dog"
+      ],
+      [
+        "duck",
+        "Doug"
+      ],
+      [
+        "muck",
+        "mug"
+      ],
+      [
+        "buck",
+        "bug"
+      ],
+      [
+        "rack",
+        "rag"
+      ],
+      [
+        "puck",
+        "pug"
+      ],
+      [
+        "stack",
+        "stag"
+      ],
+      [
+        "wick",
+        "wig"
+      ],
+      [
+        "snack",
+        "snag"
+      ]
+    ]
+  },
+  {
+    "id": "g/k-fk",
+    "label": "G/K Minimal Pairs - Final K",
+    "prompt": "Which word has the /k/ sound?",
+    "targetSound": "k",
+    "contrastSound": "g",
+    "folder": "G:K Minimal Pairs - Final",
+    "pairs": [
+      [
+        "back",
+        "bag"
+      ],
+      [
+        "pick",
+        "pig"
+      ],
+      [
+        "clock",
+        "clog"
+      ],
+      [
+        "dock",
+        "dog"
+      ],
+      [
+        "duck",
+        "Doug"
+      ],
+      [
+        "muck",
+        "mug"
+      ],
+      [
+        "buck",
+        "bug"
+      ],
+      [
+        "rack",
+        "rag"
+      ],
+      [
+        "puck",
+        "pug"
+      ],
+      [
+        "stack",
+        "stag"
+      ],
+      [
+        "wick",
+        "wig"
+      ],
+      [
+        "snack",
+        "snag"
+      ]
+    ]
+  },
+  {
+    "id": "f/v-if",
+    "label": "F/V Minimal Pairs - Initial F",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "v",
+    "folder": "F:V Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "fan",
+        "van"
+      ],
+      [
+        "fat",
+        "vat"
+      ],
+      [
+        "fine",
+        "vine"
+      ],
+      [
+        "fail",
+        "veil"
+      ],
+      [
+        "file",
+        "vial"
+      ],
+      [
+        "fairy",
+        "very"
+      ],
+      [
+        "foal",
+        "vole"
+      ],
+      [
+        "few",
+        "view"
+      ],
+      [
+        "face",
+        "vase"
+      ],
+      [
+        "fear",
+        "veer"
+      ],
+      [
+        "fee",
+        "v"
+      ],
+      [
+        "fast",
+        "vast"
+      ]
+    ]
+  },
+  {
+    "id": "f/v-iv",
+    "label": "F/V Minimal Pairs - Initial V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "f",
+    "folder": "F:V Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "fan",
+        "van"
+      ],
+      [
+        "fat",
+        "vat"
+      ],
+      [
+        "fine",
+        "vine"
+      ],
+      [
+        "fail",
+        "veil"
+      ],
+      [
+        "file",
+        "vial"
+      ],
+      [
+        "fairy",
+        "very"
+      ],
+      [
+        "foal",
+        "vole"
+      ],
+      [
+        "few",
+        "view"
+      ],
+      [
+        "face",
+        "vase"
+      ],
+      [
+        "fear",
+        "veer"
+      ],
+      [
+        "fee",
+        "v"
+      ],
+      [
+        "fast",
+        "vast"
+      ]
+    ]
+  },
+  {
+    "id": "f/v-mf",
+    "label": "F/V Minimal Pairs - Medial F",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "v",
+    "folder": "F:V Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "office",
+        "oval"
+      ],
+      [
+        "waffle",
+        "wavy"
+      ],
+      [
+        "traffic",
+        "travel"
+      ],
+      [
+        "raffle",
+        "raven"
+      ],
+      [
+        "safety",
+        "savings"
+      ],
+      [
+        "offer",
+        "over"
+      ],
+      [
+        "aphid",
+        "Ava"
+      ],
+      [
+        "coffee",
+        "cover"
+      ],
+      [
+        "different",
+        "diver"
+      ],
+      [
+        "heifer",
+        "heavy"
+      ],
+      [
+        "laughing",
+        "lava"
+      ],
+      [
+        "siphon",
+        "seven"
+      ]
+    ]
+  },
+  {
+    "id": "f/v-mv",
+    "label": "F/V Minimal Pairs - Medial V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "f",
+    "folder": "F:V Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "office",
+        "oval"
+      ],
+      [
+        "waffle",
+        "wavy"
+      ],
+      [
+        "traffic",
+        "travel"
+      ],
+      [
+        "raffle",
+        "raven"
+      ],
+      [
+        "safety",
+        "savings"
+      ],
+      [
+        "offer",
+        "over"
+      ],
+      [
+        "aphid",
+        "Ava"
+      ],
+      [
+        "coffee",
+        "cover"
+      ],
+      [
+        "different",
+        "diver"
+      ],
+      [
+        "heifer",
+        "heavy"
+      ],
+      [
+        "laughing",
+        "lava"
+      ],
+      [
+        "siphon",
+        "seven"
+      ]
+    ]
+  },
+  {
+    "id": "f/v-ff",
+    "label": "F/V Minimal Pairs - Final F",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "v",
+    "folder": "F:V Minimal Pairs - Final",
+    "pairs": [
+      [
+        "leaf",
+        "leave"
+      ],
+      [
+        "calf",
+        "cave"
+      ],
+      [
+        "safe",
+        "save"
+      ],
+      [
+        "surf",
+        "serve"
+      ],
+      [
+        "roof",
+        "reef"
+      ],
+      [
+        "stuff",
+        "stove"
+      ],
+      [
+        "half",
+        "hive"
+      ],
+      [
+        "wife",
+        "weave"
+      ],
+      [
+        "laugh",
+        "love"
+      ],
+      [
+        "cough",
+        "cove"
+      ],
+      [
+        "muff",
+        "move"
+      ],
+      [
+        "cliff",
+        "glyph"
+      ]
+    ]
+  },
+  {
+    "id": "f/v-fv",
+    "label": "F/V Minimal Pairs - Final V",
+    "prompt": "Which word has the /v/ sound?",
+    "targetSound": "v",
+    "contrastSound": "f",
+    "folder": "F:V Minimal Pairs - Final",
+    "pairs": [
+      [
+        "leaf",
+        "leave"
+      ],
+      [
+        "calf",
+        "cave"
+      ],
+      [
+        "safe",
+        "save"
+      ],
+      [
+        "surf",
+        "serve"
+      ],
+      [
+        "roof",
+        "reef"
+      ],
+      [
+        "stuff",
+        "stove"
+      ],
+      [
+        "half",
+        "hive"
+      ],
+      [
+        "wife",
+        "weave"
+      ],
+      [
+        "laugh",
+        "love"
+      ],
+      [
+        "cough",
+        "cove"
+      ],
+      [
+        "muff",
+        "move"
+      ],
+      [
+        "cliff",
+        "glyph"
+      ]
+    ]
+  },
+  {
+    "id": "s/z-si",
+    "label": "S/Z Minimal Pairs - Initial S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "z",
+    "folder": "S:Z Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "sip",
+        "zip"
+      ],
+      [
+        "Sue",
+        "zoo"
+      ],
+      [
+        "sink",
+        "zinc"
+      ],
+      [
+        "sack",
+        "Zack"
+      ],
+      [
+        "sap",
+        "zap"
+      ],
+      [
+        "c",
+        "z"
+      ],
+      [
+        "city",
+        "ziti"
+      ],
+      [
+        "soup",
+        "zoom"
+      ],
+      [
+        "sane",
+        "Zane"
+      ],
+      [
+        "silly",
+        "zilla"
+      ],
+      [
+        "suitcase",
+        "zucchini"
+      ],
+      [
+        "cinnamon",
+        "zinnia"
+      ]
+    ]
+  },
+  {
+    "id": "s/z-zi",
+    "label": "S/Z Minimal Pairs - Initial Z",
+    "prompt": "Which word has the /z/ sound?",
+    "targetSound": "z",
+    "contrastSound": "s",
+    "folder": "S:Z Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "sip",
+        "zip"
+      ],
+      [
+        "Sue",
+        "zoo"
+      ],
+      [
+        "sink",
+        "zinc"
+      ],
+      [
+        "sack",
+        "Zack"
+      ],
+      [
+        "sap",
+        "zap"
+      ],
+      [
+        "c",
+        "z"
+      ],
+      [
+        "city",
+        "ziti"
+      ],
+      [
+        "soup",
+        "zoom"
+      ],
+      [
+        "sane",
+        "Zane"
+      ],
+      [
+        "silly",
+        "zilla"
+      ],
+      [
+        "suitcase",
+        "zucchini"
+      ],
+      [
+        "cinnamon",
+        "zinnia"
+      ]
+    ]
+  },
+  {
+    "id": "s/z-sm",
+    "label": "S/Z Minimal Pairs - Medial S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "z",
+    "folder": "S:Z Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "fussy",
+        "fuzzy"
+      ],
+      [
+        "muscle",
+        "muzzle"
+      ],
+      [
+        "racer",
+        "razor"
+      ],
+      [
+        "lacey",
+        "lazy"
+      ],
+      [
+        "listen",
+        "lizard"
+      ],
+      [
+        "Lizzy",
+        "Lisa"
+      ],
+      [
+        "baseball",
+        "blizzard"
+      ],
+      [
+        "music",
+        "messy"
+      ],
+      [
+        "fry sauce",
+        "frozen"
+      ],
+      [
+        "dancer",
+        "desert"
+      ],
+      [
+        "pencil",
+        "poison"
+      ],
+      [
+        "whistle",
+        "wizard"
+      ]
+    ]
+  },
+  {
+    "id": "s/z-zm",
+    "label": "S/Z Minimal Pairs - Medial Z",
+    "prompt": "Which word has the /z/ sound?",
+    "targetSound": "z",
+    "contrastSound": "s",
+    "folder": "S:Z Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "fussy",
+        "fuzzy"
+      ],
+      [
+        "muscle",
+        "muzzle"
+      ],
+      [
+        "racer",
+        "razor"
+      ],
+      [
+        "lacey",
+        "lazy"
+      ],
+      [
+        "listen",
+        "lizard"
+      ],
+      [
+        "Lizzy",
+        "Lisa"
+      ],
+      [
+        "baseball",
+        "blizzard"
+      ],
+      [
+        "music",
+        "messy"
+      ],
+      [
+        "fry sauce",
+        "frozen"
+      ],
+      [
+        "dancer",
+        "desert"
+      ],
+      [
+        "pencil",
+        "poison"
+      ],
+      [
+        "whistle",
+        "wizard"
+      ]
+    ]
+  },
+  {
+    "id": "s/z-sf",
+    "label": "S/Z Minimal Pairs - Final S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "z",
+    "folder": "S:Z Minimal Pairs - Final",
+    "pairs": [
+      [
+        "ice",
+        "eyes"
+      ],
+      [
+        "bus",
+        "buzz"
+      ],
+      [
+        "peace",
+        "peas"
+      ],
+      [
+        "race",
+        "raise"
+      ],
+      [
+        "loose",
+        "lose"
+      ],
+      [
+        "rice",
+        "rise"
+      ],
+      [
+        "hiss",
+        "his"
+      ],
+      [
+        "fleece",
+        "fleas"
+      ],
+      [
+        "mace",
+        "maze"
+      ],
+      [
+        "brace",
+        "brays"
+      ],
+      [
+        "niece",
+        "knees"
+      ],
+      [
+        "dice",
+        "dies"
+      ]
+    ]
+  },
+  {
+    "id": "s/z-zf",
+    "label": "S/Z Minimal Pairs - Final Z",
+    "prompt": "Which word has the /z/ sound?",
+    "targetSound": "z",
+    "contrastSound": "s",
+    "folder": "S:Z Minimal Pairs - Final",
+    "pairs": [
+      [
+        "ice",
+        "eyes"
+      ],
+      [
+        "bus",
+        "buzz"
+      ],
+      [
+        "peace",
+        "peas"
+      ],
+      [
+        "race",
+        "raise"
+      ],
+      [
+        "loose",
+        "lose"
+      ],
+      [
+        "rice",
+        "rise"
+      ],
+      [
+        "hiss",
+        "his"
+      ],
+      [
+        "fleece",
+        "fleas"
+      ],
+      [
+        "mace",
+        "maze"
+      ],
+      [
+        "brace",
+        "brays"
+      ],
+      [
+        "niece",
+        "knees"
+      ],
+      [
+        "dice",
+        "dies"
+      ]
+    ]
+  },
+  {
+    "id": "f/p-fi",
+    "label": "F/P Minimal Pairs - Initial",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "p",
+    "folder": "F:P Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "fan",
+        "pan"
+      ],
+      [
+        "fat",
+        "pat"
+      ],
+      [
+        "fig",
+        "pig"
+      ],
+      [
+        "fin",
+        "pin"
+      ],
+      [
+        "fit",
+        "pit"
+      ],
+      [
+        "food",
+        "pool"
+      ],
+      [
+        "foot",
+        "put"
+      ],
+      [
+        "four",
+        "pour"
+      ],
+      [
+        "fox",
+        "pox"
+      ],
+      [
+        "fine",
+        "pine"
+      ],
+      [
+        "fair",
+        "pear"
+      ],
+      [
+        "feel",
+        "peel"
+      ],
+      [
+        "fight",
+        "pike"
+      ],
+      [
+        "fill",
+        "pill"
+      ]
+    ]
+  },
+  {
+    "id": "f/p-pi",
+    "label": "F/P Minimal Pairs - Initial",
+    "prompt": "Which word has the /p/ sound?",
+    "targetSound": "p",
+    "contrastSound": "f",
+    "folder": "F:P Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "fan",
+        "pan"
+      ],
+      [
+        "fat",
+        "pat"
+      ],
+      [
+        "fig",
+        "pig"
+      ],
+      [
+        "fin",
+        "pin"
+      ],
+      [
+        "fit",
+        "pit"
+      ],
+      [
+        "food",
+        "pool"
+      ],
+      [
+        "foot",
+        "put"
+      ],
+      [
+        "four",
+        "pour"
+      ],
+      [
+        "fox",
+        "pox"
+      ],
+      [
+        "fine",
+        "pine"
+      ],
+      [
+        "fair",
+        "pear"
+      ],
+      [
+        "feel",
+        "peel"
+      ],
+      [
+        "fight",
+        "pike"
+      ],
+      [
+        "fill",
+        "pill"
+      ]
+    ]
+  },
+  {
+    "id": "f/p-fi",
+    "label": "F/P Minimal Pairs - Medial",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "p",
+    "folder": "F:P Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "coffee",
+        "copy"
+      ],
+      [
+        "muffin",
+        "puppet"
+      ],
+      [
+        "sofa",
+        "soapy"
+      ],
+      [
+        "refuse",
+        "repair"
+      ],
+      [
+        "afford",
+        "a port"
+      ],
+      [
+        "waffle",
+        "apple"
+      ],
+      [
+        "offer",
+        "copper"
+      ],
+      [
+        "office",
+        "robin"
+      ],
+      [
+        "tofu",
+        "taboo"
+      ],
+      [
+        "taffy",
+        "Abby"
+      ],
+      [
+        "raffle",
+        "rabble"
+      ],
+      [
+        "defend",
+        "depend"
+      ]
+    ]
+  },
+  {
+    "id": "f/p-pi",
+    "label": "F/P Minimal Pairs - Medial",
+    "prompt": "Which word has the /p/ sound?",
+    "targetSound": "p",
+    "contrastSound": "f",
+    "folder": "F:P Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "coffee",
+        "copy"
+      ],
+      [
+        "muffin",
+        "muppet"
+      ],
+      [
+        "sofa",
+        "soapy"
+      ],
+      [
+        "refuse",
+        "repair"
+      ],
+      [
+        "afford",
+        "a port"
+      ],
+      [
+        "waffle",
+        "apple"
+      ],
+      [
+        "offer",
+        "copper"
+      ],
+      [
+        "office",
+        "robin"
+      ],
+      [
+        "tofu",
+        "taboo"
+      ],
+      [
+        "taffy",
+        "Abby"
+      ],
+      [
+        "raffle",
+        "rabble"
+      ],
+      [
+        "defend",
+        "depend"
+      ]
+    ]
+  },
+  {
+    "id": "f/p-ff",
+    "label": "F/P Minimal Pairs - Medial",
+    "prompt": "Which word has the /f/ sound?",
+    "targetSound": "f",
+    "contrastSound": "p",
+    "folder": "F:P Minimal Pairs - Final",
+    "pairs": [
+      [
+        "cough",
+        "cop"
+      ],
+      [
+        "puff",
+        "pup"
+      ],
+      [
+        "stuff",
+        "stub"
+      ],
+      [
+        "half",
+        "tap"
+      ],
+      [
+        "leaf",
+        "leap"
+      ],
+      [
+        "safe",
+        "sap"
+      ],
+      [
+        "knife",
+        "nap"
+      ],
+      [
+        "wife",
+        "wipe"
+      ],
+      [
+        "loaf",
+        "lope"
+      ],
+      [
+        "calf",
+        "cap"
+      ],
+      [
+        "chief",
+        "cheep"
+      ],
+      [
+        "beef",
+        "beep"
+      ],
+      [
+        "reef",
+        "rip"
+      ],
+      [
+        "roof",
+        "rope"
+      ]
+    ]
+  },
+  {
+    "id": "f/p-pf",
+    "label": "F/P Minimal Pairs - Medial",
+    "prompt": "Which word has the /p/ sound?",
+    "targetSound": "p",
+    "contrastSound": "f",
+    "folder": "F:P Minimal Pairs - Final",
+    "pairs": [
+      [
+        "cough",
+        "cop"
+      ],
+      [
+        "puff",
+        "pup"
+      ],
+      [
+        "stuff",
+        "stub"
+      ],
+      [
+        "half",
+        "tap"
+      ],
+      [
+        "leaf",
+        "leap"
+      ],
+      [
+        "safe",
+        "sap"
+      ],
+      [
+        "knife",
+        "nap"
+      ],
+      [
+        "wife",
+        "wipe"
+      ],
+      [
+        "loaf",
+        "lope"
+      ],
+      [
+        "calf",
+        "cap"
+      ],
+      [
+        "chief",
+        "cheep"
+      ],
+      [
+        "beef",
+        "beep"
+      ],
+      [
+        "reef",
+        "rip"
+      ],
+      [
+        "roof",
+        "rope"
+      ]
+    ]
+  },
+  {
+    "id": "st-si",
+    "label": "S/T Minimal Pairs - Initial S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "t",
+    "folder": "S:T Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "sip",
+        "tip"
+      ],
+      [
+        "sack",
+        "tack"
+      ],
+      [
+        "sad",
+        "tad"
+      ],
+      [
+        "sank",
+        "tank"
+      ],
+      [
+        "seal",
+        "teal"
+      ],
+      [
+        "seat",
+        "treat"
+      ],
+      [
+        "c",
+        "tea"
+      ],
+      [
+        "sigh",
+        "tie"
+      ],
+      [
+        "sight",
+        "tight"
+      ],
+      [
+        "sill",
+        "till"
+      ],
+      [
+        "sink",
+        "t"
+      ],
+      [
+        "Sue",
+        "two"
+      ],
+      [
+        "sock",
+        "tall"
+      ],
+      [
+        "sew",
+        "toe"
+      ]
+    ]
+  },
+  {
+    "id": "st-ti",
+    "label": "S/T Minimal Pairs - Initial T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "s",
+    "folder": "S:T Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "sip",
+        "tip"
+      ],
+      [
+        "sack",
+        "tack"
+      ],
+      [
+        "sad",
+        "tad"
+      ],
+      [
+        "sank",
+        "tank"
+      ],
+      [
+        "seal",
+        "teal"
+      ],
+      [
+        "seat",
+        "treat"
+      ],
+      [
+        "c",
+        "tea"
+      ],
+      [
+        "sigh",
+        "tie"
+      ],
+      [
+        "sight",
+        "tight"
+      ],
+      [
+        "sill",
+        "till"
+      ],
+      [
+        "sink",
+        "t"
+      ],
+      [
+        "Sue",
+        "two"
+      ],
+      [
+        "sock",
+        "tall"
+      ],
+      [
+        "sew",
+        "toe"
+      ]
+    ]
+  },
+  {
+    "id": "st-sf",
+    "label": "S/T Minimal Pairs - Final S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "t",
+    "folder": "S:T Minimal Pairs - Final",
+    "pairs": [
+      [
+        "bus",
+        "bite"
+      ],
+      [
+        "face",
+        "fight"
+      ],
+      [
+        "Grace",
+        "grate"
+      ],
+      [
+        "ice",
+        "height"
+      ],
+      [
+        "lace",
+        "late"
+      ],
+      [
+        "nice",
+        "night"
+      ],
+      [
+        "race",
+        "right"
+      ],
+      [
+        "rice",
+        "write"
+      ],
+      [
+        "slice",
+        "sight"
+      ],
+      [
+        "place",
+        "plate"
+      ],
+      [
+        "dice",
+        "diet"
+      ],
+      [
+        "moss",
+        "moat"
+      ],
+      [
+        "boss",
+        "boat"
+      ]
+    ]
+  },
+  {
+    "id": "st-ti",
+    "label": "S/T Minimal Pairs - Final T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "s",
+    "folder": "S:T Minimal Pairs - Final",
+    "pairs": [
+      [
+        "bus",
+        "bite"
+      ],
+      [
+        "face",
+        "fight"
+      ],
+      [
+        "Grace",
+        "grate"
+      ],
+      [
+        "ice",
+        "height"
+      ],
+      [
+        "lace",
+        "late"
+      ],
+      [
+        "nice",
+        "night"
+      ],
+      [
+        "race",
+        "right"
+      ],
+      [
+        "rice",
+        "write"
+      ],
+      [
+        "slice",
+        "sight"
+      ],
+      [
+        "place",
+        "plate"
+      ],
+      [
+        "dice",
+        "diet"
+      ],
+      [
+        "moss",
+        "moat"
+      ],
+      [
+        "boss",
+        "boat"
+      ]
+    ]
+  },
+  {
+    "id": "st-sm",
+    "label": "S/T Minimal Pairs - Medial S",
+    "prompt": "Which word has the /s/ sound?",
+    "targetSound": "s",
+    "contrastSound": "t",
+    "folder": "S:T Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "basin",
+        "baton"
+      ],
+      [
+        "bison",
+        "biting"
+      ],
+      [
+        "fossil",
+        "pothole"
+      ],
+      [
+        "mason",
+        "metal"
+      ],
+      [
+        "castle",
+        "cattle"
+      ],
+      [
+        "racing",
+        "rating"
+      ],
+      [
+        "kissing",
+        "kitten"
+      ],
+      [
+        "listen",
+        "little"
+      ],
+      [
+        "whistle",
+        "whittle"
+      ],
+      [
+        "fossil",
+        "pothole"
+      ],
+      [
+        "pencil",
+        "lentil"
+      ],
+      [
+        "insect",
+        "a tent"
+      ]
+    ]
+  },
+  {
+    "id": "st-tm",
+    "label": "S/T Minimal Pairs - Medial T",
+    "prompt": "Which word has the /t/ sound?",
+    "targetSound": "t",
+    "contrastSound": "s",
+    "folder": "S:T Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "basin",
+        "baton"
+      ],
+      [
+        "bison",
+        "biting"
+      ],
+      [
+        "lesson",
+        "letter"
+      ],
+      [
+        "mason",
+        "metal"
+      ],
+      [
+        "castle",
+        "cattle"
+      ],
+      [
+        "racing",
+        "rating"
+      ],
+      [
+        "kissing",
+        "kitten"
+      ],
+      [
+        "listen",
+        "little"
+      ],
+      [
+        "whistle",
+        "whittle"
+      ],
+      [
+        "fossil",
+        "pothole"
+      ],
+      [
+        "pencil",
+        "lentil"
+      ],
+      [
+        "insect",
+        "a tent"
+      ]
+    ]
+  },
+  {
+    "id": "rw-ri",
+    "label": "R/W Minimal Pairs - Initial R",
+    "prompt": "Which word has the /r/ sound?",
+    "targetSound": "r",
+    "contrastSound": "w",
+    "folder": "R:W Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "red",
+        "wed"
+      ],
+      [
+        "run",
+        "one"
+      ],
+      [
+        "rag",
+        "wag"
+      ],
+      [
+        "rack",
+        "whack"
+      ],
+      [
+        "rail",
+        "whale"
+      ],
+      [
+        "ripe",
+        "wipe"
+      ],
+      [
+        "rock",
+        "walk"
+      ],
+      [
+        "reek",
+        "week"
+      ],
+      [
+        "ring",
+        "wing"
+      ],
+      [
+        "rain",
+        "wane"
+      ],
+      [
+        "row",
+        "woah"
+      ],
+      [
+        "rake",
+        "wake"
+      ],
+      [
+        "rut",
+        "what"
+      ]
+    ]
+  },
+  {
+    "id": "rw-wi",
+    "label": "R/W Minimal Pairs - Initial W",
+    "prompt": "Which word has the /w/ sound?",
+    "targetSound": "w",
+    "contrastSound": "r",
+    "folder": "R:W Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "red",
+        "wed"
+      ],
+      [
+        "run",
+        "one"
+      ],
+      [
+        "rag",
+        "wag"
+      ],
+      [
+        "rack",
+        "whack"
+      ],
+      [
+        "rail",
+        "whale"
+      ],
+      [
+        "ripe",
+        "wipe"
+      ],
+      [
+        "rock",
+        "walk"
+      ],
+      [
+        "reek",
+        "week"
+      ],
+      [
+        "ring",
+        "wing"
+      ],
+      [
+        "rain",
+        "wane"
+      ],
+      [
+        "row",
+        "woah"
+      ],
+      [
+        "rake",
+        "wake"
+      ],
+      [
+        "rut",
+        "what"
+      ]
+    ]
+  },
+  {
+    "id": "rw-rm",
+    "label": "R/W Minimal Pairs - Medial R",
+    "prompt": "Which word has the /r/ sound?",
+    "targetSound": "r",
+    "contrastSound": "w",
+    "folder": "R:W Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "carry",
+        "kiwi"
+      ],
+      [
+        "hairy",
+        "Hawaii"
+      ],
+      [
+        "hurray",
+        "away"
+      ],
+      [
+        "sorry",
+        "sewing"
+      ],
+      [
+        "hurry",
+        "homework"
+      ],
+      [
+        "worry",
+        "power"
+      ],
+      [
+        "Terry",
+        "towel"
+      ],
+      [
+        "fairy",
+        "flower"
+      ],
+      [
+        "a rake",
+        "awake"
+      ],
+      [
+        "a rail",
+        "a whale"
+      ],
+      [
+        "story",
+        "seaweed"
+      ],
+      [
+        "around",
+        "unwound"
+      ]
+    ]
+  },
+  {
+    "id": "rw-wm",
+    "label": "R/W Minimal Pairs - Medial W",
+    "prompt": "Which word has the /w/ sound?",
+    "targetSound": "w",
+    "contrastSound": "r",
+    "folder": "R:W Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "carry",
+        "kiwi"
+      ],
+      [
+        "hairy",
+        "Hawaii"
+      ],
+      [
+        "hurray",
+        "away"
+      ],
+      [
+        "sorry",
+        "sewing"
+      ],
+      [
+        "hurry",
+        "homework"
+      ],
+      [
+        "worry",
+        "power"
+      ],
+      [
+        "Terry",
+        "towel"
+      ],
+      [
+        "fairy",
+        "flower"
+      ],
+      [
+        "a rake",
+        "awake"
+      ],
+      [
+        "a rail",
+        "a whale"
+      ],
+      [
+        "story",
+        "seaweed"
+      ],
+      [
+        "around",
+        "unwound"
+      ]
+    ]
+  },
+  {
+    "id": "rw-rf",
+    "label": "R/W Minimal Pairs - Final R",
+    "prompt": "Which word has the /r/ sound?",
+    "targetSound": "r",
+    "contrastSound": "w",
+    "folder": "R:W Minimal Pairs - Final",
+    "pairs": [
+      [
+        "car",
+        "cow"
+      ],
+      [
+        "far",
+        "foe"
+      ],
+      [
+        "bar",
+        "bow"
+      ],
+      [
+        "star",
+        "saw"
+      ],
+      [
+        "jar",
+        "jaw"
+      ],
+      [
+        "door",
+        "dough"
+      ],
+      [
+        "four",
+        "foe"
+      ],
+      [
+        "sore",
+        "sew"
+      ],
+      [
+        "more",
+        "mow"
+      ],
+      [
+        "chair",
+        "chow"
+      ],
+      [
+        "hair",
+        "how"
+      ],
+      [
+        "pear",
+        "pow"
+      ]
+    ]
+  },
+  {
+    "id": "rw-wf",
+    "label": "R/W Minimal Pairs - Final W",
+    "prompt": "Which word has the /w/ sound?",
+    "targetSound": "w",
+    "contrastSound": "r",
+    "folder": "R:W Minimal Pairs - Final",
+    "pairs": [
+      [
+        "car",
+        "cow"
+      ],
+      [
+        "far",
+        "foe"
+      ],
+      [
+        "bar",
+        "bow"
+      ],
+      [
+        "star",
+        "saw"
+      ],
+      [
+        "jar",
+        "jaw"
+      ],
+      [
+        "door",
+        "dough"
+      ],
+      [
+        "four",
+        "foe"
+      ],
+      [
+        "sore",
+        "sew"
+      ],
+      [
+        "more",
+        "mow"
+      ],
+      [
+        "chair",
+        "chow"
+      ],
+      [
+        "hair",
+        "how"
+      ],
+      [
+        "pear",
+        "pow"
+      ]
+    ]
+  },
+  {
+    "id": "ly-li",
+    "label": "L/Y Minimal Pairs - Initial L",
+    "prompt": "Which word has the /l/ sound?",
+    "targetSound": "l",
+    "contrastSound": "y",
+    "folder": "L:Y Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "lap",
+        "yap"
+      ],
+      [
+        "lawn",
+        "yawn"
+      ],
+      [
+        "less",
+        "yes"
+      ],
+      [
+        "lot",
+        "yacht"
+      ],
+      [
+        "lard",
+        "yard"
+      ],
+      [
+        "lay",
+        "yay"
+      ],
+      [
+        "lung",
+        "young"
+      ],
+      [
+        "luck",
+        "yuck"
+      ],
+      [
+        "lamb",
+        "yam"
+      ],
+      [
+        "low",
+        "yo"
+      ],
+      [
+        "like",
+        "yikes"
+      ],
+      [
+        "Lue",
+        "you"
+      ]
+    ]
+  },
+  {
+    "id": "ly-yi",
+    "label": "L/Y Minimal Pairs - Initial Y",
+    "prompt": "Which word has the /y/ sound?",
+    "targetSound": "y",
+    "contrastSound": "l",
+    "folder": "L:Y Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "lap",
+        "yap"
+      ],
+      [
+        "lawn",
+        "yawn"
+      ],
+      [
+        "less",
+        "yes"
+      ],
+      [
+        "lot",
+        "yacht"
+      ],
+      [
+        "lard",
+        "yard"
+      ],
+      [
+        "lay",
+        "yay"
+      ],
+      [
+        "lung",
+        "young"
+      ],
+      [
+        "luck",
+        "yuck"
+      ],
+      [
+        "lamb",
+        "yam"
+      ],
+      [
+        "low",
+        "yo"
+      ],
+      [
+        "like",
+        "yikes"
+      ],
+      [
+        "Lue",
+        "you"
+      ]
+    ]
+  },
+  {
+    "id": "ly/lm",
+    "label": "L/Y Minimal Pairs - Medial L",
+    "prompt": "Which word has the /l/ sound?",
+    "targetSound": "l",
+    "contrastSound": "y",
+    "folder": "L:Y Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "a lawn",
+        "a yawn"
+      ],
+      [
+        "a lamb",
+        "a yam"
+      ],
+      [
+        "alone",
+        "a yolk"
+      ],
+      [
+        "a lot",
+        "a yacht"
+      ],
+      [
+        "I like",
+        "oh yikes"
+      ],
+      [
+        "Callie",
+        "kayak"
+      ],
+      [
+        "rolo",
+        "royal"
+      ],
+      [
+        "Lola",
+        "loyal"
+      ],
+      [
+        "polo",
+        "yo-yo"
+      ],
+      [
+        "halo",
+        "heyo"
+      ],
+      [
+        "hilly",
+        "higher"
+      ],
+      [
+        "Billy",
+        "buyer"
+      ]
+    ]
+  },
+  {
+    "id": "ly-ym",
+    "label": "L/Y Minimal Pairs - Medial Y",
+    "prompt": "Which word has the /y/ sound?",
+    "targetSound": "y",
+    "contrastSound": "l",
+    "folder": "L:Y Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "a lawn",
+        "a yawn"
+      ],
+      [
+        "a lamb",
+        "a yam"
+      ],
+      [
+        "alone",
+        "a yolk"
+      ],
+      [
+        "a lot",
+        "a yacht"
+      ],
+      [
+        "I like",
+        "oh yikes"
+      ],
+      [
+        "Callie",
+        "kayak"
+      ],
+      [
+        "rolo",
+        "royal"
+      ],
+      [
+        "Lola",
+        "loyal"
+      ],
+      [
+        "polo",
+        "yo-yo"
+      ],
+      [
+        "halo",
+        "heyo"
+      ],
+      [
+        "hilly",
+        "higher"
+      ],
+      [
+        "Billy",
+        "buyer"
+      ]
+    ]
+  }
 ]
