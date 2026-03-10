@@ -1,0 +1,87 @@
+# Generate each word in Gemini in the browser, then save as word.png in the folder below.
+# Save location: Beehive Speech Therapy → Games → Word Images → [folder]
+
+Ed
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: Ed.png
+
+bad
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: bad.png
+
+bag
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: bag.png
+
+bed
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: bed.png
+
+beg
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: beg.png
+
+bud
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: bud.png
+
+bug
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: bug.png
+
+did
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: did.png
+
+dig
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: dig.png
+
+egg
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: egg.png
+
+had
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: had.png
+
+hag
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: hag.png
+
+lead
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: lead.png
+
+leg
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: leg.png
+
+mud
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: mud.png
+
+mug
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: mug.png
+
+rad
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: rad.png
+
+rag
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: rag.png
+
+tad
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: tad.png
+
+tag
+  → Folder: D:G Minimal Pairs - Final
+  → Save as: tag.png
+
+ban
+  → Folder: V:B Minimal Pairs - Initial
+  → Save as: ban.png
+
