@@ -18,6 +18,16 @@
       box-shadow: 0 2px 8px rgba(0,0,0,0.08); transition: transform 0.15s, box-shadow 0.15s;
     }
     .word-set-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    #choice-index-root { width: 100%; max-width: 520px; }
+    .choice-index-options { display: flex; flex-direction: column; gap: 0.75rem; max-width: 520px; width: 100%; }
+    .choice-index-options .index-btn { background: #fff; border: 3px solid #43a047; border-radius: 12px; padding: 1rem 1.25rem; font-size: 1rem; color: #2e7d32; text-align: center; cursor: pointer; }
+    .choice-index-options .index-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    .choice-index-options .index-btn.secondary { border-color: #888; color: #555; }
+    .phoneme-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .phoneme-filters select { padding: 0.5rem 0.75rem; border-radius: 8px; border: 2px solid #43a047; background: #fff; color: #333; font-size: 1rem; }
+    .phoneme-filters .show-sets-btn { padding: 0.5rem 1rem; background: #43a047; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .back-row { margin-bottom: 0.75rem; }
+    .back-row button { background: transparent; border: 1px solid #666; color: #555; padding: 0.4rem 0.75rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
   </style>
 </head>
 <body>
@@ -25,7 +35,8 @@
 <!-- Word set choice (shown first) -->
 <div id="word-set-screen">
   <h2>Choose which word pairs to practice</h2>
-  <div class="word-set-list" id="word-set-list"></div>
+  <div id="choice-index-root"></div>
+  <div class="word-set-list" id="word-set-list" style="display: none;"></div>
 </div>
 
 <div id="game-board" class="hidden">

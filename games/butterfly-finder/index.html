@@ -56,6 +56,15 @@
     }
     #choose-screen h2 { font-size: 1.35rem; color: #2e7d32; margin-bottom: 1rem; text-align: center; }
     .word-set-list { display: flex; flex-direction: column; gap: 0.75rem; max-width: 520px; width: 100%; margin: 0 auto; }
+    .choice-index-options { display: flex; flex-direction: column; gap: 0.75rem; max-width: 520px; width: 100%; margin: 0 auto; }
+    .choice-index-options .index-btn { background: #fff; border: 2px solid #2e7d32; border-radius: 12px; padding: 1rem 1.25rem; font-size: 1rem; color: #333; text-align: center; cursor: pointer; }
+    .choice-index-options .index-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(46,125,50,0.25); }
+    .choice-index-options .index-btn.secondary { border-color: #666; color: #555; }
+    .phoneme-filters { display: flex; flex-wrap: wrap; gap: 0.5rem; align-items: center; justify-content: center; margin-bottom: 1rem; }
+    .phoneme-filters select { padding: 0.5rem 0.75rem; border-radius: 8px; border: 2px solid #2e7d32; background: #fff; color: #333; font-size: 1rem; }
+    .phoneme-filters .show-sets-btn { padding: 0.5rem 1rem; background: #2e7d32; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-weight: bold; }
+    .back-row { margin-bottom: 0.75rem; }
+    .back-row button { background: transparent; border: 1px solid #666; color: #555; padding: 0.4rem 0.75rem; border-radius: 8px; cursor: pointer; font-size: 0.9rem; }
     .word-set-btn {
       background: #fff;
       border: 3px solid #43a047;
@@ -190,7 +199,8 @@
     <!-- Choose word set -->
     <section id="choose-screen" class="screen hidden">
       <h2>Choose which word pairs to practice</h2>
-      <div class="word-set-list" id="word-set-list"></div>
+      <div id="choice-index-root"></div>
+      <div class="word-set-list" id="word-set-list" style="display: none;"></div>
     </section>
 
     <!-- Flower grid -->
@@ -229,6 +239,7 @@
       let foundCount = 0;
       let pairIndex = 0;
       let selectedWordSet = null;
+      let wordSetsIndex = null;
 
       function assetPath(relative) {
         var loc = window.location.href.split('#')[0].split('?')[0];
@@ -280,6 +291,10 @@
             }
           }
         } catch (_) {}
+        try {
+          var indexRes = await fetch('../../word-lists/word-sets-index.json?v=2');
+          if (indexRes.ok) wordSetsIndex = await indexRes.json();
+        } catch (_) {}
         document.title = config.title || 'Butterfly Finder';
         var msgEl = document.getElementById('intro-message');
         if (msgEl && config.intro && config.intro.message) msgEl.textContent = config.intro.message;
@@ -291,22 +306,237 @@
         renderWordSetList();
       }
 
-      function renderWordSetList() {
+      function setsForFolder(folder) {
+        return (config.wordSets || []).filter(function(s) { return (s.folder || '').trim() === (folder || '').trim(); });
+      }
+      function startGameWithSet(set) {
+        selectedWordSet = set;
+        startGame();
+      }
+      function showMainChoice() {
+        var root = document.getElementById('choice-index-root');
         var list = document.getElementById('word-set-list');
-        if (!list) return;
-        list.innerHTML = '';
+        if (!root || !list) return;
+        list.style.display = 'none';
+        root.style.display = 'block';
+        root.innerHTML = '';
+        var div = document.createElement('div');
+        div.className = 'choice-index-options';
+        var hasIndex = wordSetsIndex && wordSetsIndex.byProcess && wordSetsIndex.byPhoneme;
+        if (hasIndex) {
+          var byProcessBtn = document.createElement('button');
+          byProcessBtn.type = 'button';
+          byProcessBtn.className = 'index-btn';
+          byProcessBtn.textContent = 'By phonological process';
+          byProcessBtn.addEventListener('click', function() { showProcessList(); });
+          div.appendChild(byProcessBtn);
+          var byPhonemeBtn = document.createElement('button');
+          byPhonemeBtn.type = 'button';
+          byPhonemeBtn.className = 'index-btn';
+          byPhonemeBtn.textContent = 'By phoneme (choose two sounds + position)';
+          byPhonemeBtn.addEventListener('click', function() { showPhonemeFilters(); });
+          div.appendChild(byPhonemeBtn);
+        }
+        var allSetsBtn = document.createElement('button');
+        allSetsBtn.type = 'button';
+        allSetsBtn.className = 'index-btn' + (hasIndex ? ' secondary' : '');
+        allSetsBtn.textContent = 'Show all word sets';
+        allSetsBtn.addEventListener('click', function() { showAllWordSets(); });
+        div.appendChild(allSetsBtn);
+        root.appendChild(div);
+      }
+      function showProcessList() {
+        var root = document.getElementById('choice-index-root');
+        if (!root || !wordSetsIndex || !wordSetsIndex.byProcess) return;
+        root.innerHTML = '';
+        var backRow = document.createElement('div');
+        backRow.className = 'back-row';
+        var backBtn = document.createElement('button');
+        backBtn.type = 'button';
+        backBtn.textContent = '← Back';
+        backBtn.addEventListener('click', function() { showMainChoice(); });
+        backRow.appendChild(backBtn);
+        root.appendChild(backRow);
+        var div = document.createElement('div');
+        div.className = 'choice-index-options';
+        Object.keys(wordSetsIndex.byProcess).sort().forEach(function(processName) {
+          var btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'word-set-btn';
+          btn.textContent = processName;
+          btn.addEventListener('click', function() { showProcessSets(processName); });
+          div.appendChild(btn);
+        });
+        root.appendChild(div);
+      }
+      function showProcessSets(processName) {
+        var entries = wordSetsIndex.byProcess[processName] || [];
+        var sets = [];
+        entries.forEach(function(entry) {
+          setsForFolder(entry.folder).forEach(function(s) { sets.push(s); });
+        });
+        var root = document.getElementById('choice-index-root');
+        if (!root) return;
+        root.innerHTML = '';
+        var backRow = document.createElement('div');
+        backRow.className = 'back-row';
+        var backBtn = document.createElement('button');
+        backBtn.type = 'button';
+        backBtn.textContent = '← Back to processes';
+        backBtn.addEventListener('click', function() { showProcessList(); });
+        backRow.appendChild(backBtn);
+        root.appendChild(backRow);
+        if (sets.length === 0) {
+          var noSets = document.createElement('p');
+          noSets.style.color = '#2e7d32';
+          noSets.textContent = 'No word sets loaded for this process. Choose "Show all word sets" to see everything.';
+          root.appendChild(noSets);
+          return;
+        }
+        renderSetList(sets, startGameWithSet, function() { showProcessList(); });
+      }
+      function showPhonemeFilters() {
+        var root = document.getElementById('choice-index-root');
+        if (!root || !wordSetsIndex || !wordSetsIndex.byPhoneme) return;
+        var sounds = {};
+        var positions = {};
+        wordSetsIndex.byPhoneme.forEach(function(e) {
+          if (e.sound_a) sounds[e.sound_a] = true;
+          if (e.sound_b) sounds[e.sound_b] = true;
+          if (e.position) positions[e.position] = true;
+        });
+        var soundList = Object.keys(sounds).sort();
+        var positionList = Object.keys(positions).sort();
+        root.innerHTML = '';
+        var backRow = document.createElement('div');
+        backRow.className = 'back-row';
+        var backBtn = document.createElement('button');
+        backBtn.type = 'button';
+        backBtn.textContent = '← Back';
+        backBtn.addEventListener('click', function() { showMainChoice(); });
+        backRow.appendChild(backBtn);
+        root.appendChild(backRow);
+        var filters = document.createElement('div');
+        filters.className = 'phoneme-filters';
+        var firstLabel = document.createElement('label');
+        firstLabel.textContent = 'First sound:';
+        var firstSelect = document.createElement('select');
+        firstSelect.id = 'phoneme-first';
+        firstSelect.innerHTML = '<option value="">--</option>' + soundList.map(function(s) { return '<option value="' + s + '">' + s + '</option>'; }).join('');
+        var secondLabel = document.createElement('label');
+        secondLabel.textContent = 'Second sound:';
+        var secondSelect = document.createElement('select');
+        secondSelect.id = 'phoneme-second';
+        secondSelect.innerHTML = '<option value="">--</option>' + soundList.map(function(s) { return '<option value="' + s + '">' + s + '</option>'; }).join('');
+        var posLabel = document.createElement('label');
+        posLabel.textContent = 'Position:';
+        var posSelect = document.createElement('select');
+        posSelect.id = 'phoneme-position';
+        posSelect.innerHTML = '<option value="">--</option>' + positionList.map(function(p) { return '<option value="' + p + '">' + p + '</option>'; }).join('');
+        var showBtn = document.createElement('button');
+        showBtn.type = 'button';
+        showBtn.className = 'show-sets-btn';
+        showBtn.textContent = 'Show sets';
+        showBtn.addEventListener('click', function() {
+          showPhonemeResults(firstSelect.value, secondSelect.value, posSelect.value);
+        });
+        filters.appendChild(firstLabel);
+        filters.appendChild(firstSelect);
+        filters.appendChild(secondLabel);
+        filters.appendChild(secondSelect);
+        filters.appendChild(posLabel);
+        filters.appendChild(posSelect);
+        filters.appendChild(showBtn);
+        root.appendChild(filters);
+      }
+      function showPhonemeResults(sound_a, sound_b, position) {
+        var entries = (wordSetsIndex.byPhoneme || []).filter(function(e) {
+          var matchA = !sound_a || e.sound_a === sound_a || e.sound_b === sound_a;
+          var matchB = !sound_b || e.sound_a === sound_b || e.sound_b === sound_b;
+          var matchPos = !position || e.position === position;
+          var bothSounds = !sound_a || !sound_b || (e.sound_a === sound_a && e.sound_b === sound_b) || (e.sound_a === sound_b && e.sound_b === sound_a);
+          return matchA && matchB && matchPos && bothSounds;
+        });
+        var sets = [];
+        entries.forEach(function(entry) {
+          setsForFolder(entry.folder).forEach(function(s) { sets.push(s); });
+        });
+        var root = document.getElementById('choice-index-root');
+        if (!root) return;
+        root.innerHTML = '';
+        var backRow = document.createElement('div');
+        backRow.className = 'back-row';
+        var backBtn = document.createElement('button');
+        backBtn.type = 'button';
+        backBtn.textContent = '← Back';
+        backBtn.addEventListener('click', function() { showPhonemeFilters(); });
+        backRow.appendChild(backBtn);
+        root.appendChild(backRow);
+        if (sets.length === 0) {
+          var p = document.createElement('p');
+          p.style.color = '#2e7d32';
+          p.textContent = 'No word sets match. Try different sounds/position or "Show all word sets".';
+          root.appendChild(p);
+          return;
+        }
+        renderSetList(sets, startGameWithSet, function() { showPhonemeFilters(); });
+      }
+      function showAllWordSets() {
         var sets = config.wordSets || [];
+        renderSetList(sets, startGameWithSet, wordSetsIndex ? function() { showMainChoice(); } : null);
+      }
+      function renderSetList(sets, onPick, onBack) {
+        var list = document.getElementById('word-set-list');
+        var root = document.getElementById('choice-index-root');
+        if (!list || !root) return;
+        root.style.display = 'none';
+        list.style.display = 'flex';
+        list.innerHTML = '';
+        if (onBack) {
+          var backWrap = document.createElement('div');
+          backWrap.className = 'back-row';
+          var backBtn = document.createElement('button');
+          backBtn.type = 'button';
+          backBtn.textContent = '← Back';
+          backBtn.addEventListener('click', onBack);
+          backWrap.appendChild(backBtn);
+          list.appendChild(backWrap);
+        }
         sets.forEach(function(set) {
           var btn = document.createElement('button');
           btn.type = 'button';
           btn.className = 'word-set-btn';
           btn.textContent = set.label;
-          btn.addEventListener('click', function() {
-            selectedWordSet = set;
-            startGame();
-          });
+          btn.addEventListener('click', function() { onPick(set); });
           list.appendChild(btn);
         });
+      }
+
+      function renderWordSetList() {
+        var list = document.getElementById('word-set-list');
+        var root = document.getElementById('choice-index-root');
+        if (!list) return;
+        if (wordSetsIndex && wordSetsIndex.byProcess) {
+          if (root) root.style.display = 'block';
+          list.style.display = 'none';
+          showMainChoice();
+        } else {
+          if (root) root.style.display = 'none';
+          list.style.display = 'flex';
+          list.innerHTML = '';
+          var sets = config.wordSets || [];
+          sets.forEach(function(set) {
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'word-set-btn';
+            btn.textContent = set.label;
+            btn.addEventListener('click', function() {
+              selectedWordSet = set;
+              startGame();
+            });
+            list.appendChild(btn);
+          });
+        }
       }
 
       // Word images: repo-root word-images folder (reliable on GitHub Pages); overridden when word-sets.json loads
