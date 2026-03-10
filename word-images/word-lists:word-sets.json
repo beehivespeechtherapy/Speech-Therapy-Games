@@ -74,60 +74,60 @@
     "folder": "T:K Minimal Pairs - Initial",
     "pairs": [
       [
-        "can",
-        "tan"
+        "tan",
+        "can"
       ],
       [
-        "cap",
-        "tap"
+        "tap",
+        "cap"
       ],
       [
-        "cape",
-        "tape"
+        "tape",
+        "cape"
       ],
       [
-        "car",
-        "tar"
+        "tar",
+        "car"
       ],
       [
-        "cod",
-        "todd"
+        "todd",
+        "cod"
       ],
       [
-        "code",
-        "toad"
+        "toad",
+        "code"
       ],
       [
-        "cop",
-        "top"
+        "top",
+        "cop"
       ],
       [
-        "cub",
-        "tub"
+        "tub",
+        "cub"
       ],
       [
-        "ken",
-        "ten"
+        "ten",
+        "ken"
       ],
       [
-        "key",
-        "tea"
+        "tea",
+        "key"
       ],
       [
-        "kick",
-        "tick"
+        "tick",
+        "kick"
       ],
       [
-        "corn",
-        "torn"
+        "torn",
+        "corn"
       ],
       [
-        "kale",
-        "tail"
+        "tail",
+        "kale"
       ],
       [
-        "cool",
-        "tool"
+        "tool",
+        "cool"
       ]
     ]
   },
@@ -140,40 +140,40 @@
     "folder": "T:K Minimal Pairs - Medial",
     "pairs": [
       [
-        "biting",
-        "biking"
+        "biking",
+        "biting"
       ],
       [
-        "tattle",
-        "tackle"
+        "tackle",
+        "tattle"
       ],
       [
         "later",
         "lacquer"
       ],
       [
-        "petal",
-        "pickle"
+        "pickle",
+        "petal"
       ],
       [
-        "matter",
-        "maker"
+        "maker",
+        "matter"
       ],
       [
-        "mitten",
-        "market"
+        "market",
+        "mitten"
       ],
       [
-        "rating",
-        "raking"
+        "raking",
+        "rating"
       ],
       [
-        "eating",
-        "leaking"
+        "leaking",
+        "eating"
       ],
       [
-        "tater",
-        "taker"
+        "taker",
+        "tater"
       ],
       [
         "attack",
@@ -184,8 +184,8 @@
         "scar"
       ],
       [
-        "baiter",
-        "baker"
+        "baker",
+        "baiter"
       ]
     ]
   },
@@ -202,8 +202,8 @@
         "biking"
       ],
       [
-        "tattle",
-        "tackle"
+        "tackle",
+        "tattle"
       ],
       [
         "later",
@@ -218,8 +218,8 @@
         "maker"
       ],
       [
-        "mitten",
-        "market"
+        "market",
+        "mitten"
       ],
       [
         "rating",
@@ -230,12 +230,12 @@
         "leaking"
       ],
       [
-        "tater",
-        "taker"
+        "taker",
+        "tater"
       ],
       [
-        "attack",
-        "a cat"
+        "a cat",
+        "attack"
       ],
       [
         "star",
@@ -268,8 +268,8 @@
         "bite"
       ],
       [
-        "height",
-        "hike"
+        "hike",
+        "height"
       ],
       [
         "kick",
@@ -314,52 +314,52 @@
     "folder": "T:K Minimal Pairs - Final",
     "pairs": [
       [
-        "back",
-        "bat"
+        "bat",
+        "back"
       ],
       [
-        "beak",
-        "beet"
+        "beet",
+        "beak"
       ],
       [
-        "bike",
-        "bite"
+        "bite",
+        "bike"
       ],
       [
         "height",
         "hike"
       ],
       [
-        "kick",
-        "kit"
+        "kit",
+        "kick"
       ],
       [
-        "lick",
-        "lit"
+        "lit",
+        "lick"
       ],
       [
-        "lock",
-        "lot"
+        "lot",
+        "lock"
       ],
       [
-        "pick",
-        "pit"
+        "pit",
+        "pick"
       ],
       [
-        "puck",
-        "putt"
+        "putt",
+        "puck"
       ],
       [
-        "rack",
-        "rat"
+        "rat",
+        "rack"
       ],
       [
-        "shock",
-        "short"
+        "short",
+        "shock"
       ],
       [
-        "sick",
-        "sit"
+        "sit",
+        "sick"
       ]
     ]
   },
@@ -430,52 +430,52 @@
     "folder": "G:D Minimal Pairs - Initial",
     "pairs": [
       [
-        "dame",
-        "game"
+        "game",
+        "dame"
       ],
       [
-        "date",
-        "gate"
+        "gate",
+        "date"
       ],
       [
-        "dawn",
-        "gone"
+        "gone",
+        "dawn"
       ],
       [
-        "deer",
-        "gear"
+        "gear",
+        "deer"
       ],
       [
-        "doe",
-        "go"
+        "go",
+        "doe"
       ],
       [
-        "done",
-        "gun"
+        "gune",
+        "done"
       ],
       [
-        "dot",
-        "got"
+        "got",
+        "dot"
       ],
       [
-        "down",
-        "gown"
+        "gown",
+        "down"
       ],
       [
-        "dust",
-        "gust"
+        "gust",
+        "dust"
       ],
       [
-        "dye",
-        "guy"
+        "guy",
+        "dye"
       ],
       [
-        "do",
-        "goo"
+        "goo",
+        "do"
       ],
       [
-        "dale",
-        "gale"
+        "gale",
+        "dale"
       ]
     ]
   },
@@ -490,6 +490,10 @@
       [
         "batter",
         "bagger"
+      ],
+      [
+        "body",
+        "boggy"
       ],
       [
         "shudder",
@@ -542,52 +546,52 @@
     "folder": "G:D Minimal Pairs - Medial",
     "pairs": [
       [
-        "batter",
-        "bagger"
+        "bagger",
+        "batter"
       ],
       [
-        "wader",
-        "wager"
+        "boggy",
+        "body"
       ],
       [
-        "shudder",
-        "sugar"
+        "sugar",
+        "shudder"
       ],
       [
-        "baddy",
-        "baggy"
+        "baggy",
+        "baddy"
       ],
       [
-        "muddy",
-        "muggy"
+        "muggy",
+        "muddy"
       ],
       [
-        "a den",
-        "again"
+        "again",
+        "a den"
       ],
       [
         "wading",
         "wagging"
       ],
       [
-        "daddy",
-        "dagger"
+        "dagger",
+        "daddy"
       ],
       [
-        "battle",
-        "bagel"
+        "bagel",
+        "battle"
       ],
       [
-        "fiddle",
-        "giggle"
+        "giggle",
+        "fiddle"
       ],
       [
-        "puddle",
-        "wiggle"
+        "wiggle",
+        "puddle"
       ],
       [
-        "huddle",
-        "hugging"
+        "hugging",
+        "huddle"
       ]
     ]
   },
@@ -658,52 +662,52 @@
     "folder": "G:D Minimal Pairs - Final",
     "pairs": [
       [
-        "bad",
-        "bag"
+        "bag",
+        "bad"
       ],
       [
-        "bed",
-        "beg"
+        "beg",
+        "bed"
       ],
       [
-        "bud",
-        "bug"
+        "bug",
+        "bud"
       ],
       [
-        "did",
-        "dig"
+        "dig",
+        "did"
       ],
       [
-        "Ed",
-        "egg"
+        "egg",
+        "Ed"
       ],
       [
-        "had",
-        "hag"
+        "hag",
+        "had"
       ],
       [
-        "lead",
-        "leg"
+        "leg",
+        "lead"
       ],
       [
-        "mud",
-        "mug"
+        "mug",
+        "mud"
       ],
       [
-        "rad",
-        "rag"
+        "rag",
+        "rad"
       ],
       [
-        "tad",
-        "tag"
+        "tag",
+        "tad"
       ],
       [
-        "dud",
-        "dug"
+        "dug",
+        "dud"
       ],
       [
-        "lad",
-        "lag"
+        "lag",
+        "lad"
       ]
     ]
   },
@@ -782,60 +786,60 @@
     "folder": "V:B Minimal Pairs - Initial",
     "pairs": [
       [
-        "van",
-        "ban"
+        "ban",
+        "van"
       ],
       [
-        "vest",
-        "best"
+        "best",
+        "vest"
       ],
       [
-        "vroom",
-        "broom"
+        "broom",
+        "vroom"
       ],
       [
-        "vote",
-        "boat"
+        "boat",
+        "vote"
       ],
       [
-        "vase",
-        "base"
+        "base",
+        "vase"
       ],
       [
-        "veil",
-        "bale"
+        "bale",
+        "veil"
       ],
       [
-        "very",
-        "berry"
+        "berry",
+        "very"
       ],
       [
-        "vow",
-        "bow"
+        "bow",
+        "vow"
       ],
       [
-        "vent",
-        "bent"
+        "bent",
+        "vent"
       ],
       [
-        "vat",
-        "bat"
+        "bat",
+        "vat"
       ],
       [
-        "v",
-        "bee"
+        "bee",
+        "v"
       ],
       [
-        "vet",
-        "bet"
+        "bet",
+        "vet"
       ],
       [
-        "view",
-        "boo"
+        "boo",
+        "view"
       ],
       [
-        "vole",
-        "bowl"
+        "bowl",
+        "vole"
       ]
     ]
   },
@@ -906,52 +910,52 @@
     "folder": "V:B Minimal Pairs - Medial",
     "pairs": [
       [
-        "kevin",
-        "cabin"
+        "cabin",
+        "kevin"
       ],
       [
-        "river",
-        "rubber"
+        "rubber",
+        "river"
       ],
       [
-        "rivet",
-        "ribbit"
+        "ribbit",
+        "rivet"
       ],
       [
-        "hovel",
-        "hobby"
+        "hobby",
+        "hovel"
       ],
       [
-        "tv",
-        "tabby"
+        "tabby",
+        "tv"
       ],
       [
-        "wavy",
-        "baby"
+        "baby",
+        "wavy"
       ],
       [
-        "waving",
-        "webbing"
+        "webbing",
+        "waving"
       ],
       [
-        "raven",
-        "rabbit"
+        "rabbit",
+        "raven"
       ],
       [
-        "hover",
-        "hobby"
+        "hobby",
+        "hover"
       ],
       [
-        "over",
-        "a bear"
+        "a bear",
+        "over"
       ],
       [
         "beaver",
         "bubble"
       ],
       [
-        "travel",
-        "table"
+        "table",
+        "travel"
       ]
     ]
   },
@@ -964,60 +968,60 @@
     "folder": "V:B Minimal Pairs - Final",
     "pairs": [
       [
-        "carb",
-        "carve"
+        "carve",
+        "carb"
       ],
       [
-        "curb",
-        "curve"
+        "curve",
+        "curb"
       ],
       [
-        "dob",
-        "dove"
+        "dove",
+        "dob"
       ],
       [
-        "drib",
-        "drive"
+        "drive",
+        "drib"
       ],
       [
-        "fib",
-        "five"
+        "five",
+        "fib"
       ],
       [
-        "goob",
-        "give"
+        "give",
+        "goob"
       ],
       [
-        "grab",
-        "grave"
+        "grave",
+        "grab"
       ],
       [
-        "lab",
-        "live"
+        "live",
+        "lab"
       ],
       [
-        "lobe",
-        "love"
+        "love",
+        "lobe"
       ],
       [
-        "nub",
-        "nerve"
+        "nerve",
+        "nub"
       ],
       [
-        "robe",
-        "rove"
+        "rove",
+        "robe"
       ],
       [
-        "slab",
-        "save"
+        "save",
+        "slab"
       ],
       [
-        "web",
-        "wave"
+        "wave",
+        "web"
       ],
       [
-        "cube",
-        "move"
+        "move",
+        "cube"
       ]
     ]
   },
@@ -1154,52 +1158,52 @@
     "folder": "TH:F Minimal Pairs - Initial",
     "pairs": [
       [
-        "thirty",
-        "furry"
+        "furry",
+        "thirty"
       ],
       [
-        "thigh",
-        "five"
+        "five",
+        "thigh"
       ],
       [
-        "thin",
-        "fin"
+        "fin",
+        "thin"
       ],
       [
-        "thirst",
-        "first"
+        "first",
+        "thirst"
       ],
       [
-        "thank",
-        "Frank"
+        "Frank",
+        "thank"
       ],
       [
-        "thought",
-        "fought"
+        "fought",
+        "thought"
       ],
       [
-        "thor",
-        "four"
+        "four",
+        "thor"
       ],
       [
-        "thread",
-        "fred"
+        "fred",
+        "thread"
       ],
       [
-        "three",
-        "free"
+        "free",
+        "three"
       ],
       [
-        "thresh",
-        "fresh"
+        "fresh",
+        "thresh"
       ],
       [
-        "thrill",
-        "frill"
+        "frill",
+        "thrill"
       ],
       [
-        "thumb",
-        "fun"
+        "fun",
+        "thumb"
       ]
     ]
   },
@@ -1270,52 +1274,52 @@
     "folder": "TH:F Minimal Pairs - Medial",
     "pairs": [
       [
-        "bathroom",
-        "buffalo"
+        "buffalo",
+        "bathroom"
       ],
       [
-        "bathtub",
-        "breakfast"
+        "breakfast",
+        "bathtub"
       ],
       [
-        "toothpaste",
-        "tofu"
+        "tofu",
+        "toothpaste"
       ],
       [
         "earthquake",
         "elephant"
       ],
       [
-        "toothbrush",
-        "traffic"
+        "traffic",
+        "toothbrush"
       ],
       [
-        "birthday",
-        "blindfold"
+        "blindfold",
+        "birthday"
       ],
       [
-        "mouthwash",
-        "muffin"
+        "muffin",
+        "mouthwash"
       ],
       [
-        "something",
-        "stuffing"
+        "stuffing",
+        "something"
       ],
       [
-        "healthy",
-        "heifer"
+        "heifer",
+        "healthy"
       ],
       [
         "filthy",
         "fluffy"
       ],
       [
-        "pathway",
-        "perfume"
+        "perfume",
+        "pathway"
       ],
       [
-        "wealthy",
-        "waffle"
+        "waffle",
+        "wealthy"
       ]
     ]
   },
@@ -1386,52 +1390,52 @@
     "folder": "TH:F Minimal Pairs - Final",
     "pairs": [
       [
-        "ruth",
-        "roof"
+        "roof",
+        "ruth"
       ],
       [
-        "wreath",
-        "reef"
+        "reef",
+        "wreath"
       ],
       [
-        "death",
-        "deaf"
+        "deaf",
+        "death"
       ],
       [
-        "with",
-        "whiff"
+        "whiff",
+        "with"
       ],
       [
-        "oath",
-        "oaf"
+        "oaf",
+        "oath"
       ],
       [
-        "myth",
-        "miff"
+        "miff",
+        "myth"
       ],
       [
         "tooth",
         "tough"
       ],
       [
-        "bath",
-        "buff"
+        "buff",
+        "bath"
       ],
       [
-        "moth",
-        "off"
+        "off",
+        "moth"
       ],
       [
-        "teeth",
-        "leaf"
+        "leaf",
+        "teeth"
       ],
       [
-        "mouth",
-        "muff"
+        "muff",
+        "mouth"
       ],
       [
-        "health",
-        "half"
+        "half",
+        "health"
       ]
     ]
   },
@@ -1502,48 +1506,48 @@
     "folder": "S:SH Minimal Pairs - Initial",
     "pairs": [
       [
-        "saggy",
-        "shaggy"
+        "shaggy",
+        "saggy"
       ],
       [
-        "sale",
-        "shale"
+        "shale",
+        "sale"
       ],
       [
-        "sea",
-        "she"
+        "she",
+        "sea"
       ],
       [
-        "seat",
-        "shet"
+        "shet",
+        "seat"
       ],
       [
-        "sell",
-        "shell"
+        "shell",
+        "sell"
       ],
       [
-        "sign",
-        "shine"
+        "shine",
+        "sign"
       ],
       [
-        "stare",
-        "share"
+        "share",
+        "stare"
       ],
       [
         "sue",
         "suit"
       ],
       [
-        "sty",
-        "shy"
+        "shy",
+        "sty"
       ],
       [
-        "spot",
-        "shot"
+        "shot",
+        "spot"
       ],
       [
-        "sore",
-        "shore"
+        "shore",
+        "sore"
       ],
       [
         "stir",
@@ -1580,8 +1584,8 @@
         "washer"
       ],
       [
-        "dancer",
-        "dasher"
+        "dasher",
+        "dancer"
       ],
       [
         "sassy",
@@ -1592,8 +1596,8 @@
         "marshmallow"
       ],
       [
-        "pacifier",
-        "pushing"
+        "pushing",
+        "pacifier"
       ],
       [
         "cassette",
@@ -1604,8 +1608,8 @@
         "brushes"
       ],
       [
-        "faucet",
-        "fashion"
+        "fashion",
+        "faucet"
       ]
     ]
   },
@@ -1618,52 +1622,52 @@
     "folder": "S:SH Minimal Pairs - Medial",
     "pairs": [
       [
-        "mustard",
-        "mushroom"
+        "mushroom",
+        "mustard"
       ],
       [
-        "custard",
-        "cashew"
+        "cashew",
+        "custard"
       ],
       [
-        "tassle",
-        "trash can"
+        "trash can",
+        "tassle"
       ],
       [
-        "faster",
-        "flashlight"
+        "flashlight",
+        "faster"
       ],
       [
-        "whistle",
-        "washer"
+        "washer",
+        "whistle"
       ],
       [
-        "dancer",
-        "dasher"
+        "dasher",
+        "dancer"
       ],
       [
-        "sassy",
-        "seashell"
+        "seashell",
+        "sassy"
       ],
       [
-        "muscle",
-        "marshmallow"
+        "marshmallow",
+        "muscle"
       ],
       [
-        "pacifier",
-        "pushing"
+        "pushing",
+        "pacifier"
       ],
       [
-        "cassette",
-        "cashier"
+        "cashier",
+        "cassette"
       ],
       [
-        "braces",
-        "brushes"
+        "brushes",
+        "braces"
       ],
       [
-        "faucet",
-        "fashion"
+        "fashion",
+        "faucet"
       ]
     ]
   },
@@ -1696,8 +1700,8 @@
         "clash"
       ],
       [
-        "race",
-        "rash"
+        "rash",
+        "race"
       ],
       [
         "case",
@@ -1708,20 +1712,20 @@
         "brush"
       ],
       [
-        "rice",
-        "rush"
+        "rush",
+        "rice"
       ],
       [
         "less",
         "leash"
       ],
       [
-        "nice",
-        "Nash"
+        "Nash",
+        "nice"
       ],
       [
-        "peace",
-        "push"
+        "push",
+        "peace"
       ]
     ]
   },
@@ -1734,52 +1738,52 @@
     "folder": "S:SH Minimal Pairs - Final",
     "pairs": [
       [
-        "bus",
-        "bush"
+        "bush",
+        "bus"
       ],
       [
-        "lass",
-        "lash"
+        "lash",
+        "lass"
       ],
       [
-        "mess",
-        "mesh"
+        "mesh",
+        "mess"
       ],
       [
-        "gas",
-        "gash"
+        "gash",
+        "gas"
       ],
       [
-        "class",
-        "clash"
+        "clash",
+        "class"
       ],
       [
-        "race",
-        "rash"
+        "rash",
+        "race"
       ],
       [
-        "case",
-        "cash"
+        "cash",
+        "case"
       ],
       [
-        "brass",
-        "brush"
+        "brush",
+        "brass"
       ],
       [
-        "rice",
-        "rush"
+        "rush",
+        "rice"
       ],
       [
-        "less",
-        "leash"
+        "leash",
+        "less"
       ],
       [
-        "nice",
-        "Nash"
+        "Nash",
+        "nice"
       ],
       [
-        "peace",
-        "push"
+        "push",
+        "peace"
       ]
     ]
   },
@@ -1850,52 +1854,52 @@
     "folder": "L:W Minimal Pairs - Initial",
     "pairs": [
       [
-        "low",
-        "woah"
+        "woah",
+        "low"
       ],
       [
-        "lie",
-        "why"
+        "why",
+        "lie"
       ],
       [
-        "lair",
-        "where"
+        "where",
+        "lair"
       ],
       [
-        "late",
-        "weight"
+        "weight",
+        "late"
       ],
       [
-        "Lynn",
-        "win"
+        "win",
+        "Lynn"
       ],
       [
-        "liar",
-        "wire"
+        "wire",
+        "liar"
       ],
       [
-        "listen",
-        "whistle"
+        "whistle",
+        "listen"
       ],
       [
-        "let",
-        "wet"
+        "wet",
+        "let"
       ],
       [
-        "lamb",
-        "wham"
+        "wham",
+        "lamb"
       ],
       [
-        "lime",
-        "whine"
+        "whine",
+        "lime"
       ],
       [
-        "land",
-        "wand"
+        "wand",
+        "land"
       ],
       [
-        "lace",
-        "waist"
+        "waist",
+        "lace"
       ]
     ]
   },
@@ -1966,48 +1970,48 @@
     "folder": "L:W Minimal Pairs - Medial",
     "pairs": [
       [
-        "Callie",
-        "kiwi"
+        "kiwi",
+        "Callie"
       ],
       [
-        "Molly",
-        "mower"
+        "mower",
+        "Molly"
       ],
       [
-        "Polly",
-        "power"
+        "power",
+        "Polly"
       ],
       [
-        "hilly",
-        "Hawaii"
+        "Hawaii",
+        "hilly"
       ],
       [
-        "salamander",
-        "sandwich"
+        "sandwich",
+        "salamander"
       ],
       [
-        "alone",
-        "award"
+        "award",
+        "alone"
       ],
       [
-        "alien",
-        "awake"
+        "awake",
+        "alien"
       ],
       [
-        "Sally",
-        "seaweed"
+        "seaweed",
+        "Sally"
       ],
       [
-        "a leak",
-        "a week"
+        "a week",
+        "a leak"
       ],
       [
-        "tally",
-        "towel"
+        "towel",
+        "tally"
       ],
       [
-        "Shelly",
-        "shower"
+        "shower",
+        "Shelly"
       ],
       [
         "hollow",
@@ -2086,8 +2090,8 @@
     "folder": "L:W Minimal Pairs - Final",
     "pairs": [
       [
-        "call",
-        "caw"
+        "caw",
+        "call"
       ],
       [
         "whale",
@@ -2098,44 +2102,44 @@
         "ow"
       ],
       [
-        "veil",
-        "vow"
+        "vow",
+        "veil"
       ],
       [
         "bowl",
         "bow"
       ],
       [
-        "seal",
-        "sew"
+        "sew",
+        "seal"
       ],
       [
-        "shell",
-        "show"
+        "show",
+        "shell"
       ],
       [
-        "goal",
-        "grow"
+        "grow",
+        "goal"
       ],
       [
-        "snail",
-        "snow"
+        "snow",
+        "snail"
       ],
       [
-        "tall",
-        "tow"
+        "tow",
+        "tall"
       ],
       [
-        "roll",
-        "row"
+        "row",
+        "roll"
       ],
       [
-        "rail",
-        "raw"
+        "raw",
+        "rail"
       ],
       [
-        "mole",
-        "mow"
+        "mow",
+        "mole"
       ]
     ]
   },
@@ -2210,56 +2214,56 @@
     "folder": "T:D Minimal Pairs - Initial",
     "pairs": [
       [
-        "ten",
-        "den"
+        "den",
+        "ten"
       ],
       [
-        "toe",
-        "dough"
+        "dough",
+        "toe"
       ],
       [
-        "tart",
-        "dart"
+        "dart",
+        "tart"
       ],
       [
-        "time",
-        "dime"
+        "dime",
+        "time"
       ],
       [
-        "town",
-        "down"
+        "down",
+        "town"
       ],
       [
-        "tip",
-        "dip"
+        "dip",
+        "tip"
       ],
       [
-        "tear",
-        "deer"
+        "deer",
+        "tear"
       ],
       [
-        "tent",
-        "dent"
+        "dent",
+        "tent"
       ],
       [
-        "t",
-        "d"
+        "d",
+        "t"
       ],
       [
-        "tune",
-        "dune"
+        "dune",
+        "tune"
       ],
       [
-        "tie",
-        "dye"
+        "dye",
+        "tie"
       ],
       [
-        "tow",
-        "doe"
+        "doe",
+        "tow"
       ],
       [
-        "tore",
-        "door"
+        "door",
+        "tore"
       ]
     ]
   },
@@ -2330,52 +2334,52 @@
     "folder": "T:D Minimal Pairs - Medial",
     "pairs": [
       [
-        "writer",
-        "rider"
+        "rider",
+        "writer"
       ],
       [
-        "waiting",
-        "wading"
+        "wading",
+        "waiting"
       ],
       [
-        "water",
-        "wader"
+        "wader",
+        "water"
       ],
       [
-        "petal",
-        "pedal"
+        "pedal",
+        "petal"
       ],
       [
-        "kitty",
-        "kiddy"
+        "kiddy",
+        "kitty"
       ],
       [
-        "later",
-        "ladder"
+        "ladder",
+        "later"
       ],
       [
-        "metal",
-        "medal"
+        "medal",
+        "metal"
       ],
       [
-        "mighty",
-        "muddy"
+        "muddy",
+        "mighty"
       ],
       [
-        "batty",
-        "baddy"
+        "baddy",
+        "batty"
       ],
       [
-        "battle",
-        "bandaid"
+        "bandaid",
+        "battle"
       ],
       [
-        "cutie",
-        "Cody"
+        "Cody",
+        "cutie"
       ],
       [
-        "mitten",
-        "middle"
+        "middle",
+        "mitten"
       ]
     ]
   },
@@ -2450,56 +2454,56 @@
     "folder": "T:D Minimal Pairs - Final",
     "pairs": [
       [
-        "bat",
-        "bad"
+        "bad",
+        "bat"
       ],
       [
-        "coat",
-        "code"
+        "code",
+        "coat"
       ],
       [
-        "feet",
-        "feed"
+        "feed",
+        "feet"
       ],
       [
-        "hat",
-        "had"
+        "had",
+        "hat"
       ],
       [
-        "hit",
-        "hid"
+        "hid",
+        "hit"
       ],
       [
-        "kit",
-        "kid"
+        "kid",
+        "kit"
       ],
       [
-        "light",
-        "lied"
+        "lied",
+        "light"
       ],
       [
-        "pot",
-        "pod"
+        "pod",
+        "pot"
       ],
       [
-        "root",
-        "rude"
+        "rude",
+        "root"
       ],
       [
-        "seat",
-        "seed"
+        "seed",
+        "seat"
       ],
       [
-        "tight",
-        "tied"
+        "tied",
+        "tight"
       ],
       [
-        "wet",
-        "wed"
+        "wed",
+        "wet"
       ],
       [
-        "write",
-        "ride"
+        "ride",
+        "write"
       ]
     ]
   },
@@ -2570,52 +2574,52 @@
     "folder": "TH:V Minimal Pairs - Initial",
     "pairs": [
       [
-        "those",
-        "vote"
+        "vote",
+        "those"
       ],
       [
-        "they",
-        "vase"
+        "vase",
+        "they"
       ],
       [
-        "that",
-        "vat"
+        "vat",
+        "that"
       ],
       [
-        "them",
-        "vent"
+        "vent",
+        "them"
       ],
       [
-        "than",
-        "van"
+        "van",
+        "than"
       ],
       [
-        "these",
-        "Vs"
+        "Vs",
+        "these"
       ],
       [
-        "there",
-        "very"
+        "very",
+        "there"
       ],
       [
-        "this",
-        "visit"
+        "visit",
+        "this"
       ],
       [
-        "the",
-        "vanilla"
+        "vanilla",
+        "the"
       ],
       [
-        "though",
-        "vote"
+        "vote",
+        "though"
       ],
       [
-        "then",
-        "vet"
+        "vet",
+        "then"
       ],
       [
-        "their",
-        "veggie"
+        "veggie",
+        "their"
       ]
     ]
   },
@@ -2686,52 +2690,52 @@
     "folder": "TH:V Minimal Pairs - Medial",
     "pairs": [
       [
-        "other",
-        "over"
+        "over",
+        "other"
       ],
       [
-        "tether",
-        "Trevor"
+        "Trevor",
+        "tether"
       ],
       [
-        "brother",
-        "river"
+        "river",
+        "brother"
       ],
       [
-        "mother",
-        "moving"
+        "moving",
+        "mother"
       ],
       [
-        "slither",
-        "seven"
+        "seven",
+        "slither"
       ],
       [
-        "Heather",
-        "heavy"
+        "heavy",
+        "Heather"
       ],
       [
-        "weather",
-        "wavy"
+        "wavy",
+        "weather"
       ],
       [
-        "feather",
-        "favorite"
+        "favorite",
+        "feather"
       ],
       [
-        "leather",
-        "lava"
+        "lava",
+        "leather"
       ],
       [
-        "smoothie",
-        "movie"
+        "movie",
+        "smoothie"
       ],
       [
-        "dither",
-        "diver"
+        "diver",
+        "dither"
       ],
       [
-        "father",
-        "favor"
+        "favor",
+        "father"
       ]
     ]
   },
@@ -2802,52 +2806,52 @@
     "folder": "TH:V Minimal Pairs - Final",
     "pairs": [
       [
-        "smooth",
-        "stove"
+        "stove",
+        "smooth"
       ],
       [
-        "soothe",
-        "sleeve"
+        "sleeve",
+        "soothe"
       ],
       [
-        "bathe",
-        "brave"
+        "brave",
+        "bathe"
       ],
       [
-        "breathe",
-        "leave"
+        "leave",
+        "breathe"
       ],
       [
-        "clothe",
-        "clove"
+        "clove",
+        "clothe"
       ],
       [
-        "teethe",
-        "weave"
+        "weave",
+        "teethe"
       ],
       [
-        "seethe",
-        "Steve"
+        "Steve",
+        "seethe"
       ],
       [
-        "loathe",
-        "love"
+        "love",
+        "loathe"
       ],
       [
-        "lathe",
-        "cave"
+        "cave",
+        "lathe"
       ],
       [
-        "sunbathe",
-        "a wave"
+        "a wave",
+        "sunbathe"
       ],
       [
-        "wreathe",
-        "heave"
+        "heave",
+        "wreathe"
       ],
       [
-        "unclothe",
-        "above"
+        "above",
+        "unclothe"
       ]
     ]
   },
@@ -2860,52 +2864,52 @@
     "folder": "G:K Minimal Pairs - Initial",
     "pairs": [
       [
-        "card",
-        "guard"
+        "guard",
+        "card"
       ],
       [
-        "cold",
-        "gold"
+        "gold",
+        "cold"
       ],
       [
-        "coat",
-        "goat"
+        "goat",
+        "coat"
       ],
       [
-        "cap",
-        "gap"
+        "gap",
+        "cap"
       ],
       [
-        "coal",
-        "goal"
+        "goal",
+        "coal"
       ],
       [
-        "curl",
-        "girl"
+        "girl",
+        "curl"
       ],
       [
-        "cave",
-        "gave"
+        "gave",
+        "cave"
       ],
       [
-        "crow",
-        "grow"
+        "grow",
+        "crow"
       ],
       [
-        "coast",
-        "ghost"
+        "ghost",
+        "coast"
       ],
       [
-        "come",
-        "gum"
+        "gum",
+        "come"
       ],
       [
-        "cot",
-        "got"
+        "got",
+        "cot"
       ],
       [
-        "cane",
-        "gain"
+        "gain",
+        "cane"
       ]
     ]
   },
@@ -2976,52 +2980,52 @@
     "folder": "G:K Minimal Pairs - Medial",
     "pairs": [
       [
-        "hacker",
-        "hugger"
+        "hugger",
+        "hacker"
       ],
       [
-        "soccer",
-        "soggy"
+        "soggy",
+        "soccer"
       ],
       [
         "wagon",
         "wacky"
       ],
       [
-        "locker",
-        "logger"
+        "logger",
+        "locker"
       ],
       [
-        "bacon",
-        "bagel"
+        "bagel",
+        "bacon"
       ],
       [
-        "raccon",
-        "rangoon"
+        "rangoon",
+        "raccon"
       ],
       [
-        "ticket",
-        "tiger"
+        "tiger",
+        "ticket"
       ],
       [
-        "biker",
-        "burger"
+        "burger",
+        "biker"
       ],
       [
-        "bucket",
-        "buggy"
+        "buggy",
+        "bucket"
       ],
       [
-        "chicken",
-        "chugging"
+        "chugging",
+        "chicken"
       ],
       [
-        "jacket",
-        "jaguar"
+        "jaguar",
+        "jacket"
       ],
       [
-        "sucker",
-        "sugar"
+        "sugar",
+        "sucker"
       ]
     ]
   },
@@ -3042,8 +3046,8 @@
         "soggy"
       ],
       [
-        "wagon",
-        "wacky"
+        "wacky",
+        "wagon"
       ],
       [
         "locker",
@@ -3092,52 +3096,52 @@
     "folder": "G:K Minimal Pairs - Final",
     "pairs": [
       [
-        "back",
-        "bag"
+        "bag",
+        "back"
       ],
       [
-        "pick",
-        "pig"
+        "pig",
+        "pick"
       ],
       [
-        "clock",
-        "clog"
+        "clog",
+        "clock"
       ],
       [
-        "dock",
-        "dog"
+        "dog",
+        "dock"
       ],
       [
-        "duck",
-        "Doug"
+        "Doug",
+        "duck"
       ],
       [
-        "muck",
-        "mug"
+        "mug",
+        "muck"
       ],
       [
-        "buck",
-        "bug"
+        "bug",
+        "buck"
       ],
       [
-        "rack",
-        "rag"
+        "rag",
+        "rack"
       ],
       [
-        "puck",
-        "pug"
+        "pug",
+        "puck"
       ],
       [
-        "stack",
-        "stag"
+        "stag",
+        "stack"
       ],
       [
-        "wick",
-        "wig"
+        "wig",
+        "wick"
       ],
       [
-        "snack",
-        "snag"
+        "snag",
+        "snack"
       ]
     ]
   },
@@ -3266,52 +3270,52 @@
     "folder": "F:V Minimal Pairs - Initial",
     "pairs": [
       [
-        "fan",
-        "van"
+        "van",
+        "fan"
       ],
       [
-        "fat",
-        "vat"
+        "vat",
+        "fat"
       ],
       [
-        "fine",
-        "vine"
+        "vine",
+        "fine"
       ],
       [
-        "fail",
-        "veil"
+        "veil",
+        "fail"
       ],
       [
-        "file",
-        "vial"
+        "vial",
+        "file"
       ],
       [
-        "fairy",
-        "very"
+        "very",
+        "fairy"
       ],
       [
-        "foal",
-        "vole"
+        "vole",
+        "foal"
       ],
       [
-        "few",
-        "view"
+        "view",
+        "few"
       ],
       [
-        "face",
-        "vase"
+        "vase",
+        "face"
       ],
       [
-        "fear",
-        "veer"
+        "veer",
+        "fear"
       ],
       [
-        "fee",
-        "v"
+        "v",
+        "fee"
       ],
       [
-        "fast",
-        "vast"
+        "vast",
+        "fast"
       ]
     ]
   },
@@ -3382,52 +3386,52 @@
     "folder": "F:V Minimal Pairs - Medial",
     "pairs": [
       [
-        "office",
-        "oval"
+        "oval",
+        "office"
       ],
       [
-        "waffle",
-        "wavy"
+        "wavy",
+        "waffle"
       ],
       [
-        "traffic",
-        "travel"
+        "travel",
+        "traffic"
       ],
       [
-        "raffle",
-        "raven"
+        "raven",
+        "raffle"
       ],
       [
-        "safety",
-        "savings"
+        "savings",
+        "safety"
       ],
       [
-        "offer",
-        "over"
+        "over",
+        "offer"
       ],
       [
-        "aphid",
-        "Ava"
+        "Ava",
+        "aphid"
       ],
       [
-        "coffee",
-        "cover"
+        "cover",
+        "coffee"
       ],
       [
-        "different",
-        "diver"
+        "diver",
+        "different"
       ],
       [
-        "heifer",
-        "heavy"
+        "heavy",
+        "heifer"
       ],
       [
-        "laughing",
-        "lava"
+        "lava",
+        "laughing"
       ],
       [
-        "siphon",
-        "seven"
+        "seven",
+        "siphon"
       ]
     ]
   },
@@ -3498,48 +3502,48 @@
     "folder": "F:V Minimal Pairs - Final",
     "pairs": [
       [
-        "leaf",
-        "leave"
+        "leave",
+        "leaf"
       ],
       [
-        "calf",
-        "cave"
+        "cave",
+        "calf"
       ],
       [
-        "safe",
-        "save"
+        "save",
+        "safe"
       ],
       [
-        "surf",
-        "serve"
+        "serve",
+        "surf"
       ],
       [
         "roof",
         "reef"
       ],
       [
-        "stuff",
-        "stove"
+        "stove",
+        "stuff"
       ],
       [
-        "half",
-        "hive"
+        "hive",
+        "half"
       ],
       [
-        "wife",
-        "weave"
+        "weave",
+        "wife"
       ],
       [
-        "laugh",
-        "love"
+        "love",
+        "laugh"
       ],
       [
-        "cough",
-        "cove"
+        "cove",
+        "cough"
       ],
       [
-        "muff",
-        "move"
+        "move",
+        "muff"
       ],
       [
         "cliff",
@@ -3614,52 +3618,52 @@
     "folder": "S:Z Minimal Pairs - Initial",
     "pairs": [
       [
-        "sip",
-        "zip"
+        "zip",
+        "sip"
       ],
       [
-        "Sue",
-        "zoo"
+        "zoo",
+        "Sue"
       ],
       [
-        "sink",
-        "zinc"
+        "zinc",
+        "sink"
       ],
       [
-        "sack",
-        "Zack"
+        "Zack",
+        "sack"
       ],
       [
-        "sap",
-        "zap"
+        "zap",
+        "sap"
       ],
       [
-        "c",
-        "z"
+        "z",
+        "c"
       ],
       [
-        "city",
-        "ziti"
+        "ziti",
+        "city"
       ],
       [
-        "soup",
-        "zoom"
+        "zoom",
+        "soup"
       ],
       [
-        "sane",
-        "Zane"
+        "Zane",
+        "sane"
       ],
       [
-        "silly",
-        "zilla"
+        "zilla",
+        "silly"
       ],
       [
-        "suitcase",
-        "zucchini"
+        "zucchini",
+        "suitcase"
       ],
       [
-        "cinnamon",
-        "zinnia"
+        "zinnia",
+        "cinnamon"
       ]
     ]
   },
@@ -3692,8 +3696,8 @@
         "lizard"
       ],
       [
-        "Lizzy",
-        "Lisa"
+        "Lisa",
+        "Lizzy"
       ],
       [
         "baseball",
@@ -3708,12 +3712,12 @@
         "frozen"
       ],
       [
-        "dancer",
-        "desert"
+        "desert",
+        "dancer"
       ],
       [
-        "pencil",
-        "poison"
+        "poison",
+        "pencil"
       ],
       [
         "whistle",
@@ -3730,40 +3734,40 @@
     "folder": "S:Z Minimal Pairs - Medial",
     "pairs": [
       [
-        "fussy",
-        "fuzzy"
+        "fuzzy",
+        "fussy"
       ],
       [
-        "muscle",
-        "muzzle"
+        "muzzle",
+        "muscle"
       ],
       [
-        "racer",
-        "razor"
+        "razor",
+        "racer"
       ],
       [
-        "lacey",
-        "lazy"
+        "lazy",
+        "lacey"
       ],
       [
-        "listen",
-        "lizard"
+        "lizard",
+        "listen"
       ],
       [
         "Lizzy",
         "Lisa"
       ],
       [
-        "baseball",
-        "blizzard"
+        "blizzard",
+        "baseball"
       ],
       [
         "music",
         "messy"
       ],
       [
-        "fry sauce",
-        "frozen"
+        "frozen",
+        "fry sauce"
       ],
       [
         "dancer",
@@ -3774,8 +3778,8 @@
         "poison"
       ],
       [
-        "whistle",
-        "wizard"
+        "wizard",
+        "whistle"
       ]
     ]
   },
@@ -3788,52 +3792,52 @@
     "folder": "S:Z Minimal Pairs - Final",
     "pairs": [
       [
-        "ice",
-        "eyes"
+        "eyes",
+        "ice"
       ],
       [
         "bus",
         "buzz"
       ],
       [
-        "peace",
-        "peas"
+        "peas",
+        "peace"
       ],
       [
-        "race",
-        "raise"
+        "raise",
+        "race"
       ],
       [
         "loose",
         "lose"
       ],
       [
-        "rice",
-        "rise"
+        "rise",
+        "rice"
       ],
       [
         "hiss",
         "his"
       ],
       [
-        "fleece",
-        "fleas"
+        "fleas",
+        "fleece"
       ],
       [
         "mace",
         "maze"
       ],
       [
-        "brace",
-        "brays"
+        "brays",
+        "brace"
       ],
       [
-        "niece",
-        "knees"
+        "knees",
+        "niece"
       ],
       [
-        "dice",
-        "dies"
+        "dies",
+        "dice"
       ]
     ]
   },
@@ -3850,8 +3854,8 @@
         "eyes"
       ],
       [
-        "bus",
-        "buzz"
+        "buzz",
+        "bus"
       ],
       [
         "peace",
@@ -3878,8 +3882,8 @@
         "fleas"
       ],
       [
-        "mace",
-        "maze"
+        "maze",
+        "mace"
       ],
       [
         "brace",
@@ -3970,60 +3974,60 @@
     "folder": "F:P Minimal Pairs - Initial",
     "pairs": [
       [
-        "fan",
-        "pan"
+        "pan",
+        "fan"
       ],
       [
-        "fat",
-        "pat"
+        "pat",
+        "fat"
       ],
       [
-        "fig",
-        "pig"
+        "pig",
+        "fig"
       ],
       [
-        "fin",
-        "pin"
+        "pin",
+        "fin"
       ],
       [
-        "fit",
-        "pit"
+        "pit",
+        "fit"
       ],
       [
-        "food",
-        "pool"
+        "pool",
+        "food"
       ],
       [
-        "foot",
-        "put"
+        "put",
+        "foot"
       ],
       [
-        "four",
-        "pour"
+        "pour",
+        "four"
       ],
       [
-        "fox",
-        "pox"
+        "pox",
+        "fox"
       ],
       [
-        "fine",
-        "pine"
+        "pine",
+        "fine"
       ],
       [
-        "fair",
-        "pear"
+        "pear",
+        "fair"
       ],
       [
-        "feel",
-        "peel"
+        "peel",
+        "feel"
       ],
       [
-        "fight",
-        "pike"
+        "pike",
+        "fight"
       ],
       [
-        "fill",
-        "pill"
+        "pill",
+        "fill"
       ]
     ]
   },
@@ -4094,32 +4098,32 @@
     "folder": "F:P Minimal Pairs - Medial",
     "pairs": [
       [
-        "coffee",
-        "copy"
+        "copy",
+        "coffee"
       ],
       [
-        "muffin",
-        "muppet"
+        "muppet",
+        "muffin"
       ],
       [
-        "sofa",
-        "soapy"
+        "soapy",
+        "sofa"
       ],
       [
-        "refuse",
-        "repair"
+        "repair",
+        "refuse"
       ],
       [
-        "afford",
-        "a port"
+        "a port",
+        "afford"
       ],
       [
-        "waffle",
-        "apple"
+        "apple",
+        "waffle"
       ],
       [
-        "offer",
-        "copper"
+        "copper",
+        "offer"
       ],
       [
         "office",
@@ -4138,8 +4142,8 @@
         "rabble"
       ],
       [
-        "defend",
-        "depend"
+        "depend",
+        "defend"
       ]
     ]
   },
@@ -4218,8 +4222,8 @@
     "folder": "F:P Minimal Pairs - Final",
     "pairs": [
       [
-        "cough",
-        "cop"
+        "cop",
+        "cough"
       ],
       [
         "puff",
@@ -4230,48 +4234,48 @@
         "stub"
       ],
       [
-        "half",
-        "tap"
+        "tap",
+        "half"
       ],
       [
-        "leaf",
-        "leap"
+        "leap",
+        "leaf"
       ],
       [
-        "safe",
-        "sap"
+        "sap",
+        "safe"
       ],
       [
-        "knife",
-        "nap"
+        "nap",
+        "knife"
       ],
       [
-        "wife",
-        "wipe"
+        "wipe",
+        "wife"
       ],
       [
-        "loaf",
-        "lope"
+        "lope",
+        "loaf"
       ],
       [
-        "calf",
-        "cap"
+        "cap",
+        "calf"
       ],
       [
-        "chief",
-        "cheep"
+        "cheep",
+        "chief"
       ],
       [
-        "beef",
-        "beep"
+        "beep",
+        "beef"
       ],
       [
-        "reef",
-        "rip"
+        "rip",
+        "reef"
       ],
       [
-        "roof",
-        "rope"
+        "rope",
+        "roof"
       ]
     ]
   },
@@ -4350,60 +4354,60 @@
     "folder": "S:T Minimal Pairs - Initial",
     "pairs": [
       [
-        "sip",
-        "tip"
+        "tip",
+        "sip"
       ],
       [
-        "sack",
-        "tack"
+        "tack",
+        "sack"
       ],
       [
-        "sad",
-        "tad"
+        "tad",
+        "sad"
       ],
       [
-        "sank",
-        "tank"
+        "tank",
+        "sank"
       ],
       [
-        "seal",
-        "teal"
+        "teal",
+        "seal"
       ],
       [
-        "seat",
-        "treat"
+        "treat",
+        "seat"
       ],
       [
-        "c",
-        "tea"
+        "tea",
+        "c"
       ],
       [
-        "sigh",
-        "tie"
+        "tie",
+        "sigh"
       ],
       [
-        "sight",
-        "tight"
+        "tight",
+        "sight"
       ],
       [
-        "sill",
-        "till"
+        "till",
+        "sill"
       ],
       [
-        "sink",
-        "t"
+        "t",
+        "sink"
       ],
       [
-        "Sue",
-        "two"
+        "two",
+        "Sue"
       ],
       [
-        "sock",
-        "tall"
+        "tall",
+        "sock"
       ],
       [
-        "sew",
-        "toe"
+        "toe",
+        "sew"
       ]
     ]
   },
@@ -4478,56 +4482,56 @@
     "folder": "S:T Minimal Pairs - Final",
     "pairs": [
       [
-        "bus",
-        "bite"
+        "bite",
+        "bus"
       ],
       [
-        "face",
-        "fight"
+        "fight",
+        "face"
       ],
       [
-        "Grace",
-        "grate"
+        "grate",
+        "Grace"
       ],
       [
-        "ice",
-        "height"
+        "height",
+        "ice"
       ],
       [
-        "lace",
-        "late"
+        "late",
+        "lace"
       ],
       [
-        "nice",
-        "night"
+        "night",
+        "nice"
       ],
       [
-        "race",
-        "right"
+        "right",
+        "race"
       ],
       [
-        "rice",
-        "write"
+        "write",
+        "rice"
       ],
       [
-        "slice",
-        "sight"
+        "sight",
+        "slice"
       ],
       [
-        "place",
-        "plate"
+        "plate",
+        "place"
       ],
       [
-        "dice",
-        "diet"
+        "diet",
+        "dice"
       ],
       [
-        "moss",
-        "moat"
+        "moat",
+        "moss"
       ],
       [
-        "boss",
-        "boat"
+        "boat",
+        "boss"
       ]
     ]
   },
@@ -4598,32 +4602,32 @@
     "folder": "S:T Minimal Pairs - Medial",
     "pairs": [
       [
-        "basin",
-        "baton"
+        "baton",
+        "basin"
       ],
       [
-        "bison",
-        "biting"
+        "biting",
+        "bison"
       ],
       [
-        "lesson",
-        "letter"
+        "letter",
+        "lesson"
       ],
       [
-        "mason",
-        "metal"
+        "metal",
+        "mason"
       ],
       [
         "castle",
         "cattle"
       ],
       [
-        "racing",
-        "rating"
+        "rating",
+        "racing"
       ],
       [
-        "kissing",
-        "kitten"
+        "kitten",
+        "kissing"
       ],
       [
         "listen",
@@ -4634,12 +4638,12 @@
         "whittle"
       ],
       [
-        "fossil",
-        "pothole"
+        "pothole",
+        "fossil"
       ],
       [
-        "pencil",
-        "lentil"
+        "lentil",
+        "pencil"
       ],
       [
         "insect",
@@ -4718,56 +4722,56 @@
     "folder": "R:W Minimal Pairs - Initial",
     "pairs": [
       [
-        "red",
-        "wed"
+        "wed",
+        "red"
       ],
       [
         "run",
         "one"
       ],
       [
-        "rag",
-        "wag"
+        "wag",
+        "rag"
       ],
       [
-        "rack",
-        "whack"
+        "whack",
+        "rack"
       ],
       [
-        "rail",
-        "whale"
+        "whale",
+        "rail"
       ],
       [
-        "ripe",
-        "wipe"
+        "wipe",
+        "ripe"
       ],
       [
-        "rock",
-        "walk"
+        "walk",
+        "rock"
       ],
       [
-        "reek",
-        "week"
+        "week",
+        "reek"
       ],
       [
-        "ring",
-        "wing"
+        "wing",
+        "ring"
       ],
       [
-        "rain",
-        "wane"
+        "wane",
+        "rain"
       ],
       [
-        "row",
-        "woah"
+        "woah",
+        "row"
       ],
       [
-        "rake",
-        "wake"
+        "wake",
+        "rake"
       ],
       [
-        "rut",
-        "what"
+        "what",
+        "rut"
       ]
     ]
   },
@@ -4838,52 +4842,52 @@
     "folder": "R:W Minimal Pairs - Medial",
     "pairs": [
       [
-        "carry",
-        "kiwi"
+        "kiwi",
+        "carry"
       ],
       [
-        "hairy",
-        "Hawaii"
+        "Hawaii",
+        "hairy"
       ],
       [
-        "hurray",
-        "away"
+        "away",
+        "hurray"
       ],
       [
-        "sorry",
-        "sewing"
+        "sewing",
+        "sorry"
       ],
       [
-        "hurry",
-        "homework"
+        "homework",
+        "hurry"
       ],
       [
         "worry",
         "power"
       ],
       [
-        "Terry",
-        "towel"
+        "towel",
+        "Terry"
       ],
       [
-        "fairy",
-        "flower"
+        "flower",
+        "fairy"
       ],
       [
-        "a rake",
-        "awake"
+        "awake",
+        "a rake"
       ],
       [
-        "a rail",
-        "a whale"
+        "a whale",
+        "a rail"
       ],
       [
-        "story",
-        "seaweed"
+        "seaweed",
+        "story"
       ],
       [
-        "around",
-        "unwound"
+        "unwound",
+        "around"
       ]
     ]
   },
@@ -4954,24 +4958,24 @@
     "folder": "R:W Minimal Pairs - Final",
     "pairs": [
       [
-        "car",
-        "cow"
+        "cow",
+        "car"
       ],
       [
         "far",
         "foe"
       ],
       [
-        "bar",
-        "bow"
+        "bow",
+        "bar"
       ],
       [
-        "star",
-        "saw"
+        "saw",
+        "star"
       ],
       [
-        "jar",
-        "jaw"
+        "jaw",
+        "jar"
       ],
       [
         "door",
@@ -4982,24 +4986,24 @@
         "foe"
       ],
       [
-        "sore",
-        "sew"
+        "sew",
+        "sore"
       ],
       [
-        "more",
-        "mow"
+        "mow",
+        "more"
       ],
       [
-        "chair",
-        "chow"
+        "chow",
+        "chair"
       ],
       [
-        "hair",
-        "how"
+        "how",
+        "hair"
       ],
       [
-        "pear",
-        "pow"
+        "pow",
+        "pear"
       ]
     ]
   },
@@ -5070,52 +5074,52 @@
     "folder": "L:Y Minimal Pairs - Initial",
     "pairs": [
       [
-        "lap",
-        "yap"
+        "yap",
+        "lap"
       ],
       [
-        "lawn",
-        "yawn"
+        "yawn",
+        "lawn"
       ],
       [
-        "less",
-        "yes"
+        "yes",
+        "less"
       ],
       [
-        "lot",
-        "yacht"
+        "yacht",
+        "lot"
       ],
       [
-        "lard",
-        "yard"
+        "yard",
+        "lard"
       ],
       [
-        "lay",
-        "yay"
+        "yay",
+        "lay"
       ],
       [
-        "lung",
-        "young"
+        "young",
+        "lung"
       ],
       [
-        "luck",
-        "yuck"
+        "yuck",
+        "luck"
       ],
       [
-        "lamb",
-        "yam"
+        "yam",
+        "lamb"
       ],
       [
-        "low",
-        "yo"
+        "yo",
+        "low"
       ],
       [
-        "like",
-        "yikes"
+        "yikes",
+        "like"
       ],
       [
-        "Lue",
-        "you"
+        "you",
+        "Lue"
       ]
     ]
   },
@@ -5186,44 +5190,44 @@
     "folder": "L:Y Minimal Pairs - Medial",
     "pairs": [
       [
-        "a lawn",
-        "a yawn"
+        "a yawn",
+        "a lawn"
       ],
       [
-        "a lamb",
-        "a yam"
+        "a yam",
+        "a lamb"
       ],
       [
-        "alone",
-        "a yolk"
+        "a yolk",
+        "alone"
       ],
       [
-        "a lot",
-        "a yacht"
+        "a yacht",
+        "a lot"
       ],
       [
-        "I like",
-        "oh yikes"
+        "oh yikes",
+        "I like"
       ],
       [
-        "Callie",
-        "kayak"
+        "kayak",
+        "Callie"
       ],
       [
-        "rolo",
-        "royal"
+        "royal",
+        "rolo"
       ],
       [
-        "Lola",
-        "loyal"
+        "loyal",
+        "Lola"
       ],
       [
-        "polo",
-        "yo-yo"
+        "yo-yo",
+        "polo"
       ],
       [
-        "halo",
-        "heyo"
+        "heyo",
+        "halo"
       ],
       [
         "hilly",

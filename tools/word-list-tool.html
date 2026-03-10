@@ -39,7 +39,7 @@
   <h1>Word list tool</h1>
   <p class="instructions">
     Paste CSV from Google Sheets (or upload a file). Two layouts supported:<br>
-    <strong>Transposed (columns = sets):</strong> Row 1 = setID, row 2 = setLabel, prompt, targetSound, contrastSound, folder, then word1, word2, word3… Each column (after the first) is one word set. You can repeat this block below (same row labels) to add more sets when you run out of columns (e.g. past column Z).<br>
+    <strong>Transposed (columns = sets):</strong> Row 1 = setID, row 2 = setLabel, prompt, <strong>targetSound</strong>, contrastSound, folder, then word1, word2, word3… Each column (after the first) is one word set. The tool uses <strong>targetSound</strong> (and contrastSound) to reorder each word pair so the correct answer (the word with the target sound) is first; you don’t need to flip word order in the CSV. You can repeat this block below (same row labels) to add more sets when you run out of columns (e.g. past column Z).<br>
     <strong>Row-per-pair:</strong> Header row with setId, setLabel, prompt, targetSound, contrastSound, folder, word1, word2 — then one data row per pair.
     Then download <code>word-sets.json</code> and save as <code>word-lists/word-sets.json</code>.
     <a href="../word-lists/README.md">Full format details</a>.
@@ -126,6 +126,42 @@
         return !row.length || row.every(function (c) { return !(c || '').trim(); });
       }
 
+      function wordHasTargetSound(word, targetSound, contrastSound) {
+        var w = (word || '').trim().toLowerCase();
+        var t = (targetSound || '').trim().toLowerCase();
+        if (!w || !t) return false;
+        if (t.length === 1) {
+          if (w[0] === t) return true;
+          if (t === 'k' && (w[0] === 'c' || w[0] === 'k')) return true;
+          if (t === 'c' && w[0] === 'k') return false;
+          if (t === 'f' && w.startsWith('ph')) return true;
+          if (w.indexOf(t) >= 0) return true;
+          return false;
+        }
+        if (t === 'th' || t === 'sh' || t === 'ch') return w.startsWith(t) || w.indexOf(t) >= 0;
+        return w.startsWith(t) || w.indexOf(t) >= 0;
+      }
+
+      function reorderPairByTargetSound(pair, targetSound, contrastSound) {
+        if (!pair || pair.length < 2 || !targetSound) return pair;
+        var w1 = pair[0], w2 = pair[1];
+        var t = (targetSound || '').trim().toLowerCase();
+        var c = (contrastSound || '').trim().toLowerCase();
+        var has1 = wordHasTargetSound(w1, t, c);
+        var has2 = wordHasTargetSound(w2, t, c);
+        if (has1 && !has2) return [w1, w2];
+        if (has2 && !has1) return [w2, w1];
+        if (t.length === 1) {
+          var l1 = (w1 || '').trim().toLowerCase()[0];
+          var l2 = (w2 || '').trim().toLowerCase()[0];
+          if (l1 === t && l2 !== t) return [w1, w2];
+          if (l2 === t && l1 !== t) return [w2, w1];
+          if (t === 'k' && (l1 === 'c' || l1 === 'k') && l2 !== 'c' && l2 !== 'k') return [w1, w2];
+          if (t === 'k' && (l2 === 'c' || l2 === 'k') && l1 !== 'c' && l1 !== 'k') return [w2, w1];
+        }
+        return pair;
+      }
+
       function parseTransposedBlocks(rows) {
         const wordSets = [];
         let i = 0;
@@ -170,17 +206,17 @@
                 if (idx >= 0) {
                   const w1 = cell.slice(0, idx).trim();
                   const w2 = cell.slice(idx + 1).trim();
-                  if (w1 && w2) pairs.push([w1, w2]);
+                  if (w1 && w2) pairs.push(reorderPairByTargetSound([w1, w2], targetSound, contrastSound));
                 }
               }
             } else {
               for (let wi = 0; wi + 1 < wordIndices.length; wi += 2) {
                 const w1 = (blockRows[wordIndices[wi].row][col] || '').trim();
                 const w2 = (blockRows[wordIndices[wi + 1].row][col] || '').trim();
-                if (w1 && w2) pairs.push([w1, w2]);
+                if (w1 && w2) pairs.push(reorderPairByTargetSound([w1, w2], targetSound, contrastSound));
               }
             }
-            if (folder && folder.indexOf('/') >= 0) folder = folder.replace(/\//g, ':');
+            if (folder) { folder = folder.replace(/\//g, ':').trim(); }
             if (pairs.length) {
               wordSets.push({
                 id: setId,

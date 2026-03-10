@@ -369,7 +369,7 @@
     "prompt": "Which word has the /d/ sound?",
     "targetSound": "d",
     "contrastSound": "g",
-    "folder": "G:D Minimal Pairs - Initial",
+    "folder": "D:G Minimal Pairs - Initial",
     "pairs": [
       [
         "dame",
@@ -427,7 +427,7 @@
     "prompt": "Which word has the /g/ sound?",
     "targetSound": "g",
     "contrastSound": "d",
-    "folder": "G:D Minimal Pairs - Initial",
+    "folder": "D:G Minimal Pairs - Initial",
     "pairs": [
       [
         "dame",
@@ -485,7 +485,7 @@
     "prompt": "Which word has the /d/ sound?",
     "targetSound": "d",
     "contrastSound": "g",
-    "folder": "G:D Minimal Pairs - Medial",
+    "folder": "D:G Minimal Pairs - Medial",
     "pairs": [
       [
         "batter",
@@ -539,7 +539,7 @@
     "prompt": "Which word has the /g/ sound?",
     "targetSound": "g",
     "contrastSound": "d",
-    "folder": "G:D Minimal Pairs - Medial",
+    "folder": "D:G Minimal Pairs - Medial",
     "pairs": [
       [
         "batter",
@@ -597,7 +597,7 @@
     "prompt": "Which word has the /d/ sound?",
     "targetSound": "d",
     "contrastSound": "g",
-    "folder": "G:D Minimal Pairs - Final",
+    "folder": "D:G Minimal Pairs - Final",
     "pairs": [
       [
         "bad",
@@ -655,7 +655,7 @@
     "prompt": "Which word has the /g/ sound?",
     "targetSound": "g",
     "contrastSound": "d",
-    "folder": "G:D Minimal Pairs - Final",
+    "folder": "D:G Minimal Pairs - Final",
     "pairs": [
       [
         "bad",
