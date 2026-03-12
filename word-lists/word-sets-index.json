@@ -307,6 +307,27 @@
         "sound_a": "J",
         "sound_b": "Z",
         "position": "Medial"
+      },
+      {
+        "folder": "S:SH Minimal Pairs - Initial",
+        "label": "SH/S – Initial",
+        "sound_a": "SH",
+        "sound_b": "S",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:SH Minimal Pairs - Medial",
+        "label": "SH/S – Medial",
+        "sound_a": "SH",
+        "sound_b": "S",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:SH Minimal Pairs - Final",
+        "label": "SH/S – Final",
+        "sound_a": "SH",
+        "sound_b": "S",
+        "position": "Final"
       }
     ],
     "Denasalization": [
@@ -883,6 +904,29 @@
         "sound_a": "TH",
         "sound_b": "F",
         "position": "Medial"
+      }
+    ],
+    "Palatalization": [
+      {
+        "folder": "S:SH Minimal Pairs - Initial",
+        "label": "S/SH – Initial",
+        "sound_a": "S",
+        "sound_b": "SH",
+        "position": "Initial"
+      },
+      {
+        "folder": "S:SH Minimal Pairs - Medial",
+        "label": "S/SH – Medial",
+        "sound_a": "S",
+        "sound_b": "SH",
+        "position": "Medial"
+      },
+      {
+        "folder": "S:SH Minimal Pairs - Final",
+        "label": "S/SH – Final",
+        "sound_a": "S",
+        "sound_b": "SH",
+        "position": "Final"
       }
     ],
     "Prevocalic Voicing": [
@@ -2740,6 +2784,48 @@
       "sound_a": "SH",
       "sound_b": "S",
       "position": "Medial"
+    },
+    {
+      "folder": "S:SH Minimal Pairs - Initial",
+      "label": "SH/S – Initial",
+      "sound_a": "SH",
+      "sound_b": "S",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:SH Minimal Pairs - Medial",
+      "label": "SH/S – Medial",
+      "sound_a": "SH",
+      "sound_b": "S",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:SH Minimal Pairs - Final",
+      "label": "SH/S – Final",
+      "sound_a": "SH",
+      "sound_b": "S",
+      "position": "Final"
+    },
+    {
+      "folder": "S:SH Minimal Pairs - Initial",
+      "label": "S/SH – Initial",
+      "sound_a": "S",
+      "sound_b": "SH",
+      "position": "Initial"
+    },
+    {
+      "folder": "S:SH Minimal Pairs - Medial",
+      "label": "S/SH – Medial",
+      "sound_a": "S",
+      "sound_b": "SH",
+      "position": "Medial"
+    },
+    {
+      "folder": "S:SH Minimal Pairs - Final",
+      "label": "S/SH – Final",
+      "sound_a": "S",
+      "sound_b": "SH",
+      "position": "Final"
     },
     {
       "folder": "B:(deleted) Minimal Pairs - Final",

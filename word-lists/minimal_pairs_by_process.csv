@@ -54,6 +54,12 @@ Denasalization,Assimilation,NG,G,Medial,NG-G Minimal Pairs - Medial,NG/G Minimal
 Depalatalization,Substitution,SH,S,Final,SH-S Minimal Pairs - Final,SH/S Minimal Pairs - Final
 Depalatalization,Substitution,SH,S,Initial,SH-S Minimal Pairs - Initial,SH/S Minimal Pairs - Initial
 Depalatalization,Substitution,SH,S,Medial,SH-S Minimal Pairs - Medial,SH/S Minimal Pairs - Medial
+Deaffrication,Substitution,SH,S,Initial,S-SH Minimal Pairs - Initial,S/SH Minimal Pairs - Initial
+Deaffrication,Substitution,SH,S,Medial,S-SH Minimal Pairs - Medial,S/SH Minimal Pairs - Medial
+Deaffrication,Substitution,SH,S,Final,S-SH Minimal Pairs - Final,S/SH Minimal Pairs - Final
+Palatalization,Substitution,S,SH,Initial,S-SH Minimal Pairs - Initial,S/SH Minimal Pairs - Initial
+Palatalization,Substitution,S,SH,Medial,S-SH Minimal Pairs - Medial,S/SH Minimal Pairs - Medial
+Palatalization,Substitution,S,SH,Final,S-SH Minimal Pairs - Final,S/SH Minimal Pairs - Final
 Final Consonant Deletion,Syllable Structure,B,(deleted),Final,Final B Minimal Pairs - Final,B/(deleted) Minimal Pairs - Final
 Final Consonant Deletion,Syllable Structure,CH,(deleted),Final,Final CH Minimal Pairs - Final,CH/(deleted) Minimal Pairs - Final
 Final Consonant Deletion,Syllable Structure,D,(deleted),Final,Final D Minimal Pairs - Final,D/(deleted) Minimal Pairs - Final
