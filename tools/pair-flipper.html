@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Word Pair Flipper</title>
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 16px; max-width: 700px; margin: 0 auto; }
+    textarea { width: 100%; min-height: 200px; margin: 8px 0; font-family: monospace; }
+    button { padding: 8px 16px; font-size: 1rem; }
+    .hint { font-size: 0.9rem; color: #555; }
+  </style>
+</head>
+<body>
+  <h1>Word Pair Flipper</h1>
+  <p class="hint">
+    Paste lines like <code>car/tar</code>, one pair per line. Click “Flip pairs” and it will
+    output <code>tar/car</code>, keeping everything else the same.
+  </p>
+
+  <h3>Input pairs</h3>
+  <textarea id="input" placeholder="car/tar&#10;cap/tap&#10;..."></textarea>
+
+  <button id="flip-btn" type="button">Flip pairs</button>
+
+  <h3>Flipped output</h3>
+  <textarea id="output" placeholder="tar/car&#10;tap/cap&#10;..." readonly></textarea>
+
+  <script>
+    document.getElementById('flip-btn').addEventListener('click', () => {
+      const lines = document.getElementById('input').value.split(/\r?\n/);
+      const flipped = lines.map(line => {
+        const trimmed = line.trim();
+        if (!trimmed) return '';
+        const idx = trimmed.indexOf('/');
+        if (idx === -1) return trimmed; // no slash, leave as-is
+        const left = trimmed.slice(0, idx).trim();
+        const right = trimmed.slice(idx + 1).trim();
+        if (!left || !right) return trimmed;
+        return right + '/' + left; // flip order, no extra spaces
+      });
+      document.getElementById('output').value = flipped.join('\n');
+    });
+  </script>
+</body>
+</html>
