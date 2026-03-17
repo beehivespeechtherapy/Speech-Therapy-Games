@@ -126,7 +126,8 @@
     }
 
     function pairImagePath(word, setId) {
-      const file = (word === 'v' || word === 'V') ? 'v' : (word === 'Ed') ? 'Ed' : word.toLowerCase();
+      const trimmed = (word || '').trim();
+      const file = (trimmed === 'v' || trimmed === 'V') ? 'v' : (trimmed === 'Ed') ? 'Ed' : trimmed;
       const filename = file + '.png';
       const folder = setId && WORD_SET_FOLDERS[setId];
       if (folder) {

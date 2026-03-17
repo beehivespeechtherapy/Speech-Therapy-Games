@@ -606,7 +606,8 @@
     const FALLBACK_PAIRS_BASE = "assets/pairs";
 
     function pairImageFile(word) {
-      return (word === "Ed" ? "Ed" : word.toLowerCase()) + ".png";
+      const trimmed = (word || "").trim();
+      return (trimmed === "Ed" ? "Ed" : trimmed) + ".png";
     }
 
     function pairImageUrl(word, setId) {

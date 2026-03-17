@@ -712,7 +712,8 @@
         'vb-b2': 'V:B Minimal Pairs - Final', 'vb-v2': 'V:B Minimal Pairs - Final'
       };
       function pairImagePath(word, setId) {
-        var file = (word === 'v' || word === 'V') ? 'v' : (word === 'Ed') ? 'Ed' : word.toLowerCase();
+        var trimmed = (word || '').trim();
+        var file = (trimmed === 'v' || trimmed === 'V') ? 'v' : (trimmed === 'Ed') ? 'Ed' : trimmed;
         var filePath = file + '.png';
         var folder = setId && WORD_SET_FOLDERS[setId];
         if (folder) {
