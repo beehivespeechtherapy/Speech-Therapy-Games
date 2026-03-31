@@ -84,16 +84,36 @@
     "viewBoxHeight": 1536
   },
   "numChallenges": 12,
+  "player": {
+    "hearts": 5
+  },
+  "sentries": {
+    "detectionRadius": 90,
+    "weaponEscapeChance": 0.25,
+    "guards": [
+      { "id": "gate-guard", "route": [0, 1], "speed": 0.25, "icon": "👁️" },
+      { "id": "tower-guard", "route": [3, 4], "speed": 0.22, "icon": "🛡️" },
+      { "id": "courtyard-guard", "route": [6, 7], "speed": 0.2, "icon": "👁️" },
+      { "id": "inner-guard", "route": [9, 10], "speed": 0.24, "icon": "🛡️" }
+    ]
+  },
   "weapons": [
-    {"id": "weapon1", "label": "Weapon 1", "icon": "⚔️", "image": "weapons/weapon1.png"},
-    {"id": "weapon2", "label": "Weapon 2", "icon": "🥷", "image": "weapons/weapon2.png"},
-    {"id": "weapon3", "label": "Weapon 3", "icon": "🦾", "image": "weapons/weapon3.png"},
-    {"id": "weapon4", "label": "Weapon 4", "icon": "🏹", "image": "weapons/weapon4.png"},
-    {"id": "weapon5", "label": "Weapon 5", "icon": "🥢", "image": "weapons/weapon5.png"}
+    {"id": "sword", "label": "Ninja Sword", "icon": "🗡️", "image": "weapons/weapon1.png", "type": "close"},
+    {"id": "nunchucks", "label": "Nunchucks", "icon": "🥢", "image": "weapons/weapon2.png", "type": "shield-break"},
+    {"id": "shuriken", "label": "Shuriken", "icon": "⭐", "image": "weapons/weapon3.png", "type": "ranged"},
+    {"id": "smoke", "label": "Smoke Bomb", "icon": "💨", "image": "weapons/weapon4.png", "type": "dodge"},
+    {"id": "staff", "label": "Bo Staff", "icon": "🪵", "image": "weapons/weapon5.png", "type": "heavy"}
   ],
   "boss": {
     "hitsToDefeat": 5,
-    "message": "Defeat the samurai! Choose the correct word to attack."
+    "message": "Defeat the samurai! Choose the correct word and best weapon.",
+    "stances": [
+      { "id": "close", "label": "Close attack!", "icon": "⚔️", "weakTo": "close" },
+      { "id": "shield", "label": "Shield up!", "icon": "🛡️", "weakTo": "shield-break" },
+      { "id": "ranged", "label": "Boss jumped far away!", "icon": "🏹", "weakTo": "ranged" },
+      { "id": "agile", "label": "Boss is too fast!", "icon": "💨", "weakTo": "dodge" },
+      { "id": "guarded", "label": "Heavy guard stance!", "icon": "🪓", "weakTo": "heavy" }
+    ]
   },
   "victory": {
     "message": "You defeated the samurai! Great job, Sound Ninja!",

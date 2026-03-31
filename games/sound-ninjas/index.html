@@ -66,6 +66,18 @@
     }
     #weapons-box .weapons-label { color: #a2a8d3; font-size: 1rem; margin-right: 4px; }
     #weapons-box .weapon-slot.collected { background: rgba(233,69,96,0.3); }
+    #hearts-box {
+      position: fixed; top: 8%; right: 8%; z-index: 50;
+      background: rgba(0,0,0,0.6); border: 2px solid #e94560; border-radius: 14px;
+      padding: 10px 14px; display: flex; gap: 8px; align-items: center;
+    }
+    #hearts-box .hearts-label { color: #a2a8d3; font-size: 1rem; }
+    #player-hearts { display: flex; gap: 6px; }
+    #player-hearts .heart {
+      font-size: 1.35rem;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+    #player-hearts .heart.lost { opacity: 0.25; transform: scale(0.85); }
 
     .stop-marker { cursor: pointer; }
     .stop-marker image, .stop-marker text { filter: drop-shadow(0 0 2px #000); }
@@ -86,10 +98,34 @@
     }
     #boss-screen.show { display: flex; }
     #boss-screen .boss-title { color: #e94560; font-size: 1.5rem; margin-bottom: 0.5rem; }
-    #boss-screen .boss-visual { font-size: 5rem; margin: 1rem 0; filter: drop-shadow(0 0 20px rgba(233,69,96,0.5)); }
+    #boss-screen .boss-stage {
+      width: min(88vw, 720px);
+      max-width: 720px;
+      margin: 0.5rem 0 1rem;
+      position: relative;
+    }
+    #boss-screen .boss-platform {
+      width: 100%;
+      height: 18px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, #475569 0%, #64748b 100%);
+      box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+      position: absolute;
+      left: 0;
+      bottom: 8px;
+    }
+    #boss-screen .boss-visual {
+      font-size: 4.5rem;
+      margin: 0;
+      filter: drop-shadow(0 0 20px rgba(233,69,96,0.5));
+      position: relative;
+      left: 16%;
+      transition: left 0.38s ease-in-out, transform 0.38s ease-in-out;
+    }
+    #boss-screen .boss-visual.jumping { transform: translateY(-34px); }
     #boss-screen .boss-health { display: flex; gap: 8px; margin: 0.5rem 0; }
-    #boss-screen .boss-health .heart { font-size: 1.8rem; opacity: 0.3; }
-    #boss-screen .boss-health .heart.hit { opacity: 1; }
+    #boss-screen .boss-health .heart { font-size: 1.8rem; opacity: 1; }
+    #boss-screen .boss-health .heart.lost { opacity: 0.25; transform: scale(0.85); }
     #boss-screen .attack-feedback { position: absolute; font-size: 3rem; pointer-events: none; animation: attackFly 0.6s ease-out forwards; }
     @keyframes attackFly {
       0% { transform: scale(0.5); opacity: 1; }
@@ -112,6 +148,75 @@
     #sneak-btn:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(233,69,96,0.5); }
     #sneak-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
     #sneak-btn.hidden { display: none; }
+    .sentry-marker text {
+      font-size: 28px;
+      text-anchor: middle;
+      dominant-baseline: middle;
+      filter: drop-shadow(0 0 3px #000);
+      pointer-events: none;
+    }
+    .sentry-marker .sentry-ring {
+      fill: rgba(239, 68, 68, 0.18);
+      stroke: rgba(248, 113, 113, 0.55);
+      stroke-width: 2;
+      pointer-events: none;
+    }
+    .sentry-alert {
+      position: fixed;
+      z-index: 3000;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.78);
+    }
+    .sentry-alert.show { display: flex; }
+    .sentry-alert .panel {
+      width: min(90vw, 520px);
+      background: #111827;
+      border: 2px solid #e94560;
+      border-radius: 14px;
+      padding: 1.2rem;
+      color: #e5e7eb;
+      text-align: center;
+    }
+    .sentry-alert .panel p { margin-bottom: 0.75rem; }
+    .sentry-alert .weapon-row {
+      display: flex;
+      justify-content: center;
+      gap: 0.6rem;
+      flex-wrap: wrap;
+      margin-top: 0.5rem;
+    }
+    .sentry-alert .weapon-choice {
+      border: 1px solid #475569;
+      border-radius: 8px;
+      background: #1f2937;
+      color: #fff;
+      padding: 0.4rem 0.6rem;
+      cursor: pointer;
+    }
+    .sentry-alert .panel .small { color: #a2a8d3; font-size: 0.92rem; }
+    #boss-weapon-choices {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 0.6rem 0 1rem;
+    }
+    #boss-weapon-choices .weapon-choice {
+      border: 2px solid #64748b;
+      background: rgba(255,255,255,0.06);
+      color: #fff;
+      border-radius: 10px;
+      padding: 0.5rem 0.75rem;
+      cursor: pointer;
+      font-weight: 600;
+    }
+    #boss-weapon-choices .weapon-choice.selected {
+      border-color: #22c55e;
+      box-shadow: 0 0 0 2px rgba(34,197,94,0.2);
+    }
   </style>
 </head>
 <body class="sound-ninjas-game">
@@ -119,6 +224,10 @@
     <div id="weapons-box" class="hidden">
       <span class="weapons-label">Weapons</span>
       <div id="weapon-slots" class="weapon-slots"></div>
+    </div>
+    <div id="hearts-box" class="hidden">
+      <span class="hearts-label">Hearts</span>
+      <div id="player-hearts"></div>
     </div>
     <div id="choose-screen">
       <h2>Sound Ninjas</h2>
@@ -140,10 +249,22 @@
     </div>
     <div id="boss-screen">
       <div class="boss-title">Samurai Boss</div>
-      <div id="boss-visual" class="boss-visual">🗡️</div>
+      <div class="boss-stage">
+        <div id="boss-visual" class="boss-visual">🥷</div>
+        <div class="boss-platform"></div>
+      </div>
       <div id="boss-health" class="boss-health"></div>
       <p id="boss-prompt" style="color:#a2a8d3;margin:0.5rem 0;">Choose the correct word to attack!</p>
-      <div id="boss-word-pairs" class="pair-container" style="max-width:400px;"></div>
+      <div id="boss-weapon-choices"></div>
+      <div id="boss-word-pairs" class="pair-container" style="max-width:860px;"></div>
+    </div>
+    <div id="sentry-alert" class="sentry-alert">
+      <div class="panel">
+        <h3 style="margin-bottom:0.6rem;color:#fda4af;">Caught by a sentry!</h3>
+        <p id="sentry-alert-text"></p>
+        <div id="sentry-alert-weapons" class="weapon-row"></div>
+        <p class="small">Using a weapon gives a 25% chance to slip past.</p>
+      </div>
     </div>
     <div id="victory-modal" class="modal victory-modal hidden">
       <div class="modal-content">
@@ -183,8 +304,12 @@
     let stopElements = [];
     let weaponStopIndices = [];
     let collectedWeapons = [];
+    let playerHearts = 5;
+    let sentryState = { guards: [], rafId: null, lastTs: 0 };
     let bossHits = 0;
     let bossChallenges = [];
+    let bossState = null;
+    let selectedBossWeaponId = null;
     let selectedWordSet = null;
     let wordSetsIndex = null;
 
@@ -278,6 +403,7 @@
       engine.config.challenges = buildChallengesFromWordSet(set);
       weaponStopIndices = pickWeaponStops();
       collectedWeapons = [];
+      resetPlayerHearts();
       document.getElementById('choose-screen').classList.add('hidden');
       startMapAndStops();
     }
@@ -616,11 +742,250 @@
       });
     }
 
+    function resetPlayerHearts() {
+      playerHearts = (engine.config.player && Number(engine.config.player.hearts)) || 5;
+      updateHeartsBox();
+    }
+
+    function updateHeartsBox() {
+      const heartsBox = document.getElementById('hearts-box');
+      const heartsEl = document.getElementById('player-hearts');
+      if (!heartsBox || !heartsEl) return;
+      heartsBox.classList.remove('hidden');
+      heartsEl.innerHTML = '';
+      const total = (engine.config.player && Number(engine.config.player.hearts)) || 5;
+      for (let i = 0; i < total; i++) {
+        const heart = document.createElement('span');
+        heart.className = 'heart' + (i < playerHearts ? '' : ' lost');
+        heart.textContent = '❤️';
+        heartsEl.appendChild(heart);
+      }
+    }
+
+    function stopSentryAnimation() {
+      if (sentryState.rafId) cancelAnimationFrame(sentryState.rafId);
+      sentryState.rafId = null;
+      sentryState.lastTs = 0;
+      sentryState.guards = [];
+    }
+
+    function sentryPosition(guard) {
+      const from = ui.checkpoints[guard.route[guard.segment]];
+      const to = ui.checkpoints[guard.route[guard.segment + guard.dir]];
+      if (!from || !to) return null;
+      return {
+        x: from.x + (to.x - from.x) * guard.progress,
+        y: from.y + (to.y - from.y) * guard.progress
+      };
+    }
+
+    function distancePointToSegment(point, a, b) {
+      const ax = a.x;
+      const ay = a.y;
+      const bx = b.x;
+      const by = b.y;
+      const px = point.x;
+      const py = point.y;
+      const abx = bx - ax;
+      const aby = by - ay;
+      const apx = px - ax;
+      const apy = py - ay;
+      const ab2 = abx * abx + aby * aby;
+      if (ab2 === 0) return Math.hypot(px - ax, py - ay);
+      const t = Math.max(0, Math.min(1, (apx * abx + apy * aby) / ab2));
+      const cx = ax + abx * t;
+      const cy = ay + aby * t;
+      return Math.hypot(px - cx, py - cy);
+    }
+
+    function wouldSentryCatchCurrentPath() {
+      const nextPos = engine.currentPosition + 1;
+      const from = ui.checkpoints[engine.currentPosition];
+      const to = ui.checkpoints[nextPos];
+      if (!from || !to) return false;
+      const sentryCfg = engine.config.sentries || {};
+      const detectionRadius = Number(sentryCfg.detectionRadius) || 120;
+      return sentryState.guards.some((guard) => {
+        const pos = sentryPosition(guard);
+        if (!pos) return false;
+        const nearPath = distancePointToSegment(pos, from, to) <= detectionRadius;
+        const nearNextStop = Math.hypot(pos.x - to.x, pos.y - to.y) <= detectionRadius * 1.2;
+        const onRelevantRoute = guard.route.includes(engine.currentPosition) || guard.route.includes(nextPos);
+        return nearPath || (nearNextStop && onRelevantRoute);
+      });
+    }
+
+    function buildFallbackSentries() {
+      return [
+        { id: 'fallback-1', route: [0, 1], speed: 0.32, icon: '👁️' },
+        { id: 'fallback-2', route: [2, 3], speed: 0.3, icon: '🛡️' },
+        { id: 'fallback-3', route: [4, 5], speed: 0.28, icon: '👁️' },
+        { id: 'fallback-4', route: [6, 7], speed: 0.3, icon: '🛡️' },
+        { id: 'fallback-5', route: [8, 9], speed: 0.28, icon: '👁️' },
+        { id: 'fallback-6', route: [10, 11], speed: 0.32, icon: '🛡️' }
+      ];
+    }
+
+    function renderSentries(svg) {
+      stopSentryAnimation();
+      const sentryCfg = engine.config.sentries || {};
+      const guards = Array.isArray(sentryCfg.guards) && sentryCfg.guards.length > 0
+        ? sentryCfg.guards
+        : buildFallbackSentries();
+      if (!svg || !ui.checkpoints || guards.length === 0) return;
+      const ns = 'http://www.w3.org/2000/svg';
+      const group = document.createElementNS(ns, 'g');
+      group.setAttribute('class', 'sentry-layer');
+      sentryState.guards = guards.map((guardCfg) => {
+        const route = Array.isArray(guardCfg.route) ? guardCfg.route.map(Number).filter(n => Number.isFinite(n)) : [];
+        if (route.length < 2) return null;
+        const g = document.createElementNS(ns, 'g');
+        g.setAttribute('class', 'sentry-marker');
+        const ring = document.createElementNS(ns, 'circle');
+        ring.setAttribute('class', 'sentry-ring');
+        ring.setAttribute('r', String((Number(sentryCfg.detectionRadius) || 120) * 0.5));
+        g.appendChild(ring);
+        const icon = document.createElementNS(ns, 'text');
+        icon.textContent = guardCfg.icon || '👁️';
+        g.appendChild(icon);
+        group.appendChild(g);
+        return {
+          id: guardCfg.id || ('sentry-' + Math.random().toString(36).slice(2, 8)),
+          speed: (Number(guardCfg.speed) || 0.2) * 1.5,
+          route,
+          segment: 0,
+          dir: 1,
+          progress: Math.random() * 0.9,
+          el: g,
+          iconEl: icon
+        };
+      }).filter(Boolean);
+      svg.appendChild(group);
+      const tick = (ts) => {
+        if (!sentryState.lastTs) sentryState.lastTs = ts;
+        const dt = Math.min(0.05, (ts - sentryState.lastTs) / 1000);
+        sentryState.lastTs = ts;
+        sentryState.guards.forEach((guard) => {
+          guard.progress += dt * guard.speed;
+          while (guard.progress >= 1) {
+            guard.progress -= 1;
+            guard.segment += guard.dir;
+            const edge = guard.route.length - 1;
+            if (guard.segment >= edge) {
+              guard.segment = edge;
+              guard.dir = -1;
+            } else if (guard.segment <= 0) {
+              guard.segment = 0;
+              guard.dir = 1;
+            }
+          }
+          const pos = sentryPosition(guard);
+          if (pos) {
+            const ring = guard.el.querySelector('.sentry-ring');
+            if (ring) {
+              ring.setAttribute('cx', pos.x);
+              ring.setAttribute('cy', pos.y);
+            }
+            guard.iconEl.setAttribute('x', pos.x);
+            guard.iconEl.setAttribute('y', pos.y);
+          }
+        });
+        sentryState.rafId = requestAnimationFrame(tick);
+      };
+      sentryState.rafId = requestAnimationFrame(tick);
+    }
+
+    function loseHeart() {
+      playerHearts = Math.max(0, playerHearts - 1);
+      updateHeartsBox();
+      if (playerHearts <= 0) {
+        ui.showTemporaryMessage('Out of hearts! Starting over...', false);
+        engine.reset();
+        weaponStopIndices = pickWeaponStops();
+        collectedWeapons = [];
+        stopElements = [];
+        startMapAndStops();
+        return true;
+      }
+      return false;
+    }
+
+    function useWeaponForSentryEscape(weapon) {
+      const chance = Number(engine.config.sentries && engine.config.sentries.weaponEscapeChance);
+      const successChance = Number.isFinite(chance) ? chance : 0.25;
+      return Math.random() < successChance;
+    }
+
+    function showSentryAlert() {
+      return new Promise((resolve) => {
+        const overlay = document.getElementById('sentry-alert');
+        const msg = document.getElementById('sentry-alert-text');
+        const weaponsEl = document.getElementById('sentry-alert-weapons');
+        if (!overlay || !msg || !weaponsEl) {
+          resolve({ escaped: false });
+          return;
+        }
+        msg.textContent = 'You lost a heart. Use a weapon to try escaping this sentry?';
+        weaponsEl.innerHTML = '';
+        const close = (result) => {
+          overlay.classList.remove('show');
+          resolve(result);
+        };
+        if (collectedWeapons.length === 0) {
+          const only = document.createElement('button');
+          only.type = 'button';
+          only.className = 'weapon-choice';
+          only.textContent = 'Continue';
+          only.addEventListener('click', () => close({ escaped: false, usedWeapon: null }));
+          weaponsEl.appendChild(only);
+        } else {
+          const skip = document.createElement('button');
+          skip.type = 'button';
+          skip.className = 'weapon-choice';
+          skip.textContent = 'Save my weapons';
+          skip.addEventListener('click', () => close({ escaped: false, usedWeapon: null }));
+          weaponsEl.appendChild(skip);
+          collectedWeapons.forEach((weapon, idx) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'weapon-choice';
+            btn.textContent = (weapon.icon || '⚔️') + ' ' + weapon.label;
+            btn.addEventListener('click', () => {
+              const [used] = collectedWeapons.splice(idx, 1);
+              updateWeaponsBox();
+              close({ escaped: useWeaponForSentryEscape(used), usedWeapon: used });
+            });
+            weaponsEl.appendChild(btn);
+          });
+        }
+        overlay.classList.add('show');
+      });
+    }
+
+    async function resolveSentryEncounter() {
+      ui.showTemporaryMessage('A sentry spotted you!', false);
+      await new Promise(r => setTimeout(r, 550));
+      const gameOver = loseHeart();
+      if (gameOver) return false;
+      const { escaped, usedWeapon } = await showSentryAlert();
+      if (usedWeapon) {
+        if (escaped) {
+          ui.showTemporaryMessage('Nice timing! You slipped past the sentry.', true);
+          return true;
+        }
+        ui.showTemporaryMessage('Weapon failed! Try sneaking again.', false);
+        return false;
+      }
+      return false;
+    }
+
     function startMapAndStops() {
       document.getElementById('weapons-box').classList.remove('hidden');
+      document.getElementById('hearts-box').classList.remove('hidden');
       const sneakBtn = document.getElementById('sneak-btn');
       if (sneakBtn) sneakBtn.classList.remove('hidden');
       updateWeaponsBox();
+      updateHeartsBox();
       const totalChallenges = engine.config.challenges.length;
       const mapConfig = {
         ...(engine.config.map || {}),
@@ -634,12 +999,13 @@
       stopElements = [];
       if (svg && ui.checkpoints && ui.checkpoints.length >= NUM_CHALLENGES + 1) {
         addStopMarkers(svg, ui.checkpoints);
+        renderSentries(svg);
         stopElements.forEach((g, i) => {
           const index = i + 1;
-          g.addEventListener('click', () => {
+          g.addEventListener('click', async () => {
             if (engine.currentPosition + 1 !== index) return;
             if (isProcessing) return;
-            openChallengeForStop();
+            await onSneakClick();
           });
         });
       }
@@ -653,15 +1019,26 @@
       ui.showChallengeModal();
     }
 
-    function onSneakClick() {
+    async function onSneakClick() {
       if (isProcessing) return;
       if (engine.currentPosition >= NUM_CHALLENGES) return;
+      if (wouldSentryCatchCurrentPath()) {
+        isProcessing = true;
+        const escaped = await resolveSentryEncounter();
+        isProcessing = false;
+        if (!escaped) return;
+      }
       openChallengeForStop();
     }
 
     async function initGame() {
       try {
         await engine.loadConfig();
+        // Always refresh from external config so sentry/boss tuning is live.
+        try {
+          const cfgRes = await fetch('./config.json?v=' + Date.now());
+          if (cfgRes.ok) engine.config = await cfgRes.json();
+        } catch (_) {}
         try {
           const listRes = await fetch('../../word-lists/word-sets.json?v=2');
           if (listRes.ok) {
@@ -693,6 +1070,7 @@
         }
         weaponStopIndices = pickWeaponStops();
         collectedWeapons = [];
+        resetPlayerHearts();
         startMapAndStops();
       } catch (error) {
         console.error('Failed to initialize game:', error);
@@ -736,6 +1114,9 @@
       });
 
       ui.onPlayAgain(() => {
+        stopSentryAnimation();
+        bossState = null;
+        selectedBossWeaponId = null;
         engine.reset();
         ui.hideVictory();
         document.getElementById('boss-screen').classList.remove('show');
@@ -745,6 +1126,7 @@
         } else {
           weaponStopIndices = pickWeaponStops();
           collectedWeapons = [];
+          resetPlayerHearts();
           startMapAndStops();
         }
       });
@@ -755,10 +1137,18 @@
       const healthEl = document.getElementById('boss-health');
       const promptEl = document.getElementById('boss-prompt');
       const pairsEl = document.getElementById('boss-word-pairs');
-      if (!bossScreen || !healthEl || !pairsEl) return;
+      const bossVisual = document.getElementById('boss-visual');
+      const weaponChoices = document.getElementById('boss-weapon-choices');
+      if (!bossScreen || !healthEl || !pairsEl || !weaponChoices || !bossVisual) return;
+      stopSentryAnimation();
       const hitsNeeded = (engine.config.boss && engine.config.boss.hitsToDefeat) || 5;
       bossHits = 0;
       bossChallenges = buildBossChallenges(selectedWordSet || engine.config.wordSets[0], Math.max(hitsNeeded, 10));
+      const stances = (engine.config.boss && Array.isArray(engine.config.boss.stances) && engine.config.boss.stances.length > 0)
+        ? engine.config.boss.stances
+        : [{ id: 'close', label: 'Close attack!', icon: '⚔️', weakTo: 'close' }];
+      bossState = { stances, currentStance: stances[0] };
+      selectedBossWeaponId = null;
       healthEl.innerHTML = '';
       for (let i = 0; i < hitsNeeded; i++) {
         const h = document.createElement('span');
@@ -766,19 +1156,70 @@
         h.textContent = '❤️';
         healthEl.appendChild(h);
       }
+      weaponChoices.innerHTML = '';
+      if (collectedWeapons.length === 0) {
+        const fallback = document.createElement('button');
+        fallback.type = 'button';
+        fallback.className = 'weapon-choice selected';
+        fallback.dataset.weaponId = 'basic';
+        fallback.textContent = '🗡️ Basic Strike';
+        weaponChoices.appendChild(fallback);
+        selectedBossWeaponId = 'basic';
+      } else {
+        collectedWeapons.forEach((weapon, idx) => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'weapon-choice' + (idx === 0 ? ' selected' : '');
+          btn.dataset.weaponId = weapon.id;
+          btn.textContent = (weapon.icon || '⚔️') + ' ' + weapon.label;
+          btn.addEventListener('click', () => {
+            selectedBossWeaponId = weapon.id;
+            Array.from(weaponChoices.querySelectorAll('.weapon-choice')).forEach(el => el.classList.remove('selected'));
+            btn.classList.add('selected');
+          });
+          weaponChoices.appendChild(btn);
+          if (idx === 0) selectedBossWeaponId = weapon.id;
+        });
+      }
       if (engine.config.boss && engine.config.boss.message) promptEl.textContent = engine.config.boss.message;
       bossScreen.classList.add('show');
+      bossVisual.textContent = '🥷';
       showNextBossChallenge();
+    }
+
+    function nextBossStance() {
+      if (!bossState || !bossState.stances || bossState.stances.length === 0) return null;
+      const next = bossState.stances[Math.floor(Math.random() * bossState.stances.length)];
+      bossState.currentStance = next;
+      return next;
+    }
+
+    function animateBossJump() {
+      const bossVisual = document.getElementById('boss-visual');
+      if (!bossVisual) return;
+      const slots = ['8%', '32%', '58%', '78%'];
+      const left = slots[Math.floor(Math.random() * slots.length)];
+      bossVisual.classList.add('jumping');
+      bossVisual.style.left = left;
+      setTimeout(() => bossVisual.classList.remove('jumping'), 320);
     }
 
     function showNextBossChallenge() {
       const pairsEl = document.getElementById('boss-word-pairs');
-      if (!pairsEl) return;
+      const promptEl = document.getElementById('boss-prompt');
+      const bossVisual = document.getElementById('boss-visual');
+      if (!pairsEl || !promptEl || !bossVisual) return;
       const challenge = bossChallenges[bossHits];
       if (!challenge) {
         endBossVictory();
         return;
       }
+      const stance = nextBossStance();
+      if (stance) {
+        promptEl.textContent = (engine.config.boss && engine.config.boss.message ? engine.config.boss.message + ' ' : '') + stance.label;
+        bossVisual.textContent = stance.icon || '🥷';
+      }
+      animateBossJump();
       pairsEl.innerHTML = '';
       const shuffled = [...challenge.pairs].sort(() => Math.random() - 0.5);
       shuffled.forEach((pair, idx) => {
@@ -803,13 +1244,18 @@
     async function handleBossAnswer(choiceIndex, challenge, buttonEl) {
       if (isProcessing) return;
       const pair = challenge.pairs[choiceIndex];
-      const correct = pair.sound === challenge.correctSound;
+      const wordCorrect = pair.sound === challenge.correctSound;
+      const selectedWeapon = collectedWeapons.find(w => w.id === selectedBossWeaponId) || null;
+      const weaponType = selectedWeapon ? selectedWeapon.type : 'close';
+      const neededType = bossState && bossState.currentStance ? bossState.currentStance.weakTo : 'close';
+      const weaponCorrect = weaponType === neededType || selectedBossWeaponId === 'basic';
+      const correct = wordCorrect && weaponCorrect;
       if (correct) {
         isProcessing = true;
         const hearts = document.querySelectorAll('#boss-health .heart');
-        const nextHeart = hearts[bossHits];
-        if (nextHeart) nextHeart.classList.add('hit');
-        playAttackAnimation(buttonEl);
+        const nextHeart = hearts[hearts.length - 1 - bossHits];
+        if (nextHeart) nextHeart.classList.add('lost');
+        playAttackAnimation(buttonEl, selectedWeapon, true);
         bossHits++;
         const hitsNeeded = (engine.config.boss && engine.config.boss.hitsToDefeat) || 5;
         if (bossHits >= hitsNeeded) {
@@ -821,28 +1267,35 @@
         }
         isProcessing = false;
       } else {
-        ui.showTemporaryMessage('Try again!', false);
+        playAttackAnimation(buttonEl, selectedWeapon, false);
+        if (!wordCorrect && !weaponCorrect) ui.showTemporaryMessage('Wrong word and weapon. Try again!', false);
+        else if (!wordCorrect) ui.showTemporaryMessage('Right weapon, wrong word. Try again!', false);
+        else ui.showTemporaryMessage('Right word, wrong weapon for this stance!', false);
       }
     }
 
-    function playAttackAnimation(fromButton) {
+    function playAttackAnimation(fromButton, selectedWeapon, wasEffective) {
       const bossVisual = document.getElementById('boss-visual');
       const container = document.getElementById('boss-screen');
       if (!container || !bossVisual) return;
-      const weapon = collectedWeapons[Math.floor(Math.random() * collectedWeapons.length)];
-      const icon = weapon ? weapon.icon : '⚔️';
+      const icon = selectedWeapon ? selectedWeapon.icon : '🗡️';
       const feedback = document.createElement('div');
       feedback.className = 'attack-feedback';
       feedback.textContent = icon;
       feedback.style.left = (container.offsetWidth / 2 - 24) + 'px';
       feedback.style.top = '40%';
+      feedback.style.opacity = wasEffective ? '1' : '0.45';
       container.appendChild(feedback);
       setTimeout(() => feedback.remove(), 700);
-      bossVisual.classList.add('boss-hit');
-      setTimeout(() => bossVisual.classList.remove('boss-hit'), 400);
+      if (wasEffective) {
+        bossVisual.classList.add('boss-hit');
+        setTimeout(() => bossVisual.classList.remove('boss-hit'), 400);
+      }
     }
 
     async function endBossVictory() {
+      bossState = null;
+      selectedBossWeaponId = null;
       document.getElementById('boss-screen').classList.remove('show');
       await ui.showVictory(engine.config);
       await audio.playVictory();
