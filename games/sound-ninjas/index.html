@@ -806,13 +806,14 @@
       const from = ui.checkpoints[engine.currentPosition];
       const to = ui.checkpoints[nextPos];
       if (!from || !to) return false;
-      const sentryCfg = engine.config.sentries || {};
-      const detectionRadius = Number(sentryCfg.detectionRadius) || 120;
+      // "On path" should be strict, while "near next stop" uses a fixed 50px window.
+      const onPathThreshold = 12;
+      const nearNextStopThreshold = 50;
       return sentryState.guards.some((guard) => {
         const pos = sentryPosition(guard);
         if (!pos) return false;
-        const nearPath = distancePointToSegment(pos, from, to) <= detectionRadius;
-        const nearNextStop = Math.hypot(pos.x - to.x, pos.y - to.y) <= detectionRadius * 0.75;
+        const nearPath = distancePointToSegment(pos, from, to) <= onPathThreshold;
+        const nearNextStop = Math.hypot(pos.x - to.x, pos.y - to.y) <= nearNextStopThreshold;
         return nearPath || nearNextStop;
       });
     }
