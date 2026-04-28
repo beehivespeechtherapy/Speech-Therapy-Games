@@ -80,10 +80,13 @@
     #player-hearts .heart.lost { opacity: 0.25; transform: scale(0.85); }
 
     .stop-marker { cursor: pointer; }
-    .stop-marker image, .stop-marker text { filter: drop-shadow(0 0 2px #000); }
+    .stop-marker image, .stop-marker text { filter: drop-shadow(0 0 3px #000) drop-shadow(0 0 6px rgba(255,255,255,0.4)); }
     .stop-marker.collected { opacity: 0.5; pointer-events: none; }
     .stop-marker.not-next { cursor: default; pointer-events: none; opacity: 0.6; }
-    body.sound-ninjas-game #game-map .path-line { stroke: rgba(233,69,96,0.5); }
+    body.sound-ninjas-game #game-map .path-line {
+      stroke: rgba(233,69,96,0.85);
+      stroke-width: 16 !important;
+    }
     body.sound-ninjas-game #game-map .waypoint { display: none; }
     /* Ninja size: both idle and walking are 60x60 in SVG, scaled to 180px so they match */
     body.sound-ninjas-game #game-map .protagonist-idle,
@@ -690,7 +693,7 @@
         text.setAttribute('y', pt.y);
         text.setAttribute('text-anchor', 'middle');
         text.setAttribute('dominant-baseline', 'middle');
-        text.setAttribute('font-size', '28');
+        text.setAttribute('font-size', '38');
         text.textContent = '🏯';
         g.appendChild(text);
         group.appendChild(g);
