@@ -148,10 +148,10 @@
     #sneak-btn:hover { transform: scale(1.05); box-shadow: 0 6px 16px rgba(233,69,96,0.5); }
     #sneak-btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
     #sneak-btn.hidden { display: none; }
-    .sentry-marker text {
-      font-size: 28px;
-      text-anchor: middle;
-      dominant-baseline: middle;
+    .sentry-marker image {
+      width: 48px;
+      height: 48px;
+      transform: translate(-24px, -24px);
       filter: drop-shadow(0 0 3px #000);
       pointer-events: none;
     }
@@ -770,6 +770,9 @@
     }
 
     function sentryPosition(guard) {
+      if (guard.mode === 'horizontal') {
+        return { x: guard.x, y: guard.y };
+      }
       const from = ui.checkpoints[guard.route[guard.segment]];
       const to = ui.checkpoints[guard.route[guard.segment + guard.dir]];
       if (!from || !to) return null;
@@ -809,20 +812,20 @@
         const pos = sentryPosition(guard);
         if (!pos) return false;
         const nearPath = distancePointToSegment(pos, from, to) <= detectionRadius;
-        const nearNextStop = Math.hypot(pos.x - to.x, pos.y - to.y) <= detectionRadius * 1.2;
-        const onRelevantRoute = guard.route.includes(engine.currentPosition) || guard.route.includes(nextPos);
-        return nearPath || (nearNextStop && onRelevantRoute);
+        const nearNextStop = Math.hypot(pos.x - to.x, pos.y - to.y) <= detectionRadius * 0.75;
+        return nearPath || nearNextStop;
       });
     }
 
     function buildFallbackSentries() {
       return [
-        { id: 'fallback-1', route: [0, 1], speed: 0.32, icon: '👁️' },
-        { id: 'fallback-2', route: [2, 3], speed: 0.3, icon: '🛡️' },
-        { id: 'fallback-3', route: [4, 5], speed: 0.28, icon: '👁️' },
-        { id: 'fallback-4', route: [6, 7], speed: 0.3, icon: '🛡️' },
-        { id: 'fallback-5', route: [8, 9], speed: 0.28, icon: '👁️' },
-        { id: 'fallback-6', route: [10, 11], speed: 0.32, icon: '🛡️' }
+        { id: 'fallback-1', y: 1251, xMin: 170, xMax: 900, speed: 0.22, image: '../../word-images/G:K Minimal Pairs - Initial/guard.png' },
+        { id: 'fallback-2', y: 1075, xMin: 140, xMax: 930, speed: 0.2, image: '../../word-images/G:K Minimal Pairs - Initial/guard.png' },
+        { id: 'fallback-3', y: 955, xMin: 150, xMax: 900, speed: 0.21, image: '../../word-images/G:K Minimal Pairs - Initial/guard.png' },
+        { id: 'fallback-4', y: 845, xMin: 150, xMax: 900, speed: 0.23, image: '../../word-images/G:K Minimal Pairs - Initial/guard.png' },
+        { id: 'fallback-5', y: 723, xMin: 140, xMax: 930, speed: 0.22, image: '../../word-images/G:K Minimal Pairs - Initial/guard.png' },
+        { id: 'fallback-6', y: 603, xMin: 150, xMax: 900, speed: 0.2, image: '../../word-images/G:K Minimal Pairs - Initial/guard.png' },
+        { id: 'fallback-7', y: 496, xMin: 160, xMax: 890, speed: 0.24, image: '../../word-images/G:K Minimal Pairs - Initial/guard.png' }
       ];
     }
 
@@ -838,26 +841,40 @@
       group.setAttribute('class', 'sentry-layer');
       sentryState.guards = guards.map((guardCfg) => {
         const route = Array.isArray(guardCfg.route) ? guardCfg.route.map(Number).filter(n => Number.isFinite(n)) : [];
-        if (route.length < 2) return null;
+        const hasHorizontal = Number.isFinite(Number(guardCfg.y)) && Number.isFinite(Number(guardCfg.xMin)) && Number.isFinite(Number(guardCfg.xMax));
+        if (!hasHorizontal && route.length < 2) return null;
         const g = document.createElementNS(ns, 'g');
         g.setAttribute('class', 'sentry-marker');
         const ring = document.createElementNS(ns, 'circle');
         ring.setAttribute('class', 'sentry-ring');
-        ring.setAttribute('r', String((Number(sentryCfg.detectionRadius) || 120) * 0.5));
+        ring.setAttribute('r', String(Number(sentryCfg.detectionRadius) || 70));
         g.appendChild(ring);
-        const icon = document.createElementNS(ns, 'text');
-        icon.textContent = guardCfg.icon || '👁️';
+        const icon = document.createElementNS(ns, 'image');
+        icon.setAttributeNS('http://www.w3.org/1999/xlink', 'href', guardCfg.image || '../../word-images/G:K Minimal Pairs - Initial/guard.png');
         g.appendChild(icon);
         group.appendChild(g);
+        const xMin = Number(guardCfg.xMin);
+        const xMax = Number(guardCfg.xMax);
+        const horizontal = hasHorizontal
+          ? {
+              mode: 'horizontal',
+              y: Number(guardCfg.y),
+              xMin: Math.min(xMin, xMax),
+              xMax: Math.max(xMin, xMax),
+              x: Math.min(xMin, xMax) + Math.random() * Math.max(1, Math.abs(xMax - xMin)),
+              horizontalDir: Math.random() > 0.5 ? 1 : -1
+            }
+          : {};
         return {
           id: guardCfg.id || ('sentry-' + Math.random().toString(36).slice(2, 8)),
-          speed: (Number(guardCfg.speed) || 0.2) * 1.5,
+          speed: Number(guardCfg.speed) || 0.2,
           route,
           segment: 0,
           dir: 1,
           progress: Math.random() * 0.9,
           el: g,
-          iconEl: icon
+          iconEl: icon,
+          ...horizontal
         };
       }).filter(Boolean);
       svg.appendChild(group);
@@ -866,17 +883,23 @@
         const dt = Math.min(0.05, (ts - sentryState.lastTs) / 1000);
         sentryState.lastTs = ts;
         sentryState.guards.forEach((guard) => {
-          guard.progress += dt * guard.speed;
-          while (guard.progress >= 1) {
-            guard.progress -= 1;
-            guard.segment += guard.dir;
-            const edge = guard.route.length - 1;
-            if (guard.segment >= edge) {
-              guard.segment = edge;
-              guard.dir = -1;
-            } else if (guard.segment <= 0) {
-              guard.segment = 0;
-              guard.dir = 1;
+          if (guard.mode === 'horizontal') {
+            guard.x += dt * guard.speed * 300 * guard.horizontalDir;
+            if (guard.x >= guard.xMax) { guard.x = guard.xMax; guard.horizontalDir = -1; }
+            if (guard.x <= guard.xMin) { guard.x = guard.xMin; guard.horizontalDir = 1; }
+          } else {
+            guard.progress += dt * guard.speed;
+            while (guard.progress >= 1) {
+              guard.progress -= 1;
+              guard.segment += guard.dir;
+              const edge = guard.route.length - 1;
+              if (guard.segment >= edge) {
+                guard.segment = edge;
+                guard.dir = -1;
+              } else if (guard.segment <= 0) {
+                guard.segment = 0;
+                guard.dir = 1;
+              }
             }
           }
           const pos = sentryPosition(guard);

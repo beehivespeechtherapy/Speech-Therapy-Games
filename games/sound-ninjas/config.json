@@ -88,13 +88,16 @@
     "hearts": 5
   },
   "sentries": {
-    "detectionRadius": 90,
+    "detectionRadius": 70,
     "weaponEscapeChance": 0.25,
     "guards": [
-      { "id": "gate-guard", "route": [0, 1], "speed": 0.25, "icon": "👁️" },
-      { "id": "tower-guard", "route": [3, 4], "speed": 0.22, "icon": "🛡️" },
-      { "id": "courtyard-guard", "route": [6, 7], "speed": 0.2, "icon": "👁️" },
-      { "id": "inner-guard", "route": [9, 10], "speed": 0.24, "icon": "🛡️" }
+      { "id": "sentry-1", "y": 1251, "xMin": 170, "xMax": 900, "speed": 0.22, "image": "../../word-images/G:K Minimal Pairs - Initial/guard.png" },
+      { "id": "sentry-2", "y": 1075, "xMin": 140, "xMax": 930, "speed": 0.2, "image": "../../word-images/G:K Minimal Pairs - Initial/guard.png" },
+      { "id": "sentry-3", "y": 955, "xMin": 150, "xMax": 900, "speed": 0.21, "image": "../../word-images/G:K Minimal Pairs - Initial/guard.png" },
+      { "id": "sentry-4", "y": 845, "xMin": 150, "xMax": 900, "speed": 0.23, "image": "../../word-images/G:K Minimal Pairs - Initial/guard.png" },
+      { "id": "sentry-5", "y": 723, "xMin": 140, "xMax": 930, "speed": 0.22, "image": "../../word-images/G:K Minimal Pairs - Initial/guard.png" },
+      { "id": "sentry-6", "y": 603, "xMin": 150, "xMax": 900, "speed": 0.2, "image": "../../word-images/G:K Minimal Pairs - Initial/guard.png" },
+      { "id": "sentry-7", "y": 496, "xMin": 160, "xMax": 890, "speed": 0.24, "image": "../../word-images/G:K Minimal Pairs - Initial/guard.png" }
     ]
   },
   "weapons": [
