@@ -859,24 +859,33 @@
       }
     }
 
+    function sortCollectedWeaponsByConfigOrder() {
+      const weapons = engine.config.weapons || [];
+      const rank = (id) => {
+        const i = weapons.findIndex((w) => w.id === id);
+        return i === -1 ? 999 : i;
+      };
+      collectedWeapons.sort((a, b) => rank(a.id) - rank(b.id));
+    }
+
     function updateWeaponsBox() {
       const box = document.getElementById('weapons-box');
       const slotsEl = document.getElementById('weapon-slots');
       if (!box || !slotsEl) return;
       const weapons = engine.config.weapons || [];
       slotsEl.innerHTML = '';
-      weapons.forEach((w, i) => {
+      weapons.forEach((w) => {
+        const owned = collectedWeapons.find((c) => c.id === w.id);
         const slot = document.createElement('div');
-        slot.className = 'weapon-slot' + (i < collectedWeapons.length ? ' collected' : '');
-        if (i < collectedWeapons.length) {
-          const weapon = collectedWeapons[i];
-          if (weapon.image) {
+        slot.className = 'weapon-slot' + (owned ? ' collected' : '');
+        if (owned) {
+          if (owned.image) {
             const img = document.createElement('img');
-            img.src = weapon.image;
-            img.alt = weapon.label || '';
+            img.src = owned.image;
+            img.alt = owned.label || '';
             slot.appendChild(img);
           } else {
-            slot.textContent = weapon.icon || '?';
+            slot.textContent = owned.icon || '?';
           }
         } else {
           slot.textContent = '?';
@@ -1257,6 +1266,7 @@
             const idx = weaponStopIndices.indexOf(newPos);
             if (weapons[idx] && collectedWeapons.length < NUM_WEAPONS) {
               collectedWeapons.push(weapons[idx]);
+              sortCollectedWeaponsByConfigOrder();
               updateWeaponsBox();
             }
           }
@@ -1437,31 +1447,37 @@
         weaponChoices.appendChild(fallback);
         selectedBossWeaponId = 'basic';
       } else {
-        collectedWeapons.forEach((weapon, idx) => {
+        const weapons = engine.config.weapons || [];
+        let firstBtn = true;
+        weapons.forEach((w) => {
+          if (!collectedWeapons.some((c) => c.id === w.id)) return;
           const btn = document.createElement('button');
           btn.type = 'button';
-          btn.className = 'weapon-choice' + (idx === 0 ? ' selected' : '');
-          btn.dataset.weaponId = weapon.id;
+          btn.className = 'weapon-choice' + (firstBtn ? ' selected' : '');
+          btn.dataset.weaponId = w.id;
           const inner = document.createElement('span');
           inner.className = 'weapon-choice-inner';
-          if (weapon.image) {
+          if (w.image) {
             const thumb = document.createElement('img');
             thumb.className = 'weapon-choice-thumb';
-            thumb.src = weapon.image;
+            thumb.src = w.image;
             thumb.alt = '';
             inner.appendChild(thumb);
           }
           const cap = document.createElement('span');
-          cap.textContent = weapon.label || weapon.icon || 'Weapon';
+          cap.textContent = w.label || w.icon || 'Weapon';
           inner.appendChild(cap);
           btn.appendChild(inner);
           btn.addEventListener('click', () => {
-            selectedBossWeaponId = weapon.id;
+            selectedBossWeaponId = w.id;
             Array.from(weaponChoices.querySelectorAll('.weapon-choice')).forEach((el) => el.classList.remove('selected'));
             btn.classList.add('selected');
           });
           weaponChoices.appendChild(btn);
-          if (idx === 0) selectedBossWeaponId = weapon.id;
+          if (firstBtn) {
+            selectedBossWeaponId = w.id;
+            firstBtn = false;
+          }
         });
       }
       if (engine.config.boss && engine.config.boss.message) promptEl.textContent = engine.config.boss.message;
