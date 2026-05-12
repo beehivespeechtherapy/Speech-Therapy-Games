@@ -12,6 +12,17 @@ class GameEngine {
   }
 
   /**
+   * Append a cache-busting query so CDNs (e.g. GitHub Pages) do not serve stale JSON.
+   * @param {string} path
+   * @returns {string}
+   */
+  static _cacheBustFetchUrl(path) {
+    if (!path || typeof path !== 'string') return path;
+    const sep = path.includes('?') ? '&' : '?';
+    return `${path}${sep}_=${Date.now()}`;
+  }
+
+  /**
    * Load game configuration from JSON file or embedded script (for file:// protocol)
    * @returns {Promise<void>}
    */
@@ -23,7 +34,7 @@ class GameEngine {
 
       if (isHttp && this.configPath) {
         try {
-          const response = await fetch(this.configPath, { cache: 'no-store' });
+          const response = await fetch(GameEngine._cacheBustFetchUrl(this.configPath), { cache: 'no-store' });
           if (response.ok) {
             this.config = await response.json();
           }
@@ -40,7 +51,7 @@ class GameEngine {
       }
 
       if (!this.config && this.configPath) {
-        const response = await fetch(this.configPath, { cache: 'no-store' });
+        const response = await fetch(GameEngine._cacheBustFetchUrl(this.configPath), { cache: 'no-store' });
         if (!response.ok) throw new Error(`Failed to load config: ${response.statusText}`);
         this.config = await response.json();
       }

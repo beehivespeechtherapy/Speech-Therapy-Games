@@ -170,9 +170,9 @@
       background: linear-gradient(145deg, rgba(148,163,184,0.92) 0%, rgba(71,85,105,0.95) 50%, rgba(51,65,85,0.9) 100%);
       border: 3px solid rgba(226,232,240,0.85);
       box-shadow: inset 0 0 12px rgba(0,0,0,0.35), 0 4px 14px rgba(0,0,0,0.4);
-      z-index: 3;
+      z-index: 1;
       pointer-events: none;
-      opacity: 0.5;
+      opacity: 0.72;
     }
     #boss-screen .boss-shield.hidden { display: none; }
     #boss-screen .boss-reinforcements {
@@ -386,11 +386,11 @@
       <div class="boss-stage" id="boss-stage">
         <div class="boss-arena">
           <div id="boss-visual" class="boss-visual">
+            <div id="boss-shield" class="boss-shield hidden" aria-hidden="true"></div>
             <div class="boss-visual-inner">
               <img id="boss-sprite" class="boss-sprite" src="" alt="Samurai boss" />
               <span id="boss-fallback-emoji" class="boss-fallback-emoji" aria-hidden="true">🥷</span>
             </div>
-            <div id="boss-shield" class="boss-shield hidden" aria-hidden="true"></div>
           </div>
           <div class="boss-platform"></div>
         </div>
@@ -1318,11 +1318,26 @@
       if (shield) shield.classList.add('hidden');
     }
 
+    function resolveGameAssetUrl(path) {
+      if (!path || typeof path !== 'string') return '';
+      try {
+        return new URL(path, window.location.href).href;
+      } catch (_) {
+        return path;
+      }
+    }
+
+    function cacheBustUrl(href) {
+      if (!href) return '';
+      const sep = href.includes('?') ? '&' : '?';
+      return href + sep + 'cb=' + Date.now();
+    }
+
     function configureBossSprite() {
       const img = document.getElementById('boss-sprite');
       const wrap = document.getElementById('boss-visual');
       if (!img || !wrap) return;
-      const url = (engine.config.boss && engine.config.boss.image && String(engine.config.boss.image).trim()) || '';
+      const rel = (engine.config.boss && engine.config.boss.image && String(engine.config.boss.image).trim()) || '';
       img.onload = () => {
         wrap.classList.add('has-image');
       };
@@ -1330,13 +1345,13 @@
         wrap.classList.remove('has-image');
         img.removeAttribute('src');
       };
-      if (!url) {
+      if (!rel) {
         wrap.classList.remove('has-image');
         img.removeAttribute('src');
         return;
       }
       wrap.classList.remove('has-image');
-      img.src = url;
+      img.src = cacheBustUrl(resolveGameAssetUrl(rel));
       if (img.complete && img.naturalWidth > 0) wrap.classList.add('has-image');
     }
 
