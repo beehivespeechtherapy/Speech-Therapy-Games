@@ -17,18 +17,36 @@ class GameEngine {
    */
   async loadConfig() {
     try {
-      // Prefer embedded config when present (avoids cached config.json on CDN/browser)
-      const el = document.getElementById('game-config');
-      if (el && el.textContent && el.textContent.trim()) {
-        this.config = JSON.parse(el.textContent.trim());
-      } else {
+      const isHttp =
+        typeof window !== 'undefined' &&
+        (window.location.protocol === 'http:' || window.location.protocol === 'https:');
+
+      if (isHttp && this.configPath) {
         try {
-          const response = await fetch(this.configPath);
-          if (!response.ok) throw new Error(`Failed to load config: ${response.statusText}`);
-          this.config = await response.json();
-        } catch (fetchErr) {
-          throw fetchErr;
+          const response = await fetch(this.configPath, { cache: 'no-store' });
+          if (response.ok) {
+            this.config = await response.json();
+          }
+        } catch (_) {
+          /* fall back to embedded JSON below */
         }
+      }
+
+      if (!this.config) {
+        const el = document.getElementById('game-config');
+        if (el && el.textContent && el.textContent.trim()) {
+          this.config = JSON.parse(el.textContent.trim());
+        }
+      }
+
+      if (!this.config && this.configPath) {
+        const response = await fetch(this.configPath, { cache: 'no-store' });
+        if (!response.ok) throw new Error(`Failed to load config: ${response.statusText}`);
+        this.config = await response.json();
+      }
+
+      if (!this.config) {
+        throw new Error('No game configuration found');
       }
 
       // Validate config

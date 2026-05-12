@@ -103,19 +103,21 @@
   "weapons": [
     {"id": "sword", "label": "Ninja Sword", "icon": "🗡️", "image": "weapons/weapon1.png", "type": "close"},
     {"id": "nunchucks", "label": "Nunchucks", "icon": "🥢", "image": "weapons/weapon2.png", "type": "shield-break"},
-    {"id": "shuriken", "label": "Shuriken", "icon": "⭐", "image": "weapons/weapon3.png", "type": "ranged"},
+    {"id": "shuriken", "label": "Throwing Stars", "icon": "⭐", "image": "weapons/weapon3.png", "type": "ranged"},
     {"id": "smoke", "label": "Smoke Bomb", "icon": "💨", "image": "weapons/weapon4.png", "type": "dodge"},
-    {"id": "staff", "label": "Bo Staff", "icon": "🪵", "image": "weapons/weapon5.png", "type": "heavy"}
+    {"id": "grapple", "label": "Grappling Hook", "icon": "🪝", "image": "weapons/grappling-hook.png", "type": "grapple"}
   ],
   "boss": {
+    "image": "boss/samurai_boss.png",
+    "reinforcementGuardImage": "../../word-images/G:K Minimal Pairs - Initial/guard.png",
     "hitsToDefeat": 5,
     "message": "Defeat the samurai! Choose the correct word and best weapon.",
     "stances": [
-      { "id": "close", "label": "Close attack!", "icon": "⚔️", "weakTo": "close" },
-      { "id": "shield", "label": "Shield up!", "icon": "🛡️", "weakTo": "shield-break" },
-      { "id": "ranged", "label": "Boss jumped far away!", "icon": "🏹", "weakTo": "ranged" },
-      { "id": "agile", "label": "Boss is too fast!", "icon": "💨", "weakTo": "dodge" },
-      { "id": "guarded", "label": "Heavy guard stance!", "icon": "🪓", "weakTo": "heavy" }
+      { "id": "close", "label": "Up close — finish him with your sword!", "icon": "⚔️", "weakTo": "close" },
+      { "id": "shield", "label": "He's behind a shield — knock it away with nunchucks!", "icon": "🛡️", "weakTo": "shield-break" },
+      { "id": "ranged", "label": "He leaped to the far corner — hit him with throwing stars!", "icon": "🏹", "weakTo": "ranged" },
+      { "id": "high", "label": "He climbed higher — follow with your grappling hook!", "icon": "🧗", "weakTo": "grapple" },
+      { "id": "reinforcements", "label": "He's calling guards — use a smoke bomb!", "icon": "👥", "weakTo": "dodge" }
     ]
   },
   "victory": {
