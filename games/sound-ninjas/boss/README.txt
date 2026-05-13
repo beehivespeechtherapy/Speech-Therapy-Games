@@ -1,14 +1,21 @@
 Boss sprite (PNG or SVG)
 ========================
-Put your boss artwork in this folder. The game reads the path from `boss.image` in
-`config.json` (default: `boss/samurai_boss.svg`).
+The game loads whatever file `boss.image` points to in `config.json`
+(default: `boss/samurai_boss.svg`).
 
-Use a real PNG file if you use a `.png` name (binary PNG only). If the file is
-actually SVG markup, name it `.svg` — a file named `.png` that contains SVG will
-not load in an `<img>` tag in most browsers (you will only see the emoji fallback).
+Important: the file `samurai_boss.svg` in git right now is only a small
+**placeholder** (simple shapes). If the boss on the site does not look like
+your real samurai, open this exact path on your Mac in Finder, then open the
+file in a text editor or design app:
 
-Commit and push `games/sound-ninjas` (config.json, index.html, this folder, weapons/*.png)
-so GitHub Pages picks up the sprite. On https the game loads `config.json` from the
-server first so you are not stuck on old embedded JSON.
+  games/sound-ninjas/boss/samurai_boss.svg
 
-Replace the placeholder art with your own samurai artwork when ready.
+If you still see the tiny placeholder, your finished artwork is not saved into
+this project folder yet — copy or export your real samurai SVG **over** that
+file (keep the name `samurai_boss.svg` unless you change `boss.image` in
+`config.json` and in the `#game-config` block in `index.html` to match).
+
+Use a real PNG only if the bytes are real PNG (correct `.png` extension). SVG
+text saved as `.png` will not show in an `<img>` (you will only see the emoji).
+
+After replacing the file, commit and push so GitHub Pages updates.
