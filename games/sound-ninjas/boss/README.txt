@@ -1,15 +1,14 @@
-Boss sprite (PNG)
-=================
-Put your boss artwork in this folder. The game expects:
+Boss sprite (PNG or SVG)
+========================
+Put your boss artwork in this folder. The game reads the path from `boss.image` in
+`config.json` (default: `boss/samurai_boss.svg`).
 
-  samurai_boss.png
+Use a real PNG file if you use a `.png` name (binary PNG only). If the file is
+actually SVG markup, name it `.svg` — a file named `.png` that contains SVG will
+not load in an `<img>` tag in most browsers (you will only see the emoji fallback).
 
-That path matches boss.image in config.json by default. You can change boss.image
-to any other filename in this folder (or a URL path) if you prefer.
+Commit and push `games/sound-ninjas` (config.json, index.html, this folder, weapons/*.png)
+so GitHub Pages picks up the sprite. On https the game loads `config.json` from the
+server first so you are not stuck on old embedded JSON.
 
-Commit and push games/sound-ninjas (config.json, index.html, this PNG, weapons/*.png)
-so GitHub Pages picks up the samurai sprite and Grappling Hook; the game now loads
-config.json from the server first on https so you are not stuck on old embedded JSON.
-
-Replace samurai_boss.png with your own samurai artwork when ready (the repo may use a
-small placeholder character image so it is not a desktop screenshot).
+Replace the placeholder art with your own samurai artwork when ready.

@@ -108,7 +108,7 @@
     {"id": "grapple", "label": "Grappling Hook", "icon": "🪝", "image": "weapons/grappling-hook.png", "type": "grapple"}
   ],
   "boss": {
-    "image": "boss/samurai_boss.png",
+    "image": "boss/samurai_boss.svg",
     "reinforcementGuardImage": "../../word-images/G:K Minimal Pairs - Initial/guard.png",
     "hitsToDefeat": 5,
     "message": "Defeat the samurai! Choose the correct word and best weapon.",
