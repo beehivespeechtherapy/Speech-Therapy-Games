@@ -483,9 +483,8 @@ function showChoices() {
     img.alt = choice.word;
     
     // Prefer Word Images folder by set; fallback to images/
-    const folder = currentWordSetId && WORD_SET_FOLDERS[currentWordSetId];
     const wordFile = (choice.word === "Ed" ? "Ed" : imageName) + ".png";
-    const wordImagesSrc = folder ? WORD_IMAGES_BASE + "/" + encodeURIComponent(folder).replace(/%2F/g, "/") + "/" + wordFile : null;
+    const wordImagesSrc = WORD_IMAGES_BASE + "/_library/" + wordFile;
     const imagesSrc = `images/${imageName}.png`;
     const imagesJpg = `images/${imageName}.jpg`;
     

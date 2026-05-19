@@ -610,11 +610,9 @@
       return (trimmed === "Ed" ? "Ed" : trimmed) + ".png";
     }
 
-    function pairImageUrl(word, setId) {
+    function pairImageUrl(word) {
       const file = pairImageFile(word);
-      const folder = setId && WORD_SET_FOLDERS[setId];
-      if (folder) return WORD_IMAGES_BASE + "/" + encodeURIComponent(folder).replace(/%2F/g, "/") + "/" + file;
-      return FALLBACK_PAIRS_BASE + "/" + file;
+      return WORD_IMAGES_BASE + "/_library/" + file;
     }
 
     function buildSpotsFromWordSet(set) {
@@ -632,8 +630,8 @@
           y: pos.y,
           correctSound: targetSound,
           pairs: [
-            { word: targetWord, sound: targetSound, image: pairImageUrl(targetWord, setId), alt: targetWord },
-            { word: contrastWord, sound: contrastSound, image: pairImageUrl(contrastWord, setId), alt: contrastWord }
+            { word: targetWord, sound: targetSound, image: pairImageUrl(targetWord), alt: targetWord },
+            { word: contrastWord, sound: contrastSound, image: pairImageUrl(contrastWord), alt: contrastWord }
           ]
         };
       });

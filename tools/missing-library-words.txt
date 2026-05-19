@@ -1,0 +1,5 @@
+# Words in word-lists/word-sets.json with NO *.png in word-images/_library/
+# (case-insensitive filename stem). Not the same as 'provably deleted files'.
+# Total: 1
+
+burrito

@@ -38,16 +38,17 @@
 <body>
   <h1>Word list tool</h1>
   <p class="instructions">
-    Paste CSV from Google Sheets (or upload a file). Two layouts supported:<br>
+    Paste CSV from Google Sheets (or upload one or more files). Google Sheets <strong>File → Download → CSV exports only the active tab</strong>, so for a workbook with multiple tabs, download each tab as CSV and select them all here — they will be merged automatically. Two layouts supported:<br>
     <strong>Transposed (columns = sets):</strong> Row 1 = setID, row 2 = setLabel, prompt, <strong>targetSound</strong>, contrastSound, folder, then word1, word2, word3… Each column (after the first) is one word set. The tool uses <strong>targetSound</strong> (and contrastSound) to reorder each word pair so the correct answer (the word with the target sound) is first; you don’t need to flip word order in the CSV. You can repeat this block below (same row labels) to add more sets when you run out of columns (e.g. past column Z).<br>
-    <strong>Row-per-pair:</strong> Header row with setId, setLabel, prompt, targetSound, contrastSound, folder, word1, word2 — then one data row per pair.
+    <strong>Row-per-pair:</strong> Header with setId, setLabel, prompt, targetSound, contrastSound, folder, word1, word2 — one row per pair. For <strong>single words</strong>, add column <code>setType</code> = <code>single</code> and one word per row in <code>word1</code> only.<br>
+    <strong>Single-word sets:</strong> In transposed layout, add row <code>setType</code> = <code>single</code> and list words in word1, word2, word3…
     Then download <code>word-sets.json</code> and save as <code>word-lists/word-sets.json</code>.
-    <a href="../word-lists/README.md">Full format details</a>.
+    <a href="../word-lists/FULL_WORKFLOW.md">Full format details</a>.
   </p>
   <div class="controls">
     <label>
-      <span class="btn secondary">Choose CSV file</span>
-      <input type="file" id="file" accept=".csv,text/csv">
+      <span class="btn secondary">Choose CSV file(s)</span>
+      <input type="file" id="file" accept=".csv,text/csv" multiple>
     </label>
     <button type="button" class="btn" id="download" disabled>Download word-sets.json</button>
   </div>
@@ -67,6 +68,7 @@
         'prompt': 'prompt',
         'target sound': 'targetSound', 'targetsound': 'targetSound',
         'contrast sound': 'contrastSound', 'contrastsound': 'contrastSound',
+        'set type': 'setType', 'settype': 'setType',
         'folder': 'folder',
         'word 1': 'word1', 'word1': 'word1',
         'word 2': 'word2', 'word2': 'word2',
@@ -167,7 +169,7 @@
         let i = 0;
         while (i < rows.length) {
           if (isEmptyRow(rows[i])) { i++; continue; }
-          if (!isSetIdRow(rows[i][0])) break;
+          if (!isSetIdRow(rows[i][0])) { i++; continue; }
           const blockRows = [];
           while (i < rows.length && !isEmptyRow(rows[i])) {
             blockRows.push(rows[i]);
@@ -177,6 +179,18 @@
           const rowLabels = blockRows.map(function (r) { return normalizeHeader(r[0] || ''); });
           const numCols = Math.max.apply(null, blockRows.map(function (r) { return r.length; }));
           if (numCols < 2) continue;
+          const labelToRow = {};
+          for (let ri = 0; ri < rowLabels.length; ri++) {
+            const lab = rowLabels[ri];
+            if (!lab) continue;
+            if (labelToRow[lab] === undefined) labelToRow[lab] = ri;
+          }
+          const cell = function (label, col) {
+            const ri = labelToRow[label];
+            if (ri === undefined) return '';
+            const r = blockRows[ri] || [];
+            return (r[col] || '').trim();
+          };
           const wordIndices = [];
           for (let ri = 0; ri < blockRows.length; ri++) {
             const lab = rowLabels[ri];
@@ -188,24 +202,48 @@
             return na - nb;
           });
           for (let col = 1; col < numCols; col++) {
-            const setId = (blockRows[0][col] || '').trim();
-            const setLabel = (blockRows[1][col] || '').trim();
-            const prompt = (blockRows[2][col] || '').trim();
-            const targetSound = (blockRows[3][col] || '').trim();
-            const contrastSound = (blockRows[4][col] || '').trim();
-            let folder = (blockRows[5][col] || '').trim();
+            const setId = cell('setId', col);
+            const setLabel = cell('setLabel', col);
+            const prompt = cell('prompt', col);
+            const targetSound = cell('targetSound', col);
+            const contrastSound = cell('contrastSound', col);
+            const setTypeRaw = (cell('setType', col) || '').trim().toLowerCase();
+            let folder = cell('folder', col);
             if (!setId) continue;
+            if (folder) { folder = folder.replace(/\//g, ':').trim(); }
+            const isSingle = setTypeRaw === 'single';
+
+            if (isSingle) {
+              const words = [];
+              for (let wi = 0; wi < wordIndices.length; wi++) {
+                const w = (blockRows[wordIndices[wi].row][col] || '').trim();
+                if (w && w.indexOf('/') < 0) words.push(w);
+              }
+              if (words.length) {
+                wordSets.push({
+                  id: setId,
+                  label: setLabel,
+                  setType: 'single',
+                  prompt: prompt,
+                  targetSound: targetSound,
+                  folder: folder,
+                  words: words
+                });
+              }
+              continue;
+            }
+
             const pairs = [];
             const firstWordCell = wordIndices.length > 0 ? (blockRows[wordIndices[0].row][col] || '').trim() : '';
             const slashFormat = firstWordCell.indexOf('/') >= 0;
             if (slashFormat) {
               for (let wi = 0; wi < wordIndices.length; wi++) {
-                const cell = (blockRows[wordIndices[wi].row][col] || '').trim();
-                if (!cell) continue;
-                const idx = cell.indexOf('/');
+                const cellVal = (blockRows[wordIndices[wi].row][col] || '').trim();
+                if (!cellVal) continue;
+                const idx = cellVal.indexOf('/');
                 if (idx >= 0) {
-                  const w1 = cell.slice(0, idx).trim();
-                  const w2 = cell.slice(idx + 1).trim();
+                  const w1 = cellVal.slice(0, idx).trim();
+                  const w2 = cellVal.slice(idx + 1).trim();
                   if (w1 && w2) pairs.push(reorderPairByTargetSound([w1, w2], targetSound, contrastSound));
                 }
               }
@@ -216,11 +254,11 @@
                 if (w1 && w2) pairs.push(reorderPairByTargetSound([w1, w2], targetSound, contrastSound));
               }
             }
-            if (folder) { folder = folder.replace(/\//g, ':').trim(); }
             if (pairs.length) {
               wordSets.push({
                 id: setId,
                 label: setLabel,
+                setType: 'pairs',
                 prompt: prompt,
                 targetSound: targetSound,
                 contrastSound: contrastSound,
@@ -246,29 +284,47 @@
 
         const rawHeaders = rows[0];
         const headers = rawHeaders.map(normalizeHeader);
-        const required = ['setId', 'setLabel', 'prompt', 'targetSound', 'contrastSound', 'folder', 'word1', 'word2'];
-        const missing = required.filter(function (r) { return headers.indexOf(r) === -1; });
-        if (missing.length) return { error: 'Row-per-pair format: missing columns: ' + missing.join(', ') + '. Or use transposed format (first cell of first row = setID).' };
+        const baseRequired = ['setId', 'setLabel', 'prompt', 'folder', 'word1'];
+        const missingBase = baseRequired.filter(function (r) { return headers.indexOf(r) === -1; });
+        if (missingBase.length) return { error: 'Row format: missing columns: ' + missingBase.join(', ') + '. Or use transposed format (first cell of first row = setID).' };
 
         const bySet = {};
         for (let r = 1; r < rows.length; r++) {
           const row = rows[r];
           const obj = {};
           headers.forEach(function (h, i) { obj[h] = (row[i] || '').trim(); });
-          if (!obj.word1 || !obj.word2) continue;
           const id = obj.setId;
+          if (!id || !obj.word1) continue;
+          const isSingle = (obj.setType || '').trim().toLowerCase() === 'single';
+          if (isSingle) {
+            if (!bySet[id]) {
+              bySet[id] = {
+                id: id,
+                label: obj.setLabel,
+                setType: 'single',
+                prompt: obj.prompt,
+                targetSound: obj.targetSound,
+                folder: (obj.folder || '').replace(/\//g, ':').trim(),
+                words: []
+              };
+            }
+            bySet[id].words.push(obj.word1);
+            continue;
+          }
+          if (!obj.word2) continue;
           if (!bySet[id]) {
             bySet[id] = {
               id: id,
               label: obj.setLabel,
+              setType: 'pairs',
               prompt: obj.prompt,
               targetSound: obj.targetSound,
               contrastSound: obj.contrastSound,
-              folder: obj.folder,
+              folder: (obj.folder || '').replace(/\//g, ':').trim(),
               pairs: []
             };
           }
-          bySet[id].pairs.push([obj.word1, obj.word2]);
+          bySet[id].pairs.push(reorderPairByTargetSound([obj.word1, obj.word2], obj.targetSound, obj.contrastSound));
         }
 
         const wordSets = Object.keys(bySet).map(function (id) { return bySet[id]; });
@@ -292,7 +348,11 @@
         const sets = result.wordSets;
         let html = '<h3 class="success">Ready</h3><p>' + sets.length + ' word set(s).</p><ul>';
         sets.forEach(function (s) {
-          html += '<li><strong>' + s.label + '</strong> (' + s.pairs.length + ' pairs) – folder: ' + (s.folder || '—') + '</li>';
+          const type = (s.setType || 'pairs').toLowerCase();
+          const count = type === 'single'
+            ? ((s.words && s.words.length) || 0) + ' words'
+            : ((s.pairs && s.pairs.length) || 0) + ' pairs';
+          html += '<li><strong>' + s.label + '</strong> [' + type + '] (' + count + ') – group: ' + (s.folder || '—') + '</li>';
         });
         html += '</ul>';
         previewEl.innerHTML = html;
@@ -315,15 +375,59 @@
       csvEl.addEventListener('paste', function () { setTimeout(updatePreview, 0); });
       downloadBtn.addEventListener('click', triggerDownload);
 
+      function readFileAsText(file) {
+        return new Promise(function (resolve, reject) {
+          const reader = new FileReader();
+          reader.onload = function () { resolve(String(reader.result || '')); };
+          reader.onerror = function () { reject(reader.error || new Error('Read failed: ' + file.name)); };
+          reader.readAsText(file, 'UTF-8');
+        });
+      }
+
+      function stripDuplicateRowPerPairHeader(text, headerLine) {
+        const norm = function (s) { return s.replace(/^\uFEFF/, '').trim().toLowerCase(); };
+        const target = norm(headerLine);
+        if (!target) return text;
+        const lines = text.split(/\r?\n/);
+        const idx = lines.findIndex(function (l) { return l.trim() !== ''; });
+        if (idx === -1) return text;
+        if (norm(lines[idx]) === target) {
+          lines.splice(idx, 1);
+          return lines.join('\n');
+        }
+        return text;
+      }
+
+      function mergeCsvTexts(parts) {
+        if (!parts.length) return '';
+        const first = (parts[0] || '').replace(/^\uFEFF/, '').replace(/\s+$/, '');
+        const firstLineMatch = first.split(/\r?\n/).find(function (l) { return l.trim() !== ''; }) || '';
+        const firstIsTransposed = isSetIdRow((firstLineMatch.split(',')[0] || ''));
+        const merged = [first];
+        for (let i = 1; i < parts.length; i++) {
+          let next = (parts[i] || '').replace(/^\uFEFF/, '').replace(/\s+$/, '');
+          if (!next) continue;
+          if (!firstIsTransposed) {
+            next = stripDuplicateRowPerPairHeader(next, firstLineMatch);
+            if (!next.trim()) continue;
+          }
+          merged.push(next);
+        }
+        return merged.join('\n\n') + '\n';
+      }
+
       fileInput.addEventListener('change', function () {
-        const f = fileInput.files && fileInput.files[0];
-        if (!f) return;
-        const reader = new FileReader();
-        reader.onload = function () {
-          csvEl.value = reader.result;
+        const files = Array.from(fileInput.files || []);
+        if (!files.length) return;
+        files.sort(function (a, b) { return a.name.localeCompare(b.name); });
+        Promise.all(files.map(readFileAsText)).then(function (texts) {
+          csvEl.value = mergeCsvTexts(texts);
           updatePreview();
-        };
-        reader.readAsText(f, 'UTF-8');
+        }).catch(function (err) {
+          previewEl.style.display = 'block';
+          previewEl.innerHTML = '<h3>Error</h3><p class="error">Could not read file: ' + (err && err.message || err) + '</p>';
+          downloadBtn.disabled = true;
+        });
         fileInput.value = '';
       });
 

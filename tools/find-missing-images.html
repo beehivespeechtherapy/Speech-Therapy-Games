@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Find missing word images</title>
+  <style>
+    :root {
+      --bg: #faf8f5;
+      --card: #fff;
+      --border: #ddd5cc;
+      --text: #2a2430;
+      --muted: #5c5360;
+      --ok: #1a6b3c;
+      --miss: #a33;
+      --accent: #5b4a9e;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      margin: 0;
+      padding: 24px;
+      line-height: 1.45;
+    }
+    .wrap { max-width: 720px; margin: 0 auto; }
+    h1 { font-size: 1.45rem; margin: 0 0 8px; color: var(--accent); }
+    .hint { color: var(--muted); font-size: 0.95rem; margin: 0 0 20px; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      margin-bottom: 16px;
+    }
+    label { display: block; font-weight: 600; margin-bottom: 6px; }
+    .path { font-size: 0.85rem; color: var(--muted); word-break: break-all; margin: 8px 0 0; min-height: 1.2em; }
+    button {
+      font: inherit;
+      cursor: pointer;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: #fff;
+      padding: 10px 14px;
+    }
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      font-weight: 600;
+    }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+    textarea {
+      width: 100%;
+      min-height: 160px;
+      font: inherit;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      resize: vertical;
+    }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 10px; }
+    .check { display: flex; align-items: center; gap: 8px; font-weight: normal; margin: 12px 0 0; }
+    .check input { width: auto; }
+    .summary { font-size: 1.05rem; margin: 0 0 12px; }
+    .ok { color: var(--ok); }
+    .miss { color: var(--miss); }
+    ul { margin: 0; padding-left: 1.2rem; }
+    li { margin: 4px 0; }
+    .cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 600px) { .cols { grid-template-columns: 1fr; } }
+    code { background: #f0ebe6; padding: 1px 5px; border-radius: 4px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Find missing word images</h1>
+    <p class="hint">
+      Pick your <code>word-images</code> folder. The tool checks
+      <code>word-images/_library/</code> (one PNG per word). Paste a word list or minimal pairs.
+    </p>
+
+    <div class="card">
+      <label>Step 1 — word-images folder</label>
+      <p class="hint" style="margin:0 0 10px;">
+        Select <code>Speech-Therapy-Games → word-images</code> (the folder that contains <code>_library</code>).
+      </p>
+      <button type="button" class="primary" id="pick-folder">Choose word-images folder…</button>
+      <p class="path" id="folder-path">No folder chosen yet.</p>
+    </div>
+
+    <div class="card">
+      <label for="pairs">Step 2 — Paste words or pairs</label>
+      <p class="hint" style="margin:0 0 8px;">
+        Examples: one word per line (<code>apple</code>), pairs (<code>think/sink</code>),
+        or comma-separated (<code>cat, dog, fish</code>). Lines starting with <code>#</code> are ignored.
+      </p>
+      <textarea id="pairs" placeholder="think/sink&#10;thumb/sum&#10;apple&#10;banana, cherry, date"></textarea>
+      <div class="row">
+        <button type="button" class="primary" id="check-btn" disabled>Check missing images</button>
+        <button type="button" id="copy-missing" disabled>Copy missing list</button>
+      </div>
+    </div>
+
+    <div class="card" id="results" hidden>
+      <p class="summary" id="summary"></p>
+      <div class="cols">
+        <div>
+          <strong class="miss">Missing from _library</strong>
+          <ul id="missing-list"></ul>
+        </div>
+        <div>
+          <strong class="ok">Already have a picture</strong>
+          <ul id="found-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const IMAGE_RE = /\.(png|jpe?g|webp|gif)$/i;
+    let wordImagesHandle = null;
+    let libraryHandle = null;
+    let lastMissing = [];
+
+    const folderPathEl = document.getElementById('folder-path');
+    const pairsEl = document.getElementById('pairs');
+    const checkBtn = document.getElementById('check-btn');
+    const copyBtn = document.getElementById('copy-missing');
+    function parseWordsFromLine(line) {
+      const t = line.trim();
+      if (!t || t.startsWith('#')) return [];
+      // Split on pair/list separators; otherwise keep the whole line (phrases stay one entry).
+      if (/[/,\t|;]+/.test(t)) {
+        return t.split(/[/,\t|;]+/).map((w) => w.trim()).filter(Boolean);
+      }
+      return [t];
+    }
+
+    function parseAllWords(text) {
+      const seen = new Set();
+      const ordered = [];
+      for (const line of text.split(/\r?\n/)) {
+        for (const w of parseWordsFromLine(line)) {
+          const key = w.toLowerCase();
+          if (!seen.has(key)) {
+            seen.add(key);
+            ordered.push(w);
+          }
+        }
+      }
+      return ordered;
+    }
+
+    async function stemsInFolder(handle) {
+      const stems = new Set();
+      if (!handle) return stems;
+      for await (const entry of handle.values()) {
+        if (entry.kind !== 'file') continue;
+        if (!IMAGE_RE.test(entry.name)) continue;
+        const stem = entry.name.replace(/\.[^.]+$/i, '').trim().toLowerCase();
+        if (stem) stems.add(stem);
+      }
+      return stems;
+    }
+
+    async function findLibraryHandle(root) {
+      try {
+        return await root.getDirectoryHandle('_library');
+      } catch {
+        return null;
+      }
+    }
+
+    document.getElementById('pick-folder').addEventListener('click', async () => {
+      if (!window.showDirectoryPicker) {
+        alert('This tool needs Chrome or Edge (directory picker). Safari may not work.');
+        return;
+      }
+      try {
+        wordImagesHandle = await window.showDirectoryPicker({ mode: 'read' });
+        libraryHandle = await findLibraryHandle(wordImagesHandle);
+        if (!libraryHandle) {
+          alert('Could not find a _library folder inside the folder you picked.');
+          wordImagesHandle = null;
+          return;
+        }
+        folderPathEl.textContent = wordImagesHandle.name + ' / _library';
+        
+        checkBtn.disabled = false;
+      } catch (e) {
+        if (e.name !== 'AbortError') alert(String(e));
+      }
+    });
+
+    checkBtn.addEventListener('click', async () => {
+      if (!libraryHandle) return;
+      const words = parseAllWords(pairsEl.value);
+      if (!words.length) {
+        alert('Paste at least one word or pair (e.g. apple or think/sink).');
+        return;
+      }
+
+      const libraryStems = await stemsInFolder(libraryHandle);
+
+      const missing = [];
+      const found = [];
+      for (const word of words) {
+        const key = word.toLowerCase();
+        if (libraryStems.has(key)) {
+          found.push(word);
+        } else {
+          missing.push(word);
+        }
+      }
+
+      lastMissing = missing;
+      const results = document.getElementById('results');
+      results.hidden = false;
+      document.getElementById('summary').innerHTML =
+        `<span class="miss">${missing.length} missing</span> · ` +
+        `<span class="ok">${found.length} found</span> · ` +
+        `${words.length} unique words checked in <strong>_library</strong>`;
+
+      const missUl = document.getElementById('missing-list');
+      const foundUl = document.getElementById('found-list');
+      missUl.innerHTML = '';
+      foundUl.innerHTML = '';
+      if (!missing.length) {
+        missUl.innerHTML = '<li><em>None — every word has a PNG in _library.</em></li>';
+      } else {
+        for (const w of missing) {
+          const li = document.createElement('li');
+          li.textContent = w;
+          missUl.appendChild(li);
+        }
+      }
+      if (!found.length) {
+        foundUl.innerHTML = '<li><em>None yet.</em></li>';
+      } else {
+        for (const w of found) {
+          const li = document.createElement('li');
+          li.textContent = w;
+          foundUl.appendChild(li);
+        }
+      }
+      copyBtn.disabled = missing.length === 0;
+    });
+
+    copyBtn.addEventListener('click', async () => {
+      const text = lastMissing.join('\n');
+      try {
+        await navigator.clipboard.writeText(text);
+        copyBtn.textContent = 'Copied!';
+        setTimeout(() => { copyBtn.textContent = 'Copy missing list'; }, 1500);
+      } catch {
+        alert(text || '(nothing to copy)');
+      }
+    });
+  </script>
+</body>
+</html>

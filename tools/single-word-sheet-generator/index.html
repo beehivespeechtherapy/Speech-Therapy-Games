@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Single-word sheet generator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      /* Beehive Speech Therapy brand palette */
+      --lavender:      #C6A5CF;
+      --lavender-soft: #E5D0EB;
+      --lavender-tint: #F4EBF8;
+      --sage:          #D6E6C1;
+      --honey:         #F4E7B5;
+      --mint:          #A8D4BF;
+      --teal:          #2DC4CD;
+      --teal-dark:     #239BA2;
+      --plum:          #715E76;
+      --cream-page:    #FFFCF3;
+      --ink:           #2E2E2E;
+      --muted:         #6E6358;
+      --card-border:   #D8CBAA;
+      /* Utility */
+      --line:          #D8CBAA;
+      --bad:           #a40000;
+      --warn-bg:       #FFF4E5;
+      --warn-border:   #E8C48A;
+      --warn-text:     #8A4B00;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: "Nunito", "Arial Rounded MT Bold", "Avenir Next", Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: var(--ink);
+      background: #FAF6EF;
+      line-height: 1.45;
+    }
+    .wrap { max-width: 960px; margin: 0 auto; }
+
+    /* ===== Controls (top form, never printed) ===== */
+    h1.app-title {
+      font-size: 1.6rem;
+      font-weight: 800;
+      margin: 0 0 4px;
+      color: var(--plum);
+      letter-spacing: 0.01em;
+    }
+    p.hint { margin: 0 0 18px; color: var(--muted); font-size: 0.95rem; }
+    label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 6px;
+      font-size: 0.92rem;
+      color: var(--plum);
+    }
+    select#folder-scope,
+    select#position {
+      width: 100%;
+      max-width: 100%;
+      min-height: 42px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      line-height: 1.3;
+      color: var(--ink);
+      border: 2px solid var(--lavender-soft);
+      border-radius: 12px;
+      background-color: white;
+      margin-bottom: 4px;
+      -webkit-appearance: menulist;
+      appearance: menulist;
+      font-family: inherit;
+    }
+    select#folder-scope:focus,
+    select#position:focus,
+    input.text-in:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--lavender);
+      box-shadow: 0 0 0 3px var(--lavender-tint);
+    }
+    input.text-in {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      border: 2px solid var(--lavender-soft);
+      border-radius: 12px;
+      background: white;
+      color: var(--ink);
+      font-family: inherit;
+    }
+    textarea {
+      width: 100%;
+      min-height: 200px;
+      padding: 10px 12px;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 14px;
+      border: 2px solid var(--lavender-soft);
+      border-radius: 12px;
+      resize: vertical;
+      background: white;
+      color: var(--ink);
+    }
+    /* Rich-text editor for custom instructions */
+    .format-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 6px;
+    }
+    .format-toolbar .fmt-btn {
+      padding: 6px 14px;
+      font-size: 0.85rem;
+      border-radius: 999px;
+      border: 2px solid var(--lavender);
+      background: white;
+      color: var(--plum);
+      cursor: pointer;
+      font-weight: 700;
+      font-family: inherit;
+    }
+    .format-toolbar .fmt-btn:hover { background: var(--lavender-tint); }
+    .format-toolbar .fmt-btn.primary {
+      background: var(--honey);
+      border-color: #E0C75A;
+      color: #6B5616;
+    }
+    .format-toolbar .fmt-btn.primary:hover { background: #ECD688; }
+    .editor {
+      width: 100%;
+      min-height: 100px;
+      padding: 10px 12px;
+      font-size: 0.95rem;
+      border: 2px solid var(--lavender-soft);
+      border-radius: 12px;
+      background: white;
+      color: var(--ink);
+      font-family: inherit;
+      line-height: 1.5;
+      cursor: text;
+      outline: none;
+    }
+    .editor:focus {
+      border-color: var(--lavender);
+      box-shadow: 0 0 0 3px var(--lavender-tint);
+    }
+    .editor[data-empty="1"]::before {
+      content: attr(data-placeholder);
+      color: var(--muted);
+      pointer-events: none;
+    }
+    .char-counter {
+      margin: 4px 0 14px;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-align: right;
+    }
+    .char-counter.over {
+      color: var(--bad);
+      font-weight: 700;
+    }
+    .editor mark,
+    .directions-card mark {
+      background: var(--honey);
+      color: var(--ink);
+      padding: 1px 5px;
+      border-radius: 5px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .field-hint { font-size: 0.85rem; color: var(--muted); margin: 0 0 14px; }
+    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 12px 0 8px; }
+    button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 999px;
+      border: 2px solid var(--teal-dark);
+      background: var(--teal);
+      color: white;
+      cursor: pointer;
+      font-family: inherit;
+      transition: background-color 120ms ease;
+    }
+    button:hover:not(:disabled) { background: var(--teal-dark); }
+    button.secondary {
+      background: white;
+      color: var(--plum);
+      border-color: var(--lavender);
+    }
+    button.secondary:hover:not(:disabled) { background: var(--lavender-tint); }
+    button:disabled { opacity: 0.45; cursor: not-allowed; }
+    .status { font-size: 0.88rem; color: var(--muted); }
+    .status strong { color: var(--ink); }
+    .errors {
+      margin: 0 0 14px;
+      padding: 10px 14px;
+      background: var(--warn-bg);
+      border: 2px solid var(--warn-border);
+      border-radius: 12px;
+      color: var(--warn-text);
+      font-size: 0.9rem;
+      white-space: pre-wrap;
+    }
+
+    /* Ink-saver checkbox row */
+    .ink-saver-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 6px 0 12px;
+      padding: 10px 14px;
+      background: var(--lavender-tint);
+      border-radius: 12px;
+    }
+    .ink-saver-row input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--teal);
+      cursor: pointer;
+    }
+    .ink-saver-row label {
+      margin: 0;
+      font-weight: 600;
+      color: var(--plum);
+      cursor: pointer;
+      font-size: 0.95rem;
+    }
+
+    /* Logo upload control */
+    .logo-control {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 4px;
+    }
+    .logo-control-box {
+      width: 1.6in;
+      height: 1in;
+      border-radius: 18px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 6px;
+      border: 2px dashed var(--lavender);
+      color: var(--plum);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-align: center;
+      transition: background-color 120ms ease;
+    }
+    .logo-control-box.has-logo {
+      border: 2px solid var(--lavender);
+      cursor: default;
+    }
+    .logo-control-box:not(.has-logo):hover { background: var(--lavender-tint); }
+    .logo-control-box img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .logo-control-actions { display: flex; flex-direction: column; gap: 4px; }
+    .logo-control-actions a {
+      color: var(--teal-dark);
+      cursor: pointer;
+      text-decoration: underline;
+      font-weight: 700;
+      font-size: 0.92rem;
+    }
+    .logo-control-actions a:hover { color: var(--plum); }
+
+    /* ===== Preview wrapper ===== */
+    #preview-wrap {
+      margin-top: 24px;
+      padding: 18px;
+      background: white;
+      border-radius: 18px;
+      border: 2px solid var(--lavender-soft);
+    }
+    #preview-wrap h2 {
+      margin: 0 0 14px;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--plum);
+    }
+    .preview-placeholder {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin: 0;
+      padding: 24px;
+      text-align: center;
+      background: var(--lavender-tint);
+      border-radius: 14px;
+    }
+
+    /* ===== Sheet pages (continuous; one printed letter page total) ===== */
+    .sheet-page {
+      background: var(--cream-page);
+      border-radius: 14px;
+      padding: 18px;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .sheet-page + .sheet-page { margin-top: 0; }
+    /* When two sheet-pages are stacked, merge them visually into one block */
+    .sheet-page:has(+ .sheet-page) {
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      padding-bottom: 8px;
+    }
+    .sheet-page + .sheet-page {
+      border-top-left-radius: 0;
+      border-top-right-radius: 0;
+      padding-top: 8px;
+    }
+
+    /* ===== Header banner (lavender ribbon with logo + title) ===== */
+    .brand-header {
+      display: grid;
+      grid-template-columns: 1.3in 1fr;
+      gap: 12px;
+      align-items: center;
+      margin-bottom: 8px;
+    }
+    .brand-header.no-logo {
+      grid-template-columns: 1fr;
+    }
+    .brand-header .logo-slot {
+      height: 0.85in;
+      border-radius: 14px;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 4px;
+      border: 2px solid var(--lavender);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .brand-header .logo-slot img {
+      max-height: 100%;
+      max-width: 100%;
+      object-fit: contain;
+    }
+    .title-card {
+      background: var(--lavender);
+      border-radius: 16px;
+      padding: 10px 18px;
+      box-shadow: 0 3px 0 rgba(113, 94, 118, 0.20);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .title-card .instruction-doc-title {
+      margin: 0;
+      font-size: 1.25rem;
+      font-weight: 800;
+      text-align: center;
+      color: var(--plum);
+      letter-spacing: 0.01em;
+      line-height: 1.15;
+    }
+    .title-card .instruction-extra {
+      margin: 4px 0 0;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-align: center;
+      color: var(--plum);
+      opacity: 0.9;
+    }
+
+    /* ===== Directions card ===== */
+    .directions-card {
+      background: white;
+      border: 2px solid var(--card-border);
+      border-radius: 14px;
+      padding: 8px 14px;
+      margin-bottom: 8px;
+      line-height: 1.3;
+      font-size: 0.85rem;
+      box-shadow: 0 2px 0 rgba(216, 203, 170, 0.45);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ===== Practice tracker card (page 1) ===== */
+    .practice-card {
+      background: white;
+      border: 2px solid var(--card-border);
+      border-radius: 14px;
+      padding: 8px 14px 10px;
+      margin-top: 0;
+      margin-bottom: 0;
+      box-shadow: 0 2px 0 rgba(216, 203, 170, 0.45);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .practice-card .practice-title {
+      margin: 0 0 6px;
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: var(--plum);
+      text-align: center;
+      letter-spacing: 0.02em;
+    }
+    .practice-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 8px;
+      max-width: 4.6in;
+      margin: 0 auto;
+    }
+    .practice-day {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+    }
+    .practice-day .day-label {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--plum);
+      letter-spacing: 0.02em;
+    }
+    .practice-day .day-box {
+      width: 28px;
+      height: 28px;
+      border: 2px solid var(--lavender);
+      border-radius: 6px;
+      background: white;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+
+    /* ===== Picture sheet (3 columns x 4 rows = 12 single-word cells) ===== */
+    .sheet {
+      --img-max: 1.25in;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 1fr;
+      gap: 6px;
+    }
+    .sheet .cell {
+      background: white;
+      border: 2px solid var(--card-border);
+      border-radius: 12px;
+      padding: 6px;
+      min-height: 1.6in;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 2px 0 rgba(216, 203, 170, 0.45);
+      break-inside: avoid;
+      page-break-inside: avoid;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .sheet .pic {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 0.85in;
+      padding: 4px 0;
+    }
+    .sheet .pic img {
+      max-width: 100%;
+      max-height: var(--img-max);
+      width: auto;
+      height: auto;
+      object-fit: contain;
+    }
+    .sheet .word {
+      width: 100%;
+      text-align: center;
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 0.95rem;
+      font-weight: 800;
+      letter-spacing: 0.02em;
+      background: var(--lavender-soft);
+      color: var(--plum);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .sheet .cell[data-accent="lavender"] { border-color: var(--lavender); }
+    .sheet .cell[data-accent="lavender"] .word { background: var(--lavender-soft); }
+    .sheet .cell[data-accent="sage"]     { border-color: #9FC57F; }
+    .sheet .cell[data-accent="sage"]     .word { background: var(--sage); }
+    .sheet .cell[data-accent="honey"]    { border-color: #E0C75A; }
+    .sheet .cell[data-accent="honey"]    .word { background: var(--honey); }
+    .sheet .cell[data-accent="mint"]     { border-color: #6FB495; }
+    .sheet .cell[data-accent="mint"]     .word { background: var(--mint); }
+    .sheet .missing {
+      color: var(--bad);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 8px;
+    }
+
+    /* ===== Print ===== */
+    @media print {
+      html, body {
+        background: var(--cream-page);
+        padding: 0;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .no-print { display: none !important; }
+      .wrap { max-width: none; margin: 0; }
+      #preview-wrap {
+        border: none;
+        padding: 0;
+        margin: 0;
+        background: transparent;
+      }
+      #preview-wrap h2 { display: none; }
+      .sheet-page {
+        margin: 0 !important;
+        border-radius: 0;
+        padding: 0;
+        background: transparent;
+      }
+      .sheet-page + .sheet-page { margin-top: 0 !important; }
+      .directions-card {
+        max-height: 5em;
+        overflow: hidden;
+        padding: 8px 14px;
+      }
+      .practice-card {
+        padding: 6px 14px 8px;
+      }
+      .practice-card .practice-title {
+        margin: 0 0 4px;
+      }
+      .practice-day .day-box {
+        width: 22px;
+        height: 22px;
+      }
+      .sheet { --img-max: 1.25in; gap: 5px; }
+      .sheet .cell {
+        break-inside: avoid;
+        page-break-inside: avoid;
+        min-height: 1.7in;
+      }
+      @page { margin: 10mm; size: letter; }
+
+      /* Ink-saver: strip backgrounds for printing only.
+         On-screen preview still looks cute. */
+      body.ink-saver { background: white; }
+      body.ink-saver .sheet-page { background: white; }
+      body.ink-saver .title-card {
+        background: white;
+        border: 2px solid var(--plum);
+        box-shadow: none;
+      }
+      body.ink-saver .sheet .word {
+        background: white;
+        border: 2px solid var(--plum);
+        color: var(--ink);
+      }
+      body.ink-saver .sheet .cell,
+      body.ink-saver .directions-card,
+      body.ink-saver .practice-card,
+      body.ink-saver .brand-header .logo-slot {
+        border-color: var(--ink);
+        box-shadow: none;
+      }
+      body.ink-saver .sheet .cell[data-accent] {
+        border-color: var(--ink);
+      }
+      body.ink-saver .practice-card .day-box {
+        border-color: var(--ink);
+      }
+      body.ink-saver .directions-card mark {
+        background: white;
+        text-decoration: underline;
+        font-weight: 800;
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1 class="app-title no-print">Single-word sheet generator</h1>
+    <p class="hint no-print">
+      Enter the <strong>target sound</strong> and the <strong>word position</strong> (Initial / Medial / Final).
+      Paste <strong>exactly 12 words</strong>, one per line (e.g. <code>sun</code>).
+      Choose a <strong>picture folder</strong> inside <code>word-images</code> if your images live in a set folder.
+      <strong>Print / Save PDF</strong> produces a one-page sheet with the instructions, weekly tracker, and 12 pictures.
+    </p>
+
+    <div class="no-print">
+      <label for="folder-scope">Picture folder</label>
+      <select id="folder-scope" aria-describedby="folder-scope-hint">
+        <option value="">All folders (entire library)</option>
+      </select>
+      <p class="field-hint" id="folder-scope-hint">
+        <strong>All folders</strong> is recommended. Most pictures live in the shared <code>_library</code> folder; if you pick a set folder and a word isn’t there, the tool checks <code>_library</code> automatically.
+      </p>
+
+      <label for="sound">Target sound (for the title)</label>
+      <input type="text" id="sound" class="text-in" placeholder="e.g. S" autocomplete="off">
+      <p class="field-hint">Appears in the printed title, e.g. <code>/S/ Initial - Word Practice</code>.</p>
+
+      <label for="position">Position in word</label>
+      <select id="position" aria-describedby="position-hint">
+        <option value="Initial">Initial</option>
+        <option value="Medial">Medial</option>
+        <option value="Final">Final</option>
+        <option value="Mixed">Mixed</option>
+      </select>
+      <p class="field-hint" id="position-hint">Used in the printed title.</p>
+
+      <label for="subtitle">Optional extra title line</label>
+      <input type="text" id="subtitle" class="text-in" placeholder="Leave blank if you only need the automatic title" autocomplete="off">
+      <p class="field-hint">If filled, this appears as a second line under the main title.</p>
+
+      <label for="custom-instructions">Custom instructions (optional)</label>
+      <div class="format-toolbar">
+        <button type="button" class="fmt-btn primary" id="hl-btn" title="Select some text first, then click">Highlight selection</button>
+        <button type="button" class="fmt-btn" id="hl-clear-btn" title="Remove all yellow highlights from the text below">Clear highlighting</button>
+      </div>
+      <div id="custom-instructions"
+           class="editor"
+           contenteditable="true"
+           tabindex="0"
+           role="textbox"
+           aria-multiline="true"
+           aria-label="Custom instructions"
+           data-empty="1"
+           data-placeholder="Leave blank to use the default caregiver instructions, or paste your own text here. Highlight key parts by selecting them and clicking Highlight.">&#8203;</div>
+      <p class="char-counter" id="directions-counter">0 / 250 characters</p>
+      <p class="field-hint">When empty, a short default single-word practice paragraph is shown. Keep your directions under <strong>~250 characters</strong> so the picture grid fits on one page. To highlight: select the text with your mouse, then click <strong>Highlight selection</strong>.</p>
+
+      <label>Logo (shown in the top-left of each sheet)</label>
+      <div class="logo-control">
+        <div id="logo-preview" class="logo-control-box" role="button" tabindex="0" aria-label="Upload logo">+ Upload logo</div>
+        <div class="logo-control-actions" id="logo-actions" style="display:none;">
+          <a id="logo-change">Change logo</a>
+          <a id="logo-remove">Remove logo</a>
+        </div>
+      </div>
+      <input type="file" id="logo-file" accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif" style="display:none">
+      <p class="field-hint">Saved in your browser. Upload once and it stays on every sheet until you remove it. (Shared with the Homework Sheet Generator.)</p>
+
+      <label for="words">Words (exactly 12 lines, one per row)</label>
+      <textarea id="words" placeholder="sun&#10;soup&#10;sock&#10;seal&#10;sand&#10;sing&#10;sit&#10;saw&#10;soap&#10;salt&#10;sock&#10;star"></textarea>
+
+      <div class="ink-saver-row">
+        <input type="checkbox" id="ink-saver">
+        <label for="ink-saver">Save ink: print in mostly black &amp; white</label>
+      </div>
+
+      <div class="row">
+        <button type="button" id="build">Build sheet</button>
+        <button type="button" id="refresh" class="secondary" title="Rescan word-images folder">Rescan pictures</button>
+        <button type="button" id="print" class="secondary" disabled>Print / Save PDF</button>
+      </div>
+      <p class="field-hint" style="margin-top:0">Tip: in the print dialog, uncheck <strong>Headers and footers</strong> (Chrome) or set <strong>Headers &amp; Footers</strong> to <strong>None</strong> (Safari) so the date and URL don't print along the top and bottom edges. Your browser will remember that setting.</p>
+      <p class="status" id="status">Loading library status…</p>
+      <div id="errors" class="errors" style="display:none;"></div>
+    </div>
+
+    <div id="preview-wrap">
+      <h2 class="no-print">Sheet preview</h2>
+      <div id="instruction-page" class="sheet-page" aria-live="polite">
+        <p class="preview-placeholder">Enter a target sound and exactly 12 words (one per line), then click <strong>Build sheet</strong>.</p>
+      </div>
+      <div id="picture-page" class="sheet-page" style="display:none;">
+        <div id="sheet" class="sheet" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const FOLDER_STORAGE_KEY = 'single-word-sheet-folder-scope';
+    const LOGO_STORAGE_KEY = 'homework-sheet-logo';
+    const INK_SAVER_STORAGE_KEY = 'homework-sheet-ink-saver';
+    const ROW_ACCENTS = ['lavender', 'sage', 'honey', 'mint'];
+    let folderListLoadFailed = false;
+
+    const wordsEl = document.getElementById('words');
+    const soundEl = document.getElementById('sound');
+    const positionEl = document.getElementById('position');
+    const subtitleEl = document.getElementById('subtitle');
+    const customInstructionsEl = document.getElementById('custom-instructions');
+    const hlBtn = document.getElementById('hl-btn');
+    const hlClearBtn = document.getElementById('hl-clear-btn');
+    const directionsCounterEl = document.getElementById('directions-counter');
+    const DIRECTIONS_SOFT_LIMIT = 250;
+    const folderScopeEl = document.getElementById('folder-scope');
+    const buildBtn = document.getElementById('build');
+    const refreshBtn = document.getElementById('refresh');
+    const printBtn = document.getElementById('print');
+    const sheetEl = document.getElementById('sheet');
+    const instructionPageEl = document.getElementById('instruction-page');
+    const picturePageEl = document.getElementById('picture-page');
+    const statusEl = document.getElementById('status');
+    const errorsEl = document.getElementById('errors');
+    const logoPreviewEl = document.getElementById('logo-preview');
+    const logoActionsEl = document.getElementById('logo-actions');
+    const logoChangeEl = document.getElementById('logo-change');
+    const logoRemoveEl = document.getElementById('logo-remove');
+    const logoFileEl = document.getElementById('logo-file');
+    const inkSaverEl = document.getElementById('ink-saver');
+
+    const DEFAULT_INSTRUCTIONS =
+      'Practice each word slowly and clearly. Draw attention to the target sound. ' +
+      'Have your child watch your mouth, then repeat the word. Short, frequent practice works best.';
+
+    const PLACEHOLDER_HTML =
+      '<p class="preview-placeholder">Enter a target sound and exactly 12 words (one per line), ' +
+      'then click <strong>Build sheet</strong>.</p>';
+
+    function escapeHtml(s) {
+      return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+    }
+
+    function encodeWordForUrl(w) {
+      return encodeURIComponent(w.trim());
+    }
+
+    function imageUrlForWord(w) {
+      const params = new URLSearchParams();
+      const scope = folderScopeEl.value;
+      if (scope) params.set('scope', scope);
+      params.set('w', '400');
+      return '/image/' + encodeWordForUrl(w) + '?' + params.toString();
+    }
+
+    function parseWords(text) {
+      const rows = [];
+      const lines = text.split(/\r?\n/);
+      for (const line of lines) {
+        const s = line.trim();
+        if (!s || s.startsWith('#')) continue;
+        rows.push({ word: s, error: null });
+      }
+      return rows;
+    }
+
+    function statusQuery() {
+      const scope = folderScopeEl.value;
+      return scope ? '?scope=' + encodeURIComponent(scope) : '';
+    }
+
+    async function loadFolders() {
+      const saved = sessionStorage.getItem(FOLDER_STORAGE_KEY) || '';
+      let names = null;
+
+      try {
+        const r = await fetch('/api/folders', { cache: 'no-store' });
+        const text = await r.text();
+        if (!r.ok) {
+          throw new Error('HTTP ' + r.status);
+        }
+        const j = JSON.parse(text);
+        if (!j || !Array.isArray(j.folders)) {
+          throw new Error('bad response');
+        }
+        names = j.folders;
+        folderListLoadFailed = false;
+      } catch (e) {
+        names = null;
+        folderListLoadFailed = true;
+      }
+
+      folderScopeEl.innerHTML = '';
+      const optAll = document.createElement('option');
+      optAll.value = '';
+      optAll.textContent = 'All folders (entire library)';
+      folderScopeEl.appendChild(optAll);
+
+      if (names) {
+        for (const name of names) {
+          const opt = document.createElement('option');
+          opt.value = name;
+          opt.textContent = name;
+          folderScopeEl.appendChild(opt);
+        }
+      }
+
+      if (saved === '' || [...folderScopeEl.options].some((o) => o.value === saved)) {
+        folderScopeEl.value = saved;
+      } else {
+        sessionStorage.removeItem(FOLDER_STORAGE_KEY);
+      }
+
+      return !folderListLoadFailed;
+    }
+
+    async function loadStatus() {
+      try {
+        const r = await fetch('/api/status' + statusQuery());
+        const j = await r.json();
+        let scopeNote = '';
+        if (j.scope) {
+          scopeNote = j.scope_ok
+            ? ' — folder: <strong>' + escapeHtml(j.scope) + '</strong>'
+            : ' — <span style="color:var(--bad)">unknown folder (pick again)</span>';
+        } else {
+          scopeNote = ' — <strong>all folders</strong>';
+        }
+        let html =
+          'Picture library: <strong>' + escapeHtml(j.root) + '</strong>' + scopeNote + ' — ' +
+          j.indexed_files + ' image files in scope, ' + j.unique_stems + ' names.';
+        if (folderListLoadFailed) {
+          html +=
+            '<br><span style="color:var(--bad)">The folder menu could not load.</span> Double-click ' +
+            '<strong>Single-Word Sheet Generator.command</strong> in Finder (Speech-Therapy-Games → tools), then use the tab that opens at ' +
+            'the URL shown in Terminal (starts with <code>http://127.0.0.1</code>) — do not open <code>index.html</code> directly. Click <strong>Rescan pictures</strong> to try again.';
+        }
+        statusEl.innerHTML = html;
+      } catch (e) {
+        let msg = 'Could not read library status (is the server running?).';
+        if (folderListLoadFailed) {
+          msg +=
+            ' The folder menu is empty because this page is not being served by the generator — use Single-Word Sheet Generator.command.';
+        }
+        statusEl.textContent = msg;
+      }
+    }
+
+    /* ===== Logo upload (saved in localStorage; shared with the pair tool) ===== */
+
+    function getSavedLogo() {
+      try {
+        return localStorage.getItem(LOGO_STORAGE_KEY) || '';
+      } catch (e) {
+        return '';
+      }
+    }
+
+    function renderLogoControl() {
+      const data = getSavedLogo();
+      if (data) {
+        logoPreviewEl.classList.add('has-logo');
+        logoPreviewEl.innerHTML = '<img src="' + data + '" alt="Logo preview">';
+        logoActionsEl.style.display = 'flex';
+      } else {
+        logoPreviewEl.classList.remove('has-logo');
+        logoPreviewEl.innerHTML = '+ Upload logo';
+        logoActionsEl.style.display = 'none';
+      }
+    }
+
+    function saveLogo(dataUrl) {
+      try {
+        localStorage.setItem(LOGO_STORAGE_KEY, dataUrl);
+        return true;
+      } catch (e) {
+        alert(
+          'Could not save the logo in this browser. The file may be too large.\n' +
+          'Try a smaller image (under about 1 MB) and try again.'
+        );
+        return false;
+      }
+    }
+
+    function removeLogo() {
+      try { localStorage.removeItem(LOGO_STORAGE_KEY); } catch (e) {}
+      renderLogoControl();
+      if (!printBtn.disabled) {
+        buildSheet();
+      }
+    }
+
+    function pickLogoFile() { logoFileEl.click(); }
+
+    logoPreviewEl.addEventListener('click', () => {
+      if (!getSavedLogo()) pickLogoFile();
+    });
+    logoPreviewEl.addEventListener('keydown', (e) => {
+      if ((e.key === 'Enter' || e.key === ' ') && !getSavedLogo()) {
+        e.preventDefault();
+        pickLogoFile();
+      }
+    });
+    logoChangeEl.addEventListener('click', pickLogoFile);
+    logoRemoveEl.addEventListener('click', () => {
+      if (confirm('Remove your saved logo? You can upload it again any time.')) {
+        removeLogo();
+      }
+    });
+    logoFileEl.addEventListener('change', () => {
+      const file = logoFileEl.files && logoFileEl.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = () => {
+        const dataUrl = String(reader.result || '');
+        if (!dataUrl.startsWith('data:image/')) {
+          alert('That file does not look like an image. Try a PNG, JPG, or SVG.');
+          return;
+        }
+        if (saveLogo(dataUrl)) {
+          renderLogoControl();
+          if (!printBtn.disabled) {
+            buildSheet();
+          }
+        }
+      };
+      reader.onerror = () => alert('Could not read that file. Try a different image.');
+      reader.readAsDataURL(file);
+      logoFileEl.value = '';
+    });
+
+    /* ===== Custom-instructions rich-text editor ===== */
+
+    function updateEditorEmptyState() {
+      const text = customInstructionsEl.innerText.replace(/\u200B/g, '').trim();
+      const hasMarkup = !!customInstructionsEl.querySelector('mark');
+      customInstructionsEl.dataset.empty = (text || hasMarkup) ? '' : '1';
+
+      const count = text.length;
+      directionsCounterEl.textContent = count + ' / ' + DIRECTIONS_SOFT_LIMIT + ' characters';
+      directionsCounterEl.classList.toggle('over', count > DIRECTIONS_SOFT_LIMIT);
+    }
+
+    function toggleHighlightInSelection() {
+      const sel = window.getSelection();
+      if (!sel || sel.rangeCount === 0) return;
+      const range = sel.getRangeAt(0);
+      let anchor = range.commonAncestorContainer;
+      if (anchor.nodeType === Node.TEXT_NODE) anchor = anchor.parentNode;
+      if (!customInstructionsEl.contains(anchor)) return;
+
+      const enclosingMark = anchor.closest ? anchor.closest('mark') : null;
+      if (enclosingMark && customInstructionsEl.contains(enclosingMark)) {
+        const parent = enclosingMark.parentNode;
+        while (enclosingMark.firstChild) {
+          parent.insertBefore(enclosingMark.firstChild, enclosingMark);
+        }
+        parent.removeChild(enclosingMark);
+        sel.removeAllRanges();
+        updateEditorEmptyState();
+        return;
+      }
+
+      if (sel.isCollapsed) return;
+      const mark = document.createElement('mark');
+      try {
+        range.surroundContents(mark);
+      } catch (err) {
+        const contents = range.extractContents();
+        mark.appendChild(contents);
+        range.insertNode(mark);
+      }
+      sel.removeAllRanges();
+      updateEditorEmptyState();
+    }
+
+    function clearAllHighlights() {
+      const marks = customInstructionsEl.querySelectorAll('mark');
+      marks.forEach((m) => {
+        const parent = m.parentNode;
+        while (m.firstChild) parent.insertBefore(m.firstChild, m);
+        parent.removeChild(m);
+      });
+      updateEditorEmptyState();
+    }
+
+    function sanitizeProseHtml(rawHtml) {
+      const ALLOWED_TAGS = new Set(['MARK', 'STRONG', 'B', 'EM', 'I', 'U', 'BR']);
+      const src = document.createElement('div');
+      src.innerHTML = rawHtml;
+      const out = document.createElement('div');
+
+      function walk(srcNode, dstNode) {
+        for (const child of srcNode.childNodes) {
+          if (child.nodeType === Node.TEXT_NODE) {
+            const cleaned = child.nodeValue.replace(/\u200B/g, '');
+            if (cleaned) dstNode.appendChild(document.createTextNode(cleaned));
+          } else if (child.nodeType === Node.ELEMENT_NODE) {
+            const tag = child.tagName;
+            if (ALLOWED_TAGS.has(tag)) {
+              const clone = document.createElement(tag.toLowerCase());
+              walk(child, clone);
+              dstNode.appendChild(clone);
+            } else if (tag === 'DIV' || tag === 'P') {
+              if (dstNode.lastChild && dstNode.lastChild.nodeName !== 'BR' && dstNode.childNodes.length) {
+                dstNode.appendChild(document.createElement('br'));
+              }
+              walk(child, dstNode);
+            } else {
+              walk(child, dstNode);
+            }
+          }
+        }
+      }
+      walk(src, out);
+      return out.innerHTML;
+    }
+
+    customInstructionsEl.addEventListener('input', updateEditorEmptyState);
+    customInstructionsEl.addEventListener('blur', updateEditorEmptyState);
+    // Force focus even if the click lands on the placeholder pseudo-element.
+    // Some browsers refuse to focus an "empty" contenteditable on first click.
+    customInstructionsEl.addEventListener('mousedown', (e) => {
+      if (document.activeElement !== customInstructionsEl) {
+        e.preventDefault();
+        customInstructionsEl.focus();
+        // Drop the caret at the end of any existing content so typing works.
+        const range = document.createRange();
+        range.selectNodeContents(customInstructionsEl);
+        range.collapse(false);
+        const sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+    });
+    customInstructionsEl.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        document.execCommand('insertLineBreak');
+      }
+    });
+    customInstructionsEl.addEventListener('paste', (e) => {
+      e.preventDefault();
+      const text = (e.clipboardData || window.clipboardData).getData('text');
+      document.execCommand('insertText', false, text);
+    });
+    hlBtn.addEventListener('mousedown', (e) => e.preventDefault());
+    hlBtn.addEventListener('click', toggleHighlightInSelection);
+    hlClearBtn.addEventListener('mousedown', (e) => e.preventDefault());
+    hlClearBtn.addEventListener('click', clearAllHighlights);
+
+    /* ===== Ink-saver toggle (shared key with pair tool) ===== */
+
+    function loadInkSaverPref() {
+      let on = false;
+      try { on = localStorage.getItem(INK_SAVER_STORAGE_KEY) === '1'; } catch (e) {}
+      inkSaverEl.checked = on;
+      document.body.classList.toggle('ink-saver', on);
+    }
+
+    inkSaverEl.addEventListener('change', () => {
+      const on = inkSaverEl.checked;
+      document.body.classList.toggle('ink-saver', on);
+      try { localStorage.setItem(INK_SAVER_STORAGE_KEY, on ? '1' : ''); } catch (e) {}
+    });
+
+    /* ===== Build sheet ===== */
+
+    function cellHtml(word, accent) {
+      const w = word.trim();
+      if (!w) return '<div class="cell"></div>';
+      const src = imageUrlForWord(w);
+      const accentAttr = accent ? ' data-accent="' + accent + '"' : '';
+      return (
+        '<div class="cell"' + accentAttr + '>' +
+          '<div class="pic">' +
+            '<img src="' + src + '" alt="" loading="eager" decoding="async" data-word="' + escapeHtml(w) + '">' +
+          '</div>' +
+          '<div class="word">' + escapeHtml(w) + '</div>' +
+        '</div>'
+      );
+    }
+
+    function bindImageErrors() {
+      sheetEl.querySelectorAll('img').forEach((img) => {
+        img.addEventListener('error', () => {
+          const w = img.dataset.word || '';
+          const holder = img.closest('.pic');
+          if (!holder) return;
+          holder.innerHTML = '<div class="missing">Looking up “' + escapeHtml(w) + '”…</div>';
+          const scope = folderScopeEl.value;
+          const q =
+            '?name=' +
+            encodeURIComponent(w) +
+            (scope ? '&scope=' + encodeURIComponent(scope) : '');
+          fetch('/api/where' + q)
+            .then((r) => r.json())
+            .then((data) => {
+              let msg = '';
+              if (data.error === 'invalid_scope') {
+                msg =
+                  'Invalid picture folder. Open the <strong>Picture folder</strong> menu and choose a valid set.';
+              } else if (data.nowhere) {
+                msg =
+                  'No file for <strong>' +
+                  escapeHtml(w) +
+                  '</strong> (<code>.png</code> / <code>.jpg</code>) anywhere under word-images. Check spelling or add the image.';
+              } else if (data.in_selected_folder === false && data.folders && data.folders.length) {
+                const list = data.folders.map((f) => '<code>' + escapeHtml(f) + '</code>').join(', ');
+                msg =
+                  'Not in <strong>' +
+                  escapeHtml(data.selected_scope || 'this folder') +
+                  '</strong>. This picture is in: ' +
+                  list +
+                  '. Choose one of those in the menu above (often <strong>Initial</strong>).';
+              } else {
+                msg = 'No picture for “' + escapeHtml(w) + '”. Try <strong>Rescan pictures</strong>.';
+              }
+              holder.innerHTML = '<div class="missing">' + msg + '</div>';
+            })
+            .catch(() => {
+              holder.innerHTML =
+                '<div class="missing">No picture found for “' + escapeHtml(w) + '”</div>';
+            });
+        }, { once: true });
+      });
+    }
+
+    function proseToHtml(text) {
+      return escapeHtml(text).replace(/\n/g, '<br>');
+    }
+
+    function instructionPageHtml(sound, position, subtitle, customInstHtml, customInstText) {
+      const logoData = getSavedLogo();
+      const soundDisplay = sound.toUpperCase();
+      const titleLine =
+        '/' + escapeHtml(soundDisplay) + '/ ' + escapeHtml(position) + ' - Word Practice';
+      const proseHtml = customInstText
+        ? sanitizeProseHtml(customInstHtml)
+        : proseToHtml(DEFAULT_INSTRUCTIONS);
+
+      let headerHtml;
+      if (logoData) {
+        headerHtml =
+          '<div class="brand-header">' +
+            '<div class="logo-slot"><img src="' + logoData + '" alt="Logo"></div>' +
+            '<div class="title-card">' +
+              '<h1 class="instruction-doc-title">' + titleLine + '</h1>' +
+              (subtitle ? '<p class="instruction-extra">' + escapeHtml(subtitle) + '</p>' : '') +
+            '</div>' +
+          '</div>';
+      } else {
+        headerHtml =
+          '<div class="brand-header no-logo">' +
+            '<div class="title-card">' +
+              '<h1 class="instruction-doc-title">' + titleLine + '</h1>' +
+              (subtitle ? '<p class="instruction-extra">' + escapeHtml(subtitle) + '</p>' : '') +
+            '</div>' +
+          '</div>';
+      }
+
+      const dayLabels = ['M', 'T', 'W', 'Th', 'F', 'S', 'S'];
+      let daysHtml = '';
+      for (const d of dayLabels) {
+        daysHtml +=
+          '<div class="practice-day">' +
+            '<div class="day-label">' + d + '</div>' +
+            '<div class="day-box"></div>' +
+          '</div>';
+      }
+      const practiceCardHtml =
+        '<div class="practice-card">' +
+          '<p class="practice-title">Days practiced this week</p>' +
+          '<div class="practice-days">' + daysHtml + '</div>' +
+        '</div>';
+
+      return (
+        headerHtml +
+        '<div class="directions-card">' + proseHtml + '</div>' +
+        practiceCardHtml
+      );
+    }
+
+    function buildSheet() {
+      const sound = soundEl.value.trim();
+      const position = positionEl.value;
+      const subtitle = subtitleEl.value.trim();
+      const customInstHtml = customInstructionsEl.innerHTML;
+      const customInstText = customInstructionsEl.innerText.replace(/\u200B/g, '').trim();
+      const rows = parseWords(wordsEl.value);
+      const problems = [];
+
+      if (!sound) problems.push('Enter the target sound.');
+
+      const valid = rows;
+      if (sound && valid.length !== 12) {
+        problems.push(
+          'Need exactly 12 words (one per line). You have ' + valid.length + ' valid line(s).'
+        );
+      }
+
+      if (problems.length) {
+        errorsEl.style.display = 'block';
+        errorsEl.textContent = problems.join('\n');
+        instructionPageEl.innerHTML = PLACEHOLDER_HTML;
+        sheetEl.innerHTML = '';
+        picturePageEl.style.display = 'none';
+        printBtn.disabled = true;
+        return;
+      }
+
+      errorsEl.style.display = 'none';
+      errorsEl.textContent = '';
+
+      instructionPageEl.innerHTML = instructionPageHtml(sound, position, subtitle, customInstHtml, customInstText);
+
+      const htmlParts = [];
+      for (let i = 0; i < valid.length; i++) {
+        const row = valid[i];
+        const rowIndex = Math.floor(i / 3);
+        const accent = ROW_ACCENTS[rowIndex % ROW_ACCENTS.length];
+        htmlParts.push(cellHtml(row.word, accent));
+      }
+      sheetEl.innerHTML = htmlParts.join('');
+      picturePageEl.style.display = 'block';
+      bindImageErrors();
+      printBtn.disabled = false;
+    }
+
+    buildBtn.addEventListener('click', buildSheet);
+    printBtn.addEventListener('click', () => {
+      const originalTitle = document.title;
+      document.title = ' ';
+      window.print();
+      setTimeout(() => { document.title = originalTitle; }, 1500);
+    });
+
+    refreshBtn.addEventListener('click', async () => {
+      refreshBtn.disabled = true;
+      const hadValidSheet = !printBtn.disabled;
+      try {
+        await fetch('/api/refresh', { cache: 'no-store' });
+        await loadFolders();
+        await loadStatus();
+        if (hadValidSheet) {
+          buildSheet();
+        }
+      } finally {
+        refreshBtn.disabled = false;
+      }
+    });
+
+    folderScopeEl.addEventListener('change', () => {
+      sessionStorage.setItem(FOLDER_STORAGE_KEY, folderScopeEl.value);
+      loadStatus();
+      if (!printBtn.disabled) {
+        buildSheet();
+      }
+    });
+
+    (async function init() {
+      renderLogoControl();
+      loadInkSaverPref();
+      updateEditorEmptyState();
+      if (location.protocol === 'file:') {
+        statusEl.innerHTML =
+          '<span style="color:var(--bad)">This page was opened as a file, so pictures cannot load.</span> ' +
+          'Double-click <strong>Single-Word Sheet Generator.command</strong> in Finder ' +
+          '(Speech-Therapy-Games → tools), then use the browser tab that opens at ' +
+          '<code>http://127.0.0.1:…</code> — do not open <code>index.html</code> directly.';
+        folderListLoadFailed = true;
+        return;
+      }
+      await loadFolders();
+      await loadStatus();
+    })();
+  </script>
+</body>
+</html>

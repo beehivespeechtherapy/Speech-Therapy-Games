@@ -126,7 +126,9 @@ class GameUI {
 
     // Update prompt: use custom discrimination prompt from config (e.g. word set) or fall back to target sound
     if (this.challengePrompt) {
-      if (gameConfig.discriminationPrompt && typeof gameConfig.discriminationPrompt === 'string') {
+      if (challenge.prompt && typeof challenge.prompt === 'string') {
+        this.challengePrompt.textContent = challenge.prompt;
+      } else if (gameConfig.discriminationPrompt && typeof gameConfig.discriminationPrompt === 'string') {
         this.challengePrompt.textContent = gameConfig.discriminationPrompt;
       } else {
         const targetSound = challenge.correctSound || gameConfig.targetSound || '';
