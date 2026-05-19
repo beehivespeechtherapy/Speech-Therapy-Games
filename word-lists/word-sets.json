@@ -29703,6 +29703,36 @@
     ]
   },
   {
+    "id": "df",
+    "label": "D Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "d",
+    "folder": "D Final Words",
+    "words": [
+      "red",
+      "bad",
+      "bed",
+      "bud",
+      "sad",
+      "mad",
+      "lead",
+      "side",
+      "wide",
+      "seed",
+      "cloud",
+      "feed",
+      "reed",
+      "good",
+      "weed",
+      "wed",
+      "wood",
+      "road",
+      "code",
+      "food"
+    ]
+  },
+  {
     "id": "fi",
     "label": "F Initial Words",
     "setType": "single",
@@ -30248,7 +30278,7 @@
     "setType": "single",
     "prompt": "Practice the word!",
     "targetSound": "r",
-    "folder": "AIR Final Words",
+    "folder": "AIR Medial Words",
     "words": [
       "carrot",
       "berry",
@@ -30360,6 +30390,36 @@
       "sweater",
       "sister",
       "dollar"
+    ]
+  },
+  {
+    "id": "orm",
+    "label": "OR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "OR Medial Words",
+    "words": [
+      "fork",
+      "forty",
+      "boring",
+      "morning",
+      "story",
+      "forest",
+      "tornado",
+      "normal",
+      "foreign",
+      "fortress",
+      "important",
+      "normal",
+      "doorway",
+      "forklift",
+      "fortune",
+      "horseback",
+      "forget",
+      "stormy",
+      "shortcake",
+      "shoreline"
     ]
   },
   {
