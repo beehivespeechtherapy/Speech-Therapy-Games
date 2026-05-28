@@ -1,0 +1,38 @@
+Single-word sheet generator — how to open it
+============================================
+
+EASIEST (recommended)
+---------------------
+Double-click either of these in Finder:
+
+  • Open Worksheet Generator.command   (in this folder)
+  • Single-Word Sheet Generator.command   (in the parent "tools" folder)
+
+A Terminal window opens briefly, then your web browser opens the tool
+automatically. Leave Terminal open while you work. Press Ctrl+C there when
+you're finished.
+
+Do NOT open index.html by double-clicking — pictures will not load.
+
+
+If you use the terminal in Cursor
+---------------------------------
+From this folder, run either:
+
+  npm run dev
+
+or:
+
+  python3 server.py
+
+(Set WORD_IMAGES_ROOT to your word-images folder if needed; the .command files
+do that for you.)
+
+The address is NOT localhost:3000. The tool uses http://127.0.0.1:8775/
+(or the next free port — check the line "Open:" in Terminal).
+
+
+First time on Mac?
+------------------
+If Finder says the file is from an unidentified developer, right-click the
+.command file → Open → Open once. After that, double-click works normally.

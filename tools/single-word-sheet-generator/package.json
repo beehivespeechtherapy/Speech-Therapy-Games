@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "description": "Launcher only — runs the Python server (no Node dependencies).",
+  "scripts": {
+    "start": "WORD_IMAGES_ROOT=../../word-images python3 server.py",
+    "dev": "WORD_IMAGES_ROOT=../../word-images python3 server.py"
+  }
+}

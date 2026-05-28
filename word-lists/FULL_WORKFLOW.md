@@ -239,6 +239,16 @@ When it finishes, run **Part 2** again from the project folder.
 3. Generate: **OpenAI** `python3 tools/batch_generate_openai.py` **or** **Gemini** `python3 generate_images_gemini.py` (from `word-lists/`)
 4. Run step 2 again — confirm missing list is empty (or fix failures)
 
+### Choosing word lists in games
+
+Every game that uses the central list (Sound Ninjas, Candy Mountain, Butterfly Finder, Donut Detective, Itchy Dragon T/K, Dragon Eggs) shows the same menu:
+
+1. **Minimal pairs** — browse by process, by phoneme, or show all pair sets (always **2** words per challenge).
+2. **Single words** — lists only `setType: single` sets; you pick **1, 2, or 3** words per challenge.
+3. **Show all word sets** — full list of pair and single sets.
+
+The 1 / 2 / 3 word picker appears **only** for single-word sets, not for minimal pairs.
+
 ---
 
 # Appendix A — Google Sheet / CSV format
@@ -301,6 +311,7 @@ In transposed layout, add row **`setType`** = **`single`** and list words in `wo
 
 | Tool | Use |
 |------|-----|
+| `tools/single-word-sheet-generator/` | Printable single-word homework sheets — double-click **Open Worksheet Generator.command** (or **Single-Word Sheet Generator.command** in `tools/`). Browser opens at `http://127.0.0.1:8775/` — not port 3000. |
 | `tools/find-missing-images.html` | Paste a word list; checks `_library/` in Chrome/Edge (**Find Missing Images.command**) |
 | `python3 tools/mirror_library_to_sets.py` | Legacy: copy `_library/` into old per-set folders (optional) |
 | `python3 tools/backfill_library.py` | Pull existing PNGs from set folders **into** `_library/` (recovery) |

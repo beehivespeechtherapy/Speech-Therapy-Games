@@ -439,12 +439,14 @@
       print-color-adjust: exact;
     }
 
-    /* ===== Picture sheet (3 columns x 4 rows = 12 single-word cells) ===== */
+    /* ===== Picture sheet (column/row count set when building) ===== */
     .sheet {
+      --grid-cols: 3;
+      --grid-rows: 4;
       --img-max: 1.25in;
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      grid-auto-rows: 1fr;
+      grid-template-columns: repeat(var(--grid-cols), 1fr);
+      grid-template-rows: repeat(var(--grid-rows), minmax(0, 1fr));
       gap: 6px;
     }
     .sheet .cell {
@@ -452,34 +454,57 @@
       border: 2px solid var(--card-border);
       border-radius: 12px;
       padding: 6px;
-      min-height: 1.6in;
+      min-height: 0;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
       box-shadow: 0 2px 0 rgba(216, 203, 170, 0.45);
-      break-inside: avoid;
-      page-break-inside: avoid;
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
     .sheet .pic {
-      flex: 1;
+      flex: 1 1 auto;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 0.85in;
+      min-height: 0;
       padding: 4px 0;
+      overflow: hidden;
     }
     .sheet .pic img {
       max-width: 100%;
-      max-height: var(--img-max);
+      max-height: 100%;
       width: auto;
       height: auto;
       object-fit: contain;
     }
+    /* Built sheet: one letter-sized block; grid rows share leftover height. */
+    body.sheet-built .wrap { max-width: 8.5in; }
+    body.sheet-built #preview-wrap {
+      --sheet-block-h: calc(11in - 0.8in);
+      display: flex;
+      flex-direction: column;
+      height: var(--sheet-block-h);
+      max-height: var(--sheet-block-h);
+      box-sizing: border-box;
+    }
+    body.sheet-built #instruction-page { flex: 0 0 auto; }
+    body.sheet-built #picture-page {
+      flex: 1 1 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    body.sheet-built .sheet {
+      flex: 1 1 0;
+      min-height: 0;
+      height: 100%;
+    }
     .sheet .word {
+      flex: 0 0 auto;
       width: 100%;
       text-align: center;
       padding: 4px 12px;
@@ -510,50 +535,102 @@
 
     /* ===== Print ===== */
     @media print {
+      /* Match Chrome “Default” margins (~0.4in) so height:100% fills the preview pane. */
+      @page { margin: 0.4in; size: letter; }
       html, body {
+        width: 100%;
+        height: 100%;
         background: var(--cream-page);
         padding: 0;
+        margin: 0;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
       .no-print { display: none !important; }
-      .wrap { max-width: none; margin: 0; }
+      .wrap {
+        max-width: none;
+        margin: 0;
+        height: 100%;
+      }
       #preview-wrap {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
         border: none;
         padding: 0;
         margin: 0;
         background: transparent;
+        box-sizing: border-box;
+        overflow: visible;
       }
       #preview-wrap h2 { display: none; }
+      #instruction-page { flex: 0 0 auto; }
+      #picture-page {
+        flex: 1 1 0;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        overflow: visible;
+      }
       .sheet-page {
         margin: 0 !important;
         border-radius: 0;
         padding: 0;
         background: transparent;
       }
-      .sheet-page + .sheet-page { margin-top: 0 !important; }
+      .sheet-page + .sheet-page {
+        margin-top: 0 !important;
+      }
+      .brand-header { margin-bottom: 4px; gap: 8px; }
+      .brand-header .logo-slot { height: 0.65in; }
+      .title-card { padding: 6px 14px; box-shadow: none; }
+      .title-card .instruction-doc-title { font-size: 1.05rem; }
+      .title-card .instruction-extra { font-size: 0.82rem; margin-top: 2px; }
       .directions-card {
-        max-height: 5em;
+        max-height: 4.2em;
         overflow: hidden;
-        padding: 8px 14px;
+        padding: 5px 10px;
+        margin-bottom: 4px;
+        font-size: 0.78rem;
+        line-height: 1.25;
+        box-shadow: none;
       }
       .practice-card {
-        padding: 6px 14px 8px;
+        padding: 4px 10px 5px;
+        margin-bottom: 0;
+        box-shadow: none;
       }
-      .practice-card .practice-title {
-        margin: 0 0 4px;
+      .practice-card .practice-title { font-size: 0.78rem; margin: 0 0 2px; }
+      .practice-days { gap: 5px; }
+      .practice-day .day-label { font-size: 0.7rem; }
+      .practice-day .day-box { width: 18px; height: 18px; }
+      .sheet {
+        flex: 1 1 0;
+        min-height: 0;
+        height: 100%;
+        gap: 4px;
+        overflow: visible;
       }
-      .practice-day .day-box {
-        width: 22px;
-        height: 22px;
+      .sheet .cell,
+      .directions-card,
+      .practice-card,
+      .brand-header .logo-slot {
+        box-shadow: none;
       }
-      .sheet { --img-max: 1.25in; gap: 5px; }
       .sheet .cell {
-        break-inside: avoid;
-        page-break-inside: avoid;
-        min-height: 1.7in;
+        padding: 3px 4px;
+        min-height: 0;
+        height: 100%;
+        overflow: visible;
       }
-      @page { margin: 10mm; size: letter; }
+      .sheet .pic { min-height: 0; padding: 1px 0; overflow: hidden; }
+      .sheet .word {
+        flex: 0 0 auto;
+        font-size: 0.78rem;
+        padding: 2px 6px;
+      }
 
       /* Ink-saver: strip backgrounds for printing only.
          On-screen preview still looks cute. */
@@ -596,9 +673,13 @@
     <h1 class="app-title no-print">Single-word sheet generator</h1>
     <p class="hint no-print">
       Enter the <strong>target sound</strong> and the <strong>word position</strong> (Initial / Medial / Final).
-      Paste <strong>exactly 12 words</strong>, one per line (e.g. <code>sun</code>).
+      Paste <strong>1–20 words</strong>, one per line (e.g. <code>sun</code>). The picture grid adjusts automatically.
       Choose a <strong>picture folder</strong> inside <code>word-images</code> if your images live in a set folder.
-      <strong>Print / Save PDF</strong> produces a one-page sheet with the instructions, weekly tracker, and 12 pictures.
+      <strong>Print / Save PDF</strong> produces a one-page sheet with the instructions, weekly tracker, and your words.
+    </p>
+    <p class="hint no-print" id="launch-hint" hidden>
+      To open this tool next time: double-click <strong>Open Worksheet Generator.command</strong> in Finder
+      (<code>tools/single-word-sheet-generator</code>). Do not use <code>localhost:3000</code> or open <code>index.html</code> directly.
     </p>
 
     <div class="no-print">
@@ -655,7 +736,7 @@
       <input type="file" id="logo-file" accept="image/png,image/jpeg,image/svg+xml,image/webp,image/gif" style="display:none">
       <p class="field-hint">Saved in your browser. Upload once and it stays on every sheet until you remove it. (Shared with the Homework Sheet Generator.)</p>
 
-      <label for="words">Words (exactly 12 lines, one per row)</label>
+      <label for="words">Words (1–20 lines, one per row)</label>
       <textarea id="words" placeholder="sun&#10;soup&#10;sock&#10;seal&#10;sand&#10;sing&#10;sit&#10;saw&#10;soap&#10;salt&#10;sock&#10;star"></textarea>
 
       <div class="ink-saver-row">
@@ -668,7 +749,7 @@
         <button type="button" id="refresh" class="secondary" title="Rescan word-images folder">Rescan pictures</button>
         <button type="button" id="print" class="secondary" disabled>Print / Save PDF</button>
       </div>
-      <p class="field-hint" style="margin-top:0">Tip: in the print dialog, uncheck <strong>Headers and footers</strong> (Chrome) or set <strong>Headers &amp; Footers</strong> to <strong>None</strong> (Safari) so the date and URL don't print along the top and bottom edges. Your browser will remember that setting.</p>
+      <p class="field-hint" style="margin-top:0">Tip: use <strong>Default</strong> margins and <strong>100%</strong> scale. Uncheck <strong>Headers and footers</strong> (Chrome) or set them to <strong>None</strong> (Safari).</p>
       <p class="status" id="status">Loading library status…</p>
       <div id="errors" class="errors" style="display:none;"></div>
     </div>
@@ -676,7 +757,7 @@
     <div id="preview-wrap">
       <h2 class="no-print">Sheet preview</h2>
       <div id="instruction-page" class="sheet-page" aria-live="polite">
-        <p class="preview-placeholder">Enter a target sound and exactly 12 words (one per line), then click <strong>Build sheet</strong>.</p>
+        <p class="preview-placeholder">Enter a target sound and 1–20 words (one per line), then click <strong>Build sheet</strong>.</p>
       </div>
       <div id="picture-page" class="sheet-page" style="display:none;">
         <div id="sheet" class="sheet" aria-live="polite"></div>
@@ -689,6 +770,19 @@
     const LOGO_STORAGE_KEY = 'homework-sheet-logo';
     const INK_SAVER_STORAGE_KEY = 'homework-sheet-ink-saver';
     const ROW_ACCENTS = ['lavender', 'sage', 'honey', 'mint'];
+    const MIN_WORDS = 1;
+    const MAX_WORDS = 20;
+    /* Preferred column count per word total (rows = ceil(count / cols)). */
+    const GRID_COLS_BY_COUNT = [
+      0,
+      1, 2, 3,
+      2, 3, 3,
+      4, 4, 3,
+      5, 4, 3,
+      4, 4, 5,
+      4, 5, 6,
+      5, 5,
+    ];
     let folderListLoadFailed = false;
 
     const wordsEl = document.getElementById('words');
@@ -721,8 +815,27 @@
       'Have your child watch your mouth, then repeat the word. Short, frequent practice works best.';
 
     const PLACEHOLDER_HTML =
-      '<p class="preview-placeholder">Enter a target sound and exactly 12 words (one per line), ' +
+      '<p class="preview-placeholder">Enter a target sound and 1–20 words (one per line), ' +
       'then click <strong>Build sheet</strong>.</p>';
+
+    function gridLayoutForCount(count) {
+      const cols = GRID_COLS_BY_COUNT[count] || Math.min(5, Math.ceil(Math.sqrt(count)));
+      const rows = Math.ceil(count / cols);
+      return { cols, rows };
+    }
+
+    function applySheetGridLayout(sheet, count) {
+      const { cols, rows } = gridLayoutForCount(count);
+      sheet.style.setProperty('--grid-cols', String(cols));
+      sheet.style.setProperty('--grid-rows', String(rows));
+      sheet.dataset.cols = String(cols);
+      sheet.dataset.rows = String(rows);
+      const gapByRows = { 1: '8px', 2: '7px', 3: '5px', 4: '4px', 5: '3px' };
+      sheet.style.gap = gapByRows[Math.min(rows, 5)] || '3px';
+      document.body.dataset.sheetRows = String(rows);
+      document.body.dataset.sheetCols = String(cols);
+      return cols;
+    }
 
     function escapeHtml(s) {
       return s.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -732,9 +845,23 @@
       return encodeURIComponent(w.trim());
     }
 
+    function normalizeWord(raw) {
+      return String(raw)
+        .normalize('NFKC')
+        .replace(/[\u200B-\u200D\uFEFF]/g, '')
+        .trim();
+    }
+
+    function getActiveScope() {
+      const scope = folderScopeEl.value;
+      if (!scope) return '';
+      const ok = [...folderScopeEl.options].some((o) => o.value === scope);
+      return ok ? scope : '';
+    }
+
     function imageUrlForWord(w) {
       const params = new URLSearchParams();
-      const scope = folderScopeEl.value;
+      const scope = getActiveScope();
       if (scope) params.set('scope', scope);
       params.set('w', '400');
       return '/image/' + encodeWordForUrl(w) + '?' + params.toString();
@@ -744,7 +871,7 @@
       const rows = [];
       const lines = text.split(/\r?\n/);
       for (const line of lines) {
-        const s = line.trim();
+        const s = normalizeWord(line);
         if (!s || s.startsWith('#')) continue;
         rows.push({ word: s, error: null });
       }
@@ -752,7 +879,7 @@
     }
 
     function statusQuery() {
-      const scope = folderScopeEl.value;
+      const scope = getActiveScope();
       return scope ? '?scope=' + encodeURIComponent(scope) : '';
     }
 
@@ -796,6 +923,7 @@
         folderScopeEl.value = saved;
       } else {
         sessionStorage.removeItem(FOLDER_STORAGE_KEY);
+        folderScopeEl.value = '';
       }
 
       return !folderListLoadFailed;
@@ -1075,19 +1203,19 @@
           const holder = img.closest('.pic');
           if (!holder) return;
           holder.innerHTML = '<div class="missing">Looking up “' + escapeHtml(w) + '”…</div>';
-          const scope = folderScopeEl.value;
+          const scope = getActiveScope();
           const q =
             '?name=' +
             encodeURIComponent(w) +
             (scope ? '&scope=' + encodeURIComponent(scope) : '');
           fetch('/api/where' + q)
-            .then((r) => r.json())
+            .then((r) => {
+              if (!r.ok) throw new Error('HTTP ' + r.status);
+              return r.json();
+            })
             .then((data) => {
               let msg = '';
-              if (data.error === 'invalid_scope') {
-                msg =
-                  'Invalid picture folder. Open the <strong>Picture folder</strong> menu and choose a valid set.';
-              } else if (data.nowhere) {
+              if (data.nowhere) {
                 msg =
                   'No file for <strong>' +
                   escapeHtml(w) +
@@ -1106,8 +1234,16 @@
               holder.innerHTML = '<div class="missing">' + msg + '</div>';
             })
             .catch(() => {
+              const hint =
+                location.protocol === 'file:'
+                  ? ' Pictures only load when you open this tool via <strong>Single-Word Sheet Generator.command</strong> (the browser tab should start with <code>http://127.0.0.1</code>).'
+                  : ' Make sure the generator is still running in Terminal, then click <strong>Rescan pictures</strong>.';
               holder.innerHTML =
-                '<div class="missing">No picture found for “' + escapeHtml(w) + '”</div>';
+                '<div class="missing">Could not load “' +
+                escapeHtml(w) +
+                '”.' +
+                hint +
+                '</div>';
             });
         }, { once: true });
       });
@@ -1179,10 +1315,20 @@
 
       if (!sound) problems.push('Enter the target sound.');
 
-      const valid = rows;
-      if (sound && valid.length !== 12) {
+      if (location.protocol === 'file:') {
         problems.push(
-          'Need exactly 12 words (one per line). You have ' + valid.length + ' valid line(s).'
+          'This page was opened as a file, so pictures cannot load. Double-click ' +
+          'Single-Word Sheet Generator.command in Finder (Speech-Therapy-Games → tools), ' +
+          'then use the browser tab that opens at http://127.0.0.1 — do not open index.html directly.'
+        );
+      }
+
+      const valid = rows;
+      if (sound && valid.length < MIN_WORDS) {
+        problems.push('Enter at least one word (one per line).');
+      } else if (sound && valid.length > MAX_WORDS) {
+        problems.push(
+          'Maximum ' + MAX_WORDS + ' words (one per line). You have ' + valid.length + ' valid line(s).'
         );
       }
 
@@ -1193,6 +1339,9 @@
         sheetEl.innerHTML = '';
         picturePageEl.style.display = 'none';
         printBtn.disabled = true;
+        delete document.body.dataset.sheetRows;
+        delete document.body.dataset.sheetCols;
+        document.body.classList.remove('sheet-built');
         return;
       }
 
@@ -1201,15 +1350,17 @@
 
       instructionPageEl.innerHTML = instructionPageHtml(sound, position, subtitle, customInstHtml, customInstText);
 
+      const cols = applySheetGridLayout(sheetEl, valid.length);
       const htmlParts = [];
       for (let i = 0; i < valid.length; i++) {
         const row = valid[i];
-        const rowIndex = Math.floor(i / 3);
+        const rowIndex = Math.floor(i / cols);
         const accent = ROW_ACCENTS[rowIndex % ROW_ACCENTS.length];
         htmlParts.push(cellHtml(row.word, accent));
       }
       sheetEl.innerHTML = htmlParts.join('');
       picturePageEl.style.display = 'block';
+      document.body.classList.add('sheet-built');
       bindImageErrors();
       printBtn.disabled = false;
     }
@@ -1238,7 +1389,7 @@
     });
 
     folderScopeEl.addEventListener('change', () => {
-      sessionStorage.setItem(FOLDER_STORAGE_KEY, folderScopeEl.value);
+      sessionStorage.setItem(FOLDER_STORAGE_KEY, getActiveScope());
       loadStatus();
       if (!printBtn.disabled) {
         buildSheet();
@@ -1258,6 +1409,8 @@
         folderListLoadFailed = true;
         return;
       }
+      const launchHint = document.getElementById('launch-hint');
+      if (launchHint) launchHint.hidden = false;
       await loadFolders();
       await loadStatus();
     })();

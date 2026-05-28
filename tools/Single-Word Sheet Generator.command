@@ -10,6 +10,7 @@ SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
 TOOL_DIR="$SCRIPT_DIR/single-word-sheet-generator"
 
 echo "Single-Word Sheet Generator"
+echo "  (No npm needed — double-click this file is all you need.)"
 echo "  Folder: $TOOL_DIR"
 
 if [ ! -f "$TOOL_DIR/server.py" ]; then

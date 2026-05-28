@@ -89,10 +89,11 @@ class GameEngine {
       throw new Error('Config missing challenges');
     }
 
-    // Validate each challenge
+    // Validate each challenge (1–3 word choices; minimal pairs use 2, single-word lists may use 1–3)
     this.config.challenges.forEach((challenge, index) => {
-      if (!challenge.pairs || challenge.pairs.length !== 2) {
-        throw new Error(`Challenge ${index + 1} must have exactly 2 pairs`);
+      const n = challenge.pairs ? challenge.pairs.length : 0;
+      if (!challenge.pairs || n < 1 || n > 3) {
+        throw new Error(`Challenge ${index + 1} must have 1 to 3 word choices`);
       }
       challenge.pairs.forEach((pair, pairIndex) => {
         if (!pair.word) {

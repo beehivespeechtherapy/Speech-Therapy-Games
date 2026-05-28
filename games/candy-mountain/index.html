@@ -98,6 +98,7 @@
   <script src="../../core/word-images.js"></script>
   <script src="../../core/word-challenges.js"></script>
   <script src="../../core/word-set-menus.js"></script>
+  <script src="../../core/word-set-choose.js"></script>
   <script src="../../core/engine.js"></script>
   <script src="../../core/ui.js"></script>
   <script src="../../core/animator.js"></script>
@@ -135,10 +136,6 @@
       );
     }
 
-    function setsForFolder(folder) {
-      return (engine.config.wordSets || []).filter(s => (s.folder || '').trim() === (folder || '').trim());
-    }
-
     function beginGameWithSet(set, choiceCount) {
       sessionChoiceCount = choiceCount;
       engine.config.challenges = buildChallengesFromWordSet(set);
@@ -146,287 +143,18 @@
       startMapAndCandies();
     }
 
-    function startGameWithSet(set) {
-      const root = document.getElementById('choice-index-root');
-      const list = document.getElementById('word-set-list');
-      if (!root || !list) {
-        beginGameWithSet(set, 2);
-        return;
-      }
-      list.style.display = 'none';
-      root.style.display = 'block';
-      WordSetMenus.renderChoiceCountPicker(root, function (count) {
-        beginGameWithSet(set, count);
-      }, function () { showMainChoice(); });
-    }
-
-    function showMainChoice() {
-      const root = document.getElementById('choice-index-root');
-      const list = document.getElementById('word-set-list');
-      if (!root || !list) return;
-      list.style.display = 'none';
-      root.style.display = 'block';
-      WordSetMenus.renderSetTypeMenu(root, {
-        onPairs: () => showPairsBrowseEntry(),
-        onSingle: () => showSingleWordSets(),
-        onAll: () => showAllWordSets()
-      });
-    }
-
-    function showPairsBrowseEntry() {
-      const root = document.getElementById('choice-index-root');
-      const list = document.getElementById('word-set-list');
-      if (!root || !list) return;
-      list.style.display = 'none';
-      root.style.display = 'block';
-      root.innerHTML = '';
-      const backRow = document.createElement('div');
-      backRow.className = 'back-row';
-      const backBtn = document.createElement('button');
-      backBtn.type = 'button';
-      backBtn.textContent = '← Back';
-      backBtn.addEventListener('click', () => showMainChoice());
-      backRow.appendChild(backBtn);
-      root.appendChild(backRow);
-      const div = document.createElement('div');
-      div.className = 'choice-index-options';
-      const hasIndex = wordSetsIndex && wordSetsIndex.byProcess && wordSetsIndex.byPhoneme;
-      if (hasIndex) {
-        const byProcessBtn = document.createElement('button');
-        byProcessBtn.type = 'button';
-        byProcessBtn.className = 'index-btn';
-        byProcessBtn.textContent = 'By phonological process';
-        byProcessBtn.addEventListener('click', () => showProcessList());
-        div.appendChild(byProcessBtn);
-        const byPhonemeBtn = document.createElement('button');
-        byPhonemeBtn.type = 'button';
-        byPhonemeBtn.className = 'index-btn';
-        byPhonemeBtn.textContent = 'By phoneme (choose two sounds + position)';
-        byPhonemeBtn.addEventListener('click', () => showPhonemeFilters());
-        div.appendChild(byPhonemeBtn);
-      }
-      const allSetsBtn = document.createElement('button');
-      allSetsBtn.type = 'button';
-      allSetsBtn.className = 'index-btn' + (hasIndex ? ' secondary' : '');
-      allSetsBtn.textContent = 'Show all minimal-pair sets';
-      allSetsBtn.addEventListener('click', () => showAllWordSets('pairs'));
-      div.appendChild(allSetsBtn);
-      root.appendChild(div);
-    }
-
-    function showSingleWordSets() {
-      const sets = WordChallenges.filterSetsByType(engine.config.wordSets || [], 'single');
-      const root = document.getElementById('choice-index-root');
-      const list = document.getElementById('word-set-list');
-      if (!root || !list) return;
-      root.style.display = 'none';
-      if (sets.length === 0) {
-        root.style.display = 'block';
-        root.innerHTML = '<p style="color:#555;text-align:center">No single-word sets yet. Add setType: single in your sheet.</p>';
-        return;
-      }
-      WordSetMenus.renderSetList(list, sets, startGameWithSet, () => showMainChoice());
-    }
-
-    function showProcessList() {
-      const root = document.getElementById('choice-index-root');
-      if (!root || !wordSetsIndex || !wordSetsIndex.byProcess) return;
-      root.innerHTML = '';
-      const backRow = document.createElement('div');
-      backRow.className = 'back-row';
-      const backBtn = document.createElement('button');
-      backBtn.type = 'button';
-      backBtn.textContent = '← Back';
-      backBtn.addEventListener('click', () => showPairsBrowseEntry());
-      backRow.appendChild(backBtn);
-      root.appendChild(backRow);
-      const div = document.createElement('div');
-      div.className = 'choice-index-options';
-      Object.keys(wordSetsIndex.byProcess).sort().forEach((processName) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'word-set-btn';
-        btn.textContent = processName;
-        btn.addEventListener('click', () => showProcessSets(processName));
-        div.appendChild(btn);
-      });
-      root.appendChild(div);
-    }
-
-    function showProcessSets(processName) {
-      const entries = wordSetsIndex.byProcess[processName] || [];
-      const sets = [];
-      entries.forEach((entry) => {
-        setsForFolder(entry.folder).forEach((s) => {
-          if (WordChallenges.getSetType(s) === 'pairs') sets.push(s);
-        });
-      });
-      const root = document.getElementById('choice-index-root');
-      if (!root) return;
-      root.innerHTML = '';
-      const backRow = document.createElement('div');
-      backRow.className = 'back-row';
-      const backBtn = document.createElement('button');
-      backBtn.type = 'button';
-      backBtn.textContent = '← Back to processes';
-      backBtn.addEventListener('click', () => showProcessList());
-      backRow.appendChild(backBtn);
-      root.appendChild(backRow);
-      if (sets.length === 0) {
-        const noSets = document.createElement('p');
-        noSets.style.color = '#555';
-        noSets.textContent = 'No word sets loaded for this process. Choose "Show all word sets" to see everything.';
-        root.appendChild(noSets);
-        return;
-      }
-      renderSetList(sets, startGameWithSet, () => showProcessList());
-    }
-
-    function showPhonemeFilters() {
-      const root = document.getElementById('choice-index-root');
-      if (!root || !wordSetsIndex || !wordSetsIndex.byPhoneme) return;
-      const sounds = new Set();
-      const positions = new Set();
-      wordSetsIndex.byPhoneme.forEach((e) => {
-        if (e.sound_a) sounds.add(e.sound_a);
-        if (e.sound_b) sounds.add(e.sound_b);
-        if (e.position) positions.add(e.position);
-      });
-      const soundList = Array.from(sounds).sort();
-      const positionList = Array.from(positions).sort();
-      root.innerHTML = '';
-      const backRow = document.createElement('div');
-      backRow.className = 'back-row';
-      const backBtn = document.createElement('button');
-      backBtn.type = 'button';
-      backBtn.textContent = '← Back';
-      backBtn.addEventListener('click', () => showPairsBrowseEntry());
-      backRow.appendChild(backBtn);
-      root.appendChild(backRow);
-      const filters = document.createElement('div');
-      filters.className = 'phoneme-filters';
-      const firstLabel = document.createElement('label');
-      firstLabel.textContent = 'First sound:';
-      const firstSelect = document.createElement('select');
-      firstSelect.id = 'phoneme-first';
-      firstSelect.innerHTML = '<option value="">--</option>' + soundList.map(s => '<option value="' + s + '">' + s + '</option>').join('');
-      const secondLabel = document.createElement('label');
-      secondLabel.textContent = 'Second sound:';
-      const secondSelect = document.createElement('select');
-      secondSelect.id = 'phoneme-second';
-      secondSelect.innerHTML = '<option value="">--</option>' + soundList.map(s => '<option value="' + s + '">' + s + '</option>').join('');
-      const posLabel = document.createElement('label');
-      posLabel.textContent = 'Position:';
-      const posSelect = document.createElement('select');
-      posSelect.id = 'phoneme-position';
-      posSelect.innerHTML = '<option value="">--</option>' + positionList.map(p => '<option value="' + p + '">' + p + '</option>').join('');
-      const showBtn = document.createElement('button');
-      showBtn.type = 'button';
-      showBtn.className = 'show-sets-btn';
-      showBtn.textContent = 'Show sets';
-      showBtn.addEventListener('click', () => {
-        showPhonemeResults(firstSelect.value, secondSelect.value, posSelect.value);
-      });
-      filters.appendChild(firstLabel);
-      filters.appendChild(firstSelect);
-      filters.appendChild(secondLabel);
-      filters.appendChild(secondSelect);
-      filters.appendChild(posLabel);
-      filters.appendChild(posSelect);
-      filters.appendChild(showBtn);
-      root.appendChild(filters);
-    }
-
-    function showPhonemeResults(sound_a, sound_b, position) {
-      const entries = (wordSetsIndex.byPhoneme || []).filter((e) => {
-        const matchA = !sound_a || e.sound_a === sound_a || e.sound_b === sound_a;
-        const matchB = !sound_b || e.sound_a === sound_b || e.sound_b === sound_b;
-        const matchPos = !position || e.position === position;
-        const bothSounds = !sound_a || !sound_b || (e.sound_a === sound_a && e.sound_b === sound_b) || (e.sound_a === sound_b && e.sound_b === sound_a);
-        return matchA && matchB && matchPos && bothSounds;
-      });
-      const sets = [];
-      entries.forEach((entry) => {
-        setsForFolder(entry.folder).forEach((s) => {
-          if (WordChallenges.getSetType(s) === 'pairs') sets.push(s);
-        });
-      });
-      const root = document.getElementById('choice-index-root');
-      if (!root) return;
-      root.innerHTML = '';
-      const backRow = document.createElement('div');
-      backRow.className = 'back-row';
-      const backBtn = document.createElement('button');
-      backBtn.type = 'button';
-      backBtn.textContent = '← Back';
-      backBtn.addEventListener('click', () => showPhonemeFilters());
-      backRow.appendChild(backBtn);
-      root.appendChild(backRow);
-      if (sets.length === 0) {
-        const p = document.createElement('div');
-        p.style.color = '#555';
-        p.textContent = 'No word sets match. Try different sounds/position or "Show all word sets".';
-        root.appendChild(p);
-        return;
-      }
-      renderSetList(sets, startGameWithSet, () => showPhonemeFilters());
-    }
-
-    function showAllWordSets(setTypeFilter) {
-      let sets = engine.config.wordSets || [];
-      if (setTypeFilter) sets = WordChallenges.filterSetsByType(sets, setTypeFilter);
-      renderSetList(sets, startGameWithSet, () => showMainChoice());
-    }
-
-    function renderSetList(sets, onPick, onBack) {
-      const list = document.getElementById('word-set-list');
-      const root = document.getElementById('choice-index-root');
-      if (!list || !root) return;
-      root.style.display = 'none';
-      list.style.display = 'flex';
-      list.innerHTML = '';
-      if (onBack) {
-        const backWrap = document.createElement('div');
-        backWrap.className = 'back-row';
-        const backBtn = document.createElement('button');
-        backBtn.type = 'button';
-        backBtn.textContent = '← Back';
-        backBtn.addEventListener('click', onBack);
-        backWrap.appendChild(backBtn);
-        list.appendChild(backWrap);
-      }
-      sets.forEach((set) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'word-set-btn';
-        btn.textContent = set.label;
-        btn.addEventListener('click', () => onPick(set));
-        list.appendChild(btn);
-      });
-    }
+    const wordSetChoose = WordSetChoose.create({
+      getWordSets: () => engine.config.wordSets || [],
+      getWordSetsIndex: () => wordSetsIndex,
+      onBeginGame: beginGameWithSet,
+      hintColor: '#555'
+    });
 
     function showChooseScreen() {
-      const list = document.getElementById('word-set-list');
       const chooseScreen = document.getElementById('choose-screen');
-      const root = document.getElementById('choice-index-root');
-      if (!list || !chooseScreen) return;
-      if (wordSetsIndex && wordSetsIndex.byProcess) {
-        if (root) root.style.display = 'block';
-        list.style.display = 'none';
-        showMainChoice();
-      } else {
-        if (root) root.style.display = 'none';
-        list.style.display = 'flex';
-        list.innerHTML = '';
-        const sets = engine.config.wordSets || [];
-        sets.forEach((set) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'word-set-btn';
-          btn.textContent = set.label;
-          btn.addEventListener('click', () => startGameWithSet(set));
-          list.appendChild(btn);
-        });
+      if (!chooseScreen) return;
+      if ((engine.config.wordSets || []).length > 0) {
+        wordSetChoose.showMainChoice();
       }
     }
 
@@ -568,20 +296,16 @@
     async function initGame() {
       try {
         await engine.loadConfig();
-        try {
-          const listRes = await fetch('../../word-lists/word-sets.json');
-          if (listRes.ok) {
-            const wordSetsData = await listRes.json();
-            if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
-              engine.config.wordSets = wordSetsData;
-              WORD_SET_FOLDERS = Object.fromEntries(wordSetsData.map(s => [s.id, s.folder || '']));
+        await WordSetChoose.loadCentralWordLists({
+          target: { wordSets: null, wordSetsIndex: null },
+          onWordSets: (sets) => {
+            if (sets && sets.length) {
+              engine.config.wordSets = sets;
+              WORD_SET_FOLDERS = Object.fromEntries(sets.map(s => [s.id, s.folder || '']));
             }
-          }
-        } catch (_) { /* use config wordSets and existing WORD_SET_FOLDERS */ }
-        try {
-          const indexRes = await fetch('../../word-lists/word-sets-index.json?v=2');
-          if (indexRes.ok) wordSetsIndex = await indexRes.json();
-        } catch (_) {}
+          },
+          onIndex: (index) => { wordSetsIndex = index; }
+        });
         document.title = engine.config.title || 'Candy Mountain';
         ui.init();
         if (engine.config.victory && engine.config.victory.music) {

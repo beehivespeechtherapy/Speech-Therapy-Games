@@ -1,0 +1,123 @@
+# Files in set folders whose stems don't match any word
+# in word-lists/word-sets.json. Review and either:
+#   - rename the file in its folder to match a real word, OR
+#   - delete it if it's junk, OR
+#   - add the word to your Google Sheet / word-sets.json.
+#
+
+[anchor]
+  word-images/Final ER/anchor.png
+
+[battery]
+  word-images/Medial ER/battery.png
+
+[burrow]
+  word-images/Medial ER/burrow.png
+
+[candy bar]
+  word-images/Final AR/candy bar.png
+
+[church]
+  word-images/Medial ER/church.png
+
+[circle]
+  word-images/Medial ER/circle.png
+
+[corner]
+  word-images/Final ER/corner.png
+
+[curry]
+  word-images/Medial ER/curry.png
+
+[curtain]
+  word-images/Medial ER/curtain.png
+
+[dinosaur]
+  word-images/Final OR/dinosaur.png
+
+[due]
+  word-images/D:G Minimal Pairs - Initial/due.png
+
+[emergency]
+  word-images/Medial ER/emergency.png
+
+[farmer]
+  word-images/Final ER/farmer.png
+
+[flower]
+  word-images/Final ER/flower.png
+
+[gemini_generated_image_xmf7gtxmf7gtxmf7]
+  word-images/S:T Minimal Pairs - Medial/Gemini_Generated_Image_xmf7gtxmf7gtxmf7.png
+
+[granola bar]
+  word-images/Final AR/granola bar.png
+
+[hare]
+  word-images/Final AIR/hare.png
+
+[heaavy]
+  word-images/TH:V Minimal Pairs - Medial/heaavy.png
+
+[hurry]
+  word-images/R:W Minimal Pairs - Medial/hurry.png
+
+[lantern]
+  word-images/Medial ER/lantern.png
+
+[lei]
+  word-images/L:Y Minimal Pairs - Initial/lei.png
+
+[mater]
+  word-images/T:K Minimal Pairs - Medial/mater.png
+
+[mermaid]
+  word-images/Medial ER/mermaid.png
+
+[nurse]
+  word-images/Medial ER/nurse.png
+
+[officer]
+  word-images/Final ER/officer.png
+
+[pair]
+  word-images/Final AIR/pair.png
+
+[paper clip]
+  word-images/Medial ER/paper clip.png
+
+[perch]
+  word-images/Medial ER/perch.png
+
+[purse]
+  word-images/Medial ER/purse.png
+
+[racoon]
+  word-images/G:K Minimal Pairs - Medial/racoon.png
+
+[radish]
+  word-images/Initial R/radish.png
+
+[rainbow]
+  word-images/Initial R/rainbow.png
+
+[scissors]
+  word-images/Medial ER/scissors.png
+
+[stair]
+  word-images/Final AIR/stair.png
+
+[sweater]
+  word-images/Final ER/sweater.png
+
+[taboo]
+  word-images/F:P Minimal Pairs - Medial/taboo.png
+
+[vane]
+  word-images/V:B Minimal Pairs - Initial/vane.png
+
+[worry]
+  word-images/R:W Minimal Pairs - Medial/worry.png
+
+[zach]
+  word-images/S:Z Minimal Pairs - Initial/Zach.png

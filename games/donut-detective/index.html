@@ -234,6 +234,12 @@
   {"title":"Donut Detective","intro":{"message":"Welcome to my bakery! I've made so many donuts that I've lost track of some of my ingredients. Can you help me find them?"},"assets":{"chef":"assets/chef.png","donuts":"assets/donuts/donut","bowl":"assets/bowl.png","finishedDonut":"assets/finished-donut.png","ingredients":{"flour":"assets/ingredients/flour.png","water":"assets/ingredients/water.png","oil":"assets/ingredients/oil.png","eggs":"assets/ingredients/eggs.png","sugar":"assets/ingredients/sugar.png"},"victoryMusic":"assets/audio/victory.mp3","pairs":"assets/pairs"},"wordPairsFinding":[["mug","mud"],["bug","bud"],["bag","bad"],["egg","Ed"],["leg","lead"],["dig","did"],["beg","bed"],["rag","rad"],["hag","had"],["tag","tad"]],"wordPairsBowl":[["mug","mud"],["bug","bud"],["bag","bad"],["egg","Ed"],["leg","lead"]],"ingredientIds":["flour","water","oil","eggs","sugar"],"bowlMessage":"Let's make some donuts! Put the ingredients in the bowl!","victoryMessage":"You did it! Your donuts look delicious.","discriminationPrompt":"Which word has the \"G\" sound?","wordSets":[{"id":"tk-k1","label":"T/K Minimal Pairs - Initial K","prompt":"Which word has the /k/ sound?","pairs":[["can","tan"],["cap","tap"],["cape","tape"],["car","tar"],["cart","tart"],["cod","todd"],["code","toad"],["cop","top"],["core","tore"],["cub","tub"]]},{"id":"tk-t1","label":"T/K Minimal Pairs - Initial T","prompt":"Which word has the /t/ sound?","pairs":[["tan","can"],["tap","cap"],["tape","cape"],["tar","car"],["tart","cart"],["todd","cod"],["toad","code"],["top","cop"],["tore","core"],["tub","cub"]]},{"id":"tk-k2","label":"T/K Minimal Pairs - Final K","prompt":"Which word has the /k/ sound?","pairs":[["back","bat"],["beak","beet"],["bike","bite"],["hike","height"],["kick","kit"],["lick","lit"],["lock","lot"],["pick","pit"],["puck","putt"],["rack","rat"]]},{"id":"tk-t2","label":"T/K Minimal Pairs - Final T","prompt":"Which word has the /t/ sound?","pairs":[["bat","back"],["beet","beak"],["bite","bike"],["height","hike"],["kit","kick"],["lit","lick"],["lot","lock"],["pit","pick"],["putt","puck"],["rat","rack"]]},{"id":"dg-d1","label":"D/G Minimal Pairs - Initial D","prompt":"Which word has the /d/ sound?","pairs":[["dame","game"],["date","gate"],["dawn","gone"],["deer","gear"],["doe","go"],["done","gun"],["dot","got"],["down","gown"],["dust","gust"],["dye","guy"]]},{"id":"dg-g1","label":"D/G Minimal Pairs - Initial G","prompt":"Which word has the /g/ sound?","pairs":[["game","dame"],["gate","date"],["gone","dawn"],["gear","deer"],["go","doe"],["gun","done"],["got","dot"],["gown","down"],["gust","dust"],["guy","dye"]]},{"id":"dg-g2","label":"D/G Minimal Pairs - Final G","prompt":"Which word has the /g/ sound?","pairs":[["bag","bad"],["beg","bed"],["bug","bud"],["dig","did"],["egg","Ed"],["hag","had"],["leg","lead"],["mug","mud"],["rag","rad"],["tag","tad"]]},{"id":"dg-d2","label":"D/G Minimal Pairs - Final D","prompt":"Which word has the /d/ sound?","pairs":[["bad","bag"],["bed","beg"],["bud","bug"],["did","dig"],["Ed","egg"],["had","hag"],["lead","leg"],["mud","mug"],["rad","rag"],["tad","tag"]]},{"id":"vb-b1","label":"V/B Minimal Pairs - Initial B","prompt":"Which word has the /b/ sound?","pairs":[["ban","van"],["best","vest"],["broom","vroom"],["boat","vote"],["base","vase"],["bale","veil"],["berry","very"],["bow","vow"],["bent","vent"],["bat","vat"],["bee","v"],["bet","vet"],["boo","view"],["bowl","vole"],["bane","vane"]]},{"id":"vb-v1","label":"V/B Minimal Pairs - Initial V","prompt":"Which word has the /v/ sound?","pairs":[["veil","bale"],["vase","base"],["vat","bat"],["v","bee"],["vent","bent"],["very","berry"],["vest","best"],["vote","boat"],["view","boo"],["vroom","broom"]]},{"id":"vb-v2","label":"V/B Minimal Pairs - Final V","prompt":"Which word has the /v/ sound?","pairs":[["carve","carb"],["curve","curb"],["wave","web"],["drive","drib"],["five","fib"],["give","goob"],["grave","grab"],["live","lab"],["love","lobe"],["nerve","nub"]]},{"id":"vb-b2","label":"V/B Minimal Pairs - Final B","prompt":"Which word has the /b/ sound?","pairs":[["carb","carve"],["curb","curve"],["dob","dove"],["drib","drive"],["fib","five"],["goob","give"],["grab","grave"],["lab","live"],["lobe","love"],["nub","nerve"]]}]}
   </script>
 
+  <script src="../../core/word-images.js"></script>
+  <script src="../../core/word-challenges.js"></script>
+  <script src="../../core/word-set-menus.js"></script>
+  <script src="../../core/word-set-choose.js"></script>
+  <script src="../../core/discrimination-round.js"></script>
+
   <script>
     (function() {
       const NUM_DONUTS = 15;
@@ -242,6 +248,8 @@
       let config = null;
       let selectedWordSet = null;
       let wordSetsIndex = null;
+      let sessionChoiceCount = 2;
+      let wordSetChoose = null;
       let donutSlots = [];       // length 15: each el is null or ingredientId
       let foundIngredients = []; // ids we found (order preserved)
       let ingredientsInBowl = 0;
@@ -299,253 +307,35 @@
         if (config.bowlMessage) document.getElementById('bowl-message').textContent = config.bowlMessage;
         if (config.victoryMessage) document.getElementById('victory-msg').textContent = config.victoryMessage;
         if (config.discriminationPrompt) document.getElementById('discrimination-prompt').textContent = config.discriminationPrompt;
-        try {
-          const listRes = await fetch('../../word-lists/word-sets.json');
-          if (listRes.ok) {
-            const wordSetsData = await listRes.json();
-            if (Array.isArray(wordSetsData) && wordSetsData.length > 0) {
-              config.wordSets = wordSetsData;
-              WORD_SET_FOLDERS = Object.fromEntries(wordSetsData.map(s => [s.id, s.folder || '']));
+        await WordSetChoose.loadCentralWordLists({
+          cacheVersion: '3',
+          onWordSets: (sets) => {
+            if (sets && sets.length) {
+              config.wordSets = sets;
+              WORD_SET_FOLDERS = Object.fromEntries(sets.map(s => [s.id, s.folder || '']));
             }
-          }
-        } catch (_) {}
-        try {
-          const indexRes = await fetch('../../word-lists/word-sets-index.json?v=2');
-          if (indexRes.ok) wordSetsIndex = await indexRes.json();
-        } catch (_) {}
+          },
+          onIndex: (index) => { wordSetsIndex = index; }
+        });
         renderWordSetList();
       }
 
-      function setsForFolder(folder) {
-        return (config.wordSets || []).filter(s => (s.folder || '').trim() === (folder || '').trim());
-      }
-      function startGameWithSet(set) {
+      function beginGameWithSet(set, choiceCount) {
         selectedWordSet = set;
+        sessionChoiceCount = choiceCount;
         startGame();
       }
-      function showMainChoice() {
-        const root = document.getElementById('choice-index-root');
-        const list = document.getElementById('word-set-list');
-        if (!root || !list) return;
-        list.style.display = 'none';
-        root.style.display = 'block';
-        root.innerHTML = '';
-        const div = document.createElement('div');
-        div.className = 'choice-index-options';
-        const hasIndex = wordSetsIndex && wordSetsIndex.byProcess && wordSetsIndex.byPhoneme;
-        if (hasIndex) {
-          const byProcessBtn = document.createElement('button');
-          byProcessBtn.type = 'button';
-          byProcessBtn.className = 'index-btn';
-          byProcessBtn.textContent = 'By phonological process';
-          byProcessBtn.addEventListener('click', () => showProcessList());
-          div.appendChild(byProcessBtn);
-          const byPhonemeBtn = document.createElement('button');
-          byPhonemeBtn.type = 'button';
-          byPhonemeBtn.className = 'index-btn';
-          byPhonemeBtn.textContent = 'By phoneme (choose two sounds + position)';
-          byPhonemeBtn.addEventListener('click', () => showPhonemeFilters());
-          div.appendChild(byPhonemeBtn);
-        }
-        const allSetsBtn = document.createElement('button');
-        allSetsBtn.type = 'button';
-        allSetsBtn.className = 'index-btn' + (hasIndex ? ' secondary' : '');
-        allSetsBtn.textContent = 'Show all word sets';
-        allSetsBtn.addEventListener('click', () => showAllWordSets());
-        div.appendChild(allSetsBtn);
-        root.appendChild(div);
-      }
-      function showProcessList() {
-        const root = document.getElementById('choice-index-root');
-        if (!root || !wordSetsIndex || !wordSetsIndex.byProcess) return;
-        root.innerHTML = '';
-        const backRow = document.createElement('div');
-        backRow.className = 'back-row';
-        const backBtn = document.createElement('button');
-        backBtn.type = 'button';
-        backBtn.textContent = '← Back';
-        backBtn.addEventListener('click', () => showMainChoice());
-        backRow.appendChild(backBtn);
-        root.appendChild(backRow);
-        const div = document.createElement('div');
-        div.className = 'choice-index-options';
-        Object.keys(wordSetsIndex.byProcess).sort().forEach((processName) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'word-set-btn';
-          btn.textContent = processName;
-          btn.addEventListener('click', () => showProcessSets(processName));
-          div.appendChild(btn);
-        });
-        root.appendChild(div);
-      }
-      function showProcessSets(processName) {
-        const entries = wordSetsIndex.byProcess[processName] || [];
-        const sets = [];
-        entries.forEach((entry) => {
-          setsForFolder(entry.folder).forEach(s => sets.push(s));
-        });
-        const root = document.getElementById('choice-index-root');
-        if (!root) return;
-        root.innerHTML = '';
-        const backRow = document.createElement('div');
-        backRow.className = 'back-row';
-        const backBtn = document.createElement('button');
-        backBtn.type = 'button';
-        backBtn.textContent = '← Back to processes';
-        backBtn.addEventListener('click', () => showProcessList());
-        backRow.appendChild(backBtn);
-        root.appendChild(backRow);
-        if (sets.length === 0) {
-          const noSets = document.createElement('p');
-          noSets.style.color = '#4a3728';
-          noSets.textContent = 'No word sets loaded for this process. Choose "Show all word sets" to see everything.';
-          root.appendChild(noSets);
-          return;
-        }
-        renderSetList(sets, startGameWithSet, () => showProcessList());
-      }
-      function showPhonemeFilters() {
-        const root = document.getElementById('choice-index-root');
-        if (!root || !wordSetsIndex || !wordSetsIndex.byPhoneme) return;
-        const sounds = new Set();
-        const positions = new Set();
-        wordSetsIndex.byPhoneme.forEach((e) => {
-          if (e.sound_a) sounds.add(e.sound_a);
-          if (e.sound_b) sounds.add(e.sound_b);
-          if (e.position) positions.add(e.position);
-        });
-        const soundList = Array.from(sounds).sort();
-        const positionList = Array.from(positions).sort();
-        root.innerHTML = '';
-        const backRow = document.createElement('div');
-        backRow.className = 'back-row';
-        const backBtn = document.createElement('button');
-        backBtn.type = 'button';
-        backBtn.textContent = '← Back';
-        backBtn.addEventListener('click', () => showMainChoice());
-        backRow.appendChild(backBtn);
-        root.appendChild(backRow);
-        const filters = document.createElement('div');
-        filters.className = 'phoneme-filters';
-        const firstLabel = document.createElement('label');
-        firstLabel.textContent = 'First sound:';
-        const firstSelect = document.createElement('select');
-        firstSelect.id = 'phoneme-first';
-        firstSelect.innerHTML = '<option value="">--</option>' + soundList.map(s => '<option value="' + s + '">' + s + '</option>').join('');
-        const secondLabel = document.createElement('label');
-        secondLabel.textContent = 'Second sound:';
-        const secondSelect = document.createElement('select');
-        secondSelect.id = 'phoneme-second';
-        secondSelect.innerHTML = '<option value="">--</option>' + soundList.map(s => '<option value="' + s + '">' + s + '</option>').join('');
-        const posLabel = document.createElement('label');
-        posLabel.textContent = 'Position:';
-        const posSelect = document.createElement('select');
-        posSelect.id = 'phoneme-position';
-        posSelect.innerHTML = '<option value="">--</option>' + positionList.map(p => '<option value="' + p + '">' + p + '</option>').join('');
-        const showBtn = document.createElement('button');
-        showBtn.type = 'button';
-        showBtn.className = 'show-sets-btn';
-        showBtn.textContent = 'Show sets';
-        showBtn.addEventListener('click', () => {
-          showPhonemeResults(firstSelect.value, secondSelect.value, posSelect.value);
-        });
-        filters.appendChild(firstLabel);
-        filters.appendChild(firstSelect);
-        filters.appendChild(secondLabel);
-        filters.appendChild(secondSelect);
-        filters.appendChild(posLabel);
-        filters.appendChild(posSelect);
-        filters.appendChild(showBtn);
-        root.appendChild(filters);
-      }
-      function showPhonemeResults(sound_a, sound_b, position) {
-        const entries = (wordSetsIndex.byPhoneme || []).filter((e) => {
-          const matchA = !sound_a || e.sound_a === sound_a || e.sound_b === sound_a;
-          const matchB = !sound_b || e.sound_a === sound_b || e.sound_b === sound_b;
-          const matchPos = !position || e.position === position;
-          const bothSounds = !sound_a || !sound_b || (e.sound_a === sound_a && e.sound_b === sound_b) || (e.sound_a === sound_b && e.sound_b === sound_a);
-          return matchA && matchB && matchPos && bothSounds;
-        });
-        const sets = [];
-        entries.forEach((entry) => {
-          setsForFolder(entry.folder).forEach(s => sets.push(s));
-        });
-        const root = document.getElementById('choice-index-root');
-        if (!root) return;
-        root.innerHTML = '';
-        const backRow = document.createElement('div');
-        backRow.className = 'back-row';
-        const backBtn = document.createElement('button');
-        backBtn.type = 'button';
-        backBtn.textContent = '← Back';
-        backBtn.addEventListener('click', () => showPhonemeFilters());
-        backRow.appendChild(backBtn);
-        root.appendChild(backRow);
-        if (sets.length === 0) {
-          const p = document.createElement('p');
-          p.style.color = '#4a3728';
-          p.textContent = 'No word sets match. Try different sounds/position or "Show all word sets".';
-          root.appendChild(p);
-          return;
-        }
-        renderSetList(sets, startGameWithSet, () => showPhonemeFilters());
-      }
-      function showAllWordSets() {
-        const sets = config.wordSets || [];
-        renderSetList(sets, startGameWithSet, wordSetsIndex ? () => showMainChoice() : null);
-      }
-      function renderSetList(sets, onPick, onBack) {
-        const list = document.getElementById('word-set-list');
-        const root = document.getElementById('choice-index-root');
-        if (!list || !root) return;
-        root.style.display = 'none';
-        list.style.display = 'flex';
-        list.innerHTML = '';
-        if (onBack) {
-          const backWrap = document.createElement('div');
-          backWrap.className = 'back-row';
-          const backBtn = document.createElement('button');
-          backBtn.type = 'button';
-          backBtn.textContent = '← Back';
-          backBtn.addEventListener('click', onBack);
-          backWrap.appendChild(backBtn);
-          list.appendChild(backWrap);
-        }
-        sets.forEach((set) => {
-          const btn = document.createElement('button');
-          btn.type = 'button';
-          btn.className = 'word-set-btn';
-          btn.textContent = set.label;
-          btn.addEventListener('click', () => onPick(set));
-          list.appendChild(btn);
-        });
-      }
+
+      wordSetChoose = WordSetChoose.create({
+        getWordSets: () => config.wordSets || [],
+        getWordSetsIndex: () => wordSetsIndex,
+        onBeginGame: beginGameWithSet,
+        hintColor: '#4a3728'
+      });
 
       function renderWordSetList() {
-        const list = document.getElementById('word-set-list');
-        const root = document.getElementById('choice-index-root');
-        if (!list) return;
-        if (wordSetsIndex && wordSetsIndex.byProcess) {
-          if (root) root.style.display = 'block';
-          list.style.display = 'none';
-          showMainChoice();
-        } else {
-          if (root) root.style.display = 'none';
-          list.style.display = 'flex';
-          list.innerHTML = '';
-          const sets = config.wordSets || [];
-          sets.forEach((set) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = 'word-set-btn';
-            btn.textContent = set.label;
-            btn.addEventListener('click', () => {
-              selectedWordSet = set;
-              startGame();
-            });
-            list.appendChild(btn);
-          });
+        if ((config.wordSets || []).length > 0 && wordSetChoose) {
+          wordSetChoose.showMainChoice();
         }
       }
 
@@ -558,35 +348,16 @@
         return a;
       }
 
-      function pickRandomPair(pairs) {
-        const idx = Math.floor(Math.random() * pairs.length);
-        const pair = pairs[idx];
-        const [a, b] = shuffle([pair[0], pair[1]]);
-        const correctWord = pair[0];
-        const correctIndex = a === correctWord ? 0 : 1;
-        return { words: [a, b], correctIndex };
-      }
-
-      function pickNextInCycle(pairs) {
-        if (pairs.length === 0) return pickRandomPair(pairs);
-        const idx = findingPairIndex % pairs.length;
-        findingPairIndex = (findingPairIndex + 1) % pairs.length;
-        const pair = pairs[idx];
-        const [a, b] = shuffle([pair[0], pair[1]]);
-        const correctWord = pair[0];
-        const correctIndex = a === correctWord ? 0 : 1;
-        return { words: [a, b], correctIndex };
-      }
-
-      function pickNextBowlInCycle(pairs) {
-        if (pairs.length === 0) return pickRandomPair(pairs);
-        const idx = bowlPairIndex % pairs.length;
-        bowlPairIndex = (bowlPairIndex + 1) % pairs.length;
-        const pair = pairs[idx];
-        const [a, b] = shuffle([pair[0], pair[1]]);
-        const correctWord = pair[0];
-        const correctIndex = a === correctWord ? 0 : 1;
-        return { words: [a, b], correctIndex };
+      function activeWordSet() {
+        if (selectedWordSet) return selectedWordSet;
+        if (config.wordPairsFinding && config.wordPairsFinding.length) {
+          return {
+            setType: 'pairs',
+            prompt: config.discriminationPrompt,
+            pairs: config.wordPairsFinding
+          };
+        }
+        return null;
       }
 
       function initAudio() {
@@ -669,25 +440,11 @@
         return assetPath(ing[id] || ('assets/ingredients/' + id + '.png'));
       }
 
-      function getFindingPairs() {
-        if (selectedWordSet && selectedWordSet.pairs) return selectedWordSet.pairs;
-        return config.wordPairsFinding || [];
-      }
-      function getBowlPairs() {
-        if (selectedWordSet && selectedWordSet.pairs) return selectedWordSet.pairs.slice(0, 5);
-        return config.wordPairsBowl || [];
-      }
-      function getDiscriminationPrompt() {
-        if (selectedWordSet && selectedWordSet.prompt) return selectedWordSet.prompt;
-        return config.discriminationPrompt || 'Which word has the sound?';
-      }
-
       function handleDonutClick(index) {
         const cell = document.querySelector('#donut-grid .donut-cell[data-index="' + String(index) + '"]');
         if (cell && cell.classList.contains('found')) return;
         const ingredientId = donutSlots[index];
-        document.getElementById('discrimination-prompt').textContent = getDiscriminationPrompt();
-        showDiscrimination(getFindingPairs(), (correct) => {
+        showDiscrimination((correct) => {
           if (!correct || !cell) return;
           cell.classList.add('found');
           var donutImg = cell.querySelector('.donut-img');
@@ -699,7 +456,7 @@
           } else {
             cell.classList.add('empty');
           }
-        }, 'finding');
+        });
       }
 
       // Word images: repo-root word-images folder (reliable on GitHub Pages)
@@ -722,16 +479,18 @@
         }
       }
 
-      function showDiscrimination(pairs, onDone, cycleMode) {
+      function showDiscrimination(onDone, cycleMode) {
+        const set = activeWordSet();
+        const round = set ? DiscriminationRound.buildRound(set, sessionChoiceCount, pairImagePath) : null;
+        const promptEl = document.getElementById('discrimination-prompt');
+        if (promptEl && round) promptEl.textContent = round.prompt;
         const overlay = document.getElementById('discrimination-overlay');
         const container = document.getElementById('word-choices');
         container.innerHTML = '';
-        var chosen;
-        if (cycleMode === 'finding') chosen = pickNextInCycle(pairs);
-        else if (cycleMode === 'bowl') chosen = pickNextBowlInCycle(pairs);
-        else chosen = pickRandomPair(pairs);
-        const { words, correctIndex } = chosen;
-        words.forEach((word, idx) => {
+        if (!round || !round.pairs.length) return;
+        const correctIndex = DiscriminationRound.correctChoiceIndex(round);
+        round.pairs.forEach((pair, idx) => {
+          const word = pair.word;
           const btn = document.createElement('button');
           btn.className = 'word-btn';
           var setId = selectedWordSet && selectedWordSet.id;
@@ -759,7 +518,7 @@
           btn.appendChild(wrap);
           btn.addEventListener('click', () => {
             container.querySelectorAll('.word-btn').forEach(b => b.setAttribute('disabled', ''));
-            const isCorrect = idx === correctIndex;
+            const isCorrect = DiscriminationRound.isChoiceCorrect(round, idx);
             btn.classList.add(isCorrect ? 'correct' : 'incorrect');
             if (!isCorrect) {
               const correctBtn = container.querySelectorAll('.word-btn')[correctIndex];
@@ -806,8 +565,7 @@
 
       function handleBowlIngredientClick(ingredientId, wrap, bowlZone) {
         if (wrap.classList.contains('used')) return;
-        document.getElementById('discrimination-prompt').textContent = getDiscriminationPrompt();
-        showDiscrimination(getBowlPairs(), (correct) => {
+        showDiscrimination((correct) => {
           if (correct) {
             wrap.classList.add('used');
             const img = wrap.querySelector('img');
@@ -837,7 +595,7 @@
               if (ingredientsInBowl >= NUM_INGREDIENTS) showVictoryScreen();
             }, 550);
           }
-        }, 'bowl');
+        });
       }
 
       function showVictoryScreen() {
