@@ -49,23 +49,16 @@
     return (set.prompt && String(set.prompt).trim()) || 'Say the word';
   }
 
-  function pickDistractor(pairsList, targetWord, contrastWord) {
-    for (let t = 0; t < 30; t++) {
-      const pair = pairsList[Math.floor(Math.random() * pairsList.length)];
-      const w = pair[Math.floor(Math.random() * pair.length)];
-      if (w !== targetWord && w !== contrastWord) return w;
-    }
-    return contrastWord;
-  }
-
   /**
    * @param {object} set
    * @param {number} choiceCount 1–3
    * @param {function(string): string} imagePathFn
    */
   function buildRound(set, choiceCount, imagePathFn) {
-    const n = Math.max(1, Math.min(3, choiceCount || 2));
     const type = getSetType(set);
+    const n = type === 'single'
+      ? Math.max(1, Math.min(3, choiceCount || 2))
+      : 2;
 
     if (type === 'single') {
       const pool = getWordsList(set);
@@ -99,39 +92,11 @@
     const contrastSound = set.contrastSound || 't';
     const prompt = set.prompt || '';
 
-    if (n === 1) {
-      return {
-        prompt: prompt,
-        pairs: [{
-          word: targetWord,
-          sound: targetSound,
-          image: imagePathFn(targetWord),
-          alt: targetWord
-        }],
-        correctWord: targetWord,
-        correctSound: targetSound
-      };
-    }
-
-    if (n === 2) {
-      return {
-        prompt: prompt,
-        pairs: [
-          { word: targetWord, sound: targetSound, image: imagePathFn(targetWord), alt: targetWord },
-          { word: contrastWord, sound: contrastSound, image: imagePathFn(contrastWord), alt: contrastWord }
-        ],
-        correctWord: targetWord,
-        correctSound: targetSound
-      };
-    }
-
-    const distractor = pickDistractor(pairsList, targetWord, contrastWord);
     return {
       prompt: prompt,
       pairs: [
         { word: targetWord, sound: targetSound, image: imagePathFn(targetWord), alt: targetWord },
-        { word: contrastWord, sound: contrastSound, image: imagePathFn(contrastWord), alt: contrastWord },
-        { word: distractor, sound: contrastSound, image: imagePathFn(distractor), alt: distractor }
+        { word: contrastWord, sound: contrastSound, image: imagePathFn(contrastWord), alt: contrastWord }
       ],
       correctWord: targetWord,
       correctSound: targetSound

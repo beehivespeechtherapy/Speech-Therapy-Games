@@ -143,6 +143,7 @@ class GameEngine {
 
     const selectedPair = challenge.pairs[choiceIndex];
     const isCorrect = challenge.anyAnswerCorrect === true
+      || (challenge.correctWord && selectedPair.word === challenge.correctWord)
       || selectedPair.sound === challenge.correctSound;
 
     // Record attempt

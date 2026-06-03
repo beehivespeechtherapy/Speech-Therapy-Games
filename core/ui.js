@@ -18,6 +18,12 @@ class GameUI {
    * @returns {Promise<string>} - Resolved path that works
    */
   async resolveImagePath(imagePath) {
+    if (!imagePath) return imagePath;
+    // Absolute repo URLs from WordImages — use as-is when they load (avoid extension stripping).
+    if (/^https?:\/\//i.test(imagePath) && await this.imageExists(imagePath)) {
+      return imagePath;
+    }
+
     // If path already has an extension, try it first, then try alternatives
     const hasExtension = /\.(png|jpg|jpeg|gif)$/i.test(imagePath);
 

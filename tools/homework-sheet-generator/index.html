@@ -50,6 +50,24 @@
       letter-spacing: 0.01em;
     }
     p.hint { margin: 0 0 18px; color: var(--muted); font-size: 0.95rem; }
+    .server-banner {
+      display: none;
+      margin: 0 0 18px;
+      padding: 14px 16px;
+      background: var(--warn-bg);
+      border: 2px solid var(--warn-border);
+      border-radius: 12px;
+      color: var(--warn-text);
+      font-size: 0.95rem;
+      line-height: 1.45;
+    }
+    .server-banner.visible { display: block; }
+    .server-banner strong { color: var(--ink); }
+    .server-banner code {
+      font-family: ui-monospace, Menlo, Consolas, monospace;
+      font-size: 0.88em;
+    }
+    body.server-offline .no-print button:not(#refresh) { opacity: 0.55; pointer-events: none; }
     label {
       display: block;
       font-weight: 700;
@@ -679,8 +697,12 @@
 </head>
 <body>
   <div class="wrap">
+    <div id="server-banner" class="server-banner no-print" role="alert"></div>
     <h1 class="app-title no-print">Homework sheet generator</h1>
     <p class="hint no-print">
+      <strong>Start this tool from Finder:</strong> double-click
+      <strong>Homework Sheet Generator.command</strong> in the <code>tools</code> folder (do not open this
+      <code>index.html</code> file directly — pictures will not load).
       Enter the <strong>two sounds</strong> you are comparing and the <strong>word position</strong> (Initial / Medial / Final).
       Paste <strong>exactly ten</strong> minimal pairs, one per line, with a slash between words (e.g. <code>think/sink</code>).
       Choose a <strong>picture folder</strong> inside <code>word-images</code> if your images live in a set folder.
@@ -782,8 +804,10 @@
     const FOLDER_STORAGE_KEY = 'homework-sheet-folder-scope';
     const LOGO_STORAGE_KEY = 'homework-sheet-logo';
     const INK_SAVER_STORAGE_KEY = 'homework-sheet-ink-saver';
+    const SERVER_PORT_KEY = 'homework-sheet-server-port';
     const ROW_ACCENTS = ['lavender', 'sage', 'honey', 'mint'];
     let folderListLoadFailed = false;
+    let serverConnected = false;
 
     const pairsEl = document.getElementById('pairs');
     const sound1El = document.getElementById('sound-1');
@@ -804,6 +828,7 @@
     const picturePageEl = document.getElementById('picture-page');
     const statusEl = document.getElementById('status');
     const errorsEl = document.getElementById('errors');
+    const serverBannerEl = document.getElementById('server-banner');
     const logoPreviewEl = document.getElementById('logo-preview');
     const logoActionsEl = document.getElementById('logo-actions');
     const logoChangeEl = document.getElementById('logo-change');
@@ -860,6 +885,95 @@
     function statusQuery() {
       const scope = folderScopeEl.value;
       return scope ? '?scope=' + encodeURIComponent(scope) : '';
+    }
+
+    function showServerBanner(mode) {
+      let html = '';
+      if (mode === 'file') {
+        html =
+          '<strong>Pictures cannot load from this file.</strong> You opened <code>index.html</code> directly in the browser. ' +
+          'Double-click <strong>Homework Sheet Generator.command</strong> in Finder ' +
+          '(Speech-Therapy-Games → <code>tools</code>) and use the tab that opens at ' +
+          '<code>http://127.0.0.1:…</code>. If the server is already running, this page will redirect automatically.';
+      } else {
+        html =
+          '<strong>Local server not connected.</strong> Start the tool by double-clicking ' +
+          '<strong>Homework Sheet Generator.command</strong> in Finder, then open the URL shown in Terminal ' +
+          '(starts with <code>http://127.0.0.1</code>). Click <strong>Rescan pictures</strong> after the server is running.';
+      }
+      serverBannerEl.innerHTML = html;
+      serverBannerEl.classList.add('visible');
+      document.body.classList.add('server-offline');
+    }
+
+    function hideServerBanner() {
+      serverBannerEl.classList.remove('visible');
+      serverBannerEl.innerHTML = '';
+      document.body.classList.remove('server-offline');
+    }
+
+    async function probeServerPort(port, timeoutMs) {
+      const ctrl = new AbortController();
+      const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+      try {
+        const r = await fetch('http://127.0.0.1:' + port + '/api/status', {
+          cache: 'no-store',
+          signal: ctrl.signal,
+        });
+        if (!r.ok) return false;
+        const j = await r.json();
+        return j && typeof j.indexed_files === 'number';
+      } catch (e) {
+        return false;
+      } finally {
+        clearTimeout(timer);
+      }
+    }
+
+    async function findRunningServerPort() {
+      const preferred = parseInt(sessionStorage.getItem(SERVER_PORT_KEY) || '8765', 10);
+      const ports = [];
+      for (let p = preferred; p < preferred + 40; p++) ports.push(p);
+      for (let p = 8765; p < preferred; p++) ports.push(p);
+      for (const port of ports) {
+        if (await probeServerPort(port, 350)) return port;
+      }
+      return null;
+    }
+
+    async function redirectFromFileIfServerRunning() {
+      if (location.protocol !== 'file:') return false;
+      const port = await findRunningServerPort();
+      if (!port) return false;
+      try { sessionStorage.setItem(SERVER_PORT_KEY, String(port)); } catch (e) {}
+      window.location.replace('http://127.0.0.1:' + port + '/');
+      return true;
+    }
+
+    async function ensureServerConnection() {
+      if (location.protocol === 'file:') {
+        serverConnected = false;
+        folderListLoadFailed = true;
+        showServerBanner('file');
+        statusEl.textContent = 'Opened index.html as a file — start Homework Sheet Generator.command instead.';
+        return false;
+      }
+      try {
+        const r = await fetch('/api/status' + statusQuery(), { cache: 'no-store' });
+        if (!r.ok) throw new Error('HTTP ' + r.status);
+        const j = await r.json();
+        if (!j || typeof j.indexed_files !== 'number') throw new Error('bad response');
+        serverConnected = true;
+        hideServerBanner();
+        try { sessionStorage.setItem(SERVER_PORT_KEY, String(location.port || '8765')); } catch (e) {}
+        return true;
+      } catch (e) {
+        serverConnected = false;
+        folderListLoadFailed = true;
+        showServerBanner('offline');
+        statusEl.textContent = 'Could not reach the homework sheet server on this page.';
+        return false;
+      }
     }
 
     async function loadFolders() {
@@ -1216,8 +1330,14 @@
               holder.innerHTML = '<div class="missing">' + msg + '</div>';
             })
             .catch(() => {
-              holder.innerHTML =
-                '<div class="missing">No picture found for “' + escapeHtml(w) + '”</div>';
+              if (!serverConnected || folderListLoadFailed || location.protocol === 'file:') {
+                holder.innerHTML =
+                  '<div class="missing">Pictures need the local server. Double-click ' +
+                  '<strong>Homework Sheet Generator.command</strong> in Finder (Speech-Therapy-Games → tools).</div>';
+              } else {
+                holder.innerHTML =
+                  '<div class="missing">No picture found for “' + escapeHtml(w) + '”</div>';
+              }
             });
         }, { once: true });
       });
@@ -1278,6 +1398,12 @@
     }
 
     function buildSheet() {
+      if (!serverConnected) {
+        errorsEl.style.display = 'block';
+        errorsEl.textContent =
+          'Pictures cannot load until the local server is running. Double-click Homework Sheet Generator.command in Finder.';
+        return;
+      }
       const s1 = sound1El.value.trim();
       const s2 = sound2El.value.trim();
       const position = positionEl.value;
@@ -1352,7 +1478,14 @@
       refreshBtn.disabled = true;
       const hadValidSheet = !printBtn.disabled;
       try {
+        if (location.protocol === 'file:') {
+          const redirected = await redirectFromFileIfServerRunning();
+          if (redirected) return;
+        }
+        const ok = await ensureServerConnection();
+        if (!ok) return;
         await fetch('/api/refresh', { cache: 'no-store' });
+        folderListLoadFailed = false;
         await loadFolders();
         await loadStatus();
         if (hadValidSheet) {
@@ -1372,11 +1505,19 @@
     });
 
     (async function init() {
+      if (location.protocol === 'file:') {
+        statusEl.textContent = 'Checking for a running server…';
+        const redirected = await redirectFromFileIfServerRunning();
+        if (redirected) return;
+      }
       renderLogoControl();
       loadInkSaverPref();
       updateEditorEmptyState();
-      await loadFolders();
-      await loadStatus();
+      const ok = await ensureServerConnection();
+      if (ok) {
+        await loadFolders();
+        await loadStatus();
+      }
     })();
   </script>
 </body>

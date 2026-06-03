@@ -32,16 +32,23 @@
       try {
         const root = wordImagesRootFromPage();
         if (root) {
-          return new URL('word-images/_library/' + encodeURIComponent(filename).replace(/%2F/g, '/'), root).href
-            .replace(/%2F/g, '/');
+          // Let URL() encode spaces and special chars once (avoid double-encoding %20).
+          return new URL('word-images/_library/' + filename, root).href;
         }
       } catch (e) { /* fall through */ }
     }
 
     const legacyFolder = opts.legacyFolder;
     if (legacyFolder) {
-      const encodedFolder = encodeURIComponent(legacyFolder).replace(/%2F/g, '/');
-      return relativeBase + '/' + encodedFolder + '/' + filename;
+      if (opts.useOrigin !== false && typeof window !== 'undefined') {
+        try {
+          const root = wordImagesRootFromPage();
+          if (root) {
+            return new URL('word-images/' + legacyFolder + '/' + filename, root).href;
+          }
+        } catch (e) { /* fall through */ }
+      }
+      return relativeBase + '/' + legacyFolder + '/' + filename;
     }
 
     return libraryRel;

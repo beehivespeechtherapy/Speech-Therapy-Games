@@ -88,18 +88,19 @@
     "hearts": 5
   },
   "sentries": {
-    "detectionRadius": 100,
-    "onPathCatchRadius": 45,
-    "nearStopCatchRadius": 100,
+    "detectionRadius": 120,
+    "onPathCatchRadius": 85,
+    "nearStopCatchRadius": 165,
+    "nearStartCatchRadius": 120,
     "weaponEscapeChance": 0.25,
     "guards": [
-      { "id": "sentry-1", "y": 1251, "xMin": 170, "xMax": 900, "speed": 0.22, "image": "weapons/sentry-guard.png" },
-      { "id": "sentry-2", "y": 1075, "xMin": 140, "xMax": 930, "speed": 0.2, "image": "weapons/sentry-guard.png" },
-      { "id": "sentry-3", "y": 955, "xMin": 150, "xMax": 900, "speed": 0.21, "image": "weapons/sentry-guard.png" },
-      { "id": "sentry-4", "y": 845, "xMin": 150, "xMax": 900, "speed": 0.23, "image": "weapons/sentry-guard.png" },
-      { "id": "sentry-5", "y": 723, "xMin": 140, "xMax": 930, "speed": 0.22, "image": "weapons/sentry-guard.png" },
-      { "id": "sentry-6", "y": 603, "xMin": 150, "xMax": 900, "speed": 0.2, "image": "weapons/sentry-guard.png" },
-      { "id": "sentry-7", "y": 496, "xMin": 160, "xMax": 890, "speed": 0.24, "image": "weapons/sentry-guard.png" }
+      { "id": "sentry-1", "y": 1251, "xMin": 170, "xMax": 900, "speed": 0.22, "image": "../../word-images/_library/guard.png" },
+      { "id": "sentry-2", "y": 1075, "xMin": 140, "xMax": 930, "speed": 0.2, "image": "../../word-images/_library/guard.png" },
+      { "id": "sentry-3", "y": 955, "xMin": 150, "xMax": 900, "speed": 0.21, "image": "../../word-images/_library/guard.png" },
+      { "id": "sentry-4", "y": 845, "xMin": 150, "xMax": 900, "speed": 0.23, "image": "../../word-images/_library/guard.png" },
+      { "id": "sentry-5", "y": 723, "xMin": 140, "xMax": 930, "speed": 0.22, "image": "../../word-images/_library/guard.png" },
+      { "id": "sentry-6", "y": 603, "xMin": 150, "xMax": 900, "speed": 0.2, "image": "../../word-images/_library/guard.png" },
+      { "id": "sentry-7", "y": 496, "xMin": 160, "xMax": 890, "speed": 0.24, "image": "../../word-images/_library/guard.png" }
     ]
   },
   "weapons": [
@@ -111,7 +112,7 @@
   ],
   "boss": {
     "image": "boss/samurai_boss.png",
-    "reinforcementGuardImage": "weapons/sentry-guard.png",
+    "reinforcementGuardImage": "../../word-images/_library/guard.png",
     "hitsToDefeat": 5,
     "message": "Defeat the samurai! Choose the correct word and best weapon.",
     "stances": [
