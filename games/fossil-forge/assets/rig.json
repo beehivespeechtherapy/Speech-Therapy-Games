@@ -1,0 +1,23 @@
+{
+  "canvas": {
+    "width": 1600,
+    "height": 1600
+  },
+  "layerOrder": [
+    "tail",
+    "body",
+    "backLegs",
+    "frontLegs",
+    "head"
+  ],
+  "stackOrigin": {
+    "x": 0,
+    "y": 0
+  },
+  "pterodactyl": {
+    "onlySlots": [
+      "head",
+      "body"
+    ]
+  }
+}

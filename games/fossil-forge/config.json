@@ -1,0 +1,40 @@
+{
+  "title": "Fossil Forge",
+  "intro": {
+    "message": "Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"
+  },
+  "hunt": {
+    "gridCols": 4,
+    "gridRows": 5,
+    "fossilsPerGame": 10,
+    "fossilImageCount": 16,
+    "brushRadius": 22,
+    "revealThreshold": 0.72,
+    "gridInset": { "top": 0.08, "right": 0.04, "bottom": 0.1, "left": 0.04 }
+  },
+  "slots": {
+    "head": "Head",
+    "body": "Body",
+    "frontLegs": "Front legs",
+    "backLegs": "Back legs",
+    "tail": "Tail"
+  },
+  "assemblyBackgrounds": [
+    { "id": "desert", "label": "Desert", "path": "backgrounds/desert-background.png" },
+    { "id": "ocean", "label": "Ocean", "path": "backgrounds/ocean-background.png" },
+    { "id": "valley", "label": "Valley", "path": "backgrounds/valley-background.png" },
+    { "id": "volcano", "label": "Volcano", "path": "backgrounds/volcano-background.png" }
+  ],
+  "tintColors": [
+    "#4a8c3f",
+    "#2d6a9f",
+    "#8b3a3a",
+    "#c47f2a",
+    "#6b4c9a",
+    "#3a8c8c",
+    "#8c6b3a",
+    "#e8d44d"
+  ],
+  "victoryMessage": "Amazing! You forged a one-of-a-kind dinosaur!",
+  "wordSets": []
+}

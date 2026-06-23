@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Fossil Forge</title>
+  <script>
+    (function () {
+      var href = document.location.href.split('#')[0].split('?')[0];
+      var base = href.lastIndexOf('/') >= 0 ? href.substring(0, href.lastIndexOf('/') + 1) : '';
+      var b = document.createElement('base');
+      b.href = base;
+      document.head.insertBefore(b, document.head.firstChild);
+    })();
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: #2a2418;
+      color: #f5ecd7;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+    #game-container { min-height: 100vh; position: relative; }
+    .screen {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 1.25rem;
+    }
+    .screen.hidden { display: none; }
+
+    .btn {
+      background: #c47f2a;
+      color: #fff;
+      border: none;
+      padding: 0.85rem 1.75rem;
+      font-size: 1.1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+    .btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .btn:active:not(:disabled) { transform: scale(0.97); }
+
+    /* Intro */
+    #intro-screen {
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(180deg, #8b6914 0%, #2a2418 60%);
+      gap: 1.5rem;
+    }
+    #intro-screen h1 { font-size: 2rem; }
+    #intro-screen .message { max-width: 520px; line-height: 1.6; font-size: 1.15rem; }
+    .pickaxe-icon { width: 120px; height: 120px; object-fit: contain; }
+
+    /* Choose */
+    #choose-screen {
+      background: linear-gradient(180deg, #e8d9a8 0%, #f5ecd7 45%, #d4c4a0 100%);
+      justify-content: flex-start;
+      padding: 1.5rem;
+      overflow-y: auto;
+    }
+    #choose-screen h2 {
+      font-size: 1.35rem;
+      color: #3d3225;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    #choose-screen .choose-subtitle {
+      color: #5c4a32;
+      margin-bottom: 1rem;
+      text-align: center;
+      max-width: 520px;
+      line-height: 1.5;
+    }
+    .word-set-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .choice-index-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .choice-index-options .index-btn {
+      background: #fff;
+      border: 3px solid #c47f2a;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      color: #3d3225;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .choice-index-options .index-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+    }
+    .choice-index-options .index-btn.secondary { border-color: #888; color: #555; }
+    .phoneme-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      max-width: 520px;
+      width: 100%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .phoneme-filters select {
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: 2px solid #c47f2a;
+      background: #fff;
+      color: #3d3225;
+      font-size: 1rem;
+    }
+    .phoneme-filters .show-sets-btn {
+      padding: 0.5rem 1rem;
+      background: #c47f2a;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .back-row { margin-bottom: 0.75rem; max-width: 520px; width: 100%; margin-left: auto; margin-right: auto; }
+    .back-row button {
+      background: transparent;
+      border: 1px solid #8b6914;
+      color: #5c4a32;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.9rem;
+    }
+    .word-set-btn {
+      background: #fff;
+      border: 3px solid #c47f2a;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      color: #3d3225;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .word-set-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
+    .word-set-btn:active { transform: translateY(0); }
+
+    /* Hunt */
+    #hunt-screen {
+      padding: 0;
+      background: #1a1510;
+      height: 100vh;
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
+      align-items: stretch;
+    }
+    .hunt-header {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      z-index: 10;
+      flex-shrink: 0;
+    }
+    .hunt-scroll {
+      flex: 1;
+      min-height: 0;
+      overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0.5rem;
+    }
+    #hunt-field {
+      position: relative;
+      width: min(100%, calc((100dvh - 8.5rem) * 16 / 10));
+      max-height: calc(100dvh - 8.5rem);
+      aspect-ratio: 16 / 10;
+      flex-shrink: 0;
+    }
+    .hunt-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+      border-radius: 4px;
+    }
+    .hunt-grid {
+      position: absolute;
+      inset: 8% 4% 10% 4%;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: repeat(5, 1fr);
+      gap: clamp(3px, 0.8vw, 10px);
+    }
+    .dig-spot {
+      position: relative;
+      border: 2px dashed rgba(255,255,255,0.35);
+      border-radius: 8px;
+      overflow: hidden;
+      cursor: crosshair;
+      touch-action: none;
+      min-height: 0;
+      min-width: 0;
+    }
+    .dig-spot.has-fossil::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 85%;
+      height: 85%;
+      transform: translate(-50%, -50%);
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,255,255,0.4) 0%, rgba(255,255,255,0.12) 55%, transparent 75%);
+      z-index: 0;
+      pointer-events: none;
+    }
+    .dig-spot .fossil-img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 118%;
+      height: 118%;
+      transform: translate(-50%, -50%);
+      object-fit: contain;
+      z-index: 1;
+      opacity: 1;
+      pointer-events: none;
+      filter:
+        drop-shadow(0 0 3px #fff)
+        drop-shadow(0 0 7px rgba(255,255,255,0.95))
+        drop-shadow(0 0 14px rgba(255,255,255,0.75));
+      transition: filter 0.3s, transform 0.3s;
+    }
+    .dig-spot.found .fossil-img {
+      filter:
+        drop-shadow(0 0 4px #fff)
+        drop-shadow(0 0 10px rgba(124,184,124,0.9))
+        drop-shadow(0 0 16px rgba(124,184,124,0.6));
+      transform: translate(-50%, -50%) scale(1.05);
+    }
+    .dig-spot canvas.dirt-layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      display: block;
+      z-index: 1;
+    }
+    .dig-spot.found { border-color: #7cb87c; pointer-events: none; }
+    .dig-spot.found canvas.dirt-layer { opacity: 0; pointer-events: none; }
+    .dig-spot.found .found-badge { display: none; }
+    .dig-spot.empty-done { border-color: #888; pointer-events: none; }
+    .dig-spot.empty-done canvas.dirt-layer { opacity: 0; }
+    .empty-badge {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      font-size: 0.7rem;
+      text-align: center;
+      color: #ccc;
+      pointer-events: none;
+    }
+    .dig-spot.empty-done .empty-badge { display: flex; }
+    .hunt-footer {
+      width: 100%;
+      padding: 1rem;
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+      background: rgba(0,0,0,0.4);
+      flex-shrink: 0;
+      z-index: 10;
+    }
+
+    /* Word modal */
+    #discrimination-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    #discrimination-overlay.hidden { display: none; }
+    .discrimination-box {
+      background: #f5ecd7;
+      color: #3d3225;
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 720px;
+      width: 100%;
+    }
+    .discrimination-box h3 { text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; }
+    .word-choices { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .word-btn {
+      padding: 1rem 1.5rem;
+      font-size: 1.25rem;
+      background: #e8dcc4;
+      border: 3px solid #c47f2a;
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: #3d3225;
+    }
+    .word-pair-img { width: 100px; height: 100px; object-fit: contain; }
+    .word-btn.correct { background: #7cb87c; border-color: #5a9a5a; color: #fff; }
+    .word-btn.incorrect { background: #e8a0a0; border-color: #c75c5c; color: #fff; }
+
+    /* Assembly */
+    #assembly-screen {
+      background: linear-gradient(180deg, #4a3c28 0%, #2a2418 100%);
+      height: 100vh;
+      height: 100dvh;
+      min-height: 0;
+      overflow: hidden;
+      padding: 0.75rem 1rem 1rem;
+      align-items: stretch;
+    }
+    #assembly-screen h2 { margin-bottom: 0.25rem; flex-shrink: 0; text-align: center; }
+    #assembly-screen .assembly-hint {
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+      opacity: 0.9;
+      text-align: center;
+      flex-shrink: 0;
+    }
+    .assembly-workspace {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      gap: 0.75rem;
+      width: 100%;
+      max-width: min(100%, 1200px);
+      margin: 0 auto;
+    }
+    .assembly-menu {
+      display: flex;
+      flex-direction: column;
+      gap: 0.45rem;
+      flex-shrink: 0;
+      width: min(132px, 28vw);
+      overflow-y: auto;
+    }
+    .slot-menu-btn {
+      background: rgba(255,255,255,0.1);
+      border: 2px solid rgba(255,255,255,0.28);
+      border-radius: 16px;
+      padding: 0.6rem 0.5rem;
+      color: #f5ecd7;
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-align: center;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+      line-height: 1.2;
+      white-space: pre-line;
+    }
+    .slot-menu-btn:hover { background: rgba(255,255,255,0.16); }
+    .slot-menu-btn:active { transform: scale(0.97); }
+    .slot-menu-btn.active {
+      background: #c47f2a;
+      border-color: #e8d44d;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    }
+    .slot-menu-btn.filled:not(.active) { border-color: #7cb87c; }
+    .slot-menu-btn.bg-btn { margin-top: 0.35rem; }
+    .assembly-stage-wrap {
+      flex: 1;
+      min-width: 0;
+      min-height: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dino-stage {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 1;
+      background: #3a3530;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+    }
+    #assembly-screen .dino-stage {
+      height: 100%;
+      width: auto;
+      max-height: 100%;
+      max-width: 100%;
+    }
+    .victory-stage.dino-stage,
+    #customize-screen .dino-stage {
+      width: 100%;
+      max-width: min(90vw, 480px);
+    }
+    .dino-stage .stage-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 0;
+    }
+    .dino-stage canvas {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      height: 100%;
+      display: block;
+      max-width: 100%;
+      max-height: 100%;
+    }
+    .parts-picker {
+      flex-shrink: 0;
+      width: 100%;
+      max-width: min(100%, 1200px);
+      margin: 0.5rem auto 0;
+      padding-top: 0.5rem;
+      border-top: 1px solid rgba(255,255,255,0.12);
+    }
+    .parts-picker-label {
+      text-align: center;
+      font-size: 0.85rem;
+      opacity: 0.9;
+      margin-bottom: 0.35rem;
+    }
+    .parts-picker-nav {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 0.4rem;
+    }
+    .parts-nav-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: #c47f2a;
+      border: 2px solid #e8d44d;
+      color: #fff;
+      font-size: 1.6rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0 2px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+    .parts-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .parts-picker-viewport {
+      overflow: hidden;
+      width: 100%;
+      touch-action: pan-y;
+    }
+    .parts-picker-track {
+      display: flex;
+      gap: 0.75rem;
+      padding: 0.25rem 0.5rem 0.5rem;
+      transition: transform 0.25s ease;
+      will-change: transform;
+    }
+    .part-card {
+      flex: 0 0 auto;
+      width: 128px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 14px;
+      padding: 0.5rem;
+      cursor: pointer;
+      border: 3px solid transparent;
+      text-align: center;
+      transition: border-color 0.15s, transform 0.1s;
+    }
+    .part-card:hover { transform: translateY(-2px); }
+    .part-card.selected {
+      border-color: #e8d44d;
+      background: rgba(196,127,42,0.25);
+    }
+    .part-card canvas,
+    .part-card .part-thumb-img {
+      width: 108px;
+      height: 108px;
+      display: block;
+      margin: 0 auto 0.35rem;
+      object-fit: contain;
+      border-radius: 8px;
+    }
+    .part-card .part-label {
+      font-size: 0.68rem;
+      line-height: 1.25;
+      opacity: 0.95;
+    }
+    .assembly-footer {
+      flex-shrink: 0;
+      display: flex;
+      justify-content: center;
+      margin-top: 0.5rem;
+    }
+    @media (max-width: 600px) {
+      .assembly-menu { width: 96px; }
+      .slot-menu-btn { font-size: 0.72rem; padding: 0.5rem 0.35rem; }
+      .part-card { width: 110px; }
+      .part-card canvas,
+      .part-card .part-thumb-img { width: 92px; height: 92px; }
+    }
+
+    /* Customize */
+    #customize-screen {
+      background: linear-gradient(180deg, #4a3c28 0%, #2a2418 100%);
+      gap: 1rem;
+    }
+    #color-swatches { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+    .color-swatch {
+      width: 40px;
+      height: 40px;
+      border-radius: 8px;
+      border: 3px solid transparent;
+      cursor: pointer;
+      padding: 0;
+    }
+    .color-swatch.active { border-color: #fff; }
+
+    /* Victory */
+    #victory-screen {
+      justify-content: center;
+      text-align: center;
+      background: linear-gradient(180deg, #8b6914 0%, #2a2418 70%);
+      gap: 1rem;
+    }
+    #victory-screen h1 { font-size: 1.75rem; }
+    .victory-stage {
+      max-width: min(90vw, 480px);
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <section id="intro-screen" class="screen">
+      <img class="pickaxe-icon" src="pickaxe.png" alt="">
+      <h1>Fossil Forge</h1>
+      <p class="message" id="intro-message">Welcome to the dig site!</p>
+      <button class="btn" id="start-btn">Start digging</button>
+    </section>
+
+    <section id="choose-screen" class="screen hidden">
+      <h2>Choose word pairs to practice</h2>
+      <p class="choose-subtitle">Pick minimal pairs or single words, then dig for fossils and build your dinosaur!</p>
+      <div id="choice-index-root"></div>
+      <div class="word-set-list" id="word-set-list" style="display:none;"></div>
+    </section>
+
+    <section id="hunt-screen" class="screen hidden">
+      <div class="hunt-header">
+        <span id="hunt-status">Fossils found: 0</span>
+        <span>Brush the dirt on each square, then answer the word challenge!</span>
+      </div>
+      <div class="hunt-scroll">
+        <div id="hunt-field"></div>
+      </div>
+      <div class="hunt-footer">
+        <button class="btn" id="hunt-continue-btn" disabled>Build your dinosaur</button>
+      </div>
+    </section>
+
+    <section id="assembly-screen" class="screen hidden">
+      <h2>Assemble your dinosaur</h2>
+      <p class="assembly-hint">Choose a body part on the left, then tap a piece below to equip it.</p>
+      <div class="assembly-workspace">
+        <nav class="assembly-menu" id="assembly-menu" aria-label="Body parts"></nav>
+        <div class="assembly-stage-wrap">
+          <div class="dino-stage" id="assembly-stage">
+            <img class="stage-bg" id="assembly-stage-bg" alt="" src="">
+            <canvas id="assembly-canvas" width="640" height="640"></canvas>
+          </div>
+        </div>
+      </div>
+      <div class="parts-picker">
+        <div class="parts-picker-label" id="parts-picker-label">Head parts</div>
+        <div class="parts-picker-nav">
+          <button type="button" class="parts-nav-btn" id="parts-scroll-left" aria-label="Scroll left">‹</button>
+          <button type="button" class="parts-nav-btn" id="parts-scroll-right" aria-label="Scroll right">›</button>
+        </div>
+        <div class="parts-picker-viewport" id="parts-picker-viewport">
+          <div class="parts-picker-track" id="parts-picker-track"></div>
+        </div>
+      </div>
+      <div class="assembly-footer">
+        <button class="btn" id="assembly-continue-btn" disabled>Color your dinosaur</button>
+      </div>
+    </section>
+
+    <section id="customize-screen" class="screen hidden">
+      <h2>Color your dinosaur</h2>
+      <div id="color-swatches"></div>
+      <div class="dino-stage victory-stage" id="customize-stage" style="margin-top:0.5rem;">
+        <img class="stage-bg" id="customize-stage-bg" alt="" src="">
+        <canvas id="customize-canvas" width="480" height="480"></canvas>
+      </div>
+      <button class="btn" id="customize-finish-btn" style="margin-top:1rem;">Finish!</button>
+    </section>
+
+    <section id="victory-screen" class="screen hidden">
+      <h1>You did it!</h1>
+      <p id="victory-msg">Amazing!</p>
+      <div class="dino-stage victory-stage" id="victory-stage">
+        <img class="stage-bg" id="victory-stage-bg" alt="" src="">
+        <canvas id="victory-canvas" width="480" height="480"></canvas>
+      </div>
+      <button class="btn" id="play-again-btn">Play again</button>
+    </section>
+  </div>
+
+  <div id="discrimination-overlay" class="hidden">
+    <div class="discrimination-box">
+      <h3 id="discrimination-prompt">Which word?</h3>
+      <div class="word-choices" id="word-choices"></div>
+    </div>
+  </div>
+
+  <script type="application/json" id="game-config">
+  {"title":"Fossil Forge","intro":{"message":"Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"},"hunt":{"gridCols":4,"gridRows":5,"fossilsPerGame":10,"fossilImageCount":16,"brushRadius":22,"revealThreshold":0.72},"assemblyBackgrounds":[{"id":"desert","label":"Desert","path":"backgrounds/desert-background.png"},{"id":"ocean","label":"Ocean","path":"backgrounds/ocean-background.png"},{"id":"valley","label":"Valley","path":"backgrounds/valley-background.png"},{"id":"volcano","label":"Volcano","path":"backgrounds/volcano-background.png"}],"tintColors":["#4a8c3f","#2d6a9f","#8b3a3a","#c47f2a","#6b4c9a","#3a8c8c","#8c6b3a","#e8d44d"],"victoryMessage":"Amazing! You forged a one-of-a-kind dinosaur!","wordSets":[]}
+  </script>
+
+  <script src="js/parts-catalog-embed.js"></script>
+  <script src="../../core/word-images.js"></script>
+  <script src="../../core/word-challenges.js"></script>
+  <script src="../../core/word-set-menus.js"></script>
+  <script src="../../core/word-set-choose.js"></script>
+  <script src="../../core/discrimination-round.js"></script>
+  <script src="js/dino-composer.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
