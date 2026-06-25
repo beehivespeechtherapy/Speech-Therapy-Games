@@ -111,20 +111,13 @@
         if (tint) this.drawTinted(ctx, img, color, destW, destH);
         else ctx.drawImage(img, 0, 0, destW, destH);
       } catch (e) { /* skip missing */ }
-    }
-
-    for (let j = 0; j < order.length; j++) {
-      const slot = order[j];
-      const speciesId = equipped[slot];
-      if (!speciesId) continue;
-      const species = this.getSpecies(speciesId);
-      if (!species || !species.slots || !species.slots[slot]) continue;
-      const det = species.slots[slot].details;
-      if (!det) continue;
-      try {
-        const img = await this.loadImage(det);
-        ctx.drawImage(img, 0, 0, destW, destH);
-      } catch (e) { /* skip */ }
+      const det = part.details;
+      if (det) {
+        try {
+          const detImg = await this.loadImage(det);
+          ctx.drawImage(detImg, 0, 0, destW, destH);
+        } catch (e) { /* skip */ }
+      }
     }
   };
 

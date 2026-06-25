@@ -27,8 +27,9 @@
   let singleWordPool = [];
 
   let assemblyCategory = 'head';
-  let partsScrollIndex = 0;
   let assemblyUiReady = false;
+
+  const PART_CARD_STEP = 128;
 
   function assetPath(relative) {
     const loc = window.location.href.split('#')[0].split('?')[0];
@@ -74,8 +75,6 @@
   }
 
   function requiredSlots() {
-    const body = equipped.body;
-    if (body === 'pterodactyl') return ['head', 'body'];
     return SLOT_ORDER.slice();
   }
 
@@ -468,21 +467,12 @@
   }
 
   function visibleAssemblySlots() {
-    if (equipped.body === 'pterodactyl') return ['head', 'body'];
     return SLOT_ORDER.slice();
   }
 
   function equipPart(slot, species) {
     equipped[slot] = species;
-    if (slot === 'body' && species === 'pterodactyl') {
-      delete equipped.frontLegs;
-      delete equipped.backLegs;
-      delete equipped.tail;
-      if (assemblyCategory === 'frontLegs' || assemblyCategory === 'backLegs' || assemblyCategory === 'tail') {
-        assemblyCategory = 'body';
-      }
-    }
-    partsScrollIndex = 0;
+    resetPartsPickerScroll();
     renderAssembly();
   }
 
@@ -493,18 +483,48 @@
     renderAssemblyMenu();
   }
 
-  function partsPerPage() {
+  function resetPartsPickerScroll() {
     const viewport = document.getElementById('parts-picker-viewport');
-    if (!viewport) return 3;
-    const w = viewport.clientWidth || 320;
-    return Math.max(2, Math.floor(w / 136));
+    if (viewport) viewport.scrollLeft = 0;
   }
 
-  function updatePartsScrollButtons(maxIndex) {
+  function updateMenuScrollButtons() {
+    const menu = document.getElementById('assembly-menu');
+    const up = document.getElementById('menu-scroll-up');
+    const down = document.getElementById('menu-scroll-down');
+    const nav = menu && menu.parentElement
+      ? menu.parentElement.querySelector('.assembly-menu-nav')
+      : null;
+    if (!menu || !up || !down) return;
+    const needsScroll = menu.scrollHeight > menu.clientHeight + 2;
+    if (nav) nav.style.display = needsScroll ? 'flex' : 'none';
+    if (!needsScroll) return;
+    const maxScroll = Math.max(0, menu.scrollHeight - menu.clientHeight - 2);
+    up.disabled = menu.scrollTop <= 2;
+    down.disabled = menu.scrollTop >= maxScroll;
+  }
+
+  function scrollAssemblyMenu(direction) {
+    const menu = document.getElementById('assembly-menu');
+    if (!menu) return;
+    menu.scrollBy({ top: direction * 72, behavior: 'smooth' });
+  }
+
+  function updatePartsScrollButtons() {
+    const viewport = document.getElementById('parts-picker-viewport');
     const left = document.getElementById('parts-scroll-left');
     const right = document.getElementById('parts-scroll-right');
-    if (left) left.disabled = partsScrollIndex <= 0;
-    if (right) right.disabled = partsScrollIndex >= maxIndex;
+    if (!viewport || !left || !right) return;
+    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth - 2);
+    left.disabled = viewport.scrollLeft <= 2;
+    right.disabled = viewport.scrollLeft >= maxScroll;
+  }
+
+  function scrollPartsPicker(direction) {
+    const viewport = document.getElementById('parts-picker-viewport');
+    if (!viewport) return;
+    const amount = Math.max(PART_CARD_STEP * 2, Math.floor(viewport.clientWidth * 0.75));
+    viewport.scrollBy({ left: direction * amount, behavior: 'smooth' });
   }
 
   function renderPartsPicker() {
@@ -512,7 +532,6 @@
     const label = document.getElementById('parts-picker-label');
     if (!track) return;
     track.innerHTML = '';
-    track.style.transform = 'translateX(0)';
 
     if (assemblyCategory === 'background') {
       if (label) label.textContent = 'Choose a background';
@@ -520,7 +539,7 @@
       bgs.forEach(function (bg) {
         const card = document.createElement('button');
         card.type = 'button';
-        card.className = 'part-card' + (selectedBackground === bg.path ? ' selected' : '');
+        card.className = 'part-card part-card-bg' + (selectedBackground === bg.path ? ' selected' : '');
         const img = document.createElement('img');
         img.className = 'part-thumb-img';
         img.src = assetPath(bg.path);
@@ -562,13 +581,9 @@
       });
     }
 
-    const total = track.children.length;
-    const perPage = partsPerPage();
-    const maxIndex = Math.max(0, total - perPage);
-    if (partsScrollIndex > maxIndex) partsScrollIndex = maxIndex;
-    const offset = partsScrollIndex * 136;
-    track.style.transform = 'translateX(-' + offset + 'px)';
-    updatePartsScrollButtons(maxIndex);
+    requestAnimationFrame(function () {
+      updatePartsScrollButtons();
+    });
   }
 
   function renderAssemblyMenu() {
@@ -588,7 +603,7 @@
         : SLOT_LABELS[slot];
       btn.addEventListener('click', function () {
         assemblyCategory = slot;
-        partsScrollIndex = 0;
+        resetPartsPickerScroll();
         renderAssemblyMenu();
         renderPartsPicker();
       });
@@ -601,11 +616,12 @@
     bgBtn.textContent = 'Background';
     bgBtn.addEventListener('click', function () {
       assemblyCategory = 'background';
-      partsScrollIndex = 0;
+      resetPartsPickerScroll();
       renderAssemblyMenu();
       renderPartsPicker();
     });
     menu.appendChild(bgBtn);
+    requestAnimationFrame(updateMenuScrollButtons);
   }
 
   function setupAssemblyUi() {
@@ -613,28 +629,32 @@
     assemblyUiReady = true;
     const left = document.getElementById('parts-scroll-left');
     const right = document.getElementById('parts-scroll-right');
+    const viewport = document.getElementById('parts-picker-viewport');
+    const menu = document.getElementById('assembly-menu');
+    const menuUp = document.getElementById('menu-scroll-up');
+    const menuDown = document.getElementById('menu-scroll-down');
     if (left) {
-      left.addEventListener('click', function () {
-        if (partsScrollIndex > 0) {
-          partsScrollIndex--;
-          renderPartsPicker();
-        }
-      });
+      left.addEventListener('click', function () { scrollPartsPicker(-1); });
     }
     if (right) {
-      right.addEventListener('click', function () {
-        const track = document.getElementById('parts-picker-track');
-        const total = track ? track.children.length : 0;
-        const maxIndex = Math.max(0, total - partsPerPage());
-        if (partsScrollIndex < maxIndex) {
-          partsScrollIndex++;
-          renderPartsPicker();
-        }
-      });
+      right.addEventListener('click', function () { scrollPartsPicker(1); });
     }
+    if (viewport) {
+      viewport.addEventListener('scroll', function () {
+        updatePartsScrollButtons();
+      }, { passive: true });
+    }
+    if (menu) {
+      menu.addEventListener('scroll', function () {
+        updateMenuScrollButtons();
+      }, { passive: true });
+    }
+    if (menuUp) menuUp.addEventListener('click', function () { scrollAssemblyMenu(-1); });
+    if (menuDown) menuDown.addEventListener('click', function () { scrollAssemblyMenu(1); });
     window.addEventListener('resize', function () {
       if (!document.getElementById('assembly-screen').classList.contains('hidden')) {
-        renderPartsPicker();
+        updatePartsScrollButtons();
+        updateMenuScrollButtons();
       }
     });
   }
@@ -644,12 +664,15 @@
     await renderDinoCanvas('assembly-canvas', false);
     renderPartsPicker();
     const btn = document.getElementById('assembly-continue-btn');
-    btn.disabled = !assemblyComplete();
+    if (btn) btn.disabled = !assemblyComplete();
+  }
+
+  function skipToAssembly() {
+    showAssembly();
   }
 
   function showAssembly() {
     assemblyCategory = 'head';
-    partsScrollIndex = 0;
     showScreen('assembly-screen');
     setupAssemblyUi();
     applyStageBackgrounds();
@@ -708,6 +731,8 @@
       });
 
       document.getElementById('hunt-continue-btn').addEventListener('click', showAssembly);
+      const skipBtn = document.getElementById('hunt-skip-btn');
+      if (skipBtn) skipBtn.addEventListener('click', skipToAssembly);
       document.getElementById('assembly-continue-btn').addEventListener('click', showCustomize);
       document.getElementById('customize-finish-btn').addEventListener('click', showVictory);
       document.getElementById('play-again-btn').addEventListener('click', function () {

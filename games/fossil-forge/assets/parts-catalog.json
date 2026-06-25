@@ -17,7 +17,7 @@
           "details": "Dinosaur Parts/Details/T-Rex details (head).png"
         },
         "body": {
-          "base": "Dinosaur Parts/Bodies/T-Rex body.png",
+          "base": "Dinosaur Parts/Bodies/T-Rex body 2.png",
           "details": "Dinosaur Parts/Details/T-Rex details (body).png"
         },
         "frontLegs": {
@@ -29,7 +29,7 @@
           "details": "Dinosaur Parts/Details/T-Rex details legs (back).png"
         },
         "tail": {
-          "base": "Dinosaur Parts/Tails/T-Rex tail.png",
+          "base": "Dinosaur Parts/Tails/T-Rex tail 2.png",
           "details": "Dinosaur Parts/Details/T-Rex details (tail).png"
         }
       },
@@ -120,12 +120,12 @@
         },
         "body": {
           "base": "Dinosaur Parts/Bodies/Pterodactyl body.png"
+        },
+        "tail": {
+          "base": "Dinosaur Parts/Tails/Pterodactyl tail.png"
         }
       },
-      "onlySlots": [
-        "head",
-        "body"
-      ]
+      "onlySlots": null
     },
     {
       "id": "stegosaurus",

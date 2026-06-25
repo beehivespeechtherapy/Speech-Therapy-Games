@@ -349,38 +349,83 @@
 
     /* Assembly */
     #assembly-screen {
-      background: linear-gradient(180deg, #4a3c28 0%, #2a2418 100%);
-      height: 100vh;
+      background: linear-gradient(180deg, #6d5e48 0%, #524839 100%);
       height: 100dvh;
+      max-height: 100dvh;
       min-height: 0;
       overflow: hidden;
-      padding: 0.75rem 1rem 1rem;
+      padding: 0.45rem 0.65rem 0.55rem;
       align-items: stretch;
+      display: grid;
+      grid-template-rows: auto auto minmax(0, 1fr) auto auto;
+      gap: 0.3rem;
     }
-    #assembly-screen h2 { margin-bottom: 0.25rem; flex-shrink: 0; text-align: center; }
+    #assembly-screen h2 { margin: 0; flex-shrink: 0; text-align: center; font-size: 1.25rem; }
     #assembly-screen .assembly-hint {
-      margin-bottom: 0.5rem;
-      font-size: 0.9rem;
-      opacity: 0.9;
+      margin: 0;
+      font-size: 0.78rem;
+      opacity: 0.92;
       text-align: center;
       flex-shrink: 0;
+      color: #f0ebe0;
     }
     .assembly-workspace {
-      flex: 1;
       min-height: 0;
+      height: 100%;
       display: flex;
-      gap: 0.75rem;
+      gap: 0.55rem;
       width: 100%;
       max-width: min(100%, 1200px);
       margin: 0 auto;
+      overflow: hidden;
     }
+    .assembly-menu-wrap {
+      flex-shrink: 0;
+      width: min(132px, 28vw);
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0.25rem;
+    }
+    .assembly-menu-nav {
+      display: flex;
+      justify-content: center;
+      gap: 0.35rem;
+      flex-shrink: 0;
+    }
+    .menu-nav-btn {
+      width: 32px;
+      height: 28px;
+      border-radius: 8px;
+      background: rgba(255,255,255,0.12);
+      border: 1px solid rgba(255,255,255,0.28);
+      color: #f5ecd7;
+      font-size: 1rem;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+    .menu-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .assembly-menu {
       display: flex;
       flex-direction: column;
-      gap: 0.45rem;
-      flex-shrink: 0;
-      width: min(132px, 28vw);
+      gap: 0.4rem;
+      flex: 1;
+      min-height: 0;
       overflow-y: auto;
+      overflow-x: hidden;
+      -webkit-overflow-scrolling: touch;
+      overscroll-behavior: contain;
+      touch-action: pan-y;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(196,127,42,0.55) transparent;
+      padding-right: 2px;
+    }
+    .assembly-menu::-webkit-scrollbar { width: 5px; }
+    .assembly-menu::-webkit-scrollbar-thumb {
+      background: rgba(196,127,42,0.5);
+      border-radius: 3px;
     }
     .slot-menu-btn {
       background: rgba(255,255,255,0.1);
@@ -420,20 +465,39 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      aspect-ratio: 1;
       background: #3a3530;
       box-shadow: 0 4px 20px rgba(0,0,0,0.35);
     }
-    #assembly-screen .dino-stage {
+    #assembly-screen .dino-stage,
+    #customize-screen .dino-stage.landscape-stage,
+    #victory-screen .dino-stage.landscape-stage {
+      aspect-ratio: 3 / 2;
       height: 100%;
       width: auto;
       max-height: 100%;
       max-width: 100%;
     }
-    .victory-stage.dino-stage,
-    #customize-screen .dino-stage {
+    .dino-canvas-wrap {
+      position: relative;
+      z-index: 1;
+      height: 88%;
+      width: auto;
+      aspect-ratio: 1;
+      max-height: 100%;
+      max-width: min(58%, 92%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .dino-canvas-wrap canvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+    .victory-stage.dino-stage:not(.landscape-stage) {
       width: 100%;
       max-width: min(90vw, 480px);
+      aspect-ratio: 1;
     }
     .dino-stage .stage-bg {
       position: absolute;
@@ -441,37 +505,36 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center center;
       z-index: 0;
-    }
-    .dino-stage canvas {
-      position: relative;
-      z-index: 1;
-      width: 100%;
-      height: 100%;
-      display: block;
-      max-width: 100%;
-      max-height: 100%;
     }
     .parts-picker {
       flex-shrink: 0;
       width: 100%;
       max-width: min(100%, 1200px);
-      margin: 0.5rem auto 0;
-      padding-top: 0.5rem;
-      border-top: 1px solid rgba(255,255,255,0.12);
+      margin: 0 auto;
+      padding-top: 0.25rem;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      min-height: 0;
+    }
+    .parts-picker-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.75rem;
+      margin-bottom: 0.25rem;
+      flex-wrap: wrap;
     }
     .parts-picker-label {
-      text-align: center;
-      font-size: 0.85rem;
-      opacity: 0.9;
-      margin-bottom: 0.35rem;
+      font-size: 0.82rem;
+      margin: 0;
+      color: #f5ecd7;
+      font-weight: 600;
     }
     .parts-picker-nav {
       display: flex;
-      justify-content: center;
       align-items: center;
-      gap: 1rem;
-      margin-bottom: 0.4rem;
+      gap: 0.5rem;
     }
     .parts-nav-btn {
       width: 42px;
@@ -491,21 +554,33 @@
     }
     .parts-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .parts-picker-viewport {
-      overflow: hidden;
+      overflow-x: auto;
+      overflow-y: hidden;
       width: 100%;
-      touch-action: pan-y;
+      touch-action: pan-x;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x proximity;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(196,127,42,0.6) transparent;
+    }
+    .parts-picker-viewport::-webkit-scrollbar {
+      height: 6px;
+    }
+    .parts-picker-viewport::-webkit-scrollbar-thumb {
+      background: rgba(196,127,42,0.55);
+      border-radius: 3px;
     }
     .parts-picker-track {
       display: flex;
       gap: 0.75rem;
-      padding: 0.25rem 0.5rem 0.5rem;
-      transition: transform 0.25s ease;
-      will-change: transform;
+      padding: 0.2rem 0.5rem 0.35rem;
+      width: max-content;
     }
     .part-card {
       flex: 0 0 auto;
-      width: 128px;
-      background: rgba(255,255,255,0.1);
+      width: var(--part-card-width, 120px);
+      scroll-snap-align: start;
+      background: rgba(255,255,255,0.14);
       border-radius: 14px;
       padding: 0.5rem;
       cursor: pointer;
@@ -520,26 +595,53 @@
     }
     .part-card canvas,
     .part-card .part-thumb-img {
-      width: 108px;
-      height: 108px;
+      width: 100px;
+      height: 100px;
       display: block;
       margin: 0 auto 0.35rem;
       object-fit: contain;
       border-radius: 8px;
     }
+    .part-card.part-card-bg .part-thumb-img {
+      width: 100%;
+      height: 68px;
+      object-fit: cover;
+      border-radius: 6px;
+    }
     .part-card .part-label {
       font-size: 0.68rem;
       line-height: 1.25;
-      opacity: 0.95;
+      color: #f5f0e6;
+      font-weight: 500;
     }
-    .assembly-footer {
+    .assembly-action-bar {
       flex-shrink: 0;
+      width: 100%;
+      max-width: min(100%, 1200px);
+      margin: 0 auto;
       display: flex;
       justify-content: center;
-      margin-top: 0.5rem;
+      padding: 0.35rem 0 0.15rem;
+      border-top: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.12) 100%);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.15);
+      color: #f5ecd7;
+      border: 2px solid rgba(255,255,255,0.35);
+      box-shadow: none;
+    }
+    .btn-secondary:hover { background: rgba(255,255,255,0.22); }
+    .hunt-footer .btn-secondary { font-size: 0.95rem; padding: 0.7rem 1.25rem; }
+    #color-swatches {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      max-width: min(96vw, 520px);
     }
     @media (max-width: 600px) {
-      .assembly-menu { width: 96px; }
+      .assembly-menu-wrap { width: 96px; }
       .slot-menu-btn { font-size: 0.72rem; padding: 0.5rem 0.35rem; }
       .part-card { width: 110px; }
       .part-card canvas,
@@ -548,13 +650,12 @@
 
     /* Customize */
     #customize-screen {
-      background: linear-gradient(180deg, #4a3c28 0%, #2a2418 100%);
+      background: linear-gradient(180deg, #6d5e48 0%, #524839 100%);
       gap: 1rem;
     }
-    #color-swatches { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
     .color-swatch {
-      width: 40px;
-      height: 40px;
+      width: 36px;
+      height: 36px;
       border-radius: 8px;
       border: 3px solid transparent;
       cursor: pointer;
@@ -570,9 +671,16 @@
       gap: 1rem;
     }
     #victory-screen h1 { font-size: 1.75rem; }
-    .victory-stage {
-      max-width: min(90vw, 480px);
+    #customize-screen .dino-stage.landscape-stage,
+    #victory-screen .dino-stage.landscape-stage {
+      width: min(96vw, 720px);
+      height: auto;
+      max-height: min(50vh, 480px);
+    }
+    #victory-screen .victory-stage {
+      max-width: min(96vw, 720px);
       width: 100%;
+      margin: 0 auto;
     }
   </style>
 </head>
@@ -601,6 +709,7 @@
         <div id="hunt-field"></div>
       </div>
       <div class="hunt-footer">
+        <button class="btn btn-secondary" id="hunt-skip-btn" type="button">Skip to assembly</button>
         <button class="btn" id="hunt-continue-btn" disabled>Build your dinosaur</button>
       </div>
     </section>
@@ -609,25 +718,35 @@
       <h2>Assemble your dinosaur</h2>
       <p class="assembly-hint">Choose a body part on the left, then tap a piece below to equip it.</p>
       <div class="assembly-workspace">
-        <nav class="assembly-menu" id="assembly-menu" aria-label="Body parts"></nav>
+        <div class="assembly-menu-wrap">
+          <div class="assembly-menu-nav">
+            <button type="button" class="menu-nav-btn" id="menu-scroll-up" aria-label="Scroll menu up">▲</button>
+            <button type="button" class="menu-nav-btn" id="menu-scroll-down" aria-label="Scroll menu down">▼</button>
+          </div>
+          <nav class="assembly-menu" id="assembly-menu" aria-label="Body parts"></nav>
+        </div>
         <div class="assembly-stage-wrap">
           <div class="dino-stage" id="assembly-stage">
             <img class="stage-bg" id="assembly-stage-bg" alt="" src="">
-            <canvas id="assembly-canvas" width="640" height="640"></canvas>
+            <div class="dino-canvas-wrap">
+              <canvas id="assembly-canvas" width="640" height="640"></canvas>
+            </div>
           </div>
         </div>
       </div>
       <div class="parts-picker">
-        <div class="parts-picker-label" id="parts-picker-label">Head parts</div>
-        <div class="parts-picker-nav">
-          <button type="button" class="parts-nav-btn" id="parts-scroll-left" aria-label="Scroll left">‹</button>
-          <button type="button" class="parts-nav-btn" id="parts-scroll-right" aria-label="Scroll right">›</button>
+        <div class="parts-picker-header">
+          <div class="parts-picker-label" id="parts-picker-label">Head parts</div>
+          <div class="parts-picker-nav">
+            <button type="button" class="parts-nav-btn" id="parts-scroll-left" aria-label="Scroll left">‹</button>
+            <button type="button" class="parts-nav-btn" id="parts-scroll-right" aria-label="Scroll right">›</button>
+          </div>
         </div>
         <div class="parts-picker-viewport" id="parts-picker-viewport">
           <div class="parts-picker-track" id="parts-picker-track"></div>
         </div>
       </div>
-      <div class="assembly-footer">
+      <div class="assembly-action-bar">
         <button class="btn" id="assembly-continue-btn" disabled>Color your dinosaur</button>
       </div>
     </section>
@@ -635,9 +754,11 @@
     <section id="customize-screen" class="screen hidden">
       <h2>Color your dinosaur</h2>
       <div id="color-swatches"></div>
-      <div class="dino-stage victory-stage" id="customize-stage" style="margin-top:0.5rem;">
+      <div class="dino-stage landscape-stage" id="customize-stage" style="margin-top:0.5rem;">
         <img class="stage-bg" id="customize-stage-bg" alt="" src="">
-        <canvas id="customize-canvas" width="480" height="480"></canvas>
+        <div class="dino-canvas-wrap">
+          <canvas id="customize-canvas" width="480" height="480"></canvas>
+        </div>
       </div>
       <button class="btn" id="customize-finish-btn" style="margin-top:1rem;">Finish!</button>
     </section>
@@ -645,9 +766,11 @@
     <section id="victory-screen" class="screen hidden">
       <h1>You did it!</h1>
       <p id="victory-msg">Amazing!</p>
-      <div class="dino-stage victory-stage" id="victory-stage">
+      <div class="dino-stage landscape-stage victory-stage" id="victory-stage">
         <img class="stage-bg" id="victory-stage-bg" alt="" src="">
-        <canvas id="victory-canvas" width="480" height="480"></canvas>
+        <div class="dino-canvas-wrap">
+          <canvas id="victory-canvas" width="480" height="480"></canvas>
+        </div>
       </div>
       <button class="btn" id="play-again-btn">Play again</button>
     </section>
@@ -661,7 +784,7 @@
   </div>
 
   <script type="application/json" id="game-config">
-  {"title":"Fossil Forge","intro":{"message":"Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"},"hunt":{"gridCols":4,"gridRows":5,"fossilsPerGame":10,"fossilImageCount":16,"brushRadius":22,"revealThreshold":0.72},"assemblyBackgrounds":[{"id":"desert","label":"Desert","path":"backgrounds/desert-background.png"},{"id":"ocean","label":"Ocean","path":"backgrounds/ocean-background.png"},{"id":"valley","label":"Valley","path":"backgrounds/valley-background.png"},{"id":"volcano","label":"Volcano","path":"backgrounds/volcano-background.png"}],"tintColors":["#4a8c3f","#2d6a9f","#8b3a3a","#c47f2a","#6b4c9a","#3a8c8c","#8c6b3a","#e8d44d"],"victoryMessage":"Amazing! You forged a one-of-a-kind dinosaur!","wordSets":[]}
+  {"title":"Fossil Forge","intro":{"message":"Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"},"hunt":{"gridCols":4,"gridRows":5,"fossilsPerGame":10,"fossilImageCount":16,"brushRadius":22,"revealThreshold":0.72,"gridInset":{"top":0.08,"right":0.04,"bottom":0.1,"left":0.04}},"slots":{"head":"Head","body":"Body","frontLegs":"Front legs","backLegs":"Back legs","tail":"Tail"},"assemblyBackgrounds":[{"id":"desert","label":"Desert","path":"backgrounds/desert-background.png"},{"id":"ocean","label":"Ocean","path":"backgrounds/ocean-background.png"},{"id":"valley","label":"Valley","path":"backgrounds/valley-background.png"},{"id":"volcano","label":"Volcano","path":"backgrounds/volcano-background.png"}],"tintColors":["#4a8c3f","#6bab5e","#2d5a24","#2d6a9f","#5a9fd4","#1e4466","#8b3a3a","#c75c5c","#6b2020","#c47f2a","#e8a84b","#8c5a18","#6b4c9a","#9b7fd4","#4a3068","#3a8c8c","#5cb8b8","#246060","#8c6b3a","#b8956a","#5c4828","#e8d44d","#f0e6a8","#c4b840","#7a8c9a","#4a4a4a","#d4a0c8","#e87878"],"victoryMessage":"Amazing! You forged a one-of-a-kind dinosaur!","wordSets":[]}
   </script>
 
   <script src="js/parts-catalog-embed.js"></script>

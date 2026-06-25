@@ -87,9 +87,8 @@ def main() -> None:
                 if (sid, slot) in details_by:
                     entry["details"] = details_by[(sid, slot)]
                 slots[slot] = entry
-        only = ["head", "body"] if sid == "pterodactyl" else None
         species_list.append(
-            {"id": sid, "label": label, "slots": slots, "onlySlots": only}
+            {"id": sid, "label": label, "slots": slots, "onlySlots": None}
         )
 
     catalog = {

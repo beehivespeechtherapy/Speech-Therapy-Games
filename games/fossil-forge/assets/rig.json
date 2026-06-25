@@ -13,11 +13,5 @@
   "stackOrigin": {
     "x": 0,
     "y": 0
-  },
-  "pterodactyl": {
-    "onlySlots": [
-      "head",
-      "body"
-    ]
   }
 }
