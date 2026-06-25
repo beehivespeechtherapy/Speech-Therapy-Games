@@ -56,5 +56,23 @@
     "#e87878"
   ],
   "victoryMessage": "Amazing! You forged a one-of-a-kind dinosaur!",
+  "audio": {
+    "brush": "Sounds/dirt-brushing.mp3",
+    "click": "Sounds/click.mp3",
+    "bgm": {
+      "hunt": "Sounds/fossil forge fossil hunt.mp4",
+      "assembly": "Sounds/fossil forge assembly stage.mp4"
+    },
+    "speciesCalls": {
+      "t-rex": "Sounds/t-rex roar.mp3",
+      "triceratops": "Sounds/triceratops roar.mp3",
+      "brachiosaurus": "Sounds/brachiosaurus call.mp3",
+      "velociraptor": "Sounds/velociraptor roar.mp3",
+      "pterodactyl": "Sounds/pterodactyl call.mp3",
+      "stegosaurus": "Sounds/stegosaurus call.mp3",
+      "mosasaurus": "Sounds/mosasaurus roar.mp3",
+      "spinosaurus": "Sounds/spinosaurus roar.mp3"
+    }
+  },
   "wordSets": []
 }

@@ -16,6 +16,10 @@
   </script>
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      overflow: hidden;
+    }
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
       background: #2a2418;
@@ -23,15 +27,29 @@
       min-height: 100vh;
       -webkit-font-smoothing: antialiased;
     }
-    #game-container { min-height: 100vh; position: relative; }
-    .screen {
+    #game-container {
+      position: relative;
+      width: 100%;
+      height: 100dvh;
       min-height: 100vh;
+      overflow: hidden;
+    }
+    .screen {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      min-height: 0;
       display: flex;
       flex-direction: column;
       align-items: center;
       padding: 1.25rem;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
     }
-    .screen.hidden { display: none; }
+    #game-container > .screen.hidden {
+      display: none !important;
+    }
 
     .btn {
       background: #c47f2a;
@@ -45,6 +63,36 @@
     }
     .btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .btn:active:not(:disabled) { transform: scale(0.97); }
+
+    .audio-mute-btn {
+      position: fixed;
+      top: 0.65rem;
+      right: 0.65rem;
+      z-index: 2000;
+      min-width: 44px;
+      height: 44px;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.55);
+      background: rgba(20, 16, 12, 0.82);
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      padding: 0 0.75rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    }
+    .audio-mute-btn .audio-mute-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .audio-mute-btn:hover { background: rgba(0,0,0,0.58); }
+    .audio-mute-btn:active { transform: scale(0.95); }
 
     /* Intro */
     #intro-screen {
@@ -348,7 +396,7 @@
     .word-btn.incorrect { background: #e8a0a0; border-color: #c75c5c; color: #fff; }
 
     /* Assembly */
-    #assembly-screen {
+    #assembly-screen:not(.hidden) {
       background: linear-gradient(180deg, #6d5e48 0%, #524839 100%);
       height: 100dvh;
       max-height: 100dvh;
@@ -359,8 +407,22 @@
       display: grid;
       grid-template-rows: auto auto minmax(0, 1fr) auto auto;
       gap: 0.3rem;
+      justify-items: center;
+      width: 100%;
+      max-width: 100vw;
+      box-sizing: border-box;
+    }
+    #assembly-screen > * {
+      width: min(100%, 1200px);
+      max-width: 100%;
+      min-width: 0;
+      box-sizing: border-box;
     }
     #assembly-screen h2 { margin: 0; flex-shrink: 0; text-align: center; font-size: 1.25rem; }
+    .assembly-hint-wrap {
+      flex-shrink: 0;
+      min-height: 1.2em;
+    }
     #assembly-screen .assembly-hint {
       margin: 0;
       font-size: 0.78rem;
@@ -371,12 +433,11 @@
     }
     .assembly-workspace {
       min-height: 0;
+      min-width: 0;
       height: 100%;
       display: flex;
       gap: 0.55rem;
       width: 100%;
-      max-width: min(100%, 1200px);
-      margin: 0 auto;
       overflow: hidden;
     }
     .assembly-menu-wrap {
@@ -511,11 +572,9 @@
     .parts-picker {
       flex-shrink: 0;
       width: 100%;
-      max-width: min(100%, 1200px);
-      margin: 0 auto;
+      min-width: 0;
       padding-top: 0.25rem;
       border-top: 1px solid rgba(255,255,255,0.15);
-      min-height: 0;
     }
     .parts-picker-header {
       display: flex;
@@ -557,6 +616,7 @@
       overflow-x: auto;
       overflow-y: hidden;
       width: 100%;
+      min-width: 0;
       touch-action: pan-x;
       -webkit-overflow-scrolling: touch;
       scroll-snap-type: x proximity;
@@ -614,16 +674,75 @@
       color: #f5f0e6;
       font-weight: 500;
     }
+    .assembly-load-error {
+      margin: 0;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: #f5ecd7;
+      text-align: center;
+      max-width: 28rem;
+    }
+    .assembly-footer-wrap {
+      flex-shrink: 0;
+      width: 100%;
+      min-width: 0;
+    }
+    #assembly-screen.color-mode .assembly-menu-wrap {
+      display: none;
+    }
+    #assembly-screen.color-mode .assembly-hint-parts { display: none; }
+    #assembly-screen.color-mode .assembly-hint-color { display: block; }
+    #assembly-screen.color-mode .parts-picker-viewport {
+      overflow: visible;
+    }
+    #assembly-screen.color-mode .parts-picker-track {
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 100%;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.2rem 0.25rem 0.35rem;
+    }
+    #assembly-screen.color-mode .color-card {
+      width: 58px;
+      padding: 0.35rem;
+    }
+    #assembly-screen.color-mode .color-card .color-swatch-inner {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 0;
+    }
+    .assembly-hint-color { display: none; }
     .assembly-action-bar {
       flex-shrink: 0;
       width: 100%;
-      max-width: min(100%, 1200px);
-      margin: 0 auto;
+      min-width: 0;
       display: flex;
       justify-content: center;
+      gap: 0.75rem;
       padding: 0.35rem 0 0.15rem;
       border-top: 1px solid rgba(255,255,255,0.12);
       background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.12) 100%);
+    }
+    .assembly-action-bar.hidden { display: none; }
+    .color-card {
+      padding: 0.45rem;
+    }
+    .color-card .color-swatch-inner {
+      width: 72px;
+      height: 72px;
+      border-radius: 12px;
+      border: 2px solid rgba(255,255,255,0.25);
+      display: block;
+      margin: 0 auto 0.3rem;
+      pointer-events: none;
+    }
+    .color-card.selected .color-swatch-inner {
+      border-color: #fff;
+      box-shadow: 0 0 0 2px #e8d44d;
+    }
+    .color-card .part-label {
+      color: #f5f0e6;
     }
     .btn-secondary {
       background: rgba(255,255,255,0.15);
@@ -633,35 +752,7 @@
     }
     .btn-secondary:hover { background: rgba(255,255,255,0.22); }
     .hunt-footer .btn-secondary { font-size: 0.95rem; padding: 0.7rem 1.25rem; }
-    #color-swatches {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      justify-content: center;
-      max-width: min(96vw, 520px);
-    }
-    @media (max-width: 600px) {
-      .assembly-menu-wrap { width: 96px; }
-      .slot-menu-btn { font-size: 0.72rem; padding: 0.5rem 0.35rem; }
-      .part-card { width: 110px; }
-      .part-card canvas,
-      .part-card .part-thumb-img { width: 92px; height: 92px; }
-    }
-
-    /* Customize */
-    #customize-screen {
-      background: linear-gradient(180deg, #6d5e48 0%, #524839 100%);
-      gap: 1rem;
-    }
-    .color-swatch {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      border: 3px solid transparent;
-      cursor: pointer;
-      padding: 0;
-    }
-    .color-swatch.active { border-color: #fff; }
+    #color-swatches { display: none; }
 
     /* Victory */
     #victory-screen {
@@ -671,20 +762,42 @@
       gap: 1rem;
     }
     #victory-screen h1 { font-size: 1.75rem; }
+    @media (max-width: 600px) {
+      .assembly-menu-wrap { width: 96px; }
+      .slot-menu-btn { font-size: 0.72rem; padding: 0.5rem 0.35rem; }
+      .part-card { width: 110px; }
+      .part-card canvas,
+      .part-card .part-thumb-img { width: 92px; height: 92px; }
+      .color-card .color-swatch-inner { width: 60px; height: 60px; }
+    }
     #customize-screen .dino-stage.landscape-stage,
     #victory-screen .dino-stage.landscape-stage {
-      width: min(96vw, 720px);
+      width: min(96vw, 820px);
       height: auto;
-      max-height: min(50vh, 480px);
+      max-height: min(62vh, 560px);
+    }
+    #victory-screen .dino-canvas-wrap {
+      height: 96%;
+      max-width: min(84%, 98%);
     }
     #victory-screen .victory-stage {
-      max-width: min(96vw, 720px);
+      max-width: min(96vw, 820px);
       width: 100%;
       margin: 0 auto;
+    }
+    .victory-actions {
+      display: flex;
+      gap: 0.75rem;
+      justify-content: center;
+      flex-wrap: wrap;
     }
   </style>
 </head>
 <body>
+  <button type="button" id="audio-mute-btn" class="audio-mute-btn" aria-label="Toggle mute" hidden>
+    <span class="audio-mute-icon" aria-hidden="true">🔊</span>
+    <span class="audio-mute-label">Sound</span>
+  </button>
   <div id="game-container">
     <section id="intro-screen" class="screen">
       <img class="pickaxe-icon" src="pickaxe.png" alt="">
@@ -715,8 +828,11 @@
     </section>
 
     <section id="assembly-screen" class="screen hidden">
-      <h2>Assemble your dinosaur</h2>
-      <p class="assembly-hint">Choose a body part on the left, then tap a piece below to equip it.</p>
+      <h2 id="assembly-title">Assemble your dinosaur</h2>
+      <div class="assembly-hint-wrap">
+        <p class="assembly-hint assembly-hint-parts">Choose a body part on the left, then tap a piece below to equip it.</p>
+        <p class="assembly-hint assembly-hint-color">Tap a color below to paint your dinosaur!</p>
+      </div>
       <div class="assembly-workspace">
         <div class="assembly-menu-wrap">
           <div class="assembly-menu-nav">
@@ -727,7 +843,7 @@
         </div>
         <div class="assembly-stage-wrap">
           <div class="dino-stage" id="assembly-stage">
-            <img class="stage-bg" id="assembly-stage-bg" alt="" src="">
+            <img class="stage-bg" id="assembly-stage-bg" alt="" hidden>
             <div class="dino-canvas-wrap">
               <canvas id="assembly-canvas" width="640" height="640"></canvas>
             </div>
@@ -746,33 +862,30 @@
           <div class="parts-picker-track" id="parts-picker-track"></div>
         </div>
       </div>
-      <div class="assembly-action-bar">
-        <button class="btn" id="assembly-continue-btn" disabled>Color your dinosaur</button>
-      </div>
-    </section>
-
-    <section id="customize-screen" class="screen hidden">
-      <h2>Color your dinosaur</h2>
-      <div id="color-swatches"></div>
-      <div class="dino-stage landscape-stage" id="customize-stage" style="margin-top:0.5rem;">
-        <img class="stage-bg" id="customize-stage-bg" alt="" src="">
-        <div class="dino-canvas-wrap">
-          <canvas id="customize-canvas" width="480" height="480"></canvas>
+      <div class="assembly-footer-wrap">
+        <div class="assembly-action-bar" id="assembly-action-parts">
+          <button class="btn" id="assembly-continue-btn" disabled>Color your dinosaur</button>
+        </div>
+        <div class="assembly-action-bar hidden" id="assembly-action-color">
+          <button type="button" class="btn btn-secondary" id="assembly-back-btn">Back</button>
+          <button type="button" class="btn" id="assembly-finish-btn">Finish!</button>
         </div>
       </div>
-      <button class="btn" id="customize-finish-btn" style="margin-top:1rem;">Finish!</button>
     </section>
 
     <section id="victory-screen" class="screen hidden">
       <h1>You did it!</h1>
       <p id="victory-msg">Amazing!</p>
       <div class="dino-stage landscape-stage victory-stage" id="victory-stage">
-        <img class="stage-bg" id="victory-stage-bg" alt="" src="">
+        <img class="stage-bg" id="victory-stage-bg" alt="" hidden>
         <div class="dino-canvas-wrap">
-          <canvas id="victory-canvas" width="480" height="480"></canvas>
+          <canvas id="victory-canvas" width="640" height="640"></canvas>
         </div>
       </div>
-      <button class="btn" id="play-again-btn">Play again</button>
+      <div class="victory-actions">
+        <button type="button" class="btn btn-secondary" id="listen-again-btn">Listen again</button>
+        <button class="btn" id="play-again-btn">Play again</button>
+      </div>
     </section>
   </div>
 
@@ -784,16 +897,17 @@
   </div>
 
   <script type="application/json" id="game-config">
-  {"title":"Fossil Forge","intro":{"message":"Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"},"hunt":{"gridCols":4,"gridRows":5,"fossilsPerGame":10,"fossilImageCount":16,"brushRadius":22,"revealThreshold":0.72,"gridInset":{"top":0.08,"right":0.04,"bottom":0.1,"left":0.04}},"slots":{"head":"Head","body":"Body","frontLegs":"Front legs","backLegs":"Back legs","tail":"Tail"},"assemblyBackgrounds":[{"id":"desert","label":"Desert","path":"backgrounds/desert-background.png"},{"id":"ocean","label":"Ocean","path":"backgrounds/ocean-background.png"},{"id":"valley","label":"Valley","path":"backgrounds/valley-background.png"},{"id":"volcano","label":"Volcano","path":"backgrounds/volcano-background.png"}],"tintColors":["#4a8c3f","#6bab5e","#2d5a24","#2d6a9f","#5a9fd4","#1e4466","#8b3a3a","#c75c5c","#6b2020","#c47f2a","#e8a84b","#8c5a18","#6b4c9a","#9b7fd4","#4a3068","#3a8c8c","#5cb8b8","#246060","#8c6b3a","#b8956a","#5c4828","#e8d44d","#f0e6a8","#c4b840","#7a8c9a","#4a4a4a","#d4a0c8","#e87878"],"victoryMessage":"Amazing! You forged a one-of-a-kind dinosaur!","wordSets":[]}
+  {"title":"Fossil Forge","intro":{"message":"Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"},"hunt":{"gridCols":4,"gridRows":5,"fossilsPerGame":10,"fossilImageCount":16,"brushRadius":22,"revealThreshold":0.72,"gridInset":{"top":0.08,"right":0.04,"bottom":0.1,"left":0.04}},"slots":{"head":"Head","body":"Body","frontLegs":"Front legs","backLegs":"Back legs","tail":"Tail"},"assemblyBackgrounds":[{"id":"desert","label":"Desert","path":"backgrounds/desert-background.png"},{"id":"ocean","label":"Ocean","path":"backgrounds/ocean-background.png"},{"id":"valley","label":"Valley","path":"backgrounds/valley-background.png"},{"id":"volcano","label":"Volcano","path":"backgrounds/volcano-background.png"}],"tintColors":["#4a8c3f","#6bab5e","#2d5a24","#2d6a9f","#5a9fd4","#1e4466","#8b3a3a","#c75c5c","#6b2020","#c47f2a","#e8a84b","#8c5a18","#6b4c9a","#9b7fd4","#4a3068","#3a8c8c","#5cb8b8","#246060","#8c6b3a","#b8956a","#5c4828","#e8d44d","#f0e6a8","#c4b840","#7a8c9a","#4a4a4a","#d4a0c8","#e87878"],"victoryMessage":"Amazing! You forged a one-of-a-kind dinosaur!","audio":{"brush":"Sounds/dirt-brushing.mp3","click":"Sounds/click.mp3","bgm":{"hunt":"Sounds/fossil forge fossil hunt.mp4","assembly":"Sounds/fossil forge assembly stage.mp4"},"speciesCalls":{"t-rex":"Sounds/t-rex roar.mp3","triceratops":"Sounds/triceratops roar.mp3","brachiosaurus":"Sounds/brachiosaurus call.mp3","velociraptor":"Sounds/velociraptor roar.mp3","pterodactyl":"Sounds/pterodactyl call.mp3","stegosaurus":"Sounds/stegosaurus call.mp3","mosasaurus":"Sounds/mosasaurus roar.mp3","spinosaurus":"Sounds/spinosaurus roar.mp3"}},"wordSets":[]}
   </script>
 
-  <script src="js/parts-catalog-embed.js"></script>
+  <script src="js/parts-catalog-embed.js?v=1782357838"></script>
   <script src="../../core/word-images.js"></script>
   <script src="../../core/word-challenges.js"></script>
   <script src="../../core/word-set-menus.js"></script>
   <script src="../../core/word-set-choose.js"></script>
   <script src="../../core/discrimination-round.js"></script>
-  <script src="js/dino-composer.js"></script>
-  <script src="js/game.js"></script>
+  <script src="js/dino-composer.js?v=12"></script>
+  <script src="js/fossil-audio.js?v=7"></script>
+  <script src="js/game.js?v=13"></script>
 </body>
 </html>

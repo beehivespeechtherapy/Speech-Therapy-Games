@@ -7,8 +7,8 @@
     "tail",
     "body",
     "backLegs",
-    "frontLegs",
-    "head"
+    "head",
+    "frontLegs"
   ],
   "stackOrigin": {
     "x": 0,

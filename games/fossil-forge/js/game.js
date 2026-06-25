@@ -16,6 +16,7 @@
   let wordSetsIndex = null;
   let wordSetChoose = null;
   let composer = null;
+  let audio = null;
 
   let equipped = {};
   let tintColor = '#4a8c3f';
@@ -28,6 +29,7 @@
 
   let assemblyCategory = 'head';
   let assemblyUiReady = false;
+  let colorMode = false;
 
   const PART_CARD_STEP = 128;
 
@@ -63,6 +65,7 @@
     });
     const el = document.getElementById(id);
     if (el) el.classList.remove('hidden');
+    if (audio) audio.onScreen(id);
   }
 
   function shuffle(arr) {
@@ -114,7 +117,11 @@
     }).catch(function () { /* word lists optional when offline */ });
 
     composer = new DinoComposer(assetPath(''));
-    await composer.loadCatalog(assetPath('assets/parts-catalog.json'));
+    await composer.loadCatalog(assetPath('assets/parts-catalog.json?v=1782357838'));
+
+    audio = new FossilAudio(assetPath);
+    audio.loadConfig(config.audio);
+    audio.init();
   }
 
   function formatLoadError(err) {
@@ -251,14 +258,21 @@
           });
         }
         setTimeout(function () {
-          overlay.classList.add('hidden');
-          onDone(ok);
+          closeDiscrimination(onDone, ok);
         }, 1200);
       });
       choiceButtons.push({ btn: btn, originalIndex: idx });
       container.appendChild(btn);
     });
     overlay.classList.remove('hidden');
+    if (audio) audio.setChallengeOpen(true);
+  }
+
+  function closeDiscrimination(onDone, ok) {
+    const overlay = document.getElementById('discrimination-overlay');
+    if (overlay) overlay.classList.add('hidden');
+    if (audio) audio.setChallengeOpen(false);
+    onDone(ok);
   }
 
   function huntSettings() {
@@ -322,12 +336,45 @@
   }
 
   function applyStageBackgrounds() {
-    if (!selectedBackground) return;
-    const url = assetPath(selectedBackground);
-    ['assembly-stage-bg', 'customize-stage-bg', 'victory-stage-bg'].forEach(function (id) {
+    const url = selectedBackground ? assetPath(selectedBackground) : '';
+    ['assembly-stage-bg', 'victory-stage-bg'].forEach(function (id) {
       const img = document.getElementById(id);
-      if (img) img.src = url;
+      if (!img) return;
+      if (url) {
+        img.src = url;
+        img.hidden = false;
+      } else {
+        img.removeAttribute('src');
+        img.hidden = true;
+      }
     });
+  }
+
+  function showAssemblyLoadError(message) {
+    const track = document.getElementById('parts-picker-track');
+    if (!track) return;
+    track.innerHTML = '';
+    const msg = document.createElement('p');
+    msg.className = 'assembly-load-error';
+    msg.textContent = message;
+    track.appendChild(msg);
+  }
+
+  function catalogReady() {
+    return composer && composer.catalog && (composer.catalog.species || []).length > 0;
+  }
+
+  function updateAssemblyChrome() {
+    const screen = document.getElementById('assembly-screen');
+    const title = document.getElementById('assembly-title');
+    const partsBar = document.getElementById('assembly-action-parts');
+    const colorBar = document.getElementById('assembly-action-color');
+    const partsNav = document.querySelector('.parts-picker-nav');
+    if (screen) screen.classList.toggle('color-mode', colorMode);
+    if (title) title.textContent = colorMode ? 'Color your dinosaur' : 'Assemble your dinosaur';
+    if (partsBar) partsBar.classList.toggle('hidden', colorMode);
+    if (colorBar) colorBar.classList.toggle('hidden', !colorMode);
+    if (partsNav) partsNav.style.display = colorMode ? 'none' : '';
   }
 
   function applyGridInset(gridEl) {
@@ -398,6 +445,7 @@
         state.progress = dirtProgress(canvas);
         if (state.progress >= threshold && !state.challenged) {
           state.challenged = true;
+          if (audio) audio.stopBrushing(true);
           showDiscrimination(function (ok) {
             if (ok) {
               state.done = true;
@@ -415,18 +463,26 @@
         }
       }
 
+      function endBrush() {
+        if (painting) {
+          painting = false;
+          if (audio) audio.stopBrushing();
+        }
+      }
+
       let painting = false;
       canvas.addEventListener('pointerdown', function (e) {
         if (state.done) return;
         painting = true;
+        if (audio) audio.startBrushing();
         canvas.setPointerCapture(e.pointerId);
         brushAt(e.clientX, e.clientY);
       });
       canvas.addEventListener('pointermove', function (e) {
         if (painting) brushAt(e.clientX, e.clientY);
       });
-      canvas.addEventListener('pointerup', function () { painting = false; });
-      canvas.addEventListener('pointercancel', function () { painting = false; });
+      canvas.addEventListener('pointerup', endBrush);
+      canvas.addEventListener('pointercancel', endBrush);
 
       wrap.appendChild(canvas);
       grid.appendChild(wrap);
@@ -472,6 +528,7 @@
 
   function equipPart(slot, species) {
     equipped[slot] = species;
+    if (audio) audio.playClick();
     resetPartsPickerScroll();
     renderAssembly();
   }
@@ -527,11 +584,49 @@
     viewport.scrollBy({ left: direction * amount, behavior: 'smooth' });
   }
 
-  function renderPartsPicker() {
+  function renderColorPicker() {
     const track = document.getElementById('parts-picker-track');
     const label = document.getElementById('parts-picker-label');
     if (!track) return;
     track.innerHTML = '';
+    if (label) label.textContent = 'Pick a color';
+    (config.tintColors || ['#4a8c3f']).forEach(function (c) {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'part-card color-card' + (c === tintColor ? ' selected' : '');
+      const swatch = document.createElement('span');
+      swatch.className = 'color-swatch-inner';
+      swatch.style.background = c;
+      card.appendChild(swatch);
+      card.addEventListener('click', function () {
+        tintColor = c;
+        if (audio) audio.playClick();
+        renderColorPicker();
+        renderDinoCanvas('assembly-canvas', true);
+      });
+      track.appendChild(card);
+    });
+    requestAnimationFrame(function () {
+      resetPartsPickerScroll();
+      updatePartsScrollButtons();
+    });
+  }
+
+  function renderPartsPicker() {
+    if (colorMode) {
+      renderColorPicker();
+      return;
+    }
+    const track = document.getElementById('parts-picker-track');
+    const label = document.getElementById('parts-picker-label');
+    if (!track) return;
+    track.innerHTML = '';
+
+    if (!catalogReady()) {
+      if (label) label.textContent = 'Loading parts…';
+      showAssemblyLoadError('Dinosaur parts are still loading. If this stays empty, refresh the page (Cmd+Shift+R).');
+      return;
+    }
 
     if (assemblyCategory === 'background') {
       if (label) label.textContent = 'Choose a background';
@@ -573,7 +668,8 @@
         (function (p, cvs) {
           const eq = {};
           eq[p.slot] = p.species;
-          composer.render(cvs.getContext('2d'), eq, { tint: false, destW: 108, destH: 108 });
+          composer.render(cvs.getContext('2d'), eq, { tint: false, destW: 108, destH: 108 })
+            .catch(function () { /* thumbnail optional */ });
         })(part, thumb);
 
         card.addEventListener('click', function () { equipPart(slot, part.species); });
@@ -590,6 +686,7 @@
     const menu = document.getElementById('assembly-menu');
     if (!menu) return;
     menu.innerHTML = '';
+    if (!catalogReady()) return;
     visibleAssemblySlots().forEach(function (slot) {
       const btn = document.createElement('button');
       btn.type = 'button';
@@ -659,57 +756,63 @@
     });
   }
 
-  async function renderAssembly() {
-    renderAssemblyMenu();
-    await renderDinoCanvas('assembly-canvas', false);
+  function populateAssemblyUi() {
+    updateAssemblyChrome();
+    if (!colorMode) renderAssemblyMenu();
     renderPartsPicker();
+  }
+
+  async function renderAssembly() {
+    populateAssemblyUi();
+    try {
+      await renderDinoCanvas('assembly-canvas', colorMode);
+    } catch (e) {
+      console.error('Assembly preview failed', e);
+    }
     const btn = document.getElementById('assembly-continue-btn');
     if (btn) btn.disabled = !assemblyComplete();
   }
 
+  function enterColorMode() {
+    if (!assemblyComplete()) return;
+    colorMode = true;
+    resetPartsPickerScroll();
+    renderAssembly();
+  }
+
+  function exitColorMode() {
+    colorMode = false;
+    resetPartsPickerScroll();
+    renderAssembly();
+  }
+
   function skipToAssembly() {
+    colorMode = false;
     showAssembly();
   }
 
   function showAssembly() {
     assemblyCategory = 'head';
+    colorMode = false;
+    if (audio) {
+      audio.stopBrushing(true);
+      audio.unlock();
+      audio.ensurePlayback();
+    }
     showScreen('assembly-screen');
     setupAssemblyUi();
     applyStageBackgrounds();
-    renderAssembly();
-  }
-
-  function renderColorSwatches() {
-    const row = document.getElementById('color-swatches');
-    row.innerHTML = '';
-    (config.tintColors || ['#4a8c3f']).forEach(function (c) {
-      const b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'color-swatch' + (c === tintColor ? ' active' : '');
-      b.style.background = c;
-      b.addEventListener('click', function () {
-        tintColor = c;
-        renderCustomize();
-      });
-      row.appendChild(b);
+    populateAssemblyUi();
+    renderAssembly().catch(function (err) {
+      console.error('renderAssembly failed', err);
     });
-  }
-
-  async function renderCustomize() {
-    renderColorSwatches();
-    await renderDinoCanvas('customize-canvas', true);
-  }
-
-  function showCustomize() {
-    showScreen('customize-screen');
-    applyStageBackgrounds();
-    renderCustomize();
   }
 
   async function showVictory() {
     showScreen('victory-screen');
     applyStageBackgrounds();
     await renderDinoCanvas('victory-canvas', true);
+    if (audio) audio.playHeadCall(equipped);
   }
 
   function init() {
@@ -733,8 +836,20 @@
       document.getElementById('hunt-continue-btn').addEventListener('click', showAssembly);
       const skipBtn = document.getElementById('hunt-skip-btn');
       if (skipBtn) skipBtn.addEventListener('click', skipToAssembly);
-      document.getElementById('assembly-continue-btn').addEventListener('click', showCustomize);
-      document.getElementById('customize-finish-btn').addEventListener('click', showVictory);
+      document.getElementById('assembly-continue-btn').addEventListener('click', enterColorMode);
+      const assemblyBackBtn = document.getElementById('assembly-back-btn');
+      if (assemblyBackBtn) assemblyBackBtn.addEventListener('click', exitColorMode);
+      const assemblyFinishBtn = document.getElementById('assembly-finish-btn');
+      if (assemblyFinishBtn) assemblyFinishBtn.addEventListener('click', showVictory);
+      const listenAgainBtn = document.getElementById('listen-again-btn');
+      if (listenAgainBtn) {
+        listenAgainBtn.addEventListener('click', function () {
+          if (audio) {
+            audio.unlock();
+            audio.playHeadCall(equipped);
+          }
+        });
+      }
       document.getElementById('play-again-btn').addEventListener('click', function () {
         if (config.wordSets && config.wordSets.length > 0) {
           showScreen('choose-screen');

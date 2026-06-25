@@ -335,19 +335,6 @@
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
-    .sheet-page + .sheet-page { margin-top: 0; }
-    /* When two sheet-pages are stacked, merge them visually into one block */
-    .sheet-page:has(+ .sheet-page) {
-      border-bottom-left-radius: 0;
-      border-bottom-right-radius: 0;
-      padding-bottom: 8px;
-    }
-    .sheet-page + .sheet-page {
-      border-top-left-radius: 0;
-      border-top-right-radius: 0;
-      padding-top: 8px;
-    }
-
     /* ===== Header banner (lavender ribbon with logo + title) ===== */
     .brand-header {
       display: grid;
@@ -454,6 +441,9 @@
       -webkit-print-color-adjust: exact;
       print-color-adjust: exact;
     }
+    .pairs-table {
+      margin-bottom: 8px;
+    }
 
     /* ===== Practice tracker card (page 1) ===== */
     .practice-card {
@@ -504,13 +494,17 @@
       print-color-adjust: exact;
     }
 
-    /* ===== Picture sheet (compact 2-up layout) ===== */
+    /* ===== Picture grid (2 pair-columns × 5 rows) ===== */
     .sheet {
-      --img-max: 70px;
+      --pair-rows: 5;
+      --img-max: 90px;
       display: grid;
       grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(var(--pair-rows), minmax(0, auto));
       gap: 6px;
       position: relative;
+      flex: 1 1 0;
+      min-height: 0;
     }
     .sheet::before {
       content: '';
@@ -527,10 +521,15 @@
       print-color-adjust: exact;
     }
     .sheet .pair-row {
+      display: flex;
+      flex-direction: column;
+      min-height: 0;
       break-inside: avoid;
       page-break-inside: avoid;
     }
     .sheet .pair-pictures {
+      flex: 1 1 0;
+      min-height: 0;
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 6px;
@@ -540,7 +539,8 @@
       border: 2px solid var(--card-border);
       border-radius: 12px;
       padding: 6px;
-      min-height: 112px;
+      min-height: 0;
+      height: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -552,13 +552,14 @@
       print-color-adjust: exact;
     }
     .sheet .pic {
-      flex: 1;
+      flex: 1 1 auto;
       display: flex;
       align-items: center;
       justify-content: center;
       width: 100%;
-      min-height: 60px;
+      min-height: 0;
       padding: 2px 0;
+      overflow: hidden;
     }
     .sheet .pic img {
       max-width: 100%;
@@ -567,7 +568,32 @@
       height: auto;
       object-fit: contain;
     }
+    /* One letter page: header block + picture grid share the height. */
+    body.sheet-built .wrap { max-width: 8.5in; }
+    body.sheet-built #preview-wrap {
+      --sheet-block-h: calc(11in - 0.8in);
+      display: flex;
+      flex-direction: column;
+      height: var(--sheet-block-h);
+      max-height: var(--sheet-block-h);
+      box-sizing: border-box;
+    }
+    body.sheet-built #homework-sheet {
+      flex: 1 1 0;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 0;
+    }
+    body.sheet-built .sheet {
+      grid-template-rows: repeat(var(--pair-rows), minmax(0, 1fr));
+      height: 100%;
+    }
+    body.sheet-built .sheet .pair-row { height: 100%; }
+    body.sheet-built .sheet .pic img { max-height: 100%; }
     .sheet .word {
+      flex: 0 0 auto;
       width: 100%;
       text-align: center;
       padding: 2px 8px;
@@ -581,6 +607,7 @@
       print-color-adjust: exact;
     }
     .sheet .trial-row {
+      flex: 0 0 auto;
       display: grid;
       grid-template-columns: repeat(10, 1fr);
       gap: 3px;
@@ -611,41 +638,111 @@
       padding: 8px;
     }
 
-    /* ===== Print ===== */
+    /* ===== Print (single letter page) ===== */
     @media print {
+      @page { margin: 0.4in; size: letter; }
       html, body {
+        width: 100%;
+        height: 100%;
         background: var(--cream-page);
         padding: 0;
+        margin: 0;
         -webkit-print-color-adjust: exact;
         print-color-adjust: exact;
       }
       .no-print { display: none !important; }
-      .wrap { max-width: none; margin: 0; }
+      .wrap {
+        max-width: none;
+        margin: 0;
+        height: 100%;
+      }
       #preview-wrap {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 100%;
+        max-height: 100%;
         border: none;
         padding: 0;
         margin: 0;
         background: transparent;
+        box-sizing: border-box;
+        overflow: visible;
       }
       #preview-wrap h2 { display: none; }
+      #homework-sheet {
+        flex: 1 1 0;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        margin: 0 !important;
+        border-radius: 0;
+        padding: 0;
+        background: transparent;
+        overflow: visible;
+      }
+      #sheet-top { flex: 0 0 auto; }
       .sheet-page {
         margin: 0 !important;
         border-radius: 0;
         padding: 0;
         background: transparent;
       }
-      .sheet-page + .sheet-page { margin-top: 0 !important; }
+      .brand-header { margin-bottom: 4px; gap: 8px; }
+      .brand-header .logo-slot { height: 0.65in; }
+      .title-card { padding: 6px 14px; box-shadow: none; }
+      .title-card .instruction-doc-title { font-size: 1.05rem; }
+      .title-card .instruction-extra { font-size: 0.82rem; margin-top: 2px; }
       .directions-card {
-        max-height: 3.4em;
-        overflow: hidden;
+        padding: 5px 10px;
+        margin-bottom: 4px;
+        font-size: 0.78rem;
+        line-height: 1.25;
+        box-shadow: none;
       }
-      .sheet { --img-max: 70px; }
-      .sheet .pair-row,
-      .sheet .cell {
+      .practice-card {
+        padding: 4px 10px 5px;
+        margin-bottom: 4px;
+        box-shadow: none;
+      }
+      .practice-card .practice-title { font-size: 0.78rem; margin: 0 0 2px; }
+      .practice-days { gap: 5px; }
+      .practice-day .day-label { font-size: 0.7rem; }
+      .practice-day .day-box { width: 18px; height: 18px; }
+      .sheet {
+        flex: 1 1 0;
+        min-height: 0;
+        height: 100%;
+        gap: 3px;
+        grid-template-rows: repeat(var(--pair-rows), minmax(0, 1fr));
+        overflow: visible;
+      }
+      .sheet .pair-row {
+        height: 100%;
         break-inside: avoid;
         page-break-inside: avoid;
       }
-      @page { margin: 8mm; size: letter; }
+      .sheet .cell,
+      .directions-card,
+      .practice-card,
+      .brand-header .logo-slot {
+        box-shadow: none;
+      }
+      .sheet .cell {
+        padding: 3px 4px;
+        min-height: 0;
+        height: 100%;
+        break-inside: avoid;
+        page-break-inside: avoid;
+      }
+      .sheet .pic { min-height: 0; padding: 1px 0; }
+      .sheet .pic img { max-height: 100%; }
+      .sheet .word {
+        font-size: 0.72rem;
+        padding: 2px 6px;
+      }
+      .sheet .trial-row { display: none; }
 
       /* Ink-saver: strip backgrounds for printing only.
          On-screen preview still looks cute. */
@@ -706,7 +803,7 @@
       Enter the <strong>two sounds</strong> you are comparing and the <strong>word position</strong> (Initial / Medial / Final).
       Paste <strong>exactly ten</strong> minimal pairs, one per line, with a slash between words (e.g. <code>think/sink</code>).
       Choose a <strong>picture folder</strong> inside <code>word-images</code> if your images live in a set folder.
-      <strong>Print / Save PDF</strong> produces page 1 (instruction + word table) and page 2 (pictures).
+      <strong>Print / Save PDF</strong> produces a single page: instructions, weekly tracker, and picture pairs side by side.
     </p>
 
     <div class="no-print">
@@ -715,7 +812,8 @@
         <option value="">All folders (entire library)</option>
       </select>
       <p class="field-hint" id="folder-scope-hint">
-        Only images inside the folder you pick are used. Sets are split into <strong>Initial</strong>, <strong>Medial</strong>, and <strong>Final</strong> — the same word (e.g. <code>van</code>) may only exist in one of those; if pictures are missing, try <strong>V:B Minimal Pairs - Initial</strong> or <strong>All folders</strong>.
+        <strong>All folders</strong> is recommended — most pictures live in the shared <code>_library</code> folder.
+        If you pick a set folder and a word isn’t there, the tool checks <code>_library</code> automatically.
       </p>
 
       <label>Sounds (for title and table headers)</label>
@@ -729,7 +827,7 @@
           <input type="text" id="sound-2" class="text-in" placeholder="e.g. F" autocomplete="off">
         </div>
       </div>
-      <p class="field-hint">These appear in the printed title and as column headings in the word table.</p>
+      <p class="field-hint">These appear in the printed title (e.g. <code>D : G Minimal Pairs</code>).</p>
 
       <label for="position">Position in word</label>
       <select id="position" aria-describedby="position-hint">
@@ -791,11 +889,11 @@
 
     <div id="preview-wrap">
       <h2 class="no-print">Sheet preview</h2>
-      <div id="instruction-page" class="sheet-page" aria-live="polite">
-        <p class="preview-placeholder">Enter both sounds and exactly ten lines like <code>vat/bat</code>, then click <strong>Build sheet</strong>.</p>
-      </div>
-      <div id="picture-page" class="sheet-page" style="display:none;">
-        <div id="sheet" class="sheet" aria-live="polite"></div>
+      <div id="homework-sheet" class="sheet-page" aria-live="polite">
+        <div id="sheet-top">
+          <p class="preview-placeholder">Enter both sounds and exactly ten lines like <code>vat/bat</code>, then click <strong>Build sheet</strong>.</p>
+        </div>
+        <div id="sheet" class="sheet" style="display:none" aria-live="polite"></div>
       </div>
     </div>
   </div>
@@ -824,8 +922,7 @@
     const refreshBtn = document.getElementById('refresh');
     const printBtn = document.getElementById('print');
     const sheetEl = document.getElementById('sheet');
-    const instructionPageEl = document.getElementById('instruction-page');
-    const picturePageEl = document.getElementById('picture-page');
+    const sheetTopEl = document.getElementById('sheet-top');
     const statusEl = document.getElementById('status');
     const errorsEl = document.getElementById('errors');
     const serverBannerEl = document.getElementById('server-banner');
@@ -856,7 +953,7 @@
       const params = new URLSearchParams();
       const scope = folderScopeEl.value;
       if (scope) params.set('scope', scope);
-      params.set('w', '300');
+      params.set('w', '480');
       return '/image/' + encodeWordForUrl(w) + '?' + params.toString();
     }
 
@@ -1016,6 +1113,7 @@
         folderScopeEl.value = saved;
       } else {
         sessionStorage.removeItem(FOLDER_STORAGE_KEY);
+        folderScopeEl.value = '';
       }
 
       return !folderListLoadFailed;
@@ -1025,11 +1123,14 @@
       try {
         const r = await fetch('/api/status' + statusQuery());
         const j = await r.json();
+        if (j.scope && !j.scope_ok) {
+          sessionStorage.removeItem(FOLDER_STORAGE_KEY);
+          folderScopeEl.value = '';
+          return loadStatus();
+        }
         let scopeNote = '';
         if (j.scope) {
-          scopeNote = j.scope_ok
-            ? ' — folder: <strong>' + escapeHtml(j.scope) + '</strong>'
-            : ' — <span style="color:var(--bad)">unknown folder (pick again)</span>';
+          scopeNote = ' — folder: <strong>' + escapeHtml(j.scope) + '</strong>';
         } else {
           scopeNote = ' — <strong>all folders</strong>';
         }
@@ -1435,17 +1536,20 @@
       if (problems.length) {
         errorsEl.style.display = 'block';
         errorsEl.textContent = problems.join('\n');
-        instructionPageEl.innerHTML = PLACEHOLDER_HTML;
+        sheetTopEl.innerHTML = PLACEHOLDER_HTML;
         sheetEl.innerHTML = '';
-        picturePageEl.style.display = 'none';
+        sheetEl.style.display = 'none';
         printBtn.disabled = true;
+        document.body.classList.remove('sheet-built');
         return;
       }
 
       errorsEl.style.display = 'none';
       errorsEl.textContent = '';
 
-      instructionPageEl.innerHTML = instructionPageHtml(s1, s2, position, subtitle, customInstHtml, customInstText);
+      sheetTopEl.innerHTML = instructionPageHtml(
+        s1, s2, position, subtitle, customInstHtml, customInstText
+      );
 
       const htmlParts = [];
       for (let i = 0; i < valid.length; i++) {
@@ -1461,7 +1565,9 @@
         );
       }
       sheetEl.innerHTML = htmlParts.join('');
-      picturePageEl.style.display = 'block';
+      sheetEl.style.display = 'grid';
+      sheetEl.style.setProperty('--pair-rows', String(Math.ceil(valid.length / 2)));
+      document.body.classList.add('sheet-built');
       bindImageErrors();
       printBtn.disabled = false;
     }

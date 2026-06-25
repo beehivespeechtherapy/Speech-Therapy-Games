@@ -4,6 +4,8 @@
 (function (global) {
   'use strict';
 
+  var PARTS_ASSET_VERSION = '3';
+
   function DinoComposer(assetBase) {
     this.assetBase = assetBase || '';
     this.catalog = null;
@@ -26,12 +28,14 @@
     for (let i = 0; i < attempts.length; i++) {
       try {
         this.catalog = await tryFetch(attempts[i]);
+        this.cache = new Map();
         return this.catalog;
       } catch (e) { /* try next */ }
     }
 
     if (global.__FOSSIL_FORGE_CATALOG_EMBED__) {
       this.catalog = global.__FOSSIL_FORGE_CATALOG_EMBED__;
+      this.cache = new Map();
       return this.catalog;
     }
 
@@ -39,6 +43,7 @@
     if (el && el.textContent) {
       try {
         this.catalog = JSON.parse(el.textContent.trim());
+        this.cache = new Map();
         return this.catalog;
       } catch (e) { /* ignore */ }
     }
@@ -52,16 +57,23 @@
     throw new Error('Failed to load parts catalog');
   };
 
+  DinoComposer.prototype.getAssetVersion = function () {
+    return (this.catalog && this.catalog.assetVersion)
+      ? String(this.catalog.assetVersion)
+      : PARTS_ASSET_VERSION;
+  };
+
   DinoComposer.prototype.loadImage = function (relativePath) {
     const url = this.resolvePath(relativePath);
-    if (this.cache.has(url)) return this.cache.get(url);
+    const busted = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + this.getAssetVersion();
+    if (this.cache.has(busted)) return this.cache.get(busted);
     const p = new Promise(function (resolve, reject) {
       const img = new Image();
       img.onload = function () { resolve(img); };
       img.onerror = function () { reject(new Error('Failed to load ' + relativePath)); };
-      img.src = url;
+      img.src = busted;
     });
-    this.cache.set(url, p);
+    this.cache.set(busted, p);
     return p;
   };
 
@@ -84,6 +96,58 @@
     ctx.drawImage(off, 0, 0, destW, destH);
   };
 
+  DinoComposer.prototype.drawLayerImage = function (ctx, img, tint, color, destW, destH) {
+    if (tint) this.drawTinted(ctx, img, color, destW, destH);
+    else ctx.drawImage(img, 0, 0, destW, destH);
+  };
+
+  DinoComposer.prototype.buildLegEraseMask = function (legsImg, destW, destH) {
+    const off = document.createElement('canvas');
+    off.width = destW;
+    off.height = destH;
+    const octx = off.getContext('2d');
+    octx.drawImage(legsImg, 0, 0, destW, destH);
+    const imgData = octx.getImageData(0, 0, destW, destH);
+    const d = imgData.data;
+    const threshold = 96;
+    for (let i = 3; i < d.length; i += 4) {
+      d[i] = d[i] >= threshold ? 255 : 0;
+      d[i - 3] = 255;
+      d[i - 2] = 255;
+      d[i - 1] = 255;
+    }
+    octx.clearRect(0, 0, destW, destH);
+    octx.putImageData(imgData, 0, 0);
+    return off;
+  };
+
+  DinoComposer.prototype.eraseUnderFrontLegs = async function (ctx, destW, destH, frontLegsSpeciesId) {
+    const legsSpecies = this.getSpecies(frontLegsSpeciesId);
+    if (!legsSpecies || !legsSpecies.slots || !legsSpecies.slots.frontLegs) return;
+    try {
+      const part = legsSpecies.slots.frontLegs;
+      const legsImg = await this.loadImage(part.base);
+      const mask = this.buildLegEraseMask(legsImg, destW, destH);
+      ctx.globalCompositeOperation = 'destination-out';
+      ctx.drawImage(mask, 0, 0);
+      ctx.globalCompositeOperation = 'source-over';
+    } catch (e) { /* skip */ }
+  };
+
+  DinoComposer.prototype.drawBodyLayer = async function (ctx, img, equipped, tint, color, destW, destH) {
+    if (!equipped.frontLegs) {
+      this.drawLayerImage(ctx, img, tint, color, destW, destH);
+      return;
+    }
+    const off = document.createElement('canvas');
+    off.width = destW;
+    off.height = destH;
+    const octx = off.getContext('2d');
+    this.drawLayerImage(octx, img, tint, color, destW, destH);
+    await this.eraseUnderFrontLegs(octx, destW, destH, equipped.frontLegs);
+    ctx.drawImage(off, 0, 0);
+  };
+
   /**
    * @param {CanvasRenderingContext2D} ctx
    * @param {object} equipped - slot -> speciesId
@@ -95,7 +159,7 @@
     const color = (opts && opts.color) || '#4a8c3f';
     const destW = (opts && opts.destW) || ctx.canvas.width;
     const destH = (opts && opts.destH) || ctx.canvas.height;
-    const order = this.catalog.layerOrder || ['tail', 'body', 'backLegs', 'frontLegs', 'head'];
+    const order = this.catalog.layerOrder || ['tail', 'body', 'backLegs', 'head', 'frontLegs'];
 
     ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
 
@@ -108,8 +172,8 @@
       const part = species.slots[slot];
       try {
         const img = await this.loadImage(part.base);
-        if (tint) this.drawTinted(ctx, img, color, destW, destH);
-        else ctx.drawImage(img, 0, 0, destW, destH);
+        if (slot === 'body') await this.drawBodyLayer(ctx, img, equipped, tint, color, destW, destH);
+        else this.drawLayerImage(ctx, img, tint, color, destW, destH);
       } catch (e) { /* skip missing */ }
       const det = part.details;
       if (det) {

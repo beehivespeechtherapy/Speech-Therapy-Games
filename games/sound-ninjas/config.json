@@ -89,9 +89,9 @@
   },
   "sentries": {
     "detectionRadius": 120,
-    "onPathCatchRadius": 85,
-    "nearStopCatchRadius": 165,
-    "nearStartCatchRadius": 120,
+    "detectionHalfWidth": 100,
+    "detectionAbove": 20,
+    "detectionBelow": 150,
     "weaponEscapeChance": 0.25,
     "guards": [
       { "id": "sentry-1", "y": 1251, "xMin": 170, "xMax": 900, "speed": 0.22, "image": "../../word-images/_library/guard.png" },

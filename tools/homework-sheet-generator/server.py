@@ -297,19 +297,8 @@ def make_handler(word_images_root: Path):
                 scope = (query.get("scope") or [""])[0]
                 key = stem_key(name)
                 scope_root = resolve_scope_folder(root_resolved, scope)
-                if scope and str(scope).strip() and scope_root is None:
-                    body = json.dumps(
-                        {"error": "invalid_scope", "word": key},
-                        ensure_ascii=False,
-                    ).encode("utf-8")
-                    self.send_response(400)
-                    self.send_header("Content-Type", "application/json; charset=utf-8")
-                    self.send_header("Content-Length", str(len(body)))
-                    self._send_cors()
-                    self.end_headers()
-                    self.wfile.write(body)
-                    return
                 search_as_root = scope_root if scope_root is not None else root_resolved
+                scope_stale = bool(scope and str(scope).strip() and scope_root is None)
                 with index_lock:
                     all_paths = [
                         p
@@ -319,6 +308,14 @@ def make_handler(word_images_root: Path):
                 folders = sorted({p.parent.name for p in all_paths})
                 if not all_paths:
                     payload = {"word": key, "nowhere": True}
+                elif scope_stale:
+                    payload = {
+                        "word": key,
+                        "nowhere": False,
+                        "folders": folders,
+                        "in_selected_folder": True,
+                        "stale_scope": scope.strip(),
+                    }
                 elif search_as_root == root_resolved:
                     payload = {"word": key, "nowhere": False, "folders": folders, "in_selected_folder": True}
                 else:
@@ -344,9 +341,7 @@ def make_handler(word_images_root: Path):
                 word = unquote(raw).strip()
                 scope = (query.get("scope") or [""])[0]
                 scope_root = resolve_scope_folder(root_resolved, scope)
-                if scope and str(scope).strip() and scope_root is None:
-                    self.send_error(400, "Invalid or unknown folder scope")
-                    return
+                # Unknown scope (e.g. stale browser menu choice) → search whole library.
                 search_root = scope_root if scope_root is not None else root_resolved
                 key = stem_key(word)
                 with index_lock:

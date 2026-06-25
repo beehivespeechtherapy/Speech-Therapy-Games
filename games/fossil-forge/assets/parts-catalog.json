@@ -1,11 +1,12 @@
 {
   "canvasSize": 1600,
+  "assetVersion": 1782357838,
   "layerOrder": [
     "tail",
     "body",
     "backLegs",
-    "frontLegs",
-    "head"
+    "head",
+    "frontLegs"
   ],
   "species": [
     {
@@ -17,7 +18,7 @@
           "details": "Dinosaur Parts/Details/T-Rex details (head).png"
         },
         "body": {
-          "base": "Dinosaur Parts/Bodies/T-Rex body 2.png",
+          "base": "Dinosaur Parts/Bodies/T-Rex body.png",
           "details": "Dinosaur Parts/Details/T-Rex details (body).png"
         },
         "frontLegs": {
@@ -29,7 +30,7 @@
           "details": "Dinosaur Parts/Details/T-Rex details legs (back).png"
         },
         "tail": {
-          "base": "Dinosaur Parts/Tails/T-Rex tail 2.png",
+          "base": "Dinosaur Parts/Tails/T-Rex tail.png",
           "details": "Dinosaur Parts/Details/T-Rex details (tail).png"
         }
       },
@@ -137,7 +138,7 @@
         },
         "body": {
           "base": "Dinosaur Parts/Bodies/Stegosaurus body.png",
-          "details": "Dinosaur Parts/Details/Stegosaurus details(body).png"
+          "details": "Dinosaur Parts/Details/Stegosaurus details (body).png"
         },
         "frontLegs": {
           "base": "Dinosaur Parts/Legs (Front)/Stegosaurus legs (front).png",
