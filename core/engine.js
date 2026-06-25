@@ -12,14 +12,47 @@ class GameEngine {
   }
 
   /**
-   * Append a cache-busting query so CDNs (e.g. GitHub Pages) do not serve stale JSON.
+   * Stable cache-bust token (set window.GAME_CONFIG_BUILD in each game when config changes).
+   * Avoids a unique URL on every refresh, which can trigger GitHub Pages rate limits.
    * @param {string} path
    * @returns {string}
    */
   static _cacheBustFetchUrl(path) {
     if (!path || typeof path !== 'string') return path;
+    const build = typeof window !== 'undefined' && window.GAME_CONFIG_BUILD;
+    if (!build) return path;
     const sep = path.includes('?') ? '&' : '?';
-    return `${path}${sep}_=${Date.now()}`;
+    return `${path}${sep}v=${encodeURIComponent(build)}`;
+  }
+
+  static _configCacheKey(configPath) {
+    const build = (typeof window !== 'undefined' && window.GAME_CONFIG_BUILD) || '1';
+    return `stg-game-config:${configPath}:${build}`;
+  }
+
+  static _readEmbeddedConfig() {
+    const el = document.getElementById('game-config');
+    if (el && el.textContent && el.textContent.trim()) {
+      return JSON.parse(el.textContent.trim());
+    }
+    return null;
+  }
+
+  static _loadConfigFromSession(configPath) {
+    try {
+      const raw = sessionStorage.getItem(GameEngine._configCacheKey(configPath));
+      return raw ? JSON.parse(raw) : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  static _saveConfigToSession(configPath, config) {
+    try {
+      sessionStorage.setItem(GameEngine._configCacheKey(configPath), JSON.stringify(config));
+    } catch (_) {
+      /* quota or private mode */
+    }
   }
 
   /**
@@ -33,10 +66,22 @@ class GameEngine {
         (window.location.protocol === 'http:' || window.location.protocol === 'https:');
 
       if (isHttp && this.configPath) {
+        this.config = GameEngine._loadConfigFromSession(this.configPath);
+      }
+
+      if (!this.config) {
+        this.config = GameEngine._readEmbeddedConfig();
+      }
+
+      if (!this.config && this.configPath) {
         try {
-          const response = await fetch(GameEngine._cacheBustFetchUrl(this.configPath), { cache: 'no-store' });
+          const response = await fetch(
+            GameEngine._cacheBustFetchUrl(this.configPath),
+            { cache: isHttp ? 'default' : 'no-store' }
+          );
           if (response.ok) {
             this.config = await response.json();
+            if (isHttp) GameEngine._saveConfigToSession(this.configPath, this.config);
           }
         } catch (_) {
           /* fall back to embedded JSON below */
@@ -44,16 +89,7 @@ class GameEngine {
       }
 
       if (!this.config) {
-        const el = document.getElementById('game-config');
-        if (el && el.textContent && el.textContent.trim()) {
-          this.config = JSON.parse(el.textContent.trim());
-        }
-      }
-
-      if (!this.config && this.configPath) {
-        const response = await fetch(GameEngine._cacheBustFetchUrl(this.configPath), { cache: 'no-store' });
-        if (!response.ok) throw new Error(`Failed to load config: ${response.statusText}`);
-        this.config = await response.json();
+        this.config = GameEngine._readEmbeddedConfig();
       }
 
       if (!this.config) {
