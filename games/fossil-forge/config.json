@@ -19,6 +19,8 @@
     "backLegs": "Back legs",
     "tail": "Tail"
   },
+  "assemblyRequiredSlots": ["head", "body", "tail"],
+  "assemblyOptionalSlots": ["frontLegs", "backLegs"],
   "assemblyBackgrounds": [
     { "id": "desert", "label": "Desert", "path": "backgrounds/desert-background.png" },
     { "id": "ocean", "label": "Ocean", "path": "backgrounds/ocean-background.png" },

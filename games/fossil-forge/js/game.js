@@ -2,6 +2,8 @@
   'use strict';
 
   const SLOT_ORDER = ['head', 'body', 'frontLegs', 'backLegs', 'tail'];
+  const DEFAULT_REQUIRED_SLOTS = ['head', 'body', 'tail'];
+  const DEFAULT_OPTIONAL_SLOTS = ['frontLegs', 'backLegs'];
   const SLOT_LABELS = {
     head: 'Head',
     body: 'Body',
@@ -78,7 +80,21 @@
   }
 
   function requiredSlots() {
-    return SLOT_ORDER.slice();
+    if (config && config.assemblyRequiredSlots && config.assemblyRequiredSlots.length) {
+      return config.assemblyRequiredSlots.slice();
+    }
+    return DEFAULT_REQUIRED_SLOTS.slice();
+  }
+
+  function optionalSlots() {
+    if (config && config.assemblyOptionalSlots) {
+      return config.assemblyOptionalSlots.slice();
+    }
+    return DEFAULT_OPTIONAL_SLOTS.slice();
+  }
+
+  function isOptionalSlot(slot) {
+    return optionalSlots().indexOf(slot) >= 0;
   }
 
   function assemblyComplete() {
@@ -526,7 +542,19 @@
     return SLOT_ORDER.slice();
   }
 
+  function unequipPart(slot) {
+    if (!isOptionalSlot(slot) || !equipped[slot]) return;
+    delete equipped[slot];
+    if (audio) audio.playClick();
+    resetPartsPickerScroll();
+    renderAssembly();
+  }
+
   function equipPart(slot, species) {
+    if (isOptionalSlot(slot) && equipped[slot] === species) {
+      unequipPart(slot);
+      return;
+    }
     equipped[slot] = species;
     if (audio) audio.playClick();
     resetPartsPickerScroll();
@@ -649,7 +677,28 @@
       });
     } else {
       const slot = assemblyCategory;
-      if (label) label.textContent = (SLOT_LABELS[slot] || slot) + ' parts';
+      const optional = isOptionalSlot(slot);
+      if (label) {
+        label.textContent = (SLOT_LABELS[slot] || slot) + ' parts' + (optional ? ' (optional)' : '');
+      }
+
+      if (optional) {
+        const noneCard = document.createElement('button');
+        noneCard.type = 'button';
+        const noneSelected = !equipped[slot];
+        noneCard.className = 'part-card part-card-none' + (noneSelected ? ' selected' : '');
+        const noneIcon = document.createElement('div');
+        noneIcon.className = 'part-none-icon';
+        noneIcon.textContent = '—';
+        noneCard.appendChild(noneIcon);
+        const noneCap = document.createElement('div');
+        noneCap.className = 'part-label';
+        noneCap.textContent = 'None';
+        noneCard.appendChild(noneCap);
+        noneCard.addEventListener('click', function () { unequipPart(slot); });
+        track.appendChild(noneCard);
+      }
+
       const parts = composer.allParts().filter(function (p) { return p.slot === slot; });
       parts.forEach(function (part) {
         const card = document.createElement('button');
@@ -696,8 +745,8 @@
       const species = equipped[slot];
       const speciesLabel = species ? ((composer.getSpecies(species) || {}).label || species) : '';
       btn.textContent = speciesLabel
-        ? (SLOT_LABELS[slot] + '\n' + speciesLabel)
-        : SLOT_LABELS[slot];
+        ? (SLOT_LABELS[slot] + (isOptionalSlot(slot) ? ' (opt.)' : '') + '\n' + speciesLabel)
+        : SLOT_LABELS[slot] + (isOptionalSlot(slot) ? '\n(optional)' : '');
       btn.addEventListener('click', function () {
         assemblyCategory = slot;
         resetPartsPickerScroll();
