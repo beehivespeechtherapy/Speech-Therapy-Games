@@ -87,6 +87,20 @@
   "player": {
     "hearts": 5
   },
+  "difficulty": {
+    "easy": {
+      "detectionMode": "circle",
+      "circleRadius": 55
+    },
+    "medium": {
+      "detectionMode": "rect"
+    },
+    "hard": {
+      "detectionMode": "rect",
+      "speedMultiplier": 1.4,
+      "speedBoostGuardIds": ["sentry-2", "sentry-5", "sentry-6"]
+    }
+  },
   "sentries": {
     "detectionRadius": 120,
     "detectionHalfWidth": 100,
@@ -109,6 +123,15 @@
     {"id": "smoke", "label": "Smoke Bomb", "icon": "💨", "image": "weapons/weapon4.png", "type": "dodge"},
     {"id": "grapple", "label": "Grappling Hook", "icon": "🪝", "image": "weapons/weapon5.png", "type": "grapple"}
   ],
+  "audio": {
+    "click": "sounds/click.mp3",
+    "weapon": "sounds/weapon.mp3",
+    "smokeBomb": "sounds/smoke-bomb.mp3",
+    "bgm": {
+      "sneak": "sounds/sound-ninjas-sneak.mp4",
+      "boss": "sounds/final-battle.mp4"
+    }
+  },
   "boss": {
     "image": "boss/samurai_boss.png",
     "reinforcementGuardImage": "../../word-images/_library/guard.png",
