@@ -16,6 +16,8 @@
   };
 
   var MUTE_KEY = 'fossilForgeMuted';
+  var BGM_VOL_KEY = 'fossilForgeBgmVolume';
+  var DEFAULT_BGM_USER_VOLUME = 0.75;
 
   function FossilAudio(assetPathFn) {
     this.resolve = assetPathFn || function (p) { return p; };
@@ -26,6 +28,7 @@
     this.bgmKey = null;
     this.bgmNormalVolume = 0.45;
     this.bgmDuckedVolume = 0.12;
+    this.bgmUserVolume = DEFAULT_BGM_USER_VOLUME;
     this.challengeOpen = false;
     this.brush = null;
     this.brushActive = 0;
@@ -78,9 +81,16 @@
     try {
       this.muted = sessionStorage.getItem(MUTE_KEY) === '1';
     } catch (e) { /* ignore */ }
+    try {
+      var storedVol = sessionStorage.getItem(BGM_VOL_KEY);
+      if (storedVol != null && storedVol !== '') {
+        var parsed = parseFloat(storedVol);
+        if (!isNaN(parsed)) this.bgmUserVolume = Math.max(0, Math.min(1, parsed));
+      }
+    } catch (e) { /* ignore */ }
 
     this.brush = this.makeAudio(this.paths.brush, { loop: true, volume: 0.55 });
-    this.mountMuteButton();
+    this.mountAudioControls();
     this.bindUnlock();
     this.bindLifecycle();
 
@@ -90,6 +100,17 @@
       self.unlock();
       self.setMuted(!self.muted);
     });
+
+    var volSlider = document.getElementById('audio-bgm-volume');
+    if (volSlider) {
+      volSlider.value = String(Math.round(this.bgmUserVolume * 100));
+      volSlider.addEventListener('input', function (e) {
+        e.stopPropagation();
+        self.unlock();
+        self.setBgmUserVolume(parseInt(volSlider.value, 10) / 100);
+      });
+      volSlider.addEventListener('click', function (e) { e.stopPropagation(); });
+    }
 
     document.addEventListener('keydown', function (e) {
       if (e.key === 'Escape') {
@@ -154,9 +175,10 @@
   };
 
   FossilAudio.prototype.updateMuteButton = function () {
+    var panel = document.getElementById('audio-controls');
     var btn = document.getElementById('audio-mute-btn');
     if (!btn) return;
-    btn.hidden = false;
+    if (panel) panel.hidden = false;
     btn.setAttribute('aria-pressed', this.muted ? 'true' : 'false');
     btn.title = this.muted ? 'Unmute music and sounds' : 'Mute music and sounds (Esc)';
     btn.innerHTML = this.muted
@@ -164,15 +186,36 @@
       : '<span class="audio-mute-icon" aria-hidden="true">🔊</span><span class="audio-mute-label">Sound</span>';
   };
 
-  FossilAudio.prototype.mountMuteButton = function () {
-    if (document.getElementById('audio-mute-btn')) return;
-    var btn = document.createElement('button');
-    btn.type = 'button';
-    btn.id = 'audio-mute-btn';
-    btn.className = 'audio-mute-btn';
-    btn.setAttribute('aria-label', 'Toggle mute');
-    btn.innerHTML = '<span class="audio-mute-icon" aria-hidden="true">🔊</span><span class="audio-mute-label">Sound</span>';
-    document.body.appendChild(btn);
+  FossilAudio.prototype.getBgmBaseVolume = function () {
+    return this.challengeOpen ? this.bgmDuckedVolume : this.bgmNormalVolume;
+  };
+
+  FossilAudio.prototype.getBgmEffectiveVolume = function () {
+    return this.getBgmBaseVolume() * this.bgmUserVolume;
+  };
+
+  FossilAudio.prototype.setBgmUserVolume = function (volume) {
+    this.bgmUserVolume = Math.max(0, Math.min(1, volume));
+    try {
+      sessionStorage.setItem(BGM_VOL_KEY, String(this.bgmUserVolume));
+    } catch (e) { /* ignore */ }
+    this.applyBgmVolume();
+  };
+
+  FossilAudio.prototype.mountAudioControls = function () {
+    if (document.getElementById('audio-controls')) return;
+    var panel = document.createElement('div');
+    panel.id = 'audio-controls';
+    panel.className = 'audio-controls';
+    panel.innerHTML = ''
+      + '<label class="audio-bgm-volume-wrap" title="Game music only — does not change your computer or call volume">'
+      + '<span class="audio-bgm-volume-label">Music</span>'
+      + '<input type="range" id="audio-bgm-volume" class="audio-bgm-volume" min="0" max="100" value="75" aria-label="Game music volume">'
+      + '</label>'
+      + '<button type="button" id="audio-mute-btn" class="audio-mute-btn" aria-label="Toggle mute">'
+      + '<span class="audio-mute-icon" aria-hidden="true">🔊</span><span class="audio-mute-label">Sound</span>'
+      + '</button>';
+    document.body.appendChild(panel);
   };
 
   FossilAudio.prototype.stopBgm = function (hard) {
@@ -199,8 +242,13 @@
   };
 
   FossilAudio.prototype.applyBgmVolume = function () {
-    if (!this.bgm) return;
-    this.bgm.volume = this.challengeOpen ? this.bgmDuckedVolume : this.bgmNormalVolume;
+    var vol = this.getBgmEffectiveVolume();
+    if (this.bgm) this.bgm.volume = vol;
+    var self = this;
+    [this.paths.bgmHunt, this.paths.bgmAssembly].forEach(function (p) {
+      var a = self.cache[self.resolve(p)];
+      if (a) a.volume = vol;
+    });
   };
 
   FossilAudio.prototype.setChallengeOpen = function (open) {

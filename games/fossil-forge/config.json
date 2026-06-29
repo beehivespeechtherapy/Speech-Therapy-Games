@@ -27,6 +27,30 @@
     { "id": "valley", "label": "Valley", "path": "backgrounds/valley-background.png" },
     { "id": "volcano", "label": "Volcano", "path": "backgrounds/volcano-background.png" }
   ],
+  "patternColors": [
+    "#2d2d2d",
+    "#4a4a4a",
+    "#8b4513",
+    "#c47f2a",
+    "#e8d44d",
+    "#8b3a3a",
+    "#6b4c9a",
+    "#2d6a9f",
+    "#f0f0f0",
+    "#1a1a1a"
+  ],
+  "patterns": [
+    { "id": "none", "label": "None", "type": "none" },
+    { "id": "armor", "label": "Armor scales", "type": "tile", "path": "Patterns/Tiles/armor-texture.png", "preview": "Patterns/Previews/armor-texture.png", "blend": "multiply", "tileMode": "repeat", "tileRepeatPx": 100, "colorize": "tint", "colorStrength": 0.7 },
+    { "id": "feathers", "label": "Feathers", "type": "tile", "path": "Patterns/Tiles/feather-texture.png", "preview": "Patterns/Previews/feather-texture.png", "blend": "source-over", "tileMode": "repeat", "tileRepeatPx": 300, "colorize": "alpha", "applyScope": "full", "colorStrength": 1 },
+    { "id": "leopard", "label": "Leopard spots", "type": "tile", "path": "Patterns/Tiles/leopard-texture.png", "preview": "Patterns/Previews/leopard-texture.png", "blend": "multiply", "tileMode": "cover", "colorize": "stripes", "stripeCutoff": 175, "bgCutoff": 40, "colorStrength": 0.85 },
+    { "id": "peacock", "label": "Peacock", "type": "tile", "path": "Patterns/Tiles/peacock-texture.png", "preview": "Patterns/Previews/peacock-texture.png", "blend": "multiply", "tileMode": "repeat", "tileRepeatPx": 88, "colorize": "tint", "colorStrength": 0.65 },
+    { "id": "tiger-stripes", "label": "Tiger stripes", "type": "tile", "path": "Patterns/Tiles/tiger-stripes.png", "preview": "Patterns/Previews/tiger-stripes.png", "blend": "source-over", "tileMode": "cover", "colorize": "stripes", "stripeCutoff": 150, "bgCutoff": 30, "colorStrength": 0.92 },
+    { "id": "wool", "label": "Wool", "type": "tile", "path": "Patterns/Tiles/wool-texture.png", "preview": "Patterns/Previews/wool-texture.png", "blend": "multiply", "tileMode": "repeat", "tileRepeatPx": 110, "colorize": "tint", "colorStrength": 0.62 },
+    { "id": "zebra-stripes", "label": "Zebra stripes", "type": "tile", "path": "Patterns/Tiles/zebra-stripes.png", "preview": "Patterns/Previews/zebra-stripes.png", "blend": "source-over", "tileMode": "cover", "colorize": "stripes", "stripeCutoff": 145, "bgCutoff": 28, "colorStrength": 0.92 },
+    { "id": "lightning", "label": "Lightning", "type": "overlay", "path": "Patterns/Overlays/lightning-texture.png", "preview": "Patterns/Previews/lightning-texture.png", "blend": "screen", "tintOverlay": true },
+    { "id": "dorsal-spikes", "label": "Dorsal spikes", "type": "body-accessory", "path": "Patterns/Accessories/dorsal-spikes.png", "preview": "Patterns/Previews/dorsal-spikes.png", "blend": "source-over", "tintOverlay": true }
+  ],
   "tintColors": [
     "#4a8c3f",
     "#6bab5e",

@@ -64,16 +64,43 @@
     .btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .btn:active:not(:disabled) { transform: scale(0.97); }
 
-    .audio-mute-btn {
+    .audio-controls {
       position: fixed;
       top: 0.65rem;
       right: 0.65rem;
       z-index: 2000;
-      min-width: 44px;
-      height: 44px;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.45rem 0.35rem 0.65rem;
       border-radius: 999px;
       border: 2px solid rgba(255,255,255,0.55);
       background: rgba(20, 16, 12, 0.82);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    }
+    .audio-bgm-volume-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+    }
+    .audio-bgm-volume {
+      width: 72px;
+      height: 4px;
+      margin: 0;
+      accent-color: #e8d44d;
+      cursor: pointer;
+    }
+    .audio-mute-btn {
+      min-width: 44px;
+      height: 36px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
       color: #fff;
       font-size: 0.72rem;
       font-weight: 700;
@@ -84,14 +111,13 @@
       align-items: center;
       justify-content: center;
       gap: 0.3rem;
-      padding: 0 0.75rem;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+      padding: 0 0.55rem;
     }
     .audio-mute-btn .audio-mute-icon {
       font-size: 1rem;
       line-height: 1;
     }
-    .audio-mute-btn:hover { background: rgba(0,0,0,0.58); }
+    .audio-mute-btn:hover { background: rgba(255,255,255,0.12); }
     .audio-mute-btn:active { transform: scale(0.95); }
 
     /* Intro */
@@ -709,6 +735,7 @@
     }
     #assembly-screen.color-mode .assembly-hint-parts { display: none; }
     #assembly-screen.color-mode .assembly-hint-color { display: block; }
+    #assembly-screen.color-mode .assembly-hint-pattern { display: none; }
     #assembly-screen.color-mode .parts-picker-viewport {
       overflow: visible;
     }
@@ -729,7 +756,61 @@
       height: 44px;
       margin-bottom: 0;
     }
-    .assembly-hint-color { display: none; }
+    #assembly-screen.pattern-mode .assembly-menu-wrap {
+      display: none;
+    }
+    #assembly-screen.pattern-mode .assembly-hint-parts { display: none; }
+    #assembly-screen.pattern-mode .assembly-hint-color { display: none; }
+    #assembly-screen.pattern-mode .assembly-hint-pattern { display: block; }
+    #assembly-screen.pattern-mode .parts-picker-viewport {
+      overflow: visible;
+    }
+    #assembly-screen.pattern-mode .parts-picker-track {
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 100%;
+      justify-content: center;
+      gap: 0.55rem;
+      padding: 0.2rem 0.25rem 0.35rem;
+    }
+    #assembly-screen.pattern-mode .color-card,
+    #assembly-screen.pattern-mode .pattern-card {
+      width: 58px;
+      padding: 0.35rem;
+    }
+    #assembly-screen.pattern-mode .color-card .color-swatch-inner {
+      width: 44px;
+      height: 44px;
+      margin-bottom: 0;
+    }
+    #assembly-screen.pattern-mode .pattern-card .part-thumb-img,
+    #assembly-screen.pattern-mode .pattern-card .part-none-icon {
+      width: 44px;
+      height: 44px;
+    }
+    #assembly-screen.pattern-mode .pattern-card .part-label {
+      font-size: 0.58rem;
+    }
+    .pattern-picker-tabs {
+      display: flex;
+      gap: 0.35rem;
+    }
+    .pattern-picker-tabs.hidden { display: none; }
+    .pattern-tab-btn {
+      font-size: 0.72rem;
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.35);
+      background: rgba(0,0,0,0.25);
+      color: #f5ecd7;
+      cursor: pointer;
+    }
+    .pattern-tab-btn.active {
+      background: #c47f2a;
+      border-color: #e8d44d;
+    }
+    .assembly-hint-color,
+    .assembly-hint-pattern { display: none; }
     .assembly-action-bar {
       flex-shrink: 0;
       width: 100%;
@@ -812,10 +893,16 @@
   </style>
 </head>
 <body>
-  <button type="button" id="audio-mute-btn" class="audio-mute-btn" aria-label="Toggle mute" hidden>
-    <span class="audio-mute-icon" aria-hidden="true">🔊</span>
-    <span class="audio-mute-label">Sound</span>
-  </button>
+  <div id="audio-controls" class="audio-controls" hidden>
+    <label class="audio-bgm-volume-wrap" title="Game music only — does not change your computer or call volume">
+      <span class="audio-bgm-volume-label">Music</span>
+      <input type="range" id="audio-bgm-volume" class="audio-bgm-volume" min="0" max="100" value="75" aria-label="Game music volume">
+    </label>
+    <button type="button" id="audio-mute-btn" class="audio-mute-btn" aria-label="Toggle mute">
+      <span class="audio-mute-icon" aria-hidden="true">🔊</span>
+      <span class="audio-mute-label">Sound</span>
+    </button>
+  </div>
   <div id="game-container">
     <section id="intro-screen" class="screen">
       <img class="pickaxe-icon" src="pickaxe.png" alt="">
@@ -850,6 +937,7 @@
       <div class="assembly-hint-wrap">
         <p class="assembly-hint assembly-hint-parts">Choose a body part on the left, then tap a piece below to equip it.</p>
         <p class="assembly-hint assembly-hint-color">Tap a color below to paint your dinosaur!</p>
+        <p class="assembly-hint assembly-hint-pattern">Pick a pattern, then tap Pattern color to tint tile patterns.</p>
       </div>
       <div class="assembly-workspace">
         <div class="assembly-menu-wrap">
@@ -871,6 +959,10 @@
       <div class="parts-picker">
         <div class="parts-picker-header">
           <div class="parts-picker-label" id="parts-picker-label">Head parts</div>
+          <div class="pattern-picker-tabs hidden" id="pattern-picker-tabs">
+            <button type="button" class="pattern-tab-btn active" data-tab="pattern">Patterns</button>
+            <button type="button" class="pattern-tab-btn" data-tab="patternColor">Pattern color</button>
+          </div>
           <div class="parts-picker-nav">
             <button type="button" class="parts-nav-btn" id="parts-scroll-left" aria-label="Scroll left">‹</button>
             <button type="button" class="parts-nav-btn" id="parts-scroll-right" aria-label="Scroll right">›</button>
@@ -886,6 +978,10 @@
         </div>
         <div class="assembly-action-bar hidden" id="assembly-action-color">
           <button type="button" class="btn btn-secondary" id="assembly-back-btn">Back</button>
+          <button type="button" class="btn" id="assembly-pattern-btn">Pick patterns</button>
+        </div>
+        <div class="assembly-action-bar hidden" id="assembly-action-pattern">
+          <button type="button" class="btn btn-secondary" id="pattern-back-btn">Back</button>
           <button type="button" class="btn" id="assembly-finish-btn">Finish!</button>
         </div>
       </div>
@@ -915,17 +1011,18 @@
   </div>
 
   <script type="application/json" id="game-config">
-  {"title":"Fossil Forge","intro":{"message":"Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"},"hunt":{"gridCols":4,"gridRows":5,"fossilsPerGame":10,"fossilImageCount":16,"brushRadius":22,"revealThreshold":0.72,"gridInset":{"top":0.08,"right":0.04,"bottom":0.1,"left":0.04}},"slots":{"head":"Head","body":"Body","frontLegs":"Front legs","backLegs":"Back legs","tail":"Tail"},"assemblyRequiredSlots":["head","body","tail"],"assemblyOptionalSlots":["frontLegs","backLegs"],"assemblyBackgrounds":[{"id":"desert","label":"Desert","path":"backgrounds/desert-background.png"},{"id":"ocean","label":"Ocean","path":"backgrounds/ocean-background.png"},{"id":"valley","label":"Valley","path":"backgrounds/valley-background.png"},{"id":"volcano","label":"Volcano","path":"backgrounds/volcano-background.png"}],"tintColors":["#4a8c3f","#6bab5e","#2d5a24","#2d6a9f","#5a9fd4","#1e4466","#8b3a3a","#c75c5c","#6b2020","#c47f2a","#e8a84b","#8c5a18","#6b4c9a","#9b7fd4","#4a3068","#3a8c8c","#5cb8b8","#246060","#8c6b3a","#b8956a","#5c4828","#e8d44d","#f0e6a8","#c4b840","#7a8c9a","#4a4a4a","#d4a0c8","#e87878"],"victoryMessage":"Amazing! You forged a one-of-a-kind dinosaur!","audio":{"brush":"Sounds/dirt-brushing.mp3","click":"Sounds/click.mp3","bgm":{"hunt":"Sounds/fossil forge fossil hunt.mp4","assembly":"Sounds/fossil forge assembly stage.mp4"},"speciesCalls":{"t-rex":"Sounds/t-rex roar.mp3","triceratops":"Sounds/triceratops roar.mp3","brachiosaurus":"Sounds/brachiosaurus call.mp3","velociraptor":"Sounds/velociraptor roar.mp3","pterodactyl":"Sounds/pterodactyl call.mp3","stegosaurus":"Sounds/stegosaurus call.mp3","mosasaurus":"Sounds/mosasaurus roar.mp3","spinosaurus":"Sounds/spinosaurus roar.mp3"}},"wordSets":[]}
+
+  {"title":"Fossil Forge","intro":{"message":"Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"},"hunt":{"gridCols":4,"gridRows":5,"fossilsPerGame":10,"fossilImageCount":16,"brushRadius":22,"revealThreshold":0.72,"gridInset":{"top":0.08,"right":0.04,"bottom":0.1,"left":0.04}},"slots":{"head":"Head","body":"Body","frontLegs":"Front legs","backLegs":"Back legs","tail":"Tail"},"assemblyRequiredSlots":["head","body","tail"],"assemblyOptionalSlots":["frontLegs","backLegs"],"assemblyBackgrounds":[{"id":"desert","label":"Desert","path":"backgrounds/desert-background.png"},{"id":"ocean","label":"Ocean","path":"backgrounds/ocean-background.png"},{"id":"valley","label":"Valley","path":"backgrounds/valley-background.png"},{"id":"volcano","label":"Volcano","path":"backgrounds/volcano-background.png"}],"patternColors":["#2d2d2d","#4a4a4a","#8b4513","#c47f2a","#e8d44d","#8b3a3a","#6b4c9a","#2d6a9f","#f0f0f0","#1a1a1a"],"patterns":[{"id":"none","label":"None","type":"none"},{"id":"armor","label":"Armor scales","type":"tile","path":"Patterns/Tiles/armor-texture.png","preview":"Patterns/Previews/armor-texture.png","blend":"multiply","tileMode":"repeat","tileRepeatPx":100,"colorize":"tint","colorStrength":0.7},{"id":"feathers","label":"Feathers","type":"tile","path":"Patterns/Tiles/feather-texture.png","preview":"Patterns/Previews/feather-texture.png","blend":"source-over","tileMode":"repeat","tileRepeatPx":300,"colorize":"alpha","applyScope":"full","colorStrength":1},{"id":"leopard","label":"Leopard spots","type":"tile","path":"Patterns/Tiles/leopard-texture.png","preview":"Patterns/Previews/leopard-texture.png","blend":"multiply","tileMode":"cover","colorize":"stripes","stripeCutoff":175,"bgCutoff":40,"colorStrength":0.85},{"id":"peacock","label":"Peacock","type":"tile","path":"Patterns/Tiles/peacock-texture.png","preview":"Patterns/Previews/peacock-texture.png","blend":"multiply","tileMode":"repeat","tileRepeatPx":88,"colorize":"tint","colorStrength":0.65},{"id":"tiger-stripes","label":"Tiger stripes","type":"tile","path":"Patterns/Tiles/tiger-stripes.png","preview":"Patterns/Previews/tiger-stripes.png","blend":"source-over","tileMode":"cover","colorize":"stripes","stripeCutoff":150,"bgCutoff":30,"colorStrength":0.92},{"id":"wool","label":"Wool","type":"tile","path":"Patterns/Tiles/wool-texture.png","preview":"Patterns/Previews/wool-texture.png","blend":"multiply","tileMode":"repeat","tileRepeatPx":110,"colorize":"tint","colorStrength":0.62},{"id":"zebra-stripes","label":"Zebra stripes","type":"tile","path":"Patterns/Tiles/zebra-stripes.png","preview":"Patterns/Previews/zebra-stripes.png","blend":"source-over","tileMode":"cover","colorize":"stripes","stripeCutoff":145,"bgCutoff":28,"colorStrength":0.92},{"id":"lightning","label":"Lightning","type":"overlay","path":"Patterns/Overlays/lightning-texture.png","preview":"Patterns/Previews/lightning-texture.png","blend":"screen","tintOverlay":true},{"id":"dorsal-spikes","label":"Dorsal spikes","type":"body-accessory","path":"Patterns/Accessories/dorsal-spikes.png","preview":"Patterns/Previews/dorsal-spikes.png","blend":"source-over","tintOverlay":true}],"tintColors":["#4a8c3f","#6bab5e","#2d5a24","#2d6a9f","#5a9fd4","#1e4466","#8b3a3a","#c75c5c","#6b2020","#c47f2a","#e8a84b","#8c5a18","#6b4c9a","#9b7fd4","#4a3068","#3a8c8c","#5cb8b8","#246060","#8c6b3a","#b8956a","#5c4828","#e8d44d","#f0e6a8","#c4b840","#7a8c9a","#4a4a4a","#d4a0c8","#e87878"],"victoryMessage":"Amazing! You forged a one-of-a-kind dinosaur!","audio":{"brush":"Sounds/dirt-brushing.mp3","click":"Sounds/click.mp3","bgm":{"hunt":"Sounds/fossil forge fossil hunt.mp4","assembly":"Sounds/fossil forge assembly stage.mp4"},"speciesCalls":{"t-rex":"Sounds/t-rex roar.mp3","triceratops":"Sounds/triceratops roar.mp3","brachiosaurus":"Sounds/brachiosaurus call.mp3","velociraptor":"Sounds/velociraptor roar.mp3","pterodactyl":"Sounds/pterodactyl call.mp3","stegosaurus":"Sounds/stegosaurus call.mp3","mosasaurus":"Sounds/mosasaurus roar.mp3","spinosaurus":"Sounds/spinosaurus roar.mp3"}},"wordSets":[]}
   </script>
 
-  <script src="js/parts-catalog-embed.js?v=1782357838"></script>
+  <script src="js/parts-catalog-embed.js?v=1782758817"></script>
   <script src="../../core/word-images.js"></script>
   <script src="../../core/word-challenges.js"></script>
   <script src="../../core/word-set-menus.js"></script>
   <script src="../../core/word-set-choose.js"></script>
   <script src="../../core/discrimination-round.js"></script>
-  <script src="js/dino-composer.js?v=12"></script>
-  <script src="js/fossil-audio.js?v=7"></script>
-  <script src="js/game.js?v=14"></script>
+  <script src="js/dino-composer.js?v=20"></script>
+  <script src="js/fossil-audio.js?v=8"></script>
+  <script src="js/game.js?v=16"></script>
 </body>
 </html>

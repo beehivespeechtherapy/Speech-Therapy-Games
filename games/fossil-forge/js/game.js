@@ -31,7 +31,10 @@
 
   let assemblyCategory = 'head';
   let assemblyUiReady = false;
-  let colorMode = false;
+  let customizePhase = 'assemble';
+  let selectedPatternId = null;
+  let patternColor = '#2d2d2d';
+  let patternPickerTab = 'pattern';
 
   const PART_CARD_STEP = 128;
 
@@ -121,6 +124,7 @@
       document.getElementById('victory-msg').textContent = config.victoryMessage;
     }
     tintColor = (config.tintColors && config.tintColors[0]) || '#4a8c3f';
+    patternColor = (config.patternColors && config.patternColors[0]) || '#2d2d2d';
     const bgs = config.assemblyBackgrounds || [];
     selectedBackground = bgs.length ? bgs[0].path : null;
 
@@ -133,7 +137,7 @@
     }).catch(function () { /* word lists optional when offline */ });
 
     composer = new DinoComposer(assetPath(''));
-    await composer.loadCatalog(assetPath('assets/parts-catalog.json?v=1782357838'));
+    await composer.loadCatalog(assetPath('assets/parts-catalog.json?v=1782758817'));
 
     audio = new FossilAudio(assetPath);
     audio.loadConfig(config.audio);
@@ -380,17 +384,45 @@
     return composer && composer.catalog && (composer.catalog.species || []).length > 0;
   }
 
+  function isAssemblePhase() {
+    return customizePhase === 'assemble';
+  }
+
+  function isColorPhase() {
+    return customizePhase === 'color';
+  }
+
+  function isPatternPhase() {
+    return customizePhase === 'pattern';
+  }
+
+  function getSelectedPattern() {
+    if (!selectedPatternId || selectedPatternId === 'none') return null;
+    return (config.patterns || []).find(function (p) { return p.id === selectedPatternId; }) || null;
+  }
+
   function updateAssemblyChrome() {
     const screen = document.getElementById('assembly-screen');
     const title = document.getElementById('assembly-title');
     const partsBar = document.getElementById('assembly-action-parts');
     const colorBar = document.getElementById('assembly-action-color');
+    const patternBar = document.getElementById('assembly-action-pattern');
     const partsNav = document.querySelector('.parts-picker-nav');
-    if (screen) screen.classList.toggle('color-mode', colorMode);
-    if (title) title.textContent = colorMode ? 'Color your dinosaur' : 'Assemble your dinosaur';
-    if (partsBar) partsBar.classList.toggle('hidden', colorMode);
-    if (colorBar) colorBar.classList.toggle('hidden', !colorMode);
-    if (partsNav) partsNav.style.display = colorMode ? 'none' : '';
+    const patternTabs = document.getElementById('pattern-picker-tabs');
+    if (screen) {
+      screen.classList.toggle('color-mode', isColorPhase());
+      screen.classList.toggle('pattern-mode', isPatternPhase());
+    }
+    if (title) {
+      if (isColorPhase()) title.textContent = 'Color your dinosaur';
+      else if (isPatternPhase()) title.textContent = 'Pattern your dinosaur';
+      else title.textContent = 'Assemble your dinosaur';
+    }
+    if (partsBar) partsBar.classList.toggle('hidden', !isAssemblePhase());
+    if (colorBar) colorBar.classList.toggle('hidden', !isColorPhase());
+    if (patternBar) patternBar.classList.toggle('hidden', !isPatternPhase());
+    if (partsNav) partsNav.style.display = isAssemblePhase() ? '' : 'none';
+    if (patternTabs) patternTabs.classList.toggle('hidden', !isPatternPhase());
   }
 
   function applyGridInset(gridEl) {
@@ -517,6 +549,8 @@
 
   function startHunt() {
     equipped = {};
+    selectedPatternId = null;
+    customizePhase = 'assemble';
     fossilsFound = 0;
     huntComplete = false;
     initWordRoundPools();
@@ -526,13 +560,18 @@
     document.getElementById('hunt-continue-btn').disabled = true;
   }
 
-  async function renderDinoCanvas(canvasId, useTint) {
+  async function renderDinoCanvas(canvasId, renderPhase) {
     const canvas = document.getElementById(canvasId);
     if (!canvas || !composer) return;
+    const phase = renderPhase || customizePhase;
+    const useTint = phase === 'color' || phase === 'pattern' || phase === 'victory';
+    const includePattern = phase === 'pattern' || phase === 'victory';
     const ctx = canvas.getContext('2d');
     await composer.render(ctx, equipped, {
       tint: useTint,
       color: tintColor,
+      pattern: includePattern ? getSelectedPattern() : null,
+      patternColor: patternColor,
       destW: canvas.width,
       destH: canvas.height,
     });
@@ -617,7 +656,7 @@
     const label = document.getElementById('parts-picker-label');
     if (!track) return;
     track.innerHTML = '';
-    if (label) label.textContent = 'Pick a color';
+    if (label) label.textContent = 'Pick a body color';
     (config.tintColors || ['#4a8c3f']).forEach(function (c) {
       const card = document.createElement('button');
       card.type = 'button';
@@ -630,7 +669,7 @@
         tintColor = c;
         if (audio) audio.playClick();
         renderColorPicker();
-        renderDinoCanvas('assembly-canvas', true);
+        renderDinoCanvas('assembly-canvas', 'color');
       });
       track.appendChild(card);
     });
@@ -640,9 +679,81 @@
     });
   }
 
+  function renderPatternPicker() {
+    const track = document.getElementById('parts-picker-track');
+    const label = document.getElementById('parts-picker-label');
+    if (!track) return;
+    track.innerHTML = '';
+
+    if (patternPickerTab === 'patternColor') {
+      if (label) label.textContent = 'Pick a pattern color';
+      (config.patternColors || ['#2d2d2d']).forEach(function (c) {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = 'part-card color-card' + (c === patternColor ? ' selected' : '');
+        const swatch = document.createElement('span');
+        swatch.className = 'color-swatch-inner';
+        swatch.style.background = c;
+        card.appendChild(swatch);
+        card.addEventListener('click', function () {
+          patternColor = c;
+          if (audio) audio.playClick();
+          renderPatternPicker();
+          renderDinoCanvas('assembly-canvas', 'pattern');
+        });
+        track.appendChild(card);
+      });
+    } else {
+      if (label) label.textContent = 'Pick a pattern';
+      (config.patterns || []).forEach(function (pat) {
+        const card = document.createElement('button');
+        card.type = 'button';
+        const isNone = pat.id === 'none';
+        const isSelected = isNone ? !selectedPatternId : selectedPatternId === pat.id;
+        card.className = 'part-card pattern-card' + (isSelected ? ' selected' : '');
+        if (isNone) {
+          const noneIcon = document.createElement('div');
+          noneIcon.className = 'part-none-icon';
+          noneIcon.textContent = '—';
+          card.appendChild(noneIcon);
+        } else {
+          const img = document.createElement('img');
+          img.className = 'part-thumb-img';
+          img.src = assetPath(pat.preview || pat.path) + '?v=' + composer.getAssetVersion();
+          img.alt = pat.label;
+          card.appendChild(img);
+        }
+        const cap = document.createElement('div');
+        cap.className = 'part-label';
+        cap.textContent = pat.label;
+        card.appendChild(cap);
+        card.addEventListener('click', function () {
+          selectedPatternId = isNone ? null : pat.id;
+          if (audio) audio.playClick();
+          renderPatternPicker();
+          renderDinoCanvas('assembly-canvas', 'pattern');
+        });
+        track.appendChild(card);
+      });
+    }
+
+    document.querySelectorAll('.pattern-tab-btn').forEach(function (btn) {
+      btn.classList.toggle('active', btn.dataset.tab === patternPickerTab);
+    });
+
+    requestAnimationFrame(function () {
+      resetPartsPickerScroll();
+      updatePartsScrollButtons();
+    });
+  }
+
   function renderPartsPicker() {
-    if (colorMode) {
+    if (isColorPhase()) {
       renderColorPicker();
+      return;
+    }
+    if (isPatternPhase()) {
+      renderPatternPicker();
       return;
     }
     const track = document.getElementById('parts-picker-track');
@@ -807,14 +918,14 @@
 
   function populateAssemblyUi() {
     updateAssemblyChrome();
-    if (!colorMode) renderAssemblyMenu();
+    if (isAssemblePhase()) renderAssemblyMenu();
     renderPartsPicker();
   }
 
   async function renderAssembly() {
     populateAssemblyUi();
     try {
-      await renderDinoCanvas('assembly-canvas', colorMode);
+      await renderDinoCanvas('assembly-canvas');
     } catch (e) {
       console.error('Assembly preview failed', e);
     }
@@ -824,25 +935,38 @@
 
   function enterColorMode() {
     if (!assemblyComplete()) return;
-    colorMode = true;
+    customizePhase = 'color';
     resetPartsPickerScroll();
     renderAssembly();
   }
 
   function exitColorMode() {
-    colorMode = false;
+    customizePhase = 'assemble';
+    resetPartsPickerScroll();
+    renderAssembly();
+  }
+
+  function enterPatternMode() {
+    customizePhase = 'pattern';
+    patternPickerTab = 'pattern';
+    resetPartsPickerScroll();
+    renderAssembly();
+  }
+
+  function exitPatternMode() {
+    customizePhase = 'color';
     resetPartsPickerScroll();
     renderAssembly();
   }
 
   function skipToAssembly() {
-    colorMode = false;
+    customizePhase = 'assemble';
     showAssembly();
   }
 
   function showAssembly() {
     assemblyCategory = 'head';
-    colorMode = false;
+    customizePhase = 'assemble';
     if (audio) {
       audio.stopBrushing(true);
       audio.unlock();
@@ -860,7 +984,7 @@
   async function showVictory() {
     showScreen('victory-screen');
     applyStageBackgrounds();
-    await renderDinoCanvas('victory-canvas', true);
+    await renderDinoCanvas('victory-canvas', 'victory');
     if (audio) audio.playHeadCall(equipped);
   }
 
@@ -888,8 +1012,20 @@
       document.getElementById('assembly-continue-btn').addEventListener('click', enterColorMode);
       const assemblyBackBtn = document.getElementById('assembly-back-btn');
       if (assemblyBackBtn) assemblyBackBtn.addEventListener('click', exitColorMode);
+      const assemblyPatternBtn = document.getElementById('assembly-pattern-btn');
+      if (assemblyPatternBtn) assemblyPatternBtn.addEventListener('click', enterPatternMode);
+      const patternBackBtn = document.getElementById('pattern-back-btn');
+      if (patternBackBtn) patternBackBtn.addEventListener('click', exitPatternMode);
       const assemblyFinishBtn = document.getElementById('assembly-finish-btn');
       if (assemblyFinishBtn) assemblyFinishBtn.addEventListener('click', showVictory);
+      document.querySelectorAll('.pattern-tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          patternPickerTab = btn.dataset.tab || 'pattern';
+          if (audio) audio.playClick();
+          resetPartsPickerScroll();
+          renderPatternPicker();
+        });
+      });
       const listenAgainBtn = document.getElementById('listen-again-btn');
       if (listenAgainBtn) {
         listenAgainBtn.addEventListener('click', function () {
