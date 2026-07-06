@@ -40,6 +40,34 @@
     }
   };
 
+  NinjaAudio.prototype.teardown = function () {
+    var self = this;
+    Object.keys(this.cache).forEach(function (url) {
+      var a = self.cache[url];
+      if (!a) return;
+      try {
+        a.pause();
+        a.removeAttribute('src');
+        a.load();
+      } catch (e) { /* ignore */ }
+    });
+    if (this.oneShots) {
+      this.oneShots.forEach(function (a) {
+        try {
+          a.pause();
+          a.removeAttribute('src');
+          a.load();
+        } catch (e) { /* ignore */ }
+      });
+    }
+    this.cache = {};
+    this.oneShots = [];
+    this.bgm = null;
+    this.bgmKey = null;
+    this.currentScreen = null;
+    this._bgmWasPlaying = false;
+  };
+
   NinjaAudio.prototype.pauseAll = function () {
     var self = this;
     Object.keys(this.cache).forEach(function (url) {
@@ -50,15 +78,58 @@
         a.currentTime = 0;
       } catch (e) { /* ignore */ }
     });
+    if (this.oneShots) {
+      this.oneShots.forEach(function (a) {
+        try {
+          a.pause();
+          a.currentTime = 0;
+        } catch (e) { /* ignore */ }
+      });
+    }
     this.bgm = null;
     this.bgmKey = null;
   };
 
   NinjaAudio.prototype.bindLifecycle = function () {
     var self = this;
-    function halt() { self.pauseAll(); }
+    function halt() { self.teardown(); }
+
     window.addEventListener('pagehide', halt);
     window.addEventListener('beforeunload', halt);
+    window.addEventListener('unload', halt);
+    document.addEventListener('freeze', halt);
+
+    var blurTimer = null;
+    window.addEventListener('blur', function () {
+      blurTimer = window.setTimeout(function () {
+        if (!document.hasFocus()) halt();
+      }, 1500);
+    });
+    window.addEventListener('focus', function () {
+      if (blurTimer) {
+        window.clearTimeout(blurTimer);
+        blurTimer = null;
+      }
+    });
+
+    document.addEventListener('visibilitychange', function () {
+      if (document.hidden) {
+        self._bgmWasPlaying = !!(self.bgm && !self.bgm.paused && !self.muted && self.currentScreen);
+        self.stopBgm(false);
+        if (self.oneShots) {
+          self.oneShots.forEach(function (a) {
+            try { a.pause(); } catch (e) { /* ignore */ }
+          });
+        }
+        return;
+      }
+      if (self._bgmWasPlaying && self.currentScreen && !self.muted) {
+        self._bgmWasPlaying = false;
+        self.ensurePlayback();
+      } else {
+        self._bgmWasPlaying = false;
+      }
+    });
   };
 
   NinjaAudio.prototype.init = function () {
@@ -270,6 +341,12 @@
     var url = this.resolve(relativePath);
     var a = new Audio(url);
     a.volume = volume != null ? volume : 0.75;
+    if (!this.oneShots) this.oneShots = [];
+    this.oneShots.push(a);
+    var self = this;
+    a.addEventListener('ended', function () {
+      self.oneShots = self.oneShots.filter(function (x) { return x !== a; });
+    });
     a.play().catch(function () { /* ignore */ });
   };
 
