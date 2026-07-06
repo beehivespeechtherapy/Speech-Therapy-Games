@@ -33,8 +33,9 @@
   let assemblyUiReady = false;
   let customizePhase = 'assemble';
   let selectedPatternId = null;
+  let selectedAccessoryId = null;
   let patternColor = '#2d2d2d';
-  let patternPickerTab = 'pattern';
+  let accessoryColor = '#c47f2a';
 
   const PART_CARD_STEP = 128;
 
@@ -106,7 +107,7 @@
 
   async function loadConfig() {
     try {
-      const r = await fetch('config.json');
+      const r = await fetch('config.json', { cache: 'no-store' });
       if (r.ok) config = await r.json();
     } catch (e) { /* embedded fallback */ }
     if (!config) {
@@ -137,7 +138,10 @@
     }).catch(function () { /* word lists optional when offline */ });
 
     composer = new DinoComposer(assetPath(''));
-    await composer.loadCatalog(assetPath('assets/parts-catalog.json?v=1782758817'));
+    await composer.loadCatalog(assetPath('assets/parts-catalog.json?v=1783358577'));
+    if (config.accessoriesVersion != null) {
+      composer.setAccessoriesVersion(config.accessoriesVersion);
+    }
 
     audio = new FossilAudio(assetPath);
     audio.loadConfig(config.audio);
@@ -396,9 +400,40 @@
     return customizePhase === 'pattern';
   }
 
+  function isAccessoryPhase() {
+    return customizePhase === 'accessory';
+  }
+
   function getSelectedPattern() {
     if (!selectedPatternId || selectedPatternId === 'none') return null;
     return (config.patterns || []).find(function (p) { return p.id === selectedPatternId; }) || null;
+  }
+
+  function rainBootsAvailable() {
+    if (!composer) return false;
+    return composer.rainBootsAvailable(equipped);
+  }
+
+  function isAccessoryAvailable(acc) {
+    if (!acc || acc.id === 'none') return true;
+    if (acc.id === 'rain-boot') return rainBootsAvailable();
+    return true;
+  }
+
+  function sanitizeAccessorySelection() {
+    if (selectedAccessoryId === 'rain-boot' && !rainBootsAvailable()) {
+      selectedAccessoryId = null;
+    }
+  }
+
+  function getSelectedAccessory() {
+    if (!selectedAccessoryId || selectedAccessoryId === 'none') return null;
+    return (config.accessories || []).find(function (a) { return a.id === selectedAccessoryId; }) || null;
+  }
+
+  function accessoryColorizeEnabled() {
+    const acc = getSelectedAccessory();
+    return !!(acc && acc.colorize !== false);
   }
 
   function updateAssemblyChrome() {
@@ -407,22 +442,37 @@
     const partsBar = document.getElementById('assembly-action-parts');
     const colorBar = document.getElementById('assembly-action-color');
     const patternBar = document.getElementById('assembly-action-pattern');
+    const accessoryBar = document.getElementById('assembly-action-accessory');
     const partsNav = document.querySelector('.parts-picker-nav');
-    const patternTabs = document.getElementById('pattern-picker-tabs');
+    const colorPanel = document.getElementById('assembly-color-panel');
     if (screen) {
       screen.classList.toggle('color-mode', isColorPhase());
       screen.classList.toggle('pattern-mode', isPatternPhase());
+      screen.classList.toggle('accessory-mode', isAccessoryPhase());
     }
     if (title) {
       if (isColorPhase()) title.textContent = 'Color your dinosaur';
       else if (isPatternPhase()) title.textContent = 'Pattern your dinosaur';
+      else if (isAccessoryPhase()) title.textContent = 'Dress up your dinosaur';
       else title.textContent = 'Assemble your dinosaur';
     }
     if (partsBar) partsBar.classList.toggle('hidden', !isAssemblePhase());
     if (colorBar) colorBar.classList.toggle('hidden', !isColorPhase());
     if (patternBar) patternBar.classList.toggle('hidden', !isPatternPhase());
-    if (partsNav) partsNav.style.display = isAssemblePhase() ? '' : 'none';
-    if (patternTabs) patternTabs.classList.toggle('hidden', !isPatternPhase());
+    if (accessoryBar) accessoryBar.classList.toggle('hidden', !isAccessoryPhase());
+    if (partsNav) {
+      partsNav.style.display = (isAssemblePhase() || isPatternPhase() || isAccessoryPhase()) ? '' : 'none';
+    }
+    if (colorPanel) {
+      const showPanel = isPatternPhase() || (isAccessoryPhase() && accessoryColorizeEnabled());
+      colorPanel.classList.toggle('hidden', !showPanel);
+    }
+    const accessoryHint = document.querySelector('.assembly-hint-accessory');
+    if (accessoryHint && isAccessoryPhase()) {
+      accessoryHint.textContent = accessoryColorizeEnabled()
+        ? 'Pick an accessory below, then choose an accessory color on the left.'
+        : 'Pick an accessory below.';
+    }
   }
 
   function applyGridInset(gridEl) {
@@ -550,6 +600,9 @@
   function startHunt() {
     equipped = {};
     selectedPatternId = null;
+    selectedAccessoryId = null;
+    patternColor = '#2d2d2d';
+    accessoryColor = '#c47f2a';
     customizePhase = 'assemble';
     fossilsFound = 0;
     huntComplete = false;
@@ -564,14 +617,17 @@
     const canvas = document.getElementById(canvasId);
     if (!canvas || !composer) return;
     const phase = renderPhase || customizePhase;
-    const useTint = phase === 'color' || phase === 'pattern' || phase === 'victory';
-    const includePattern = phase === 'pattern' || phase === 'victory';
+    const useTint = phase === 'color' || phase === 'pattern' || phase === 'accessory' || phase === 'victory';
+    const includePattern = phase === 'pattern' || phase === 'accessory' || phase === 'victory';
+    const includeAccessory = phase === 'accessory' || phase === 'victory';
     const ctx = canvas.getContext('2d');
     await composer.render(ctx, equipped, {
       tint: useTint,
       color: tintColor,
       pattern: includePattern ? getSelectedPattern() : null,
       patternColor: patternColor,
+      accessory: includeAccessory ? getSelectedAccessory() : null,
+      accessoryColor: accessoryColor,
       destW: canvas.width,
       destH: canvas.height,
     });
@@ -679,67 +735,128 @@
     });
   }
 
-  function renderPatternPicker() {
-    const track = document.getElementById('parts-picker-track');
-    const label = document.getElementById('parts-picker-label');
-    if (!track) return;
-    track.innerHTML = '';
+  function renderSideColorPanel() {
+    const panelLabel = document.getElementById('assembly-color-panel-label');
+    const grid = document.getElementById('assembly-color-panel-grid');
+    if (!grid) return;
+    grid.innerHTML = '';
 
-    if (patternPickerTab === 'patternColor') {
-      if (label) label.textContent = 'Pick a pattern color';
-      (config.patternColors || ['#2d2d2d']).forEach(function (c) {
-        const card = document.createElement('button');
-        card.type = 'button';
-        card.className = 'part-card color-card' + (c === patternColor ? ' selected' : '');
-        const swatch = document.createElement('span');
-        swatch.className = 'color-swatch-inner';
-        swatch.style.background = c;
-        card.appendChild(swatch);
-        card.addEventListener('click', function () {
-          patternColor = c;
-          if (audio) audio.playClick();
-          renderPatternPicker();
-          renderDinoCanvas('assembly-canvas', 'pattern');
-        });
-        track.appendChild(card);
-      });
-    } else {
-      if (label) label.textContent = 'Pick a pattern';
-      (config.patterns || []).forEach(function (pat) {
-        const card = document.createElement('button');
-        card.type = 'button';
-        const isNone = pat.id === 'none';
-        const isSelected = isNone ? !selectedPatternId : selectedPatternId === pat.id;
-        card.className = 'part-card pattern-card' + (isSelected ? ' selected' : '');
-        if (isNone) {
-          const noneIcon = document.createElement('div');
-          noneIcon.className = 'part-none-icon';
-          noneIcon.textContent = '—';
-          card.appendChild(noneIcon);
-        } else {
-          const img = document.createElement('img');
-          img.className = 'part-thumb-img';
-          img.src = assetPath(pat.preview || pat.path) + '?v=' + composer.getAssetVersion();
-          img.alt = pat.label;
-          card.appendChild(img);
-        }
-        const cap = document.createElement('div');
-        cap.className = 'part-label';
-        cap.textContent = pat.label;
-        card.appendChild(cap);
-        card.addEventListener('click', function () {
-          selectedPatternId = isNone ? null : pat.id;
-          if (audio) audio.playClick();
-          renderPatternPicker();
-          renderDinoCanvas('assembly-canvas', 'pattern');
-        });
-        track.appendChild(card);
-      });
+    const isPattern = isPatternPhase();
+    const isAccessory = isAccessoryPhase();
+    if (!isPattern && !(isAccessory && accessoryColorizeEnabled())) return;
+
+    const colors = config.patternColors || ['#2d2d2d'];
+    const activeColor = isPattern ? patternColor : accessoryColor;
+    if (panelLabel) {
+      panelLabel.textContent = isPattern ? 'Pattern color' : 'Accessory color';
     }
 
-    document.querySelectorAll('.pattern-tab-btn').forEach(function (btn) {
-      btn.classList.toggle('active', btn.dataset.tab === patternPickerTab);
+    colors.forEach(function (c) {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'side-color-swatch' + (c === activeColor ? ' selected' : '');
+      btn.style.background = c;
+      btn.setAttribute('aria-label', 'Color ' + c);
+      btn.addEventListener('click', function () {
+        if (isPattern) patternColor = c;
+        else accessoryColor = c;
+        if (audio) audio.playClick();
+        renderSideColorPanel();
+        renderDinoCanvas('assembly-canvas', customizePhase);
+      });
+      grid.appendChild(btn);
     });
+  }
+
+  function renderPatternPicker() {
+    const track = document.getElementById('parts-picker-track');
+    const headerLabel = document.getElementById('parts-picker-label');
+    if (!track) return;
+    track.innerHTML = '';
+    if (headerLabel) headerLabel.textContent = 'Pick a pattern';
+
+    (config.patterns || []).forEach(function (pat) {
+      const card = document.createElement('button');
+      card.type = 'button';
+      const isNone = pat.id === 'none';
+      const isSelected = isNone ? !selectedPatternId : selectedPatternId === pat.id;
+      card.className = 'part-card pattern-card' + (isSelected ? ' selected' : '');
+      if (isNone) {
+        const noneIcon = document.createElement('div');
+        noneIcon.className = 'part-none-icon';
+        noneIcon.textContent = '—';
+        card.appendChild(noneIcon);
+      } else {
+        const img = document.createElement('img');
+        img.className = 'part-thumb-img';
+        img.src = assetPath(pat.preview || pat.path) + '?v=' + composer.getAssetVersion();
+        img.alt = pat.label;
+        card.appendChild(img);
+      }
+      const cap = document.createElement('div');
+      cap.className = 'part-label';
+      cap.textContent = pat.label;
+      card.appendChild(cap);
+      card.addEventListener('click', function () {
+        selectedPatternId = isNone ? null : pat.id;
+        if (audio) audio.playClick();
+        renderPatternPicker();
+        renderDinoCanvas('assembly-canvas', 'pattern');
+      });
+      track.appendChild(card);
+    });
+
+    renderSideColorPanel();
+
+    requestAnimationFrame(function () {
+      resetPartsPickerScroll();
+      updatePartsScrollButtons();
+    });
+  }
+
+  function renderAccessoryPicker() {
+    const track = document.getElementById('parts-picker-track');
+    const headerLabel = document.getElementById('parts-picker-label');
+    if (!track) return;
+    sanitizeAccessorySelection();
+    track.innerHTML = '';
+    if (headerLabel) headerLabel.textContent = 'Pick an accessory';
+
+    (config.accessories || []).forEach(function (acc) {
+      if (!isAccessoryAvailable(acc)) return;
+      const card = document.createElement('button');
+      card.type = 'button';
+      const isNone = acc.id === 'none';
+      const isSelected = isNone ? !selectedAccessoryId : selectedAccessoryId === acc.id;
+      card.className = 'part-card pattern-card' + (isSelected ? ' selected' : '');
+      if (isNone) {
+        const noneIcon = document.createElement('div');
+        noneIcon.className = 'part-none-icon';
+        noneIcon.textContent = '—';
+        card.appendChild(noneIcon);
+      } else {
+        const img = document.createElement('img');
+        img.className = 'part-thumb-img';
+        img.src = assetPath(acc.preview || acc.path) + '?v='
+          + (config.accessoriesVersion != null ? config.accessoriesVersion : composer.getAssetVersion());
+        img.alt = acc.label;
+        card.appendChild(img);
+      }
+      const cap = document.createElement('div');
+      cap.className = 'part-label';
+      cap.textContent = acc.label;
+      card.appendChild(cap);
+      card.addEventListener('click', function () {
+        selectedAccessoryId = isNone ? null : acc.id;
+        if (audio) audio.playClick();
+        updateAssemblyChrome();
+        renderAccessoryPicker();
+        renderDinoCanvas('assembly-canvas', 'accessory');
+      });
+      track.appendChild(card);
+    });
+
+    renderSideColorPanel();
 
     requestAnimationFrame(function () {
       resetPartsPickerScroll();
@@ -754,6 +871,10 @@
     }
     if (isPatternPhase()) {
       renderPatternPicker();
+      return;
+    }
+    if (isAccessoryPhase()) {
+      renderAccessoryPicker();
       return;
     }
     const track = document.getElementById('parts-picker-track');
@@ -948,13 +1069,25 @@
 
   function enterPatternMode() {
     customizePhase = 'pattern';
-    patternPickerTab = 'pattern';
     resetPartsPickerScroll();
     renderAssembly();
   }
 
   function exitPatternMode() {
     customizePhase = 'color';
+    resetPartsPickerScroll();
+    renderAssembly();
+  }
+
+  function enterAccessoryMode() {
+    customizePhase = 'accessory';
+    sanitizeAccessorySelection();
+    resetPartsPickerScroll();
+    renderAssembly();
+  }
+
+  function exitAccessoryMode() {
+    customizePhase = 'pattern';
     resetPartsPickerScroll();
     renderAssembly();
   }
@@ -1017,15 +1150,11 @@
       const patternBackBtn = document.getElementById('pattern-back-btn');
       if (patternBackBtn) patternBackBtn.addEventListener('click', exitPatternMode);
       const assemblyFinishBtn = document.getElementById('assembly-finish-btn');
-      if (assemblyFinishBtn) assemblyFinishBtn.addEventListener('click', showVictory);
-      document.querySelectorAll('.pattern-tab-btn').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-          patternPickerTab = btn.dataset.tab || 'pattern';
-          if (audio) audio.playClick();
-          resetPartsPickerScroll();
-          renderPatternPicker();
-        });
-      });
+      if (assemblyFinishBtn) assemblyFinishBtn.addEventListener('click', enterAccessoryMode);
+      const accessoryBackBtn = document.getElementById('accessory-back-btn');
+      if (accessoryBackBtn) accessoryBackBtn.addEventListener('click', exitAccessoryMode);
+      const accessoryFinishBtn = document.getElementById('accessory-finish-btn');
+      if (accessoryFinishBtn) accessoryFinishBtn.addEventListener('click', showVictory);
       const listenAgainBtn = document.getElementById('listen-again-btn');
       if (listenAgainBtn) {
         listenAgainBtn.addEventListener('click', function () {

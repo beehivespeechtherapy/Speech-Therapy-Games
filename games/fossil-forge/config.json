@@ -1,5 +1,6 @@
 {
   "title": "Fossil Forge",
+  "accessoriesVersion": 2,
   "intro": {
     "message": "Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"
   },
@@ -41,15 +42,83 @@
   ],
   "patterns": [
     { "id": "none", "label": "None", "type": "none" },
-    { "id": "armor", "label": "Armor scales", "type": "tile", "path": "Patterns/Tiles/armor-texture.png", "preview": "Patterns/Previews/armor-texture.png", "blend": "multiply", "tileMode": "repeat", "tileRepeatPx": 100, "colorize": "tint", "colorStrength": 0.7 },
+    { "id": "armor", "label": "Armor scales", "type": "tile", "path": "Patterns/Tiles/armor-texture.png", "preview": "Patterns/Previews/armor-texture.png", "blend": "source-over", "tileMode": "repeat", "tileRepeatPx": 280, "colorize": "alpha", "applyScope": "full", "colorStrength": 1 },
     { "id": "feathers", "label": "Feathers", "type": "tile", "path": "Patterns/Tiles/feather-texture.png", "preview": "Patterns/Previews/feather-texture.png", "blend": "source-over", "tileMode": "repeat", "tileRepeatPx": 300, "colorize": "alpha", "applyScope": "full", "colorStrength": 1 },
-    { "id": "leopard", "label": "Leopard spots", "type": "tile", "path": "Patterns/Tiles/leopard-texture.png", "preview": "Patterns/Previews/leopard-texture.png", "blend": "multiply", "tileMode": "cover", "colorize": "stripes", "stripeCutoff": 175, "bgCutoff": 40, "colorStrength": 0.85 },
-    { "id": "peacock", "label": "Peacock", "type": "tile", "path": "Patterns/Tiles/peacock-texture.png", "preview": "Patterns/Previews/peacock-texture.png", "blend": "multiply", "tileMode": "repeat", "tileRepeatPx": 88, "colorize": "tint", "colorStrength": 0.65 },
-    { "id": "tiger-stripes", "label": "Tiger stripes", "type": "tile", "path": "Patterns/Tiles/tiger-stripes.png", "preview": "Patterns/Previews/tiger-stripes.png", "blend": "source-over", "tileMode": "cover", "colorize": "stripes", "stripeCutoff": 150, "bgCutoff": 30, "colorStrength": 0.92 },
-    { "id": "wool", "label": "Wool", "type": "tile", "path": "Patterns/Tiles/wool-texture.png", "preview": "Patterns/Previews/wool-texture.png", "blend": "multiply", "tileMode": "repeat", "tileRepeatPx": 110, "colorize": "tint", "colorStrength": 0.62 },
-    { "id": "zebra-stripes", "label": "Zebra stripes", "type": "tile", "path": "Patterns/Tiles/zebra-stripes.png", "preview": "Patterns/Previews/zebra-stripes.png", "blend": "source-over", "tileMode": "cover", "colorize": "stripes", "stripeCutoff": 145, "bgCutoff": 28, "colorStrength": 0.92 },
-    { "id": "lightning", "label": "Lightning", "type": "overlay", "path": "Patterns/Overlays/lightning-texture.png", "preview": "Patterns/Previews/lightning-texture.png", "blend": "screen", "tintOverlay": true },
-    { "id": "dorsal-spikes", "label": "Dorsal spikes", "type": "body-accessory", "path": "Patterns/Accessories/dorsal-spikes.png", "preview": "Patterns/Previews/dorsal-spikes.png", "blend": "source-over", "tintOverlay": true }
+    { "id": "leopard", "label": "Leopard print", "type": "tile", "path": "Patterns/Tiles/leopard-print.png", "preview": "Patterns/Previews/leopard-print.png", "blend": "source-over", "tileMode": "repeat", "tileRepeatPx": 320, "colorize": "alpha", "applyScope": "full", "colorStrength": 1 },
+    { "id": "tiger-stripes", "label": "Tiger stripes", "type": "tile", "path": "Patterns/Tiles/tiger-stripes.png", "preview": "Patterns/Previews/tiger-stripes.png", "blend": "source-over", "tileMode": "repeat", "tileRepeatPx": 260, "colorize": "alpha", "applyScope": "full", "colorStrength": 1 },
+    { "id": "zebra-stripes", "label": "Zebra stripes", "type": "tile", "path": "Patterns/Tiles/zebra-stripes.png", "preview": "Patterns/Previews/zebra-stripes.png", "blend": "source-over", "tileMode": "repeat", "tileRepeatPx": 260, "colorize": "alpha", "applyScope": "full", "colorStrength": 1 },
+    { "id": "lightning-bolts", "label": "Lightning bolts", "type": "tile", "path": "Patterns/Tiles/lightning-bolts.png", "preview": "Patterns/Previews/lightning-bolts.png", "blend": "source-over", "tileMode": "repeat", "tileRepeatPx": 280, "colorize": "alpha", "applyScope": "full", "colorStrength": 1 },
+    { "id": "lightning", "label": "Lightning", "type": "overlay", "path": "Patterns/Overlays/lightning-texture.png", "preview": "Patterns/Previews/lightning-texture.png", "blend": "source-over", "colorize": "alpha", "colorStrength": 1 },
+    { "id": "flames-red", "label": "Flames (red)", "type": "overlay", "path": "Patterns/Overlays/flames-red.png", "preview": "Patterns/Previews/flames-red.png", "blend": "source-over", "tintOverlay": false },
+    { "id": "flames-green", "label": "Flames (green)", "type": "overlay", "path": "Patterns/Overlays/flames-green.png", "preview": "Patterns/Previews/flames-green.png", "blend": "source-over", "tintOverlay": false },
+    { "id": "flames-purple", "label": "Flames (purple)", "type": "overlay", "path": "Patterns/Overlays/flames-purple.png", "preview": "Patterns/Previews/flames-purple.png", "blend": "source-over", "tintOverlay": false }
+  ],
+  "accessories": [
+    { "id": "none", "label": "None" },
+    {
+      "id": "ball-cap",
+      "label": "Ball cap",
+      "fileBase": "Ball cap",
+      "preview": "Patterns/Previews/ball-cap.png",
+      "slot": "head",
+      "colorize": true
+    },
+    {
+      "id": "bow",
+      "label": "Bow",
+      "fileBase": "Bow",
+      "preview": "Patterns/Previews/bow.png",
+      "slot": "head",
+      "colorize": true,
+      "eraseUnder": true
+    },
+    {
+      "id": "glasses",
+      "label": "Glasses",
+      "fileBase": "Glasses",
+      "preview": "Patterns/Previews/glasses.png",
+      "slot": "head",
+      "colorize": true,
+      "preserveAlpha": true,
+      "solidify": false,
+      "eraseUnder": false
+    },
+    {
+      "id": "party-hat",
+      "label": "Party hat",
+      "fileBase": "Party hat",
+      "preview": "Patterns/Previews/party-hat.png",
+      "slot": "head",
+      "colorize": true
+    },
+    {
+      "id": "rain-boot",
+      "label": "Rain boots",
+      "fileBase": "Rain Boots",
+      "fallbackFileBase": "Rain Boot",
+      "preview": "Patterns/Previews/rain-boot.png",
+      "slot": "frontLegs",
+      "colorize": true,
+      "eraseUnder": true,
+      "dualBootsFor": ["brachiosaurus", "stegosaurus", "triceratops"],
+      "tailBootsFor": ["pterodactyl"]
+    },
+    {
+      "id": "top-hat",
+      "label": "Top hat",
+      "fileBase": "Top Hat",
+      "preview": "Patterns/Previews/top-hat.png",
+      "slot": "head",
+      "colorize": false
+    },
+    {
+      "id": "unicorn-horn",
+      "label": "Unicorn horn",
+      "fileBase": "Unicorn Horn",
+      "preview": "Patterns/Previews/unicorn-horn.png",
+      "slot": "head",
+      "colorize": true
+    }
   ],
   "tintColors": [
     "#4a8c3f",

@@ -10,6 +10,7 @@
     this.assetBase = assetBase || '';
     this.catalog = null;
     this.cache = new Map();
+    this.accessoriesVersion = null;
   }
 
   DinoComposer.prototype.resolvePath = function (relative) {
@@ -63,9 +64,20 @@
       : PARTS_ASSET_VERSION;
   };
 
+  DinoComposer.prototype.setAccessoriesVersion = function (version) {
+    this.accessoriesVersion = version != null ? String(version) : null;
+  };
+
+  DinoComposer.prototype.getCacheBustVersion = function (relativePath) {
+    if (relativePath && relativePath.indexOf('Patterns/Accessories/') >= 0 && this.accessoriesVersion) {
+      return this.accessoriesVersion;
+    }
+    return this.getAssetVersion();
+  };
+
   DinoComposer.prototype.loadImage = function (relativePath) {
     const url = this.resolvePath(relativePath);
-    const busted = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + this.getAssetVersion();
+    const busted = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + this.getCacheBustVersion(relativePath);
     if (this.cache.has(busted)) return this.cache.get(busted);
     const p = new Promise(function (resolve, reject) {
       const img = new Image();
@@ -314,24 +326,494 @@
     ctx.globalCompositeOperation = 'source-over';
   };
 
-  DinoComposer.prototype.applyMaskedOverlay = function (ctx, overlayImg, maskCanvas, blend, destW, destH, tintColor) {
+  DinoComposer.prototype.applyMaskedOverlay = function (ctx, overlayImg, maskCanvas, blend, destW, destH, pattern, patternColor) {
     const off = document.createElement('canvas');
     off.width = destW;
     off.height = destH;
     const octx = off.getContext('2d');
-    octx.drawImage(overlayImg, 0, 0, destW, destH);
-    if (tintColor) {
-      octx.globalCompositeOperation = 'multiply';
-      octx.fillStyle = tintColor;
-      octx.fillRect(0, 0, destW, destH);
-      octx.globalCompositeOperation = 'destination-in';
+    if (pattern && pattern.colorize === 'alpha' && patternColor) {
+      octx.drawImage(this.buildPatternLayer(overlayImg, destW, destH, patternColor, pattern), 0, 0);
+    } else {
       octx.drawImage(overlayImg, 0, 0, destW, destH);
+      if (pattern && pattern.tintOverlay && patternColor) {
+        octx.globalCompositeOperation = 'multiply';
+        octx.fillStyle = patternColor;
+        octx.fillRect(0, 0, destW, destH);
+        octx.globalCompositeOperation = 'destination-in';
+        octx.drawImage(overlayImg, 0, 0, destW, destH);
+      }
     }
     octx.globalCompositeOperation = 'destination-in';
     octx.drawImage(maskCanvas, 0, 0);
     ctx.globalCompositeOperation = blend || 'source-over';
     ctx.drawImage(off, 0, 0);
     ctx.globalCompositeOperation = 'source-over';
+  };
+
+  DinoComposer.prototype.getImageContentBBox = function (img, alphaThreshold) {
+    const w = img.naturalWidth;
+    const h = img.naturalHeight;
+    if (!w || !h) return null;
+    const off = document.createElement('canvas');
+    off.width = w;
+    off.height = h;
+    const octx = off.getContext('2d');
+    octx.drawImage(img, 0, 0);
+    const data = octx.getImageData(0, 0, w, h).data;
+    const cutoff = alphaThreshold != null ? alphaThreshold : 24;
+    let minX = w;
+    let minY = h;
+    let maxX = -1;
+    let maxY = -1;
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        if (data[(y * w + x) * 4 + 3] >= cutoff) {
+          if (x < minX) minX = x;
+          if (y < minY) minY = y;
+          if (x > maxX) maxX = x;
+          if (y > maxY) maxY = y;
+        }
+      }
+    }
+    if (maxX < minX || maxY < minY) return null;
+    return { x: minX, y: minY, w: maxX - minX + 1, h: maxY - minY + 1 };
+  };
+
+  DinoComposer.prototype.accessoryPathCandidates = function (fileBase, speciesId, accessory) {
+    const sp = this.getSpecies(speciesId);
+    const suffixes = [];
+    if (speciesId === 't-rex') {
+      suffixes.push('T-Rex', 't-Rex');
+    }
+    suffixes.push(speciesId);
+    if (sp && sp.label) suffixes.push(sp.label);
+    const seen = {};
+    const paths = [];
+    suffixes.forEach(function (s) {
+      if (!s || seen[s]) return;
+      seen[s] = true;
+      paths.push('Patterns/Accessories/' + fileBase + ' ' + s + '.png');
+    });
+    paths.push('Patterns/Accessories/' + fileBase + '.png');
+    const fallbackBase = accessory && accessory.fallbackFileBase;
+    if (fallbackBase && fallbackBase !== fileBase) {
+      paths.push('Patterns/Accessories/' + fallbackBase + '.png');
+    }
+    return paths;
+  };
+
+  DinoComposer.prototype.rainBootsAvailable = function (equipped) {
+    return !!(equipped.frontLegs || equipped.backLegs);
+  };
+
+  DinoComposer.prototype.hasPterodactylTailBoots = function (equipped, accessory) {
+    const tailBootsFor = (accessory && accessory.tailBootsFor) || ['pterodactyl'];
+    return !!(equipped.tail && tailBootsFor.indexOf(equipped.tail) >= 0);
+  };
+
+  DinoComposer.prototype.resolveAccessorySpeciesId = function (equipped, accessory) {
+    if (accessory && accessory.id === 'rain-boot') {
+      const fallbacks = ['backLegs', 'frontLegs', 'head', 'body', 'tail'];
+      for (let i = 0; i < fallbacks.length; i++) {
+        if (equipped[fallbacks[i]]) return equipped[fallbacks[i]];
+      }
+      return null;
+    }
+    const slot = (accessory && accessory.slot) || 'head';
+    const fallbacks = [slot, 'head', 'body', 'tail', 'frontLegs', 'backLegs'];
+    for (let i = 0; i < fallbacks.length; i++) {
+      if (equipped[fallbacks[i]]) return equipped[fallbacks[i]];
+    }
+    return null;
+  };
+
+  DinoComposer.prototype.appendRainBootImages = async function (images, accessory, speciesId) {
+    const dualBootsFor = accessory.dualBootsFor || ['brachiosaurus', 'stegosaurus', 'triceratops'];
+    if (dualBootsFor.indexOf(speciesId) >= 0) {
+      const frontImg = await this.loadFirstExistingImage(
+        this.dualBootPathCandidates(accessory.fileBase, speciesId, 'front')
+      );
+      const backImg = await this.loadFirstExistingImage(
+        this.dualBootPathCandidates(accessory.fileBase, speciesId, 'back')
+      );
+      if (frontImg) images.push(frontImg);
+      if (backImg) images.push(backImg);
+    } else {
+      const singleImg = await this.loadFirstExistingImage(
+        this.accessoryPathCandidates(accessory.fileBase, speciesId, accessory)
+      );
+      if (singleImg) images.push(singleImg);
+    }
+  };
+
+  DinoComposer.prototype.dualBootPathCandidates = function (fileBase, speciesId, leg) {
+    const sp = this.getSpecies(speciesId);
+    const suffixes = [];
+    if (speciesId === 't-rex') {
+      suffixes.push('T-Rex', 't-Rex');
+    }
+    suffixes.push(speciesId);
+    if (sp && sp.label) suffixes.push(sp.label);
+    const seen = {};
+    const paths = [];
+    suffixes.forEach(function (s) {
+      if (!s || seen[s]) return;
+      seen[s] = true;
+      paths.push('Patterns/Accessories/' + fileBase + ' ' + s + ' ' + leg + '.png');
+    });
+    return paths;
+  };
+
+  DinoComposer.prototype.loadFirstExistingImage = async function (relativePaths) {
+    for (let i = 0; i < relativePaths.length; i++) {
+      const relativePath = relativePaths[i];
+      const url = this.resolvePath(relativePath);
+      const busted = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'v=' + this.getCacheBustVersion(relativePath);
+      if (this.cache.has(busted)) {
+        try {
+          return await this.cache.get(busted);
+        } catch (e) {
+          this.cache.delete(busted);
+        }
+      }
+      try {
+        const img = await new Promise(function (resolve, reject) {
+          const a = new Image();
+          a.onload = function () { resolve(a); };
+          a.onerror = function () { reject(new Error('missing')); };
+          a.src = busted;
+        });
+        const cached = Promise.resolve(img);
+        this.cache.set(busted, cached);
+        return img;
+      } catch (e) { /* try next */ }
+    }
+    return null;
+  };
+
+  /** Grayscale accessory art: tint fills while keeping dark outlines and light highlights. */
+  DinoComposer.prototype.colorizeAccessory = function (canvas, accessoryColor, opts) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+    const imgData = ctx.getImageData(0, 0, w, h);
+    const d = imgData.data;
+    const c = this.parseColor(accessoryColor);
+    const minShade = (opts && opts.minShade != null) ? opts.minShade : 0.42;
+    const maxShade = (opts && opts.maxShade != null) ? opts.maxShade : 1.0;
+    const lineCutoff = (opts && opts.lineCutoff != null) ? opts.lineCutoff : 0.18;
+
+    for (let i = 0; i < d.length; i += 4) {
+      const a = d[i + 3];
+      if (a < 8) {
+        d[i] = 0;
+        d[i + 1] = 0;
+        d[i + 2] = 0;
+        d[i + 3] = 0;
+        continue;
+      }
+      const lum = (0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]) / 255;
+      const preserveAlpha = opts && opts.preserveAlpha;
+
+      if (lum <= lineCutoff) {
+        d[i] = 0;
+        d[i + 1] = 0;
+        d[i + 2] = 0;
+        if (!preserveAlpha) d[i + 3] = 255;
+        continue;
+      }
+
+      const shade = minShade + lum * (maxShade - minShade);
+      d[i] = Math.round(c.r * shade);
+      d[i + 1] = Math.round(c.g * shade);
+      d[i + 2] = Math.round(c.b * shade);
+      if (!preserveAlpha) d[i + 3] = 255;
+    }
+    ctx.putImageData(imgData, 0, 0);
+  };
+
+  /** Accessory PNGs often use faint alpha; make every visible pixel fully opaque. */
+  DinoComposer.prototype.solidifyAccessoryAlpha = function (canvas, minAlpha) {
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+    const imgData = ctx.getImageData(0, 0, w, h);
+    const d = imgData.data;
+    const cutoff = minAlpha != null ? minAlpha : 1;
+
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] >= cutoff) d[i + 3] = 255;
+    }
+    ctx.putImageData(imgData, 0, 0);
+  };
+
+  DinoComposer.prototype.buildAccessoryLayer = function (accImg, destW, destH, accessoryColor, accessory) {
+    const off = document.createElement('canvas');
+    off.width = destW;
+    off.height = destH;
+    const octx = off.getContext('2d');
+    octx.drawImage(accImg, 0, 0, destW, destH);
+    const colorize = accessory && accessory.colorize !== false;
+    const preserveAlpha = accessory && accessory.preserveAlpha;
+    const shouldSolidify = !preserveAlpha && (!accessory || accessory.solidify !== false);
+
+    if (colorize && accessoryColor) {
+      this.colorizeAccessory(off, accessoryColor, { preserveAlpha: preserveAlpha });
+    }
+    if (shouldSolidify) {
+      this.solidifyAccessoryAlpha(off, 1);
+    }
+    return off;
+  };
+
+  DinoComposer.prototype.buildAccessoryEraseMask = function (accImg, destW, destH) {
+    const off = document.createElement('canvas');
+    off.width = destW;
+    off.height = destH;
+    const octx = off.getContext('2d');
+    octx.drawImage(accImg, 0, 0, destW, destH);
+    const imgData = octx.getImageData(0, 0, destW, destH);
+    const d = imgData.data;
+    for (let i = 0; i < d.length; i += 4) {
+      if (d[i + 3] < 8) {
+        d[i + 3] = 0;
+        continue;
+      }
+      d[i] = 255;
+      d[i + 1] = 255;
+      d[i + 2] = 255;
+      d[i + 3] = 255;
+    }
+    octx.putImageData(imgData, 0, 0);
+    return off;
+  };
+
+  DinoComposer.prototype.eraseUnderAccessoryMask = function (ctx, maskCanvas) {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.drawImage(maskCanvas, 0, 0);
+    ctx.globalCompositeOperation = 'source-over';
+  };
+
+  DinoComposer.prototype.drawAccessoryImage = function (ctx, accessoryLayer) {
+    ctx.drawImage(accessoryLayer, 0, 0);
+  };
+
+  DinoComposer.prototype.drawAccessoryImages = async function (
+    ctx, equipped, accessory, accessoryColor, destW, destH, images
+  ) {
+    const self = this;
+    for (let i = 0; i < images.length; i++) {
+      const accImg = images[i];
+      if (!accImg) continue;
+      const layer = self.buildAccessoryLayer(accImg, destW, destH, accessoryColor, accessory);
+      const shouldErase = accessory.eraseUnder !== false && !accessory.preserveAlpha;
+      if (shouldErase) {
+        const mask = self.buildAccessoryEraseMask(accImg, destW, destH);
+        self.eraseUnderAccessoryMask(ctx, mask);
+      }
+      self.drawAccessoryImage(ctx, layer);
+    }
+  };
+
+  DinoComposer.prototype.drawRainBoots = async function (
+    ctx, equipped, accessory, accessoryColor, destW, destH
+  ) {
+    if (!this.rainBootsAvailable(equipped)) return;
+    const images = [];
+    const loadedSpecies = {};
+    const legSpecies = [];
+
+    if (equipped.frontLegs) legSpecies.push(equipped.frontLegs);
+    if (equipped.backLegs) legSpecies.push(equipped.backLegs);
+
+    for (let i = 0; i < legSpecies.length; i++) {
+      const speciesId = legSpecies[i];
+      if (loadedSpecies[speciesId]) continue;
+      loadedSpecies[speciesId] = true;
+      await this.appendRainBootImages(images, accessory, speciesId);
+    }
+
+    if (this.hasPterodactylTailBoots(equipped, accessory)) {
+      await this.appendRainBootImages(images, accessory, equipped.tail);
+    }
+
+    await this.drawAccessoryImages(ctx, equipped, accessory, accessoryColor, destW, destH, images);
+  };
+
+  DinoComposer.prototype.drawEquippedAccessory = async function (ctx, equipped, accessory, accessoryColor, destW, destH) {
+    if (!accessory || !accessory.fileBase) return;
+    if (accessory.id === 'rain-boot') {
+      await this.drawRainBoots(ctx, equipped, accessory, accessoryColor, destW, destH);
+      return;
+    }
+    const speciesId = this.resolveAccessorySpeciesId(equipped, accessory);
+    if (!speciesId) return;
+    const paths = this.accessoryPathCandidates(accessory.fileBase, speciesId, accessory);
+    const accImg = await this.loadFirstExistingImage(paths);
+    if (!accImg) return;
+    await this.drawAccessoryImages(ctx, equipped, accessory, accessoryColor, destW, destH, [accImg]);
+  };
+
+  DinoComposer.prototype.slotsHiddenByAccessory = function (accessory, equipped) {
+    if (!accessory || !accessory.fileBase || accessory.id !== 'rain-boot') return [];
+    const dualBootsFor = accessory.dualBootsFor || ['brachiosaurus', 'stegosaurus', 'triceratops'];
+    const hidden = [];
+    if (equipped.frontLegs && dualBootsFor.indexOf(equipped.frontLegs) >= 0) {
+      hidden.push('frontLegs');
+    }
+    if (equipped.backLegs && dualBootsFor.indexOf(equipped.backLegs) >= 0) {
+      hidden.push('backLegs');
+    }
+    return hidden;
+  };
+
+  DinoComposer.prototype.drawSlotDetails = async function (ctx, equipped, slot, destW, destH) {
+    const speciesId = equipped[slot];
+    if (!speciesId) return;
+    const species = this.getSpecies(speciesId);
+    if (!species || !species.slots || !species.slots[slot]) return;
+    const det = species.slots[slot].details;
+    if (!det) return;
+    try {
+      const detImg = await this.loadImage(det);
+      ctx.drawImage(detImg, 0, 0, destW, destH);
+    } catch (e) { /* skip */ }
+  };
+
+  DinoComposer.prototype.drawAllDetailsExcept = async function (ctx, equipped, order, skipSlots, destW, destH) {
+    const skipList = Array.isArray(skipSlots) ? skipSlots : (skipSlots ? [skipSlots] : []);
+    for (let j = 0; j < order.length; j++) {
+      const slot = order[j];
+      if (skipList.indexOf(slot) >= 0) continue;
+      await this.drawSlotDetails(ctx, equipped, slot, destW, destH);
+    }
+  };
+
+  DinoComposer.prototype.applyPartPattern = function (partCtx, partCanvas, renderOpts) {
+    const pattern = renderOpts.pattern;
+    const tint = renderOpts.tint;
+    if (!tint || !pattern) return;
+    const destW = renderOpts.destW;
+    const destH = renderOpts.destH;
+    const patternColor = renderOpts.patternColor;
+    const tileImg = renderOpts.tileImg;
+    const overlayImg = renderOpts.overlayImg;
+    const patternPerPart = renderOpts.patternPerPart;
+    const alphaMask = this.buildAlphaMask(partCanvas, destW, destH);
+
+    if (pattern.type === 'tile' && tileImg && (patternPerPart || pattern.applyScope === 'full')) {
+      this.applyTilePattern(
+        partCtx, alphaMask, tileImg, patternColor, pattern.blend || 'source-over', destW, destH, pattern
+      );
+    } else if (pattern.type === 'overlay' && overlayImg) {
+      this.applyMaskedOverlay(
+        partCtx, overlayImg, alphaMask, pattern.blend || 'source-over', destW, destH, pattern, patternColor
+      );
+    }
+  };
+
+  DinoComposer.prototype.slotsRedrawnOnTop = function () {
+    return ['backLegs', 'tail', 'head', 'frontLegs'];
+  };
+
+  DinoComposer.prototype.drawSlotLayerOnTop = async function (ctx, equipped, slot, renderOpts) {
+    const speciesId = equipped[slot];
+    if (!speciesId) return;
+    const species = this.getSpecies(speciesId);
+    if (!species || !species.slots || !species.slots[slot]) return;
+    const tint = renderOpts.tint;
+    const color = renderOpts.color;
+    const pattern = renderOpts.pattern;
+    const patternColor = renderOpts.patternColor;
+    const tileImg = renderOpts.tileImg;
+    const patternPerPart = renderOpts.patternPerPart;
+    const destW = renderOpts.destW;
+    const destH = renderOpts.destH;
+    try {
+      const img = await this.loadImage(species.slots[slot].base);
+      const partCanvas = document.createElement('canvas');
+      partCanvas.width = destW;
+      partCanvas.height = destH;
+      const partCtx = partCanvas.getContext('2d');
+
+      if (slot === 'body') {
+        await this.drawBodyLayerTo(partCtx, img, equipped, color, destW, destH, tint);
+      } else if (tint) {
+        this.drawLayerImage(partCtx, img, true, color, destW, destH);
+      } else {
+        partCtx.drawImage(img, 0, 0, destW, destH);
+      }
+
+      this.applyPartPattern(partCtx, partCanvas, renderOpts);
+
+      ctx.drawImage(partCanvas, 0, 0);
+    } catch (e) { /* skip */ }
+  };
+
+  DinoComposer.prototype.drawSlotOutlineOnTop = async function (ctx, equipped, slot, destW, destH) {
+    const speciesId = equipped[slot];
+    if (!speciesId) return;
+    const species = this.getSpecies(speciesId);
+    if (!species || !species.slots || !species.slots[slot]) return;
+    try {
+      const img = await this.loadImage(species.slots[slot].base);
+      const outline = this.buildOutlineMask(img, destW, destH);
+      ctx.drawImage(outline, 0, 0);
+    } catch (e) { /* skip */ }
+  };
+
+  DinoComposer.prototype.buildOutlineMask = function (img, destW, destH, lumCutoff) {
+    const off = document.createElement('canvas');
+    off.width = destW;
+    off.height = destH;
+    const octx = off.getContext('2d');
+    octx.drawImage(img, 0, 0, destW, destH);
+    const imgData = octx.getImageData(0, 0, destW, destH);
+    const d = imgData.data;
+    const cutoff = lumCutoff || 88;
+
+    for (let i = 0; i < d.length; i += 4) {
+      const lum = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2];
+      if (d[i + 3] < 16 || lum > cutoff) {
+        d[i + 3] = 0;
+      } else {
+        const weight = Math.min(1, (cutoff - lum) / cutoff + 0.25);
+        d[i] = 0;
+        d[i + 1] = 0;
+        d[i + 2] = 0;
+        d[i + 3] = Math.round(d[i + 3] * weight);
+      }
+    }
+    octx.putImageData(imgData, 0, 0);
+    return off;
+  };
+
+  DinoComposer.prototype.redrawSlotOnTop = async function (ctx, equipped, slot, renderOpts) {
+    if (!equipped[slot]) return;
+    await this.drawSlotLayerOnTop(ctx, equipped, slot, renderOpts);
+    if (renderOpts.tint) {
+      await this.drawSlotOutlineOnTop(ctx, equipped, slot, renderOpts.destW, renderOpts.destH);
+    }
+  };
+
+  DinoComposer.prototype.drawEquippedOutlines = async function (ctx, equipped, destW, destH, skipSlots) {
+    const order = this.catalog.layerOrder || ['tail', 'body', 'backLegs', 'head', 'frontLegs'];
+    const hidden = skipSlots || [];
+    const onTop = this.slotsRedrawnOnTop();
+
+    for (let i = 0; i < order.length; i++) {
+      const slot = order[i];
+      if (hidden.indexOf(slot) >= 0 || onTop.indexOf(slot) >= 0) continue;
+      const speciesId = equipped[slot];
+      if (!speciesId) continue;
+      const species = this.getSpecies(speciesId);
+      if (!species || !species.slots || !species.slots[slot]) continue;
+      try {
+        const img = await this.loadImage(species.slots[slot].base);
+        const outline = this.buildOutlineMask(img, destW, destH);
+        ctx.drawImage(outline, 0, 0);
+      } catch (e) { /* skip */ }
+    }
   };
 
   DinoComposer.prototype.buildAlphaMask = function (sourceCanvas, destW, destH) {
@@ -364,6 +846,8 @@
     const color = (opts && opts.color) || '#4a8c3f';
     const pattern = opts && opts.pattern;
     const patternColor = (opts && opts.patternColor) || '#2d2d2d';
+    const accessory = opts && opts.accessory;
+    const accessoryColor = (opts && opts.accessoryColor) || patternColor;
     const destW = (opts && opts.destW) || ctx.canvas.width;
     const destH = (opts && opts.destH) || ctx.canvas.height;
     const order = this.catalog.layerOrder || ['tail', 'body', 'backLegs', 'head', 'frontLegs'];
@@ -379,7 +863,6 @@
     let bodyMaskCanvas = null;
     let tileImg = null;
     let overlayImg = null;
-    let accessoryImg = null;
 
     if (pattern && pattern.type === 'tile' && pattern.path) {
       try { tileImg = await this.loadImage(pattern.path); } catch (e) { /* skip */ }
@@ -388,12 +871,12 @@
     if (pattern && pattern.type === 'overlay' && pattern.path) {
       try { overlayImg = await this.loadImage(pattern.path); } catch (e) { /* skip */ }
     }
-    if (pattern && pattern.type === 'body-accessory' && pattern.path) {
-      try { accessoryImg = await this.loadImage(pattern.path); } catch (e) { /* skip */ }
-    }
+
+    const hiddenSlots = this.slotsHiddenByAccessory(accessory, equipped);
 
     for (let i = 0; i < order.length; i++) {
       const slot = order[i];
+      if (hiddenSlots.indexOf(slot) >= 0) continue;
       const speciesId = equipped[slot];
       if (!speciesId) continue;
       const species = this.getSpecies(speciesId);
@@ -414,11 +897,17 @@
           partCtx.drawImage(img, 0, 0, destW, destH);
         }
 
-        if (patternPerPart) {
-          const alphaMask = this.buildAlphaMask(partCanvas, destW, destH);
-          this.applyTilePattern(
-            partCtx, alphaMask, tileImg, patternColor, pattern.blend || 'source-over', destW, destH, pattern
-          );
+        if (patternPerPart || (overlayImg && tint && pattern && pattern.type === 'overlay')) {
+          this.applyPartPattern(partCtx, partCanvas, {
+            tint: tint,
+            pattern: pattern,
+            patternColor: patternColor,
+            tileImg: tileImg,
+            overlayImg: overlayImg,
+            patternPerPart: patternPerPart,
+            destW: destW,
+            destH: destH,
+          });
         }
 
         partMasks[slot] = partCanvas;
@@ -434,34 +923,52 @@
       );
     }
 
-    for (let j = 0; j < order.length; j++) {
-      const slot = order[j];
-      const speciesId = equipped[slot];
-      if (!speciesId) continue;
-      const species = this.getSpecies(speciesId);
-      if (!species || !species.slots || !species.slots[slot]) continue;
-      const det = species.slots[slot].details;
-      if (!det) continue;
-      try {
-        const detImg = await this.loadImage(det);
-        baseCtx.drawImage(detImg, 0, 0, destW, destH);
-      } catch (e) { /* skip */ }
+
+    const slotRenderOpts = {
+      tint: tint,
+      color: color,
+      pattern: pattern,
+      patternColor: patternColor,
+      tileImg: tileImg,
+      overlayImg: overlayImg,
+      patternPerPart: patternPerPart,
+      destW: destW,
+      destH: destH,
+    };
+
+    if (tint) {
+      await this.drawEquippedOutlines(baseCtx, equipped, destW, destH, hiddenSlots);
     }
 
-    if (overlayImg) {
-      const silMask = this.buildAlphaMask(baseLayer, destW, destH);
-      const overlayTint = pattern.tintOverlay ? patternColor : null;
-      this.applyMaskedOverlay(
-        baseCtx, overlayImg, silMask, pattern.blend || 'source-over', destW, destH, overlayTint
-      );
+    const accessorySlot = (accessory && accessory.fileBase) ? (accessory.slot || 'head') : null;
+    const headAccessory = accessorySlot === 'head';
+    const detailsSkip = this.slotsRedrawnOnTop().concat(hiddenSlots);
+
+    await this.drawAllDetailsExcept(
+      baseCtx, equipped, order, detailsSkip, destW, destH
+    );
+
+    const onTopSlots = this.slotsRedrawnOnTop();
+    for (let s = 0; s < onTopSlots.length; s++) {
+      const slot = onTopSlots[s];
+      if (hiddenSlots.indexOf(slot) >= 0) continue;
+      if (!equipped[slot]) continue;
+      await this.redrawSlotOnTop(baseCtx, equipped, slot, slotRenderOpts);
+      await this.drawSlotDetails(baseCtx, equipped, slot, destW, destH);
     }
 
-    if (accessoryImg && bodyMaskCanvas) {
-      const bodyAlpha = this.buildAlphaMask(bodyMaskCanvas, destW, destH);
-      const accTint = pattern.tintOverlay ? patternColor : null;
-      this.applyMaskedOverlay(
-        baseCtx, accessoryImg, bodyAlpha, pattern.blend || 'source-over', destW, destH, accTint
-      );
+    if (headAccessory && accessory) {
+      await this.drawEquippedAccessory(baseCtx, equipped, accessory, accessoryColor, destW, destH);
+    }
+
+    if (accessory && !headAccessory) {
+      await this.drawEquippedAccessory(baseCtx, equipped, accessory, accessoryColor, destW, destH);
+      const pteroTailBoots = accessory.id === 'rain-boot'
+        && this.hasPterodactylTailBoots(equipped, accessory);
+      if (accessory.slot === 'frontLegs' && equipped.tail && !pteroTailBoots) {
+        await this.redrawSlotOnTop(baseCtx, equipped, 'tail', slotRenderOpts);
+        await this.drawSlotDetails(baseCtx, equipped, 'tail', destW, destH);
+      }
     }
 
     ctx.drawImage(baseLayer, 0, 0);
