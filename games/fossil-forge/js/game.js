@@ -33,7 +33,7 @@
   let assemblyUiReady = false;
   let customizePhase = 'assemble';
   let selectedPatternId = null;
-  let selectedAccessoryId = null;
+  let selectedAccessoryIds = [];
   let patternColor = '#2d2d2d';
   let accessoryColor = '#c47f2a';
 
@@ -420,20 +420,58 @@
     return true;
   }
 
-  function sanitizeAccessorySelection() {
-    if (selectedAccessoryId === 'rain-boot' && !rainBootsAvailable()) {
-      selectedAccessoryId = null;
-    }
+  function getAccessoryById(id) {
+    return (config.accessories || []).find(function (a) { return a.id === id; }) || null;
   }
 
-  function getSelectedAccessory() {
-    if (!selectedAccessoryId || selectedAccessoryId === 'none') return null;
-    return (config.accessories || []).find(function (a) { return a.id === selectedAccessoryId; }) || null;
+  function isHatAccessory(acc) {
+    return !!(acc && acc.exclusiveGroup === 'hat');
+  }
+
+  function isAccessorySelected(id) {
+    return selectedAccessoryIds.indexOf(id) >= 0;
+  }
+
+  function sanitizeAccessorySelection() {
+    selectedAccessoryIds = selectedAccessoryIds.filter(function (id) {
+      const acc = getAccessoryById(id);
+      if (!acc || acc.id === 'none') return false;
+      return isAccessoryAvailable(acc);
+    });
+  }
+
+  function toggleAccessory(acc) {
+    if (!acc || acc.id === 'none') {
+      selectedAccessoryIds = [];
+      return;
+    }
+    if (!isAccessoryAvailable(acc)) return;
+    const idx = selectedAccessoryIds.indexOf(acc.id);
+    if (idx >= 0) {
+      selectedAccessoryIds.splice(idx, 1);
+      return;
+    }
+    if (isHatAccessory(acc)) {
+      selectedAccessoryIds = selectedAccessoryIds.filter(function (id) {
+        return !isHatAccessory(getAccessoryById(id));
+      });
+    }
+    selectedAccessoryIds.push(acc.id);
+  }
+
+  function getSelectedAccessories() {
+    return selectedAccessoryIds
+      .map(function (id) { return getAccessoryById(id); })
+      .filter(function (acc) { return acc && acc.id !== 'none'; })
+      .sort(function (a, b) {
+        return (a.stackOrder || 0) - (b.stackOrder || 0);
+      });
   }
 
   function accessoryColorizeEnabled() {
-    const acc = getSelectedAccessory();
-    return !!(acc && acc.colorize !== false);
+    return getSelectedAccessories().some(function (acc) {
+      return acc.colorize !== false;
+    });
   }
 
   function updateAssemblyChrome() {
@@ -470,8 +508,8 @@
     const accessoryHint = document.querySelector('.assembly-hint-accessory');
     if (accessoryHint && isAccessoryPhase()) {
       accessoryHint.textContent = accessoryColorizeEnabled()
-        ? 'Pick an accessory below, then choose an accessory color on the left.'
-        : 'Pick an accessory below.';
+        ? 'Pick accessories below (tap again to remove). Choose an accessory color on the left.'
+        : 'Pick accessories below (tap again to remove). Hats replace each other; other items can mix.';
     }
   }
 
@@ -600,7 +638,7 @@
   function startHunt() {
     equipped = {};
     selectedPatternId = null;
-    selectedAccessoryId = null;
+    selectedAccessoryIds = [];
     patternColor = '#2d2d2d';
     accessoryColor = '#c47f2a';
     customizePhase = 'assemble';
@@ -626,7 +664,7 @@
       color: tintColor,
       pattern: includePattern ? getSelectedPattern() : null,
       patternColor: patternColor,
-      accessory: includeAccessory ? getSelectedAccessory() : null,
+      accessories: includeAccessory ? getSelectedAccessories() : [],
       accessoryColor: accessoryColor,
       destW: canvas.width,
       destH: canvas.height,
@@ -820,14 +858,16 @@
     if (!track) return;
     sanitizeAccessorySelection();
     track.innerHTML = '';
-    if (headerLabel) headerLabel.textContent = 'Pick an accessory';
+    if (headerLabel) headerLabel.textContent = 'Pick accessories';
 
     (config.accessories || []).forEach(function (acc) {
       if (!isAccessoryAvailable(acc)) return;
       const card = document.createElement('button');
       card.type = 'button';
       const isNone = acc.id === 'none';
-      const isSelected = isNone ? !selectedAccessoryId : selectedAccessoryId === acc.id;
+      const isSelected = isNone
+        ? selectedAccessoryIds.length === 0
+        : isAccessorySelected(acc.id);
       card.className = 'part-card pattern-card' + (isSelected ? ' selected' : '');
       if (isNone) {
         const noneIcon = document.createElement('div');
@@ -847,7 +887,7 @@
       cap.textContent = acc.label;
       card.appendChild(cap);
       card.addEventListener('click', function () {
-        selectedAccessoryId = isNone ? null : acc.id;
+        toggleAccessory(acc);
         if (audio) audio.playClick();
         updateAssemblyChrome();
         renderAccessoryPicker();

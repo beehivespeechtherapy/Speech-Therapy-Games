@@ -654,17 +654,50 @@
     await this.drawAccessoryImages(ctx, equipped, accessory, accessoryColor, destW, destH, [accImg]);
   };
 
+  DinoComposer.prototype.sortAccessories = function (accessories) {
+    return (accessories || []).slice().sort(function (a, b) {
+      return (a.stackOrder || 0) - (b.stackOrder || 0);
+    });
+  };
+
+  DinoComposer.prototype.drawEquippedAccessories = async function (
+    ctx, equipped, accessories, accessoryColor, destW, destH, slotRenderOpts
+  ) {
+    const sorted = this.sortAccessories(accessories);
+    const headAccs = [];
+    const otherAccs = [];
+    for (let i = 0; i < sorted.length; i++) {
+      const acc = sorted[i];
+      if (!acc || !acc.fileBase) continue;
+      if ((acc.slot || 'head') === 'head') headAccs.push(acc);
+      else otherAccs.push(acc);
+    }
+
+    for (let h = 0; h < headAccs.length; h++) {
+      await this.drawEquippedAccessory(ctx, equipped, headAccs[h], accessoryColor, destW, destH);
+    }
+
+    let redrawTailAfterBoots = false;
+    for (let j = 0; j < otherAccs.length; j++) {
+      const acc = otherAccs[j];
+      await this.drawEquippedAccessory(ctx, equipped, acc, accessoryColor, destW, destH);
+      const pteroTailBoots = acc.id === 'rain-boot' && this.hasPterodactylTailBoots(equipped, acc);
+      if (acc.slot === 'frontLegs' && equipped.tail && !pteroTailBoots) {
+        redrawTailAfterBoots = true;
+      }
+    }
+
+    if (redrawTailAfterBoots && slotRenderOpts) {
+      await this.redrawSlotOnTop(ctx, equipped, 'tail', slotRenderOpts);
+      await this.drawSlotDetails(ctx, equipped, 'tail', destW, destH);
+    }
+  };
+
   DinoComposer.prototype.slotsHiddenByAccessory = function (accessory, equipped) {
-    if (!accessory || !accessory.fileBase || accessory.id !== 'rain-boot') return [];
-    const dualBootsFor = accessory.dualBootsFor || ['brachiosaurus', 'stegosaurus', 'triceratops'];
-    const hidden = [];
-    if (equipped.frontLegs && dualBootsFor.indexOf(equipped.frontLegs) >= 0) {
-      hidden.push('frontLegs');
-    }
-    if (equipped.backLegs && dualBootsFor.indexOf(equipped.backLegs) >= 0) {
-      hidden.push('backLegs');
-    }
-    return hidden;
+    // Rain boots replace leg pixels via eraseUnder when drawn on top; do not hide leg
+    // slots or dual-boot species (stegosaurus, brachiosaurus, triceratops) lose legs
+    // with nothing visible if boot images fail to load or draw after leg redraw.
+    return [];
   };
 
   DinoComposer.prototype.drawSlotDetails = async function (ctx, equipped, slot, destW, destH) {
@@ -846,7 +879,8 @@
     const color = (opts && opts.color) || '#4a8c3f';
     const pattern = opts && opts.pattern;
     const patternColor = (opts && opts.patternColor) || '#2d2d2d';
-    const accessory = opts && opts.accessory;
+    const accessories = (opts && opts.accessories)
+      || (opts && opts.accessory ? [opts.accessory] : []);
     const accessoryColor = (opts && opts.accessoryColor) || patternColor;
     const destW = (opts && opts.destW) || ctx.canvas.width;
     const destH = (opts && opts.destH) || ctx.canvas.height;
@@ -872,7 +906,7 @@
       try { overlayImg = await this.loadImage(pattern.path); } catch (e) { /* skip */ }
     }
 
-    const hiddenSlots = this.slotsHiddenByAccessory(accessory, equipped);
+    const hiddenSlots = this.slotsHiddenByAccessory(null, equipped);
 
     for (let i = 0; i < order.length; i++) {
       const slot = order[i];
@@ -940,8 +974,6 @@
       await this.drawEquippedOutlines(baseCtx, equipped, destW, destH, hiddenSlots);
     }
 
-    const accessorySlot = (accessory && accessory.fileBase) ? (accessory.slot || 'head') : null;
-    const headAccessory = accessorySlot === 'head';
     const detailsSkip = this.slotsRedrawnOnTop().concat(hiddenSlots);
 
     await this.drawAllDetailsExcept(
@@ -957,18 +989,10 @@
       await this.drawSlotDetails(baseCtx, equipped, slot, destW, destH);
     }
 
-    if (headAccessory && accessory) {
-      await this.drawEquippedAccessory(baseCtx, equipped, accessory, accessoryColor, destW, destH);
-    }
-
-    if (accessory && !headAccessory) {
-      await this.drawEquippedAccessory(baseCtx, equipped, accessory, accessoryColor, destW, destH);
-      const pteroTailBoots = accessory.id === 'rain-boot'
-        && this.hasPterodactylTailBoots(equipped, accessory);
-      if (accessory.slot === 'frontLegs' && equipped.tail && !pteroTailBoots) {
-        await this.redrawSlotOnTop(baseCtx, equipped, 'tail', slotRenderOpts);
-        await this.drawSlotDetails(baseCtx, equipped, 'tail', destW, destH);
-      }
+    if (accessories.length) {
+      await this.drawEquippedAccessories(
+        baseCtx, equipped, accessories, accessoryColor, destW, destH, slotRenderOpts
+      );
     }
 
     ctx.drawImage(baseLayer, 0, 0);

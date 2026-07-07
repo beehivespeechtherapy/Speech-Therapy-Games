@@ -61,7 +61,9 @@
       "fileBase": "Ball cap",
       "preview": "Patterns/Previews/ball-cap.png",
       "slot": "head",
-      "colorize": true
+      "colorize": true,
+      "exclusiveGroup": "hat",
+      "stackOrder": 30
     },
     {
       "id": "bow",
@@ -70,7 +72,8 @@
       "preview": "Patterns/Previews/bow.png",
       "slot": "head",
       "colorize": true,
-      "eraseUnder": true
+      "eraseUnder": true,
+      "stackOrder": 10
     },
     {
       "id": "glasses",
@@ -81,7 +84,8 @@
       "colorize": true,
       "preserveAlpha": true,
       "solidify": false,
-      "eraseUnder": false
+      "eraseUnder": false,
+      "stackOrder": 20
     },
     {
       "id": "party-hat",
@@ -89,7 +93,9 @@
       "fileBase": "Party hat",
       "preview": "Patterns/Previews/party-hat.png",
       "slot": "head",
-      "colorize": true
+      "colorize": true,
+      "exclusiveGroup": "hat",
+      "stackOrder": 30
     },
     {
       "id": "rain-boot",
@@ -101,7 +107,8 @@
       "colorize": true,
       "eraseUnder": true,
       "dualBootsFor": ["brachiosaurus", "stegosaurus", "triceratops"],
-      "tailBootsFor": ["pterodactyl"]
+      "tailBootsFor": ["pterodactyl"],
+      "stackOrder": 40
     },
     {
       "id": "top-hat",
@@ -109,7 +116,9 @@
       "fileBase": "Top Hat",
       "preview": "Patterns/Previews/top-hat.png",
       "slot": "head",
-      "colorize": false
+      "colorize": false,
+      "exclusiveGroup": "hat",
+      "stackOrder": 30
     },
     {
       "id": "unicorn-horn",
@@ -117,7 +126,9 @@
       "fileBase": "Unicorn Horn",
       "preview": "Patterns/Previews/unicorn-horn.png",
       "slot": "head",
-      "colorize": true
+      "colorize": true,
+      "exclusiveGroup": "hat",
+      "stackOrder": 30
     }
   ],
   "tintColors": [
