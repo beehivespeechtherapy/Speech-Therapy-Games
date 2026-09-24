@@ -1,4 +1,14 @@
 # Words in word-lists/word-sets.json with NO *.png in word-images/_library/
 # (case-insensitive filename stem). Not the same as 'provably deleted files'.
-# Total: 0
+# Total: 10
 
+also
+basset
+force
+mass
+oats
+sin
+third
+truce
+worse
+worth

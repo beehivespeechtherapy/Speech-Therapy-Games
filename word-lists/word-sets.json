@@ -1,4077 +1,3283 @@
 [
   {
-    "id": "blb-bli",
-    "label": "BL/B Minimal Pairs - Initial BL",
-    "setType": "pairs",
-    "prompt": "Which word has the /bl/ sounds?",
-    "targetSound": "bl",
-    "contrastSound": "b",
-    "folder": "BL:B Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "blow",
-        "bow"
-      ],
-      [
-        "blown",
-        "bone"
-      ],
-      [
-        "Blake",
-        "bake"
-      ],
-      [
-        "blood",
-        "bud"
-      ],
-      [
-        "bloom",
-        "boom"
-      ],
-      [
-        "blue",
-        "boo"
-      ],
-      [
-        "black",
-        "back"
-      ],
-      [
-        "block",
-        "bawk"
-      ],
-      [
-        "blend",
-        "bend"
-      ],
-      [
-        "bleach",
-        "beach"
-      ],
-      [
-        "blob",
-        "Bob"
-      ],
-      [
-        "bleed",
-        "bead"
-      ]
-    ]
-  },
-  {
-    "id": "blb-bi",
-    "label": "BL/B Minimal Pairs - Initial B",
-    "setType": "pairs",
-    "prompt": "Which word has the /b/ sound?",
+    "id": "bi",
+    "label": "B Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "b",
-    "contrastSound": "bl",
-    "folder": "BL:B Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "bow",
-        "blow"
-      ],
-      [
-        "bone",
-        "blown"
-      ],
-      [
-        "bake",
-        "Blake"
-      ],
-      [
-        "bud",
-        "blood"
-      ],
-      [
-        "boom",
-        "bloom"
-      ],
-      [
-        "boo",
-        "blue"
-      ],
-      [
-        "back",
-        "black"
-      ],
-      [
-        "bawk",
-        "block"
-      ],
-      [
-        "bend",
-        "blend"
-      ],
-      [
-        "beach",
-        "bleach"
-      ],
-      [
-        "Bob",
-        "blob"
-      ],
-      [
-        "bead",
-        "bleed"
-      ]
+    "folder": "B Initial Words",
+    "words": [
+      "boy",
+      "bat",
+      "bee",
+      "bow",
+      "book",
+      "bake",
+      "bite",
+      "bear",
+      "bass",
+      "bike",
+      "boot",
+      "bill",
+      "box",
+      "boat",
+      "bell",
+      "boo",
+      "boom",
+      "buy",
+      "baa",
+      "bus"
     ]
   },
   {
-    "id": "brb-bri",
-    "label": "BR/B Minimal Pairs - Initial BR",
-    "setType": "pairs",
-    "prompt": "Which word has the /br/ sounds?",
-    "targetSound": "br",
-    "contrastSound": "b",
-    "folder": "BR:B Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "brew",
-        "boo"
-      ],
-      [
-        "broom",
-        "boom"
-      ],
-      [
-        "brow",
-        "bow"
-      ],
-      [
-        "bro",
-        "bow"
-      ],
-      [
-        "brag",
-        "bag"
-      ],
-      [
-        "brie",
-        "bee"
-      ],
-      [
-        "break",
-        "bake"
-      ],
-      [
-        "bray",
-        "bay"
-      ],
-      [
-        "bright",
-        "bite"
-      ],
-      [
-        "bread",
-        "bed"
-      ],
-      [
-        "brush",
-        "bush"
-      ],
-      [
-        "brain",
-        "bane"
-      ]
-    ]
-  },
-  {
-    "id": "brb-bi",
-    "label": "BR/B Minimal Pairs - Initial B",
-    "setType": "pairs",
-    "prompt": "Which word has the /b/ sound?",
+    "id": "bm",
+    "label": "B Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "b",
-    "contrastSound": "br",
-    "folder": "BR:B Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "boo",
-        "brew"
-      ],
-      [
-        "boom",
-        "broom"
-      ],
-      [
-        "bow",
-        "brow"
-      ],
-      [
-        "bow",
-        "bro"
-      ],
-      [
-        "bag",
-        "brag"
-      ],
-      [
-        "bee",
-        "brie"
-      ],
-      [
-        "bake",
-        "break"
-      ],
-      [
-        "bay",
-        "bray"
-      ],
-      [
-        "bite",
-        "bright"
-      ],
-      [
-        "bed",
-        "bread"
-      ],
-      [
-        "bush",
-        "brush"
-      ],
-      [
-        "bane",
-        "brain"
-      ]
+    "folder": "B Medial Words",
+    "words": [
+      "rabbit",
+      "robot",
+      "table",
+      "rubber",
+      "ribbon",
+      "cowboy",
+      "cabin",
+      "robin",
+      "Abby",
+      "label",
+      "stable",
+      "oboe",
+      "wobble",
+      "tabby",
+      "tuba",
+      "cubby",
+      "lobby",
+      "pebble",
+      "maybe",
+      "hobby"
     ]
   },
   {
-    "id": "dr/d-dri",
-    "label": "DR/D Minimal Pairs - Initial DR",
-    "setType": "pairs",
-    "prompt": "Which word has the /dr/ sounds?",
-    "targetSound": "dr",
-    "contrastSound": "d",
-    "folder": "DR:D Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "drip",
-        "dip"
-      ],
-      [
-        "drill",
-        "dill"
-      ],
-      [
-        "drive",
-        "dye"
-      ],
-      [
-        "drug",
-        "dug"
-      ],
-      [
-        "drum",
-        "dumb"
-      ],
-      [
-        "dress",
-        "desk"
-      ],
-      [
-        "drove",
-        "dove"
-      ],
-      [
-        "dread",
-        "dead"
-      ],
-      [
-        "drab",
-        "dab"
-      ],
-      [
-        "drop",
-        "dot"
-      ],
-      [
-        "dream",
-        "Dean"
-      ],
-      [
-        "drag",
-        "dad"
-      ]
+    "id": "bf",
+    "label": "B Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "b",
+    "folder": "B Final Words",
+    "words": [
+      "tub",
+      "sob",
+      "lab",
+      "rib",
+      "rub",
+      "hub",
+      "jab",
+      "mob",
+      "knob",
+      "cub",
+      "web",
+      "job",
+      "tube",
+      "fib",
+      "cube",
+      "lobe",
+      "rob",
+      "sub",
+      "cab",
+      "gob"
     ]
   },
   {
-    "id": "drd-dri",
-    "label": "DR/D Minimal Pairs - Initial D",
-    "setType": "pairs",
-    "prompt": "Which word has the /d/ sound?",
+    "id": "ki",
+    "label": "K Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "k",
+    "folder": "K Initial Words",
+    "words": [
+      "key",
+      "cot",
+      "Kate",
+      "cub",
+      "cab",
+      "cut",
+      "car",
+      "comb",
+      "coat",
+      "cat",
+      "cow",
+      "kiss",
+      "kite",
+      "camel",
+      "corn",
+      "king",
+      "cage",
+      "cone",
+      "cane",
+      "call"
+    ]
+  },
+  {
+    "id": "km",
+    "label": "K Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "k",
+    "folder": "K Medial Words",
+    "words": [
+      "poker",
+      "joker",
+      "hiking",
+      "pickle",
+      "soccer",
+      "ticket",
+      "sucker",
+      "vacuum",
+      "rocket",
+      "bacon",
+      "jacket",
+      "sticky",
+      "donkey",
+      "raccoon",
+      "lucky",
+      "locket",
+      "shaky",
+      "raking",
+      "baker",
+      "okay"
+    ]
+  },
+  {
+    "id": "kf",
+    "label": "K Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "k",
+    "folder": "K Final Words",
+    "words": [
+      "fake",
+      "take",
+      "bike",
+      "bake",
+      "beak",
+      "rake",
+      "hike",
+      "lake",
+      "lock",
+      "shake",
+      "book",
+      "sack",
+      "whack",
+      "week",
+      "rack",
+      "leak",
+      "talk",
+      "hook",
+      "deck",
+      "joke"
+    ]
+  },
+  {
+    "id": "di",
+    "label": "D Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "d",
-    "contrastSound": "dr",
-    "folder": "DR:D Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "dip",
-        "drip"
-      ],
-      [
-        "dill",
-        "drill"
-      ],
-      [
-        "dye",
-        "drive"
-      ],
-      [
-        "dug",
-        "drug"
-      ],
-      [
-        "dumb",
-        "drum"
-      ],
-      [
-        "desk",
-        "dress"
-      ],
-      [
-        "dove",
-        "drove"
-      ],
-      [
-        "dead",
-        "dread"
-      ],
-      [
-        "dab",
-        "drab"
-      ],
-      [
-        "dot",
-        "drop"
-      ],
-      [
-        "Dean",
-        "dream"
-      ],
-      [
-        "dad",
-        "drag"
-      ]
+    "folder": "D Initial Words",
+    "words": [
+      "duck",
+      "day",
+      "door",
+      "dough",
+      "doe",
+      "deer",
+      "dame",
+      "deaf",
+      "doll",
+      "dare",
+      "date",
+      "dune",
+      "done",
+      "dance",
+      "dark",
+      "dime",
+      "dig",
+      "dog",
+      "dice",
+      "dome"
     ]
   },
   {
-    "id": "fll-fli",
-    "label": "FL/F Minimal Pairs - Initial FL",
-    "setType": "pairs",
-    "prompt": "Which word has the /fl/ sounds?",
-    "targetSound": "fl",
-    "contrastSound": "l",
-    "folder": "FL:F Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "flow",
-        "low"
-      ],
-      [
-        "fly",
-        "lie"
-      ],
-      [
-        "flame",
-        "lame"
-      ],
-      [
-        "flies",
-        "lies"
-      ],
-      [
-        "flake",
-        "lake"
-      ],
-      [
-        "flick",
-        "lick"
-      ],
-      [
-        "flight",
-        "light"
-      ],
-      [
-        "flute",
-        "lute"
-      ],
-      [
-        "flan",
-        "lawn"
-      ],
-      [
-        "flare",
-        "lair"
-      ],
-      [
-        "flash",
-        "lash"
-      ],
-      [
-        "flea",
-        "Lee"
-      ]
-    ]
-  },
-  {
-    "id": "flf-fli",
-    "label": "FL/F Minimal Pairs - Initial FL",
-    "setType": "pairs",
-    "prompt": "Which word has the /fl/ sounds?",
-    "targetSound": "fl",
-    "contrastSound": "f",
-    "folder": "FL:F Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "flat",
-        "fat"
-      ],
-      [
-        "floor",
-        "four"
-      ],
-      [
-        "flow",
-        "foe"
-      ],
-      [
-        "flake",
-        "fake"
-      ],
-      [
-        "flight",
-        "fight"
-      ],
-      [
-        "flan",
-        "fawn"
-      ],
-      [
-        "flare",
-        "fair"
-      ],
-      [
-        "fleet",
-        "feet"
-      ],
-      [
-        "flame",
-        "fame"
-      ],
-      [
-        "flew",
-        "few"
-      ],
-      [
-        "flood",
-        "foot"
-      ],
-      [
-        "fleece",
-        "feast"
-      ]
-    ]
-  },
-  {
-    "id": "frf-fri",
-    "label": "FR/F Minimal Pairs - Initial FR",
-    "setType": "pairs",
-    "prompt": "Which word has the /fr/ sounds?",
-    "targetSound": "fr",
-    "contrastSound": "f",
-    "folder": "FR:F Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "free",
-        "fee"
-      ],
-      [
-        "frill",
-        "fill"
-      ],
-      [
-        "Fran",
-        "fan"
-      ],
-      [
-        "frail",
-        "fail"
-      ],
-      [
-        "frame",
-        "fame"
-      ],
-      [
-        "frog",
-        "fog"
-      ],
-      [
-        "fruit",
-        "foot"
-      ],
-      [
-        "freeze",
-        "fees"
-      ],
-      [
-        "fright",
-        "fight"
-      ],
-      [
-        "frizzy",
-        "fizzy"
-      ],
-      [
-        "froze",
-        "foes"
-      ],
-      [
-        "fresh",
-        "fish"
-      ]
-    ]
-  },
-  {
-    "id": "glg-gli",
-    "label": "GL/G Minimal Pairs - Initial GL",
-    "setType": "pairs",
-    "prompt": "Which word has the /gl/ sounds?",
-    "targetSound": "gl",
-    "contrastSound": "g",
-    "folder": "GL:G Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "glow",
-        "go"
-      ],
-      [
-        "glass",
-        "gas"
-      ],
-      [
-        "glue",
-        "goo"
-      ],
-      [
-        "glide",
-        "guide"
-      ],
-      [
-        "glum",
-        "gum"
-      ],
-      [
-        "glasses",
-        "gasses"
-      ],
-      [
-        "glaring",
-        "Gary"
-      ],
-      [
-        "globe",
-        "gob"
-      ],
-      [
-        "gliding",
-        "guiding"
-      ],
-      [
-        "glade",
-        "gate"
-      ],
-      [
-        "gloss",
-        "guess"
-      ],
-      [
-        "glove",
-        "give"
-      ]
-    ]
-  },
-  {
-    "id": "grg-gri",
-    "label": "GR/G Minimal Pairs - Initial GR",
-    "setType": "pairs",
-    "prompt": "Which word has the /gr/ sounds?",
-    "targetSound": "gr",
-    "contrastSound": "g",
-    "folder": "GR:G Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "grow",
-        "go"
-      ],
-      [
-        "grass",
-        "gas"
-      ],
-      [
-        "grew",
-        "goo"
-      ],
-      [
-        "grind",
-        "rind"
-      ],
-      [
-        "gross",
-        "ghost"
-      ],
-      [
-        "great",
-        "gate"
-      ],
-      [
-        "grill",
-        "gill"
-      ],
-      [
-        "gravel",
-        "gavel"
-      ],
-      [
-        "groove",
-        "goob"
-      ],
-      [
-        "grape",
-        "gape"
-      ],
-      [
-        "ground",
-        "gown"
-      ],
-      [
-        "growl",
-        "gal"
-      ]
-    ]
-  },
-  {
-    "id": "klk-kli",
-    "label": "KL/K Minimal Pairs - Initial KL",
-    "setType": "pairs",
-    "prompt": "Which word has the /kl/ sounds?",
-    "targetSound": "kl",
-    "contrastSound": "k",
-    "folder": "KL:K Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "clap",
-        "cap"
-      ],
-      [
-        "clay",
-        "K"
-      ],
-      [
-        "claw",
-        "caw"
-      ],
-      [
-        "clone",
-        "cone"
-      ],
-      [
-        "clove",
-        "cove"
-      ],
-      [
-        "cloud",
-        "cow"
-      ],
-      [
-        "climb",
-        "comb"
-      ],
-      [
-        "click",
-        "kick"
-      ],
-      [
-        "clan",
-        "can"
-      ],
-      [
-        "clash",
-        "cash"
-      ],
-      [
-        "close",
-        "coat"
-      ],
-      [
-        "clam",
-        "cam"
-      ]
-    ]
-  },
-  {
-    "id": "krk-kri",
-    "label": "KR/K Minimal Pairs - Initial KR",
-    "setType": "pairs",
-    "prompt": "Which word has the /kr/ sound?",
-    "targetSound": "kr",
-    "contrastSound": "k",
-    "folder": "KR:K Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "crone",
-        "cone"
-      ],
-      [
-        "crayon",
-        "can"
-      ],
-      [
-        "crab",
-        "cab"
-      ],
-      [
-        "crash",
-        "cash"
-      ],
-      [
-        "crate",
-        "Kate"
-      ],
-      [
-        "crawl",
-        "call"
-      ],
-      [
-        "crane",
-        "cane"
-      ],
-      [
-        "creep",
-        "keep"
-      ],
-      [
-        "crave",
-        "cave"
-      ],
-      [
-        "crew",
-        "coo"
-      ],
-      [
-        "crop",
-        "cop"
-      ],
-      [
-        "Chris",
-        "kiss"
-      ]
-    ]
-  },
-  {
-    "id": "plp-pli",
-    "label": "PL/P Minimal Pairs - Initial PL",
-    "setType": "pairs",
-    "prompt": "Which word has the /pl/ sound?",
-    "targetSound": "pl",
-    "contrastSound": "p",
-    "folder": "PL:P Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "play",
-        "pay"
-      ],
-      [
-        "plane",
-        "pain"
-      ],
-      [
-        "plant",
-        "pant"
-      ],
-      [
-        "plow",
-        "pow"
-      ],
-      [
-        "plot",
-        "pot"
-      ],
-      [
-        "plug",
-        "pug"
-      ],
-      [
-        "plan",
-        "pan"
-      ],
-      [
-        "please",
-        "peas"
-      ],
-      [
-        "plop",
-        "pop"
-      ],
-      [
-        "pluck",
-        "puck"
-      ],
-      [
-        "place",
-        "pace"
-      ],
-      [
-        "plan",
-        "pan"
-      ]
-    ]
-  },
-  {
-    "id": "prp-pri",
-    "label": "PR/P Minimal Pairs - Initial PR",
-    "setType": "pairs",
-    "prompt": "Which word has the /pr/ sound?",
-    "targetSound": "pr",
-    "contrastSound": "p",
-    "folder": "PR:P Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "pray",
-        "pay"
-      ],
-      [
-        "pry",
-        "pie"
-      ],
-      [
-        "prize",
-        "pies"
-      ],
-      [
-        "present",
-        "peasant"
-      ],
-      [
-        "print",
-        "pint"
-      ],
-      [
-        "pros",
-        "pose"
-      ],
-      [
-        "price",
-        "peace"
-      ],
-      [
-        "prawn",
-        "pond"
-      ],
-      [
-        "prick",
-        "pick"
-      ],
-      [
-        "prune",
-        "pin"
-      ],
-      [
-        "prince",
-        "pinch"
-      ],
-      [
-        "prance",
-        "pants"
-      ]
-    ]
-  },
-  {
-    "id": "sks-ski",
-    "label": "SK/S Minimal Pairs - Initial SK",
-    "setType": "pairs",
-    "prompt": "Which word has the /sk/ sound?",
-    "targetSound": "sk",
-    "contrastSound": "s",
-    "folder": "SK:S Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "scoop",
-        "soup"
-      ],
-      [
-        "ski",
-        "see"
-      ],
-      [
-        "skip",
-        "sip"
-      ],
-      [
-        "scale",
-        "sail"
-      ],
-      [
-        "sky",
-        "sigh"
-      ],
-      [
-        "score",
-        "sore"
-      ],
-      [
-        "scoot",
-        "suit"
-      ],
-      [
-        "skill",
-        "sill"
-      ],
-      [
-        "scream",
-        "seam"
-      ],
-      [
-        "scrub",
-        "sub"
-      ],
-      [
-        "squish",
-        "swish"
-      ],
-      [
-        "scooter",
-        "suitor"
-      ]
-    ]
-  },
-  {
-    "id": "skk-ski",
-    "label": "SK/S Minimal Pairs - Initial SK",
-    "setType": "pairs",
-    "prompt": "Which word has the /sk/ sound?",
-    "targetSound": "sk",
-    "contrastSound": "k",
-    "folder": "SK:K Minimal Paris - Initial",
-    "pairs": [
-      [
-        "scan",
-        "can"
-      ],
-      [
-        "ski",
-        "key"
-      ],
-      [
-        "scar",
-        "car"
-      ],
-      [
-        "scoop",
-        "coop"
-      ],
-      [
-        "scale",
-        "kale"
-      ],
-      [
-        "skate",
-        "Kate"
-      ],
-      [
-        "skid",
-        "kid"
-      ],
-      [
-        "screw",
-        "crew"
-      ],
-      [
-        "school",
-        "cool"
-      ],
-      [
-        "score",
-        "core"
-      ],
-      [
-        "scream",
-        "cream"
-      ],
-      [
-        "scab",
-        "cab"
-      ]
-    ]
-  },
-  {
-    "id": "sls-sli",
-    "label": "SL/S Minimal Pairs - Initial SL",
-    "setType": "pairs",
-    "prompt": "Which word has the /sl/ sound?",
-    "targetSound": "sl",
-    "contrastSound": "s",
-    "folder": "SL:S Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "slope",
-        "soap"
-      ],
-      [
-        "slip",
-        "sip"
-      ],
-      [
-        "slam",
-        "Sam"
-      ],
-      [
-        "slash",
-        "sash"
-      ],
-      [
-        "slow",
-        "sew"
-      ],
-      [
-        "slap",
-        "sap"
-      ],
-      [
-        "slob",
-        "sob"
-      ],
-      [
-        "slick",
-        "sick"
-      ],
-      [
-        "sling",
-        "sing"
-      ],
-      [
-        "sleet",
-        "seat"
-      ],
-      [
-        "slide",
-        "side"
-      ],
-      [
-        "slinky",
-        "sinking"
-      ]
-    ]
-  },
-  {
-    "id": "sll-sli",
-    "label": "SL/S Minimal Pairs - Initial SL",
-    "setType": "pairs",
-    "prompt": "Which word has the /sl/ sound?",
-    "targetSound": "sl",
-    "contrastSound": "l",
-    "folder": "SL:L Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "sled",
-        "lead"
-      ],
-      [
-        "slope",
-        "lope"
-      ],
-      [
-        "slap",
-        "lap"
-      ],
-      [
-        "slip",
-        "lip"
-      ],
-      [
-        "slime",
-        "lime"
-      ],
-      [
-        "sleep",
-        "leap"
-      ],
-      [
-        "slice",
-        "lice"
-      ],
-      [
-        "slab",
-        "lab"
-      ],
-      [
-        "slam",
-        "lamb"
-      ],
-      [
-        "slash",
-        "lash"
-      ],
-      [
-        "sleeve",
-        "leave"
-      ],
-      [
-        "slow",
-        "low"
-      ]
-    ]
-  },
-  {
-    "id": "sms-smi",
-    "label": "SM/S Minimal Pairs - Initial SM",
-    "setType": "pairs",
-    "prompt": "Which word has the /sm/ sound?",
-    "targetSound": "sm",
-    "contrastSound": "s",
-    "folder": "SM:S Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "smell",
-        "sell"
-      ],
-      [
-        "smash",
-        "sash"
-      ],
-      [
-        "smack",
-        "sack"
-      ],
-      [
-        "smoke",
-        "soak"
-      ],
-      [
-        "s'more",
-        "sore"
-      ],
-      [
-        "smooth",
-        "soothe"
-      ],
-      [
-        "smoggy",
-        "soggy"
-      ],
-      [
-        "smear",
-        "sear"
-      ],
-      [
-        "smile",
-        "silo"
-      ],
-      [
-        "smock",
-        "sock"
-      ],
-      [
-        "smarty",
-        "sorry"
-      ],
-      [
-        "smolder",
-        "solder"
-      ]
-    ]
-  },
-  {
-    "id": "smm-smi",
-    "label": "SM/M Minimal Pairs - Initial SM",
-    "setType": "pairs",
-    "prompt": "Which word has the /sm/ sound?",
-    "targetSound": "sm",
-    "contrastSound": "m",
-    "folder": "SM:M Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "small",
-        "mall"
-      ],
-      [
-        "smile",
-        "mile"
-      ],
-      [
-        "smash",
-        "mash"
-      ],
-      [
-        "smother",
-        "mother"
-      ],
-      [
-        "s'more",
-        "more"
-      ],
-      [
-        "smush",
-        "mush"
-      ],
-      [
-        "smack",
-        "Mack"
-      ],
-      [
-        "smock",
-        "mock"
-      ],
-      [
-        "smug",
-        "mug"
-      ],
-      [
-        "smell",
-        "Mel"
-      ],
-      [
-        "smaller",
-        "molar"
-      ],
-      [
-        "smoothie",
-        "movie"
-      ]
-    ]
-  },
-  {
-    "id": "sns-sni",
-    "label": "SN/S Minimal Pairs - Initial SN",
-    "setType": "pairs",
-    "prompt": "Which word has the /sn/ sound?",
-    "targetSound": "sn",
-    "contrastSound": "s",
-    "folder": "SN:S Minimal Pairs - Initial SN",
-    "pairs": [
-      [
-        "snap",
-        "sap"
-      ],
-      [
-        "snail",
-        "sail"
-      ],
-      [
-        "snag",
-        "sag"
-      ],
-      [
-        "sneeze",
-        "sees"
-      ],
-      [
-        "snob",
-        "sob"
-      ],
-      [
-        "snort",
-        "sort"
-      ],
-      [
-        "snoop",
-        "soup"
-      ],
-      [
-        "snow",
-        "sew"
-      ],
-      [
-        "snack",
-        "sack"
-      ],
-      [
-        "snore",
-        "sore"
-      ],
-      [
-        "snip",
-        "sip"
-      ],
-      [
-        "sneak",
-        "seek"
-      ]
-    ]
-  },
-  {
-    "id": "snn-sni",
-    "label": "SN/N Minimal Pairs - Initial SN",
-    "setType": "pairs",
-    "prompt": "Which word has the /sn/ sound?",
-    "targetSound": "sn",
-    "contrastSound": "n",
-    "folder": "SN:N Minimal Pairs - Initial SN",
-    "pairs": [
-      [
-        "snap",
-        "nap"
-      ],
-      [
-        "snail",
-        "nail"
-      ],
-      [
-        "snag",
-        "nag"
-      ],
-      [
-        "sneeze",
-        "knees"
-      ],
-      [
-        "snob",
-        "knob"
-      ],
-      [
-        "snow",
-        "no"
-      ],
-      [
-        "snip",
-        "nip"
-      ],
-      [
-        "snooze",
-        "news"
-      ],
-      [
-        "snicker",
-        "nicker"
-      ],
-      [
-        "snack",
-        "knack"
-      ],
-      [
-        "sneer",
-        "near"
-      ],
-      [
-        "snapping",
-        "napping"
-      ]
-    ]
-  },
-  {
-    "id": "sps-spi",
-    "label": "SP/S Minimal Pairs - Initial SP",
-    "setType": "pairs",
-    "prompt": "Which word has the /sp/ sound?",
-    "targetSound": "sp",
-    "contrastSound": "s",
-    "folder": "SP:S Minimal Pairs - Initial SP",
-    "pairs": [
-      [
-        "spy",
-        "sigh"
-      ],
-      [
-        "spell",
-        "sell"
-      ],
-      [
-        "spoon",
-        "soon"
-      ],
-      [
-        "spit",
-        "sit"
-      ],
-      [
-        "splash",
-        "slash"
-      ],
-      [
-        "splat",
-        "slat"
-      ],
-      [
-        "spoil",
-        "soil"
-      ],
-      [
-        "sport",
-        "sort"
-      ],
-      [
-        "speak",
-        "seek"
-      ],
-      [
-        "speed",
-        "seed"
-      ],
-      [
-        "spill",
-        "sill"
-      ],
-      [
-        "spunk",
-        "sunk"
-      ]
-    ]
-  },
-  {
-    "id": "spp-spi",
-    "label": "SP/P Minimal Pairs - Initial SP",
-    "setType": "pairs",
-    "prompt": "Which word has the /sp/ sound?",
-    "targetSound": "sp",
-    "contrastSound": "p",
-    "folder": "SP:P Minimal Pairs - Initial SP",
-    "pairs": [
-      [
-        "spy",
-        "pie"
-      ],
-      [
-        "spot",
-        "pot"
-      ],
-      [
-        "spoke",
-        "poke"
-      ],
-      [
-        "spike",
-        "pike"
-      ],
-      [
-        "spin",
-        "pin"
-      ],
-      [
-        "spill",
-        "pill"
-      ],
-      [
-        "spool",
-        "pool"
-      ],
-      [
-        "spark",
-        "park"
-      ],
-      [
-        "spine",
-        "pine"
-      ],
-      [
-        "spit",
-        "pit"
-      ],
-      [
-        "sport",
-        "port"
-      ],
-      [
-        "speak",
-        "peak"
-      ]
-    ]
-  },
-  {
-    "id": "sts-sti",
-    "label": "ST/S Minimal Pairs - Initial ST",
-    "setType": "pairs",
-    "prompt": "Which word has the /st/ sound?",
-    "targetSound": "st",
-    "contrastSound": "s",
-    "folder": "ST:S Minimal Pairs - Initial ST",
-    "pairs": [
-      [
-        "stay",
-        "say"
-      ],
-      [
-        "stage",
-        "sage"
-      ],
-      [
-        "stack",
-        "sack"
-      ],
-      [
-        "steal",
-        "seal"
-      ],
-      [
-        "stew",
-        "Sue"
-      ],
-      [
-        "sting",
-        "sing"
-      ],
-      [
-        "stir",
-        "sir"
-      ],
-      [
-        "store",
-        "sore"
-      ],
-      [
-        "stub",
-        "sub"
-      ],
-      [
-        "stick",
-        "sick"
-      ],
-      [
-        "sty",
-        "sigh"
-      ],
-      [
-        "stale",
-        "sale"
-      ]
-    ]
-  },
-  {
-    "id": "stt-sti",
-    "label": "ST/T Minimal Pairs - Initial ST",
-    "setType": "pairs",
-    "prompt": "Which word has the /st/ sound?",
-    "targetSound": "st",
-    "contrastSound": "t",
-    "folder": "ST:T Minimal Pairs - Initial ST",
-    "pairs": [
-      [
-        "stop",
-        "top"
-      ],
-      [
-        "stall",
-        "tall"
-      ],
-      [
-        "star",
-        "tar"
-      ],
-      [
-        "stack",
-        "tack"
-      ],
-      [
-        "stare",
-        "tear"
-      ],
-      [
-        "store",
-        "tore"
-      ],
-      [
-        "steer",
-        "tear"
-      ],
-      [
-        "stew",
-        "two"
-      ],
-      [
-        "steak",
-        "take"
-      ],
-      [
-        "stub",
-        "tub"
-      ],
-      [
-        "style",
-        "tile"
-      ],
-      [
-        "stuck",
-        "tuck"
-      ]
-    ]
-  },
-  {
-    "id": "sws-swi",
-    "label": "SW/S Minimal Pairs - Initial SW",
-    "setType": "pairs",
-    "prompt": "Which word has the /sw/ sound?",
-    "targetSound": "sw",
-    "contrastSound": "s",
-    "folder": "SW:S Minimal Pairs - Initial SW",
-    "pairs": [
-      [
-        "sweet",
-        "seat"
-      ],
-      [
-        "sweep",
-        "seep"
-      ],
-      [
-        "swab",
-        "sob"
-      ],
-      [
-        "swell",
-        "sell"
-      ],
-      [
-        "swing",
-        "sing"
-      ],
-      [
-        "swoop",
-        "soup"
-      ],
-      [
-        "swift",
-        "sift"
-      ],
-      [
-        "swan",
-        "son"
-      ],
-      [
-        "swoon",
-        "soon"
-      ],
-      [
-        "swag",
-        "sag"
-      ],
-      [
-        "swam",
-        "Sam"
-      ],
-      [
-        "sway",
-        "say"
-      ]
-    ]
-  },
-  {
-    "id": "sww-swi",
-    "label": "SW/W Minimal Pairs - Initial SW",
-    "setType": "pairs",
-    "prompt": "Which word has the /sw/ sound?",
-    "targetSound": "sw",
-    "contrastSound": "w",
-    "folder": "SW:W Minimal Pairs - Initial SW",
-    "pairs": [
-      [
-        "swipe",
-        "wipe"
-      ],
-      [
-        "sweat",
-        "wet"
-      ],
-      [
-        "sweep",
-        "weep"
-      ],
-      [
-        "swarm",
-        "warm"
-      ],
-      [
-        "swell",
-        "well"
-      ],
-      [
-        "swing",
-        "wing"
-      ],
-      [
-        "swish",
-        "wish"
-      ],
-      [
-        "switch",
-        "witch"
-      ],
-      [
-        "swat",
-        "what"
-      ],
-      [
-        "swallow",
-        "wallow"
-      ],
-      [
-        "swan",
-        "Juan"
-      ],
-      [
-        "swag",
-        "wag"
-      ]
-    ]
-  },
-  {
-    "id": "b(deleted)-bi",
-    "label": "B/(deleted) Minimal Pairs - Initial B",
-    "setType": "pairs",
-    "prompt": "Which word has the /b/ sound?",
-    "targetSound": "b",
-    "contrastSound": "",
-    "folder": "B:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "bat",
-        "at"
-      ],
-      [
-        "ball",
-        "all"
-      ],
-      [
-        "bell",
-        "L"
-      ],
-      [
-        "boat",
-        "oat"
-      ],
-      [
-        "bee",
-        "E"
-      ],
-      [
-        "boil",
-        "oil"
-      ],
-      [
-        "bear",
-        "air"
-      ],
-      [
-        "bike",
-        "Ike"
-      ],
-      [
-        "bone",
-        "own"
-      ],
-      [
-        "ban",
-        "Anne"
-      ],
-      [
-        "bill",
-        "ill"
-      ],
-      [
-        "box",
-        "ox"
-      ],
-      [
-        "bar",
-        "R"
-      ]
-    ]
-  },
-  {
-    "id": "b(deleted)-bf",
-    "label": "B/(deleted) Minimal Pairs - Final B",
-    "setType": "pairs",
-    "prompt": "Which word has the /b/ sound?",
-    "targetSound": "b",
-    "contrastSound": "",
-    "folder": "B:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "job",
-        "jaw"
-      ],
-      [
-        "rob",
-        "raw"
-      ],
-      [
-        "cob",
-        "caw"
-      ],
-      [
-        "sob",
-        "saw"
-      ],
-      [
-        "tube",
-        "two"
-      ],
-      [
-        "lobe",
-        "low"
-      ],
-      [
-        "carb",
-        "car"
-      ],
-      [
-        "cube",
-        "Q"
-      ],
-      [
-        "Abe",
-        "A"
-      ],
-      [
-        "mob",
-        "maw"
-      ],
-      [
-        "bob",
-        "baa"
-      ],
-      [
-        "robe",
-        "row"
-      ]
-    ]
-  },
-  {
-    "id": "ch(deleted)-chi",
-    "label": "CH(deleted) Minimal Pairs - Initial CH",
-    "setType": "pairs",
-    "prompt": "Which word has the /ch/ sound?",
-    "targetSound": "ch",
-    "contrastSound": "",
-    "folder": "CH:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "chair",
-        "air"
-      ],
-      [
-        "chum",
-        "um"
-      ],
-      [
-        "cheesy",
-        "easy"
-      ],
-      [
-        "chick",
-        "ick"
-      ],
-      [
-        "chase",
-        "ace"
-      ],
-      [
-        "cheek",
-        "eek"
-      ],
-      [
-        "chin",
-        "in"
-      ],
-      [
-        "cherry",
-        "airy"
-      ],
-      [
-        "chill",
-        "ill"
-      ],
-      [
-        "choose",
-        "ooze"
-      ],
-      [
-        "chore",
-        "ore"
-      ],
-      [
-        "cheer",
-        "ear"
-      ]
-    ]
-  },
-  {
-    "id": "ch(deleted)-chf",
-    "label": "CH(deleted) Minimal Pairs - Final CH",
-    "setType": "pairs",
-    "prompt": "Which word has the /ch/ sound?",
-    "targetSound": "ch",
-    "contrastSound": "",
-    "folder": "CH:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "beach",
-        "bee"
-      ],
-      [
-        "teach",
-        "tea"
-      ],
-      [
-        "peach",
-        "P"
-      ],
-      [
-        "ouch",
-        "ow"
-      ],
-      [
-        "couch",
-        "cow"
-      ],
-      [
-        "bench",
-        "Ben"
-      ],
-      [
-        "catch",
-        "cat"
-      ],
-      [
-        "wrench",
-        "wren"
-      ],
-      [
-        "match",
-        "mat"
-      ],
-      [
-        "hatch",
-        "hat"
-      ],
-      [
-        "ranch",
-        "ran"
-      ],
-      [
-        "pitch",
-        "pit"
-      ]
-    ]
-  },
-  {
-    "id": "d(deleted)-di",
-    "label": "D/(deleted) Minimal Pairs - Initial D",
-    "setType": "pairs",
-    "prompt": "Which word has the /d/ sound?",
+    "id": "dm",
+    "label": "D Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "d",
-    "contrastSound": "",
-    "folder": "D:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "doll",
-        "all"
-      ],
-      [
-        "D",
-        "E"
-      ],
-      [
-        "dare",
-        "air"
-      ],
-      [
-        "dill",
-        "ill"
-      ],
-      [
-        "day",
-        "A"
-      ],
-      [
-        "dance",
-        "ants"
-      ],
-      [
-        "deer",
-        "ear"
-      ],
-      [
-        "dye",
-        "eye"
-      ],
-      [
-        "deal",
-        "eel"
-      ],
-      [
-        "dash",
-        "ash"
-      ],
-      [
-        "door",
-        "ore"
-      ],
-      [
-        "den",
-        "N"
-      ]
+    "folder": "D Medial Words",
+    "words": [
+      "body",
+      "soda",
+      "Cody",
+      "ready",
+      "today",
+      "medal",
+      "video",
+      "spider",
+      "ladder",
+      "tadpole",
+      "pudding",
+      "lady",
+      "shadow",
+      "teddy",
+      "hiding",
+      "middle",
+      "muddy",
+      "buddy",
+      "paddle",
+      "puddle"
     ]
   },
   {
-    "id": "d(deleted)-df",
-    "label": "D/(deleted) Minimal Pairs - Final D",
-    "setType": "pairs",
-    "prompt": "Which word has the /d/ sound?",
+    "id": "df",
+    "label": "D Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "d",
-    "contrastSound": "",
-    "folder": "D:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "rod",
-        "raw"
-      ],
-      [
-        "aid",
-        "A"
-      ],
-      [
-        "sod",
-        "saw"
-      ],
-      [
-        "load",
-        "low"
-      ],
-      [
-        "card",
-        "car"
-      ],
-      [
-        "road",
-        "row"
-      ],
-      [
-        "seed",
-        "see"
-      ],
-      [
-        "raid",
-        "ray"
-      ],
-      [
-        "bad",
-        "baa"
-      ],
-      [
-        "weed",
-        "whee"
-      ],
-      [
-        "toad",
-        "toe"
-      ],
-      [
-        "hide",
-        "hi"
-      ]
+    "folder": "D Final Words",
+    "words": [
+      "red",
+      "bad",
+      "bed",
+      "bud",
+      "sad",
+      "mad",
+      "lead",
+      "side",
+      "wide",
+      "seed",
+      "cloud",
+      "feed",
+      "reed",
+      "good",
+      "weed",
+      "wed",
+      "wood",
+      "road",
+      "code",
+      "food"
     ]
   },
   {
-    "id": "f(deleted)-fi",
-    "label": "F/(deleted) Minimal Pairs - Initial F",
-    "setType": "pairs",
-    "prompt": "Which word has the /f/ sound?",
+    "id": "fi",
+    "label": "F Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "f",
-    "contrastSound": "",
-    "folder": "F:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "fat",
-        "at"
-      ],
-      [
-        "fan",
-        "Anne"
-      ],
-      [
-        "far",
-        "R"
-      ],
-      [
-        "fall",
-        "all"
-      ],
-      [
-        "fair",
-        "air"
-      ],
-      [
-        "feel",
-        "eel"
-      ],
-      [
-        "feet",
-        "eat"
-      ],
-      [
-        "fill",
-        "ill"
-      ],
-      [
-        "four",
-        "oar"
-      ],
-      [
-        "fear",
-        "ear"
-      ],
-      [
-        "file",
-        "aisle"
-      ],
-      [
-        "fur",
-        "urr"
-      ]
+    "folder": "F Initial Words",
+    "words": [
+      "food",
+      "fight",
+      "fool",
+      "fake",
+      "four",
+      "foal",
+      "feel",
+      "feet",
+      "foot",
+      "fair",
+      "fear",
+      "fire",
+      "file",
+      "fool",
+      "fan",
+      "fun",
+      "fork",
+      "fang",
+      "fuel",
+      "feel"
     ]
   },
   {
-    "id": "f(deleted)-ff",
-    "label": "F/(deleted) Minimal Pairs - Final F",
-    "setType": "pairs",
-    "prompt": "Which word has the /f/ sound?",
+    "id": "fm",
+    "label": "F Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "f",
-    "contrastSound": "",
-    "folder": "F:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "fat",
-        "at"
-      ],
-      [
-        "fan",
-        "Anne"
-      ],
-      [
-        "far",
-        "R"
-      ],
-      [
-        "fall",
-        "all"
-      ],
-      [
-        "fair",
-        "air"
-      ],
-      [
-        "feel",
-        "eel"
-      ],
-      [
-        "feet",
-        "eat"
-      ],
-      [
-        "fill",
-        "ill"
-      ],
-      [
-        "four",
-        "oar"
-      ],
-      [
-        "fear",
-        "ear"
-      ],
-      [
-        "file",
-        "aisle"
-      ],
-      [
-        "fur",
-        "urr"
-      ]
+    "folder": "F Medial Words",
+    "words": [
+      "wafer",
+      "muffin",
+      "coffee",
+      "waffle",
+      "sofa",
+      "office",
+      "seafood",
+      "trophy",
+      "puffin",
+      "dolphin",
+      "elephant",
+      "safer",
+      "puffy",
+      "toffee",
+      "taffy",
+      "laughing",
+      "goofy",
+      "rougher",
+      "stuffing",
+      "buffalo"
     ]
   },
   {
-    "id": "g(deleted)-gi",
-    "label": "G/(deleted) Minimal Pairs - Initial G",
-    "setType": "pairs",
-    "prompt": "Which word has the /g/ sound?",
+    "id": "ff",
+    "label": "F Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "f",
+    "folder": "F Final Words",
+    "words": [
+      "half",
+      "cough",
+      "safe",
+      "off",
+      "puff",
+      "laugh",
+      "goof",
+      "beef",
+      "reef",
+      "loaf",
+      "leaf",
+      "woof",
+      "buff",
+      "calf",
+      "hoof",
+      "roof",
+      "rough",
+      "stuff",
+      "chef",
+      "knife"
+    ]
+  },
+  {
+    "id": "gi",
+    "label": "G Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "g",
-    "contrastSound": "",
-    "folder": "G:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "go",
-        "O"
-      ],
-      [
-        "gone",
-        "on"
-      ],
-      [
-        "game",
-        "aim"
-      ],
-      [
-        "goat",
-        "oat"
-      ],
-      [
-        "gum",
-        "um"
-      ],
-      [
-        "guy",
-        "eye"
-      ],
-      [
-        "guess",
-        "S"
-      ],
-      [
-        "gear",
-        "ear"
-      ],
-      [
-        "gate",
-        "eight"
-      ],
-      [
-        "gap",
-        "app"
-      ],
-      [
-        "goof",
-        "oof"
-      ],
-      [
-        "gown",
-        "ow"
-      ]
+    "folder": "G Initial Words",
+    "words": [
+      "go",
+      "good",
+      "goose",
+      "gate",
+      "game",
+      "goat",
+      "gum",
+      "gold",
+      "girl",
+      "garden",
+      "gas",
+      "ghost",
+      "guess",
+      "goo",
+      "goldfish",
+      "garage",
+      "guitar",
+      "gift",
+      "guppy",
+      "guide"
     ]
   },
   {
-    "id": "g(deleted)-gf",
-    "label": "G/(deleted) Minimal Pairs - Final G",
-    "setType": "pairs",
-    "prompt": "Which word has the /g/ sound?",
+    "id": "gm",
+    "label": "G Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "g",
-    "contrastSound": "",
-    "folder": "G:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "bag",
-        "baa"
-      ],
-      [
-        "hug",
-        "huh"
-      ],
-      [
-        "log",
-        "law"
-      ],
-      [
-        "cog",
-        "caw"
-      ],
-      [
-        "dug",
-        "duh"
-      ],
-      [
-        "hog",
-        "ha"
-      ],
-      [
-        "jog",
-        "jaw"
-      ],
-      [
-        "rug",
-        "raw"
-      ],
-      [
-        "wag",
-        "wah"
-      ],
-      [
-        "clog",
-        "claw"
-      ],
-      [
-        "mug",
-        "maw"
-      ],
-      [
-        "bug",
-        "ugh"
-      ]
+    "folder": "G Medial Words",
+    "words": [
+      "eagle",
+      "wagon",
+      "beagle",
+      "bugle",
+      "tiger",
+      "yogurt",
+      "bigger",
+      "alligator",
+      "dragon",
+      "igloo",
+      "sugar",
+      "shaggy",
+      "noggin",
+      "hugger",
+      "juggle",
+      "wriggle",
+      "soggy",
+      "spaghetti",
+      "bigger",
+      "nugget"
     ]
   },
   {
-    "id": "h(deleted)-hi",
-    "label": "H/(deleted) Minimal Pairs - Initial H",
-    "setType": "pairs",
-    "prompt": "Which word has the /h/ sound?",
+    "id": "gf",
+    "label": "G Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "g",
+    "folder": "G Final Words",
+    "words": [
+      "bug",
+      "big",
+      "bag",
+      "rag",
+      "wag",
+      "rug",
+      "cog",
+      "leg",
+      "log",
+      "league",
+      "mug",
+      "fog",
+      "fig",
+      "hug",
+      "jug",
+      "pug",
+      "peg",
+      "wig",
+      "dig",
+      "tug"
+    ]
+  },
+  {
+    "id": "hi",
+    "label": "H Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "h",
-    "contrastSound": "",
-    "folder": "H:(deleted) Minimal Pairs - Initial H",
-    "pairs": [
-      [
-        "hi",
-        "eye"
-      ],
-      [
-        "he",
-        "E"
-      ],
-      [
-        "hat",
-        "at"
-      ],
-      [
-        "hem",
-        "M"
-      ],
-      [
-        "hair",
-        "air"
-      ],
-      [
-        "hill",
-        "ill"
-      ],
-      [
-        "hit",
-        "it"
-      ],
-      [
-        "head",
-        "Ed"
-      ],
-      [
-        "howl",
-        "owl"
-      ],
-      [
-        "how",
-        "ow"
-      ],
-      [
-        "high",
-        "I"
-      ],
-      [
-        "heart",
-        "art"
-      ]
+    "folder": "H Initial Words",
+    "words": [
+      "horse",
+      "hose",
+      "hi",
+      "hug",
+      "hut",
+      "hit",
+      "hole",
+      "half",
+      "heart",
+      "heat",
+      "hike",
+      "hat",
+      "heel",
+      "horn",
+      "home",
+      "head",
+      "hum",
+      "him",
+      "hero",
+      "hard"
     ]
   },
   {
-    "id": "j(deleted)-ji",
-    "label": "J/(deleted) Minimal Pairs - Initial J",
-    "setType": "pairs",
-    "prompt": "Which word has the /j/ sound?",
+    "id": "hm",
+    "label": "H Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "hm",
+    "folder": "H Medial Words",
+    "words": [
+      "ahoy",
+      "seahorse",
+      "behave",
+      "behind",
+      "inhale",
+      "unhappy",
+      "lighthouse",
+      "beehive",
+      "greenhouse",
+      "ahead",
+      "treehouse",
+      "uphill",
+      "pothole",
+      "forehead",
+      "Ohio",
+      "grasshopper",
+      "redhead",
+      "birdhouse",
+      "doghouse",
+      "somehow"
+    ]
+  },
+  {
+    "id": "ji",
+    "label": "J Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "j",
-    "contrastSound": "",
-    "folder": "J:(deleted) Minimal Pairs - Initial J",
-    "pairs": [
-      [
-        "gem",
-        "M"
-      ],
-      [
-        "jar",
-        "R"
-      ],
-      [
-        "gel",
-        "L"
-      ],
-      [
-        "jug",
-        "ugh"
-      ],
-      [
-        "jeep",
-        "eep"
-      ],
-      [
-        "jail",
-        "ale"
-      ],
-      [
-        "jay",
-        "A"
-      ],
-      [
-        "Jill",
-        "ill"
-      ],
-      [
-        "jazz",
-        "as"
-      ],
-      [
-        "jowl",
-        "owl"
-      ],
-      [
-        "juice",
-        "ooze"
-      ],
-      [
-        "Jess",
-        "S"
-      ]
+    "folder": "J Initial Words",
+    "words": [
+      "jam",
+      "jug",
+      "June",
+      "Jane",
+      "jaguar",
+      "jet",
+      "jeep",
+      "jelly",
+      "jump",
+      "juice",
+      "jewel",
+      "gem",
+      "joke",
+      "giraffe",
+      "germ",
+      "jello",
+      "jaw",
+      "giant",
+      "genie",
+      "jacket"
     ]
   },
   {
-    "id": "j(deleted)-jf",
-    "label": "J/(deleted) Minimal Pairs - Final J",
-    "setType": "pairs",
-    "prompt": "Which word has the /j/ sound?",
+    "id": "jm",
+    "label": "J Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "j",
-    "contrastSound": "",
-    "folder": "J:(deleted) Minimal Pairs - Final J",
-    "pairs": [
-      [
-        "age",
-        "A"
-      ],
-      [
-        "hedge",
-        "he"
-      ],
-      [
-        "wedge",
-        "wah"
-      ],
-      [
-        "judge",
-        "jaw"
-      ],
-      [
-        "nudge",
-        "nah"
-      ],
-      [
-        "badge",
-        "baa"
-      ],
-      [
-        "edge",
-        "eh"
-      ],
-      [
-        "ledge",
-        "law"
-      ],
-      [
-        "ridge",
-        "raw"
-      ],
-      [
-        "fudge",
-        "few"
-      ],
-      [
-        "dodge",
-        "duh"
-      ],
-      [
-        "cage",
-        "caw"
-      ]
+    "folder": "J Medial Words",
+    "words": [
+      "danger",
+      "magic",
+      "engine",
+      "pajamas",
+      "legend",
+      "pigeon",
+      "hedgehog",
+      "badger",
+      "budget",
+      "pages",
+      "surgeon",
+      "banjo",
+      "badges",
+      "bungee cord",
+      "agent",
+      "project",
+      "veggies",
+      "pudgy",
+      "major",
+      "fragile"
     ]
   },
   {
-    "id": "k(deleted)-ki",
-    "label": "K/(deleted) Minimal Pairs - Initial K",
-    "setType": "pairs",
-    "prompt": "Which word has the /k/ sound?",
-    "targetSound": "k",
-    "contrastSound": "",
-    "folder": "K:(deleted) Minimal Pairs - Initial K",
-    "pairs": [
-      [
-        "key",
-        "E"
-      ],
-      [
-        "cat",
-        "at"
-      ],
-      [
-        "car",
-        "R"
-      ],
-      [
-        "kit",
-        "it"
-      ],
-      [
-        "cow",
-        "ow"
-      ],
-      [
-        "cart",
-        "art"
-      ],
-      [
-        "cog",
-        "ah"
-      ],
-      [
-        "coat",
-        "oat"
-      ],
-      [
-        "cap",
-        "app"
-      ],
-      [
-        "cone",
-        "own"
-      ],
-      [
-        "call",
-        "all"
-      ],
-      [
-        "can",
-        "Anne"
-      ]
+    "id": "jf",
+    "label": "J Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "j",
+    "folder": "J Final Words",
+    "words": [
+      "age",
+      "fridge",
+      "hedge",
+      "badge",
+      "budge",
+      "page",
+      "cage",
+      "rage",
+      "wage",
+      "wedge",
+      "grudge",
+      "nudge",
+      "bridge",
+      "stage",
+      "fudge",
+      "edge",
+      "lodge",
+      "village",
+      "huge",
+      "cabbage"
     ]
   },
   {
-    "id": "k(deleted)-kf",
-    "label": "K/(deleted) Minimal Pairs - Final K",
-    "setType": "pairs",
-    "prompt": "Which word has the /k/ sound?",
-    "targetSound": "k",
-    "contrastSound": "",
-    "folder": "K:(deleted) Minimal Pairs - Final K",
-    "pairs": [
-      [
-        "beak",
-        "bee"
-      ],
-      [
-        "beet",
-        "B"
-      ],
-      [
-        "rake",
-        "ray"
-      ],
-      [
-        "like",
-        "lie"
-      ],
-      [
-        "leak",
-        "Lee"
-      ],
-      [
-        "Mike",
-        "my"
-      ],
-      [
-        "pike",
-        "pie"
-      ],
-      [
-        "bike",
-        "buy"
-      ],
-      [
-        "sock",
-        "saw"
-      ],
-      [
-        "rock",
-        "raw"
-      ],
-      [
-        "lock",
-        "law"
-      ],
-      [
-        "back",
-        "baa"
-      ]
-    ]
-  },
-  {
-    "id": "l(deleted)-li",
-    "label": "L/(deleted) Minimal Pairs - Initial L",
-    "setType": "pairs",
-    "prompt": "Which word has the /l/ sound?",
+    "id": "li",
+    "label": "L Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "l",
-    "contrastSound": "",
-    "folder": "L:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "leak",
-        "eek"
-      ],
-      [
-        "lab",
-        "ab"
-      ],
-      [
-        "lap",
-        "app"
-      ],
-      [
-        "low",
-        "O"
-      ],
-      [
-        "lie",
-        "eye"
-      ],
-      [
-        "leg",
-        "egg"
-      ],
-      [
-        "ladder",
-        "adder"
-      ],
-      [
-        "Liz",
-        "is"
-      ],
-      [
-        "lose",
-        "ooze"
-      ],
-      [
-        "land",
-        "and"
-      ],
-      [
-        "late",
-        "ate"
-      ],
-      [
-        "lair",
-        "air"
-      ]
+    "folder": "L Initial Words",
+    "words": [
+      "lion",
+      "locket",
+      "leaf",
+      "lamp",
+      "lemon",
+      "lake",
+      "lunch",
+      "lamb",
+      "lock",
+      "leg",
+      "log",
+      "loud",
+      "lizard",
+      "lick",
+      "love",
+      "lava",
+      "lips",
+      "laugh",
+      "lady",
+      "lobster"
     ]
   },
   {
-    "id": "l(deleted)-lf",
-    "label": "L/(deleted) Minimal Pairs - Final L",
-    "setType": "pairs",
-    "prompt": "Which word has the /l/ sound?",
+    "id": "lm",
+    "label": "L Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "l",
-    "contrastSound": "",
-    "folder": "L:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "jail",
-        "J"
-      ],
-      [
-        "ale",
-        "A"
-      ],
-      [
-        "peel",
-        "P"
-      ],
-      [
-        "tool",
-        "two"
-      ],
-      [
-        "rail",
-        "ray"
-      ],
-      [
-        "kale",
-        "K"
-      ],
-      [
-        "whale",
-        "way"
-      ],
-      [
-        "pile",
-        "pie"
-      ],
-      [
-        "sale",
-        "say"
-      ],
-      [
-        "bowl",
-        "bow"
-      ],
-      [
-        "hole",
-        "hoe"
-      ],
-      [
-        "roll",
-        "row"
-      ]
+    "folder": "L Medial Words",
+    "words": [
+      "jello",
+      "belly",
+      "melon",
+      "color",
+      "dollar",
+      "balloon",
+      "yellow",
+      "pillow",
+      "hello",
+      "salad",
+      "tulip",
+      "wallet",
+      "koala",
+      "violin",
+      "olive",
+      "vanilla",
+      "pelican",
+      "jelly",
+      "holly",
+      "wheelie"
     ]
   },
   {
-    "id": "m(deleted)-mi",
-    "label": "M/(deleted) Minimal Pairs - Initial M",
-    "setType": "pairs",
-    "prompt": "Which word has the /m/ sound?",
-    "targetSound": "m",
-    "contrastSound": "",
-    "folder": "M:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "map",
-        "app"
-      ],
-      [
-        "mow",
-        "O"
-      ],
-      [
-        "my",
-        "eye"
-      ],
-      [
-        "man",
-        "Anne"
-      ],
-      [
-        "mare",
-        "air"
-      ],
-      [
-        "me",
-        "E"
-      ],
-      [
-        "moat",
-        "oat"
-      ],
-      [
-        "mall",
-        "all"
-      ],
-      [
-        "mug",
-        "ugh"
-      ],
-      [
-        "mill",
-        "ill"
-      ],
-      [
-        "mess",
-        "S"
-      ],
-      [
-        "more",
-        "oar"
-      ]
+    "id": "lf",
+    "label": "L Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "l",
+    "folder": "L Final Words",
+    "words": [
+      "rail",
+      "whale",
+      "bowl",
+      "bale",
+      "kale",
+      "cool",
+      "hail",
+      "tall",
+      "tool",
+      "well",
+      "wheel",
+      "wall",
+      "mail",
+      "nail",
+      "quail",
+      "pail",
+      "oil",
+      "gel",
+      "jail",
+      "doll"
     ]
   },
   {
-    "id": "m(deleted)-mf",
-    "label": "M/(deleted) Minimal Pairs - Final M",
-    "setType": "pairs",
-    "prompt": "Which word has the /m/ sound?",
-    "targetSound": "m",
-    "contrastSound": "",
-    "folder": "M:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "time",
-        "tie"
-      ],
-      [
-        "team",
-        "tea"
-      ],
-      [
-        "home",
-        "hoe"
-      ],
-      [
-        "same",
-        "say"
-      ],
-      [
-        "lime",
-        "lie"
-      ],
-      [
-        "name",
-        "neigh"
-      ],
-      [
-        "aim",
-        "A"
-      ],
-      [
-        "bam",
-        "baa"
-      ],
-      [
-        "calm",
-        "call"
-      ],
-      [
-        "dime",
-        "die"
-      ],
-      [
-        "dame",
-        "day"
-      ],
-      [
-        "came",
-        "K"
-      ]
-    ]
-  },
-  {
-    "id": "n(deleted)-ni",
-    "label": "N/(deleted) Minimal Pairs - Initial N",
-    "setType": "pairs",
-    "prompt": "Which word has the /n/ sound?",
-    "targetSound": "n",
-    "contrastSound": "",
-    "folder": "N:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "no",
-        "O"
-      ],
-      [
-        "neigh",
-        "A"
-      ],
-      [
-        "nail",
-        "ale"
-      ],
-      [
-        "kneel",
-        "eel"
-      ],
-      [
-        "knee",
-        "E"
-      ],
-      [
-        "note",
-        "oat"
-      ],
-      [
-        "neat",
-        "eat"
-      ],
-      [
-        "gnat",
-        "at"
-      ],
-      [
-        "nap",
-        "app"
-      ],
-      [
-        "nice",
-        "ice"
-      ],
-      [
-        "Nate",
-        "ate"
-      ],
-      [
-        "near",
-        "ear"
-      ]
-    ]
-  },
-  {
-    "id": "n(deleted)-nf",
-    "label": "N/(deleted) Minimal Pairs - Final N",
-    "setType": "pairs",
-    "prompt": "Which word has the /n/ sound?",
-    "targetSound": "n",
-    "contrastSound": "",
-    "folder": "N:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "own",
-        "O"
-      ],
-      [
-        "tone",
-        "toe"
-      ],
-      [
-        "rain",
-        "ray"
-      ],
-      [
-        "line",
-        "lie"
-      ],
-      [
-        "lane",
-        "lay"
-      ],
-      [
-        "bone",
-        "bow"
-      ],
-      [
-        "bean",
-        "bee"
-      ],
-      [
-        "cane",
-        "K"
-      ],
-      [
-        "mean",
-        "me"
-      ],
-      [
-        "mane",
-        "May"
-      ],
-      [
-        "Jane",
-        "J"
-      ],
-      [
-        "N",
-        "Ben"
-      ]
-    ]
-  },
-  {
-    "id": "ng(deleted)-ngf",
-    "label": "NG/(deleted) Minimal Pairs - Final NG",
-    "setType": "pairs",
-    "prompt": "Which word has the /ng/ sound?",
-    "targetSound": "ng",
-    "contrastSound": "",
-    "folder": "NG:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "bouncing",
-        "bouncy"
-      ],
-      [
-        "raining",
-        "rainy"
-      ],
-      [
-        "shining",
-        "shiny"
-      ],
-      [
-        "caring",
-        "carry"
-      ],
-      [
-        "running",
-        "runny"
-      ],
-      [
-        "waving",
-        "wavy"
-      ],
-      [
-        "reading",
-        "ready"
-      ],
-      [
-        "sticking",
-        "sticky"
-      ],
-      [
-        "fishing",
-        "fishy"
-      ],
-      [
-        "whacking",
-        "wacky"
-      ],
-      [
-        "crunching",
-        "crunchy"
-      ],
-      [
-        "sneaking",
-        "sneaky"
-      ]
-    ]
-  },
-  {
-    "id": "p(deleted)-pi",
-    "label": "P(deleted) Minimal Pairs - Initial P",
-    "setType": "pairs",
-    "prompt": "Which word has the /p/ sound?",
-    "targetSound": "p",
-    "contrastSound": "",
-    "folder": "P:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "pan",
-        "Anne"
-      ],
-      [
-        "pie",
-        "eye"
-      ],
-      [
-        "P",
-        "E"
-      ],
-      [
-        "pen",
-        "N"
-      ],
-      [
-        "pear",
-        "air"
-      ],
-      [
-        "pail",
-        "ale"
-      ],
-      [
-        "pug",
-        "ugh"
-      ],
-      [
-        "pill",
-        "ill"
-      ],
-      [
-        "pour",
-        "oar"
-      ],
-      [
-        "peg",
-        "egg"
-      ],
-      [
-        "paw",
-        "ah"
-      ],
-      [
-        "poke",
-        "oak"
-      ]
-    ]
-  },
-  {
-    "id": "p(deleted)-pf",
-    "label": "P/(deleted) Minimal Pairs - Final P",
-    "setType": "pairs",
-    "prompt": "Which word has the /p/ sound?",
-    "targetSound": "p",
-    "contrastSound": "",
-    "folder": "P:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "type",
-        "tie"
-      ],
-      [
-        "carp",
-        "car"
-      ],
-      [
-        "ape",
-        "A"
-      ],
-      [
-        "rope",
-        "row"
-      ],
-      [
-        "beep",
-        "bee"
-      ],
-      [
-        "hop",
-        "ha"
-      ],
-      [
-        "ripe",
-        "rye"
-      ],
-      [
-        "deep",
-        "D"
-      ],
-      [
-        "wipe",
-        "Y"
-      ],
-      [
-        "cape",
-        "K"
-      ],
-      [
-        "keep",
-        "key"
-      ],
-      [
-        "tarp",
-        "tar"
-      ]
-    ]
-  },
-  {
-    "id": "r(deleted)-ri",
-    "label": "R/(deleted) Minimal Pairs - Initial R",
-    "setType": "pairs",
-    "prompt": "Which word has the /r/ sound?",
+    "id": "ri1",
+    "label": "R Initial Words 1",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "r",
-    "contrastSound": "",
-    "folder": "R:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "ran",
-        "Anne"
-      ],
-      [
-        "rug",
-        "ugh"
-      ],
-      [
-        "rye",
-        "eye"
-      ],
-      [
-        "row",
-        "O"
-      ],
-      [
-        "rice",
-        "ice"
-      ],
-      [
-        "roar",
-        "oar"
-      ],
-      [
-        "rail",
-        "ale"
-      ],
-      [
-        "rose",
-        "Os"
-      ],
-      [
-        "race",
-        "ace"
-      ],
-      [
-        "wrote",
-        "oat"
-      ],
-      [
-        "raw",
-        "ah"
-      ],
-      [
-        "real",
-        "eel"
-      ]
+    "folder": "R Initial Words 1",
+    "words": [
+      "red",
+      "ray",
+      "ride",
+      "right",
+      "ring",
+      "rain",
+      "rose",
+      "rice",
+      "read",
+      "rocket",
+      "rug",
+      "robot",
+      "race",
+      "roof",
+      "reef",
+      "wreath",
+      "run",
+      "rope",
+      "rash",
+      "row"
     ]
   },
   {
-    "id": "r(deleted)-rf",
-    "label": "R/(deleted) Minimal Pairs - Final R",
-    "setType": "pairs",
-    "prompt": "Which word has the /r/ sound?",
+    "id": "ri2",
+    "label": "R Initial Words 2",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "r",
-    "contrastSound": "",
-    "folder": "R:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "tire",
-        "tie"
-      ],
-      [
-        "car",
-        "caw"
-      ],
-      [
-        "hair",
-        "hay"
-      ],
-      [
-        "wire",
-        "Y"
-      ],
-      [
-        "care",
-        "K"
-      ],
-      [
-        "dare",
-        "day"
-      ],
-      [
-        "bar",
-        "baa"
-      ],
-      [
-        "jar",
-        "jaw"
-      ],
-      [
-        "soar",
-        "sew"
-      ],
-      [
-        "fear",
-        "fee"
-      ],
-      [
-        "oar",
-        "O"
-      ],
-      [
-        "ear",
-        "E"
-      ]
+    "folder": "R Initial Words 2",
+    "words": [
+      "radish",
+      "rush",
+      "rabbit",
+      "write",
+      "rip",
+      "rub",
+      "road",
+      "rage",
+      "raid",
+      "rock",
+      "radio",
+      "ribbon",
+      "rooster",
+      "rainbow",
+      "rate",
+      "Ruth",
+      "rake",
+      "rot",
+      "rude",
+      "root"
     ]
   },
   {
-    "id": "s(deleed)-si",
-    "label": "S/(deleted) Minimal Pairs - Initial S",
-    "setType": "pairs",
-    "prompt": "Which word has the /s/ sound?",
+    "id": "arm",
+    "label": "AR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "AR Medial Words",
+    "words": [
+      "garden",
+      "party",
+      "garage",
+      "market",
+      "marble",
+      "target",
+      "starfish",
+      "pardon",
+      "cartoon",
+      "harvest",
+      "carpet",
+      "sparkle",
+      "marshmallow",
+      "cardigan",
+      "armpit",
+      "farming",
+      "barley",
+      "darling",
+      "arctic",
+      "garbage"
+    ]
+  },
+  {
+    "id": "arm",
+    "label": "AR Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "AR Final Words",
+    "words": [
+      "car",
+      "czar",
+      "tar",
+      "par",
+      "jaguar",
+      "jar",
+      "R",
+      "scar",
+      "star",
+      "far",
+      "gar",
+      "guitar",
+      "crowbar",
+      "spar",
+      "cigar",
+      "avatar",
+      "handlebar",
+      "bazaar",
+      "sonar",
+      "sidecar"
+    ]
+  },
+  {
+    "id": "airmf",
+    "label": "AIR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "AIR Medial Words",
+    "words": [
+      "carrot",
+      "berry",
+      "fairy",
+      "parent",
+      "carousel",
+      "carry",
+      "cherry",
+      "dairy",
+      "haircut",
+      "arrow",
+      "hairy",
+      "careful",
+      "very",
+      "marry",
+      "parrot",
+      "sharing",
+      "arrow",
+      "taro",
+      "scary",
+      "sheriff"
+    ]
+  },
+  {
+    "id": "airf",
+    "label": "AIR Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "AIR Final Words",
+    "words": [
+      "bear",
+      "tear",
+      "share",
+      "care",
+      "lair",
+      "dare",
+      "fair",
+      "glare",
+      "hair",
+      "mare",
+      "pear",
+      "pair",
+      "wear",
+      "chair",
+      "square",
+      "flare",
+      "beware",
+      "where",
+      "wheelchair",
+      "scare"
+    ]
+  },
+  {
+    "id": "erm",
+    "label": "ER Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "ER Medial Words",
+    "words": [
+      "hurry",
+      "furry",
+      "worry",
+      "burrito",
+      "curry",
+      "purple",
+      "turkey",
+      "jury",
+      "purring",
+      "circle",
+      "turtle",
+      "person",
+      "curtain",
+      "circus",
+      "mermaid",
+      "thirty",
+      "dirty",
+      "surfing",
+      "birthday",
+      "learning"
+    ]
+  },
+  {
+    "id": "erf",
+    "label": "ER Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "ER Final Words",
+    "words": [
+      "her",
+      "fur",
+      "sure",
+      "lure",
+      "purr",
+      "tiger",
+      "teacher",
+      "paper",
+      "water",
+      "flower",
+      "spider",
+      "ladder",
+      "father",
+      "soccer",
+      "sir",
+      "stir",
+      "baker",
+      "sweater",
+      "sister",
+      "dollar"
+    ]
+  },
+  {
+    "id": "orm",
+    "label": "OR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "OR Medial Words",
+    "words": [
+      "fork",
+      "forty",
+      "boring",
+      "morning",
+      "story",
+      "forest",
+      "tornado",
+      "normal",
+      "foreign",
+      "fortress",
+      "important",
+      "normal",
+      "doorway",
+      "forklift",
+      "fortune",
+      "horseback",
+      "forget",
+      "stormy",
+      "shortcake",
+      "shoreline"
+    ]
+  },
+  {
+    "id": "orf",
+    "label": "OR Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "OR Final Words",
+    "words": [
+      "store",
+      "four",
+      "ore",
+      "more",
+      "tore",
+      "bore",
+      "snore",
+      "pour",
+      "soar",
+      "door",
+      "shore",
+      "core",
+      "war",
+      "chore",
+      "ignore",
+      "oar",
+      "boar",
+      "explore",
+      "sore",
+      "floor"
+    ]
+  },
+  {
+    "id": "irm",
+    "label": "IR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "IR Medial Words",
+    "words": [
+      "hero",
+      "zero",
+      "earring",
+      "cereal",
+      "serious",
+      "weirdo",
+      "cheerio",
+      "nearby",
+      "period",
+      "steering",
+      "hearing",
+      "shearing",
+      "miracle",
+      "mystery",
+      "cafeteria",
+      "clearance",
+      "teary",
+      "peering",
+      "cheering",
+      "gearbox"
+    ]
+  },
+  {
+    "id": "irf",
+    "label": "IR Final words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "r",
+    "folder": "IR Final Words",
+    "words": [
+      "here",
+      "ear",
+      "cheer",
+      "near",
+      "steer",
+      "clear",
+      "fear",
+      "shear",
+      "deer",
+      "gear",
+      "sear",
+      "engineer",
+      "pioneer",
+      "volunteer",
+      "clear",
+      "tear",
+      "pier",
+      "year",
+      "cashier",
+      "chandelier"
+    ]
+  },
+  {
+    "id": "mi",
+    "label": "M Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "m",
+    "folder": "M Initial Words",
+    "words": [
+      "moo",
+      "move",
+      "my",
+      "moss",
+      "mouse",
+      "moon",
+      "mop",
+      "milk",
+      "mail",
+      "man",
+      "muffin",
+      "magic",
+      "mitten",
+      "meadow",
+      "magnet",
+      "mushroom",
+      "mountain",
+      "mud",
+      "map",
+      "money"
+    ]
+  },
+  {
+    "id": "mm",
+    "label": "M Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "m",
+    "folder": "M Medial Words",
+    "words": [
+      "hammer",
+      "camel",
+      "lemon",
+      "family",
+      "cement",
+      "diamond",
+      "homework",
+      "flamingo",
+      "almond",
+      "domino",
+      "humming",
+      "summer",
+      "camera",
+      "snowman",
+      "comma",
+      "llama",
+      "yummy",
+      "tummy",
+      "tomato",
+      "women"
+    ]
+  },
+  {
+    "id": "mf",
+    "label": "M Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "m",
+    "folder": "M Final Words",
+    "words": [
+      "jam",
+      "lamb",
+      "dome",
+      "time",
+      "ram",
+      "him",
+      "um",
+      "swim",
+      "drum",
+      "comb",
+      "hum",
+      "game",
+      "home",
+      "foam",
+      "team",
+      "thumb",
+      "gem",
+      "clam",
+      "flame",
+      "gum"
+    ]
+  },
+  {
+    "id": "ni",
+    "label": "N Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "n",
+    "folder": "N Initial Words",
+    "words": [
+      "no",
+      "nail",
+      "knee",
+      "knock",
+      "knob",
+      "knight",
+      "night",
+      "nose",
+      "nice",
+      "neat",
+      "nap",
+      "net",
+      "noodle",
+      "nest",
+      "nurse",
+      "name",
+      "nickel",
+      "nugget",
+      "noisy",
+      "narwhal"
+    ]
+  },
+  {
+    "id": "nm",
+    "label": "N Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "n",
+    "folder": "N Medial Words",
+    "words": [
+      "bunny",
+      "dino",
+      "donut",
+      "tunnel",
+      "candle",
+      "pony",
+      "penny",
+      "honey",
+      "tiny",
+      "tennis",
+      "funny",
+      "money",
+      "dinner",
+      "winner",
+      "vanilla",
+      "minnow",
+      "sunny",
+      "tuna",
+      "piano",
+      "peanut"
+    ]
+  },
+  {
+    "id": "nf",
+    "label": "N Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "n",
+    "folder": "N Final Words",
+    "words": [
+      "cane",
+      "bun",
+      "can",
+      "pin",
+      "pan",
+      "pine",
+      "bean",
+      "fun",
+      "mine",
+      "done",
+      "chin",
+      "run",
+      "fan",
+      "sun",
+      "bone",
+      "on",
+      "down",
+      "spoon",
+      "van",
+      "man"
+    ]
+  },
+  {
+    "id": "pi",
+    "label": "P Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "p",
+    "folder": "P Initial Words",
+    "words": [
+      "pail",
+      "pool",
+      "pine",
+      "pony",
+      "pick",
+      "pie",
+      "peek",
+      "pig",
+      "park",
+      "pirate",
+      "panda",
+      "pillow",
+      "paint",
+      "pickle",
+      "princess",
+      "puddle",
+      "parrot",
+      "planet",
+      "pebble",
+      "picnic"
+    ]
+  },
+  {
+    "id": "pm",
+    "label": "P Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "p",
+    "folder": "P Medial Words",
+    "words": [
+      "apple",
+      "wrapper",
+      "happy",
+      "zipper",
+      "open",
+      "leopard",
+      "teapot",
+      "hippo",
+      "maple",
+      "diaper",
+      "whirlpool",
+      "weapon",
+      "captain",
+      "floppy",
+      "copy",
+      "tiptoe",
+      "loopy",
+      "supper",
+      "copper",
+      "typing"
+    ]
+  },
+  {
+    "id": "pf",
+    "label": "P Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "p",
+    "folder": "P Final Words",
+    "words": [
+      "whip",
+      "whip",
+      "top",
+      "hip",
+      "hop",
+      "keep",
+      "steep",
+      "jeep",
+      "mop",
+      "flip",
+      "shop",
+      "ship",
+      "chip",
+      "tip",
+      "dip",
+      "tape",
+      "cape",
+      "coop",
+      "soup",
+      "loop"
+    ]
+  },
+  {
+    "id": "si",
+    "label": "S Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "s",
-    "contrastSound": "",
-    "folder": "S:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "sigh",
-        "eye"
-      ],
-      [
-        "sore",
-        "oar"
-      ],
-      [
-        "seal",
-        "eel"
-      ],
-      [
-        "sew",
-        "O"
-      ],
-      [
-        "sail",
-        "ale"
-      ],
-      [
-        "saw",
-        "ah"
-      ],
-      [
-        "sash",
-        "ash"
-      ],
-      [
-        "sill",
-        "ill"
-      ],
-      [
-        "soak",
-        "oak"
-      ],
-      [
-        "see",
-        "E"
-      ],
-      [
-        "seat",
-        "eat"
-      ],
-      [
-        "sell",
-        "L"
-      ]
+    "folder": "S Initial Words",
+    "words": [
+      "seal",
+      "sour",
+      "seat",
+      "sick",
+      "saw",
+      "soap",
+      "soup",
+      "sock",
+      "sun",
+      "sink",
+      "soda",
+      "salt",
+      "sack",
+      "sew",
+      "sea",
+      "sand",
+      "salamander",
+      "sad",
+      "suit",
+      "side"
     ]
   },
   {
-    "id": "s(deleted)-sf",
-    "label": "S/(deleted) Minimal Pairs - Final S",
-    "setType": "pairs",
-    "prompt": "Which word has the /s/ sound?",
+    "id": "sm",
+    "label": "S Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "s",
-    "contrastSound": "",
-    "folder": "S:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "ace",
-        "A"
-      ],
-      [
-        "base",
-        "bay"
-      ],
-      [
-        "case",
-        "K"
-      ],
-      [
-        "lace",
-        "lay"
-      ],
-      [
-        "rice",
-        "rye"
-      ],
-      [
-        "goose",
-        "goo"
-      ],
-      [
-        "race",
-        "ray"
-      ],
-      [
-        "bus",
-        "us"
-      ],
-      [
-        "dice",
-        "dye"
-      ],
-      [
-        "house",
-        "how"
-      ],
-      [
-        "moss",
-        "maw"
-      ],
-      [
-        "mice",
-        "my"
-      ]
+    "folder": "S Medial Words",
+    "words": [
+      "whistle",
+      "castle",
+      "muscle",
+      "cassette",
+      "bicycle",
+      "dinosuar",
+      "messy",
+      "icey",
+      "lasso",
+      "iceberg",
+      "blossom",
+      "listen",
+      "wrestle",
+      "mossy",
+      "bossy",
+      "lacy",
+      "prissy",
+      "racing",
+      "tossing",
+      "chasing"
     ]
   },
   {
-    "id": "sh(deleted)-shi",
-    "label": "SH/(deleted) Minimal Pairs - Initial SH",
-    "setType": "pairs",
-    "prompt": "Which word has the /sh/ sound?",
-    "targetSound": "sh",
-    "contrastSound": "",
-    "folder": "SH:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "show",
-        "O"
-      ],
-      [
-        "shore",
-        "oar"
-      ],
-      [
-        "shale",
-        "ale"
-      ],
-      [
-        "she",
-        "E"
-      ],
-      [
-        "shy",
-        "eye"
-      ],
-      [
-        "shell",
-        "L"
-      ],
-      [
-        "shape",
-        "ape"
-      ],
-      [
-        "shoes",
-        "ooze"
-      ],
-      [
-        "shelf",
-        "elf"
-      ],
-      [
-        "shake",
-        "ache"
-      ],
-      [
-        "sheet",
-        "eat"
-      ],
-      [
-        "share",
-        "air"
-      ]
+    "id": "sf",
+    "label": "S Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "s",
+    "folder": "S Final Words",
+    "words": [
+      "bus",
+      "rice",
+      "house",
+      "mouse",
+      "ice",
+      "goose",
+      "chase",
+      "face",
+      "lace",
+      "loose",
+      "base",
+      "vase",
+      "mice",
+      "nice",
+      "piece",
+      "toss",
+      "dice",
+      "floss",
+      "boss",
+      "moose"
     ]
   },
   {
-    "id": "sh(deleted)-shf",
-    "label": "SH/(deleted) Minimal Pairs - Final SH",
-    "setType": "pairs",
-    "prompt": "Which word has the /sh/ sound?",
-    "targetSound": "sh",
-    "contrastSound": "",
-    "folder": "SH:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "leash",
-        "Lee"
-      ],
-      [
-        "bash",
-        "baa"
-      ],
-      [
-        "hush",
-        "huh"
-      ],
-      [
-        "Josh",
-        "jaw"
-      ],
-      [
-        "rush",
-        "raw"
-      ],
-      [
-        "wash",
-        "wah"
-      ],
-      [
-        "cash",
-        "caw"
-      ],
-      [
-        "clash",
-        "claw"
-      ],
-      [
-        "mash",
-        "maw"
-      ],
-      [
-        "push",
-        "pie"
-      ],
-      [
-        "wish",
-        "Y"
-      ],
-      [
-        "crush",
-        "cry"
-      ]
-    ]
-  },
-  {
-    "id": "t(deleted)-ti",
-    "label": "T/(deleted) Minimal Pairs - Initial T",
-    "setType": "pairs",
-    "prompt": "Which word has the /t/ sound?",
+    "id": "ti",
+    "label": "T Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "t",
-    "contrastSound": "",
-    "folder": "T:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "tie",
-        "eye"
-      ],
-      [
-        "tore",
-        "oar"
-      ],
-      [
-        "tear",
-        "ear"
-      ],
-      [
-        "tail",
-        "ale"
-      ],
-      [
-        "teal",
-        "eel"
-      ],
-      [
-        "toe",
-        "O"
-      ],
-      [
-        "tea",
-        "E"
-      ],
-      [
-        "tall",
-        "all"
-      ],
-      [
-        "take",
-        "ache"
-      ],
-      [
-        "tar",
-        "R"
-      ],
-      [
-        "tear",
-        "air"
-      ],
-      [
-        "tile",
-        "aisle"
-      ]
+    "folder": "T Initial Words",
+    "words": [
+      "tall",
+      "taco",
+      "turtle",
+      "toast",
+      "tongue",
+      "tape",
+      "tiger",
+      "toy",
+      "time",
+      "tuna",
+      "TV",
+      "toes",
+      "tie",
+      "target",
+      "top",
+      "tank",
+      "table",
+      "teepee",
+      "towel",
+      "talk"
     ]
   },
   {
-    "id": "t(deleted)-tf",
-    "label": "T/(deleted) Minimal Pairs - Final T",
-    "setType": "pairs",
-    "prompt": "Which word has the /t/ sound?",
+    "id": "tm",
+    "label": "T Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "t",
-    "contrastSound": "",
-    "folder": "T:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "bat",
-        "baa"
-      ],
-      [
-        "hut",
-        "huh"
-      ],
-      [
-        "lot",
-        "law"
-      ],
-      [
-        "light",
-        "lie"
-      ],
-      [
-        "late",
-        "lay"
-      ],
-      [
-        "right",
-        "rye"
-      ],
-      [
-        "Kate",
-        "K"
-      ],
-      [
-        "white",
-        "Y"
-      ],
-      [
-        "knot",
-        "gnaw"
-      ],
-      [
-        "pot",
-        "paw"
-      ],
-      [
-        "rot",
-        "raw"
-      ],
-      [
-        "bite",
-        "buy"
-      ]
+    "folder": "T Medial Words",
+    "words": [
+      "butter",
+      "water",
+      "kitten",
+      "mitten",
+      "button",
+      "guitar",
+      "pretty",
+      "otter",
+      "little",
+      "whittle",
+      "pothole",
+      "hotel",
+      "hotter",
+      "cotton",
+      "metal",
+      "nettle",
+      "petal",
+      "writer",
+      "city",
+      "beetle"
     ]
   },
   {
-    "id": "th(deleted)-thi",
-    "label": "TH/(deleted) Minimal Pairs - Initial TH",
-    "setType": "pairs",
-    "prompt": "Which word has the /th/ sound?",
-    "targetSound": "th",
-    "contrastSound": "",
-    "folder": "TH:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "think",
-        "ink"
-      ],
-      [
-        "thigh",
-        "eye"
-      ],
-      [
-        "thick",
-        "ick"
-      ],
-      [
-        "thin",
-        "in"
-      ],
-      [
-        "thumb",
-        "um"
-      ],
-      [
-        "thaw",
-        "ah"
-      ],
-      [
-        "Thor",
-        "oar"
-      ],
-      [
-        "their",
-        "air"
-      ],
-      [
-        "thug",
-        "ugh"
-      ],
-      [
-        "thunder",
-        "under"
-      ],
-      [
-        "throat",
-        "oat"
-      ],
-      [
-        "theater",
-        "eater"
-      ]
+    "id": "tf",
+    "label": "T Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "t",
+    "folder": "T Final Words",
+    "words": [
+      "white",
+      "rat",
+      "hat",
+      "hut",
+      "sit",
+      "eat",
+      "oat",
+      "boat",
+      "beet",
+      "bat",
+      "light",
+      "boot",
+      "cat",
+      "goat",
+      "coat",
+      "moat",
+      "knight",
+      "meat",
+      "pot",
+      "wheat"
     ]
   },
   {
-    "id": "th(deleted)-thf",
-    "label": "TH/(deleted) Minimal Pairs - Final TH",
-    "setType": "pairs",
-    "prompt": "Which word has the /th/ sound?",
-    "targetSound": "th",
-    "contrastSound": "",
-    "folder": "TH:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "bath",
-        "baa"
-      ],
-      [
-        "both",
-        "bow"
-      ],
-      [
-        "cloth",
-        "claw"
-      ],
-      [
-        "moth",
-        "maw"
-      ],
-      [
-        "oath",
-        "O"
-      ],
-      [
-        "sloth",
-        "slaw"
-      ],
-      [
-        "teeth",
-        "T"
-      ],
-      [
-        "tooth",
-        "two"
-      ],
-      [
-        "wealth",
-        "well"
-      ],
-      [
-        "Keith",
-        "key"
-      ],
-      [
-        "booth",
-        "boo"
-      ],
-      [
-        "fourth",
-        "four"
-      ]
-    ]
-  },
-  {
-    "id": "v(deleted)-vi",
-    "label": "V/(deleted) Minimal Pairs - Initial V",
-    "setType": "pairs",
-    "prompt": "Which word has the /v/ wound?",
+    "id": "vi",
+    "label": "V Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "v",
-    "contrastSound": "",
-    "folder": "V:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "vase",
-        "ace"
-      ],
-      [
-        "van",
-        "Anne"
-      ],
-      [
-        "veil",
-        "ale"
-      ],
-      [
-        "very",
-        "airy"
-      ],
-      [
-        "vote",
-        "oat"
-      ],
-      [
-        "valley",
-        "Allie"
-      ],
-      [
-        "vow",
-        "ow"
-      ],
-      [
-        "V",
-        "E"
-      ],
-      [
-        "vat",
-        "at"
-      ],
-      [
-        "veer",
-        "ear"
-      ],
-      [
-        "vest",
-        "S"
-      ],
-      [
-        "volley",
-        "Ollie"
-      ]
+    "folder": "V Initial Words",
+    "words": [
+      "van",
+      "voice",
+      "vase",
+      "vice",
+      "violin",
+      "very",
+      "vine",
+      "vacuum",
+      "vest",
+      "vet",
+      "video",
+      "volcano",
+      "vanilla",
+      "veggies",
+      "vampire",
+      "village",
+      "vulture",
+      "visor",
+      "vole",
+      "vacation"
     ]
   },
   {
-    "id": "v(deleted)-vf",
-    "label": "V/(deleted) Minimal Pairs - Final V",
-    "setType": "pairs",
-    "prompt": "Which word has the /v/ sound?",
+    "id": "vm",
+    "label": "V Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "v",
-    "contrastSound": "",
-    "folder": "V:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "cave",
-        "K"
-      ],
-      [
-        "save",
-        "say"
-      ],
-      [
-        "wave",
-        "way"
-      ],
-      [
-        "hive",
-        "hi"
-      ],
-      [
-        "dive",
-        "dye"
-      ],
-      [
-        "move",
-        "moo"
-      ],
-      [
-        "grave",
-        "gray"
-      ],
-      [
-        "Dave",
-        "day"
-      ],
-      [
-        "leave",
-        "Lee"
-      ],
-      [
-        "alive",
-        "a lie"
-      ],
-      [
-        "carve",
-        "car"
-      ],
-      [
-        "stove",
-        "stow"
-      ]
+    "folder": "V Medial Words",
+    "words": [
+      "over",
+      "oven",
+      "cover",
+      "seven",
+      "shovel",
+      "river",
+      "heavy",
+      "lavendar",
+      "fever",
+      "raven",
+      "navy",
+      "hover",
+      "clover",
+      "diving",
+      "saving",
+      "gravy",
+      "overalls",
+      "beaver",
+      "heaven",
+      "avocado"
     ]
   },
   {
-    "id": "w(deleted)-wi",
-    "label": "W/(deleted) Minimal Pairs - Initial W",
-    "setType": "pairs",
-    "prompt": "Which word has the /w/ sound?",
+    "id": "vf",
+    "label": "V Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "v",
+    "folder": "V Final Words",
+    "words": [
+      "move",
+      "cave",
+      "heave",
+      "stove",
+      "shove",
+      "shave",
+      "save",
+      "brave",
+      "sleeve",
+      "grave",
+      "dive",
+      "have",
+      "love",
+      "leave",
+      "pave",
+      "wave",
+      "weave",
+      "dove",
+      "give",
+      "hive"
+    ]
+  },
+  {
+    "id": "wi",
+    "label": "W Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "w",
-    "contrastSound": "",
-    "folder": "W:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "why",
-        "eye"
-      ],
-      [
-        "wake",
-        "ache"
-      ],
-      [
-        "wheel",
-        "eel"
-      ],
-      [
-        "wall",
-        "all"
-      ],
-      [
-        "well",
-        "L"
-      ],
-      [
-        "whale",
-        "ale"
-      ],
-      [
-        "week",
-        "eek"
-      ],
-      [
-        "wheat",
-        "eat"
-      ],
-      [
-        "wise",
-        "eyes"
-      ],
-      [
-        "war",
-        "ore"
-      ],
-      [
-        "wear",
-        "air"
-      ],
-      [
-        "woke",
-        "oak"
-      ]
+    "folder": "W Initial Words",
+    "words": [
+      "whale",
+      "wheel",
+      "whip",
+      "wipe",
+      "white",
+      "wheat",
+      "wake",
+      "wave",
+      "weave",
+      "walk",
+      "wagon",
+      "water",
+      "web",
+      "worm",
+      "wing",
+      "wind",
+      "waffle",
+      "wand",
+      "wizard",
+      "whisper"
     ]
   },
   {
-    "id": "y(deleted)-yi",
-    "label": "Y/(deleted) Minimal Pairs - Initial",
-    "setType": "pairs",
-    "prompt": "Which word has the /y/ sound?",
+    "id": "wm",
+    "label": "W Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "w",
+    "folder": "W Medial Words",
+    "words": [
+      "kiwi",
+      "flowy",
+      "flower",
+      "power",
+      "mower",
+      "towel",
+      "Hawaii",
+      "homework",
+      "awake",
+      "owl",
+      "seaweed",
+      "shower",
+      "growing",
+      "snowy",
+      "coward",
+      "lower",
+      "towing",
+      "tower",
+      "doughy",
+      "glowing"
+    ]
+  },
+  {
+    "id": "yi",
+    "label": "Y Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "y",
-    "contrastSound": "",
-    "folder": "Y:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "yolk",
-        "oak"
-      ],
-      [
-        "yes",
-        "S"
-      ],
-      [
-        "year",
-        "ear"
-      ],
-      [
-        "yawn",
-        "on"
-      ],
-      [
-        "yell",
-        "L"
-      ],
-      [
-        "yay",
-        "A"
-      ],
-      [
-        "your",
-        "oar"
-      ],
-      [
-        "yum",
-        "um"
-      ],
-      [
-        "yeast",
-        "East"
-      ],
-      [
-        "yam",
-        "am"
-      ],
-      [
-        "yo",
-        "O"
-      ],
-      [
-        "yap",
-        "app"
-      ]
+    "folder": "Y Initial Words",
+    "words": [
+      "yak",
+      "yuck",
+      "you",
+      "young",
+      "yam",
+      "year",
+      "yes",
+      "yarn",
+      "yell",
+      "yolk",
+      "yummy",
+      "yard",
+      "yawn",
+      "yeti",
+      "yacht",
+      "yogurt",
+      "yodel",
+      "yeast",
+      "yellow",
+      "yucca"
     ]
   },
   {
-    "id": "z(deleted)-zi",
-    "label": "Z/(deleted) Minimal Pairs - Initial",
-    "setType": "pairs",
-    "prompt": "Which word has the /z/ sound?",
-    "targetSound": "z",
-    "contrastSound": "",
-    "folder": "Z:(deleted) Minimal Pairs - Initial",
-    "pairs": [
-      [
-        "zit",
-        "it"
-      ],
-      [
-        "Z",
-        "E"
-      ],
-      [
-        "zen",
-        "N"
-      ],
-      [
-        "zinc",
-        "ink"
-      ],
-      [
-        "zoo",
-        "ooh"
-      ],
-      [
-        "Zeke",
-        "eek"
-      ],
-      [
-        "zap",
-        "app"
-      ],
-      [
-        "zone",
-        "own"
-      ],
-      [
-        "zany",
-        "Amy"
-      ],
-      [
-        "Zack",
-        "ache"
-      ],
-      [
-        "ziti",
-        "eating"
-      ],
-      [
-        "zest",
-        "S"
-      ]
+    "id": "ym",
+    "label": "Y Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "y",
+    "folder": "Y Medial Words",
+    "words": [
+      "onion",
+      "canyon",
+      "vacuum",
+      "million",
+      "kayak",
+      "coyote",
+      "stallion",
+      "W",
+      "payer",
+      "higher",
+      "liar",
+      "fire",
+      "crayon",
+      "mayo",
+      "layer",
+      "billion",
+      "aquarium",
+      "wire",
+      "tire",
+      "stadium"
     ]
   },
   {
-    "id": "z(deleted)-zf",
-    "label": "Z/(deleted) Minimal Pairs - Final",
-    "setType": "pairs",
-    "prompt": "Which word has the /z/ sound?",
+    "id": "zi",
+    "label": "Z Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
     "targetSound": "z",
-    "contrastSound": "",
-    "folder": "Z:(deleted) Minimal Pairs - Final",
-    "pairs": [
-      [
-        "bees",
-        "bee"
-      ],
-      [
-        "rise",
-        "rye"
-      ],
-      [
-        "maze",
-        "May"
-      ],
-      [
-        "raise",
-        "ray"
-      ],
-      [
-        "size",
-        "sigh"
-      ],
-      [
-        "eyes",
-        "eye"
-      ],
-      [
-        "freeze",
-        "free"
-      ],
-      [
-        "tease",
-        "tea"
-      ],
-      [
-        "beds",
-        "bed"
-      ],
-      [
-        "nose",
-        "no"
-      ],
-      [
-        "peas",
-        "P"
-      ],
-      [
-        "rose",
-        "row"
-      ]
+    "folder": "Z Initial Words",
+    "words": [
+      "zoo",
+      "zipper",
+      "zinnia",
+      "xylophone",
+      "zebra",
+      "zit",
+      "zucchini",
+      "zero",
+      "zoom",
+      "zinnia",
+      "zap",
+      "zombie",
+      "zinc",
+      "zodiac",
+      "zen",
+      "zany",
+      "zest",
+      "zillion",
+      "zeppelin",
+      "zebu"
+    ]
+  },
+  {
+    "id": "zm",
+    "label": "Z Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "z",
+    "folder": "Z Medial Words",
+    "words": [
+      "easy",
+      "music",
+      "lizard",
+      "wizard",
+      "cousin",
+      "busy",
+      "desert",
+      "laser",
+      "noisy",
+      "poison",
+      "raisin",
+      "lazy",
+      "crazy",
+      "cozy",
+      "dozen",
+      "fuzzy",
+      "thousand",
+      "daisy",
+      "frozen",
+      "present"
+    ]
+  },
+  {
+    "id": "zf",
+    "label": "Z Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "z",
+    "folder": "Z Final Words",
+    "words": [
+      "rose",
+      "pose",
+      "buzz",
+      "fuzz",
+      "please",
+      "breeze",
+      "tease",
+      "toes",
+      "maze",
+      "lose",
+      "doze",
+      "freeze",
+      "nose",
+      "keys",
+      "bees",
+      "cheese",
+      "sneeze",
+      "shoes",
+      "knees",
+      "gauze"
+    ]
+  },
+  {
+    "id": "vthi",
+    "label": "Voiced TH Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "th",
+    "folder": "Voiced TH Initial Words",
+    "words": [
+      "they",
+      "there",
+      "their",
+      "that",
+      "those",
+      "them",
+      "the",
+      "then",
+      "this",
+      "these",
+      "they're",
+      "thee",
+      "than",
+      "though"
+    ]
+  },
+  {
+    "id": "vthm",
+    "label": "Voiced TH Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "th",
+    "folder": "Voiced TH Medial Words",
+    "words": [
+      "feather",
+      "weather",
+      "together",
+      "brother",
+      "mother",
+      "father",
+      "clothing",
+      "breathing",
+      "wither",
+      "leather",
+      "another",
+      "feather",
+      "gather",
+      "bother",
+      "soothing",
+      "smoothie",
+      "other",
+      "seething",
+      "either",
+      "neither"
+    ]
+  },
+  {
+    "id": "vthf",
+    "label": "Voiced TH Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "th",
+    "folder": "Voiced TH Final Words",
+    "words": [
+      "lathe",
+      "clothe",
+      "bathe",
+      "teethe",
+      "seethe",
+      "soothe",
+      "smooth",
+      "breathe",
+      "loathe",
+      "sunbathe",
+      "wreathe",
+      "unclothe",
+      "tithe"
+    ]
+  },
+  {
+    "id": "thi",
+    "label": "TH Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "th",
+    "folder": "TH Initial Words",
+    "words": [
+      "thirty",
+      "thigh",
+      "thin",
+      "thirst",
+      "thank",
+      "thought",
+      "thor",
+      "thread",
+      "three",
+      "thresh",
+      "thrill",
+      "thumb",
+      "thick",
+      "thorn",
+      "thunder",
+      "throne",
+      "throw",
+      "thistle",
+      "thud",
+      "thaw"
+    ]
+  },
+  {
+    "id": "thm",
+    "label": "TH Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "th",
+    "folder": "TH Medial Words",
+    "words": [
+      "bathtub",
+      "toothbrush",
+      "bathroom",
+      "healthy",
+      "wealthy",
+      "python",
+      "panther",
+      "author",
+      "nothing",
+      "birthday",
+      "earthquake",
+      "cathedral",
+      "mouthwash",
+      "athlete",
+      "something",
+      "truthful",
+      "marathon",
+      "stethoscope",
+      "anything",
+      "toothache"
+    ]
+  },
+  {
+    "id": "thf",
+    "label": "TH Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "th",
+    "folder": "TH Final Words",
+    "words": [
+      "mouth",
+      "path",
+      "bath",
+      "tooth",
+      "earth",
+      "South",
+      "North",
+      "both",
+      "moth",
+      "cloth",
+      "truth",
+      "math",
+      "wreath",
+      "Ruth",
+      "faith",
+      "growth",
+      "sloth",
+      "month",
+      "broth",
+      "Keith"
+    ]
+  },
+  {
+    "id": "shi",
+    "label": "SH Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sh",
+    "folder": "SH Initial Words",
+    "words": [
+      "shoe",
+      "shy",
+      "ship",
+      "shop",
+      "shin",
+      "shear",
+      "share",
+      "shore",
+      "sheep",
+      "show",
+      "shirt",
+      "shot",
+      "shock",
+      "shawl",
+      "shack",
+      "sheet",
+      "shell",
+      "shake",
+      "shape",
+      "shave"
+    ]
+  },
+  {
+    "id": "shm",
+    "label": "SH Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sh",
+    "folder": "sh medial Words",
+    "words": [
+      "seashell",
+      "cushion",
+      "flashlight",
+      "lotion",
+      "ocean",
+      "washer",
+      "lashes",
+      "pushup",
+      "washing",
+      "dishes",
+      "wishing",
+      "fishing",
+      "mushy",
+      "potion",
+      "t-shirt",
+      "mushroom",
+      "cashier",
+      "hashbrown",
+      "ashes",
+      "mansion"
+    ]
+  },
+  {
+    "id": "shf",
+    "label": "SH Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sh",
+    "folder": "SH Final Words",
+    "words": [
+      "cash",
+      "lash",
+      "sash",
+      "leash",
+      "rash",
+      "flash",
+      "dish",
+      "mush",
+      "rush",
+      "ash",
+      "crush",
+      "mash",
+      "push",
+      "fish",
+      "cash",
+      "wash",
+      "wish",
+      "trash",
+      "bush",
+      "brush"
+    ]
+  },
+  {
+    "id": "chi",
+    "label": "CH Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "ch",
+    "folder": "CH Initial Words",
+    "words": [
+      "cheer",
+      "chew",
+      "chip",
+      "chop",
+      "chin",
+      "chain",
+      "cherry",
+      "chair",
+      "chore",
+      "cheap",
+      "cheese",
+      "choke",
+      "chase",
+      "chow",
+      "chalk",
+      "chill",
+      "char",
+      "cheek",
+      "chap",
+      "chuck"
+    ]
+  },
+  {
+    "id": "chf",
+    "label": "CH Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "ch",
+    "folder": "CH Final Words",
+    "words": [
+      "beach",
+      "rich",
+      "roach",
+      "notch",
+      "latch",
+      "hitch",
+      "such",
+      "loach",
+      "coach",
+      "batch",
+      "leech",
+      "torch",
+      "pinch",
+      "punch",
+      "peach",
+      "touch",
+      "ditch",
+      "lunch",
+      "itch",
+      "watch"
+    ]
+  },
+  {
+    "id": "chm",
+    "label": "CH Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "ch",
+    "folder": "CH Medial Words",
+    "words": [
+      "watcher",
+      "pitcher",
+      "batches",
+      "marching",
+      "witchy",
+      "peaches",
+      "itchy",
+      "crutches",
+      "beach ball",
+      "teacher",
+      "duchess",
+      "hitching",
+      "matches",
+      "nachos",
+      "launcher",
+      "statues",
+      "couches",
+      "kitchen",
+      "catching",
+      "roaches"
+    ]
+  },
+  {
+    "id": "bri",
+    "label": "BR Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "br",
+    "folder": "BR Initial Words",
+    "words": [
+      "brown",
+      "break",
+      "breeze",
+      "bro",
+      "brow",
+      "bright",
+      "brawl",
+      "broke",
+      "bread",
+      "brush",
+      "brave",
+      "brick",
+      "broom",
+      "bridge",
+      "brain",
+      "broccoli",
+      "bride",
+      "braid",
+      "bronze",
+      "bridle"
+    ]
+  },
+  {
+    "id": "brm",
+    "label": "BR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "br",
+    "folder": "BR Medial Words",
+    "words": [
+      "eyebrow",
+      "zebra",
+      "toothbrush",
+      "umbrella",
+      "cobra",
+      "sombrero",
+      "labryinth",
+      "vibrate",
+      "celebrate",
+      "debris",
+      "jailbreak",
+      "daybreak",
+      "February",
+      "library",
+      "algebra",
+      "celebrity",
+      "abroad",
+      "Abraham",
+      "embrace",
+      "gingerbread"
+    ]
+  },
+  {
+    "id": "dri",
+    "label": "DR Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "dr",
+    "folder": "DR Initial Words",
+    "words": [
+      "dragon",
+      "dress",
+      "drum",
+      "drink",
+      "drive",
+      "drop",
+      "dream",
+      "draw",
+      "drumstick",
+      "driveway",
+      "dribble",
+      "drag",
+      "drizzle",
+      "drain",
+      "drift",
+      "drape",
+      "drought",
+      "dry",
+      "droop",
+      "drama"
+    ]
+  },
+  {
+    "id": "drm",
+    "label": "DR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "dr",
+    "folder": "DR Medial Words",
+    "words": [
+      "children",
+      "laundry",
+      "bedroom",
+      "snowdrop",
+      "eardrum",
+      "handrail",
+      "headrest",
+      "address",
+      "Andrew",
+      "snowdrift",
+      "daydream",
+      "wardrobe",
+      "cauldron",
+      "screwdriver",
+      "hundred",
+      "hydrant",
+      "mandrill",
+      "hydrate",
+      "hydrogen",
+      "dendrite"
+    ]
+  },
+  {
+    "id": "fri",
+    "label": "FR Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "fr",
+    "folder": "FR Initial Words",
+    "words": [
+      "frog",
+      "fries",
+      "fruit",
+      "friend",
+      "free",
+      "freeze",
+      "fresh",
+      "fridge",
+      "frost",
+      "frill",
+      "freckle",
+      "front",
+      "frizzy",
+      "freedom",
+      "fright",
+      "fry",
+      "frame",
+      "freight",
+      "frisbee",
+      "Friday"
+    ]
+  },
+  {
+    "id": "frm",
+    "label": "FR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "fr",
+    "folder": "FR Medial Words",
+    "words": [
+      "afro",
+      "afraid",
+      "Africa",
+      "boyfriend",
+      "saffron",
+      "different",
+      "belfry",
+      "confront",
+      "defrost",
+      "alfredo",
+      "jackfruit",
+      "off ramp",
+      "sassafras",
+      "refresh",
+      "suffragette",
+      "diffraction",
+      "passionfruit",
+      "grapefruit",
+      "refrigerator",
+      "carefree"
+    ]
+  },
+  {
+    "id": "kri",
+    "label": "KR Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "kr",
+    "folder": "KR Initial Words",
+    "words": [
+      "crab",
+      "crack",
+      "crazy",
+      "cradle",
+      "craft",
+      "crane",
+      "crawl",
+      "crayon",
+      "crown",
+      "cream",
+      "crew",
+      "crash",
+      "crowd",
+      "cry",
+      "crepe",
+      "crust",
+      "crate",
+      "crone",
+      "crystal",
+      "creepy"
+    ]
+  },
+  {
+    "id": "krm",
+    "label": "KR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "kr",
+    "folder": "KR Medial Words",
+    "words": [
+      "across",
+      "secret",
+      "increase",
+      "decrease",
+      "microscope",
+      "lacrosse",
+      "microphone",
+      "macrame",
+      "aircraft",
+      "sacred",
+      "muskrat",
+      "chakra",
+      "okra",
+      "ice cream",
+      "acrobat",
+      "secretary",
+      "microwave",
+      "backrest",
+      "bankrupt",
+      "scarecrow"
+    ]
+  },
+  {
+    "id": "gri",
+    "label": "GR Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "gr",
+    "folder": "GR Initial Words",
+    "words": [
+      "grow",
+      "grass",
+      "green",
+      "grapes",
+      "grab",
+      "gross",
+      "grade",
+      "grandma",
+      "growl",
+      "grave",
+      "gravy",
+      "groom",
+      "gray",
+      "grin",
+      "grumpy",
+      "grizzly",
+      "granola",
+      "grandpa",
+      "gryffin",
+      "grain"
+    ]
+  },
+  {
+    "id": "grm",
+    "label": "GR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "gr",
+    "folder": "GR Medial Words",
+    "words": [
+      "angry",
+      "hungry",
+      "agree",
+      "degrees",
+      "ingredient",
+      "background",
+      "playground",
+      "disagree",
+      "degree",
+      "migrate",
+      "pedigree",
+      "pilgrim",
+      "telegram",
+      "progress",
+      "program",
+      "ingrown",
+      "photograph",
+      "underground",
+      "migration",
+      "photographer"
+    ]
+  },
+  {
+    "id": "pri",
+    "label": "PR Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "pr",
+    "folder": "PR Initial Words",
+    "words": [
+      "practice",
+      "pray",
+      "pry",
+      "pretty",
+      "price",
+      "prawn",
+      "prize",
+      "prick",
+      "present",
+      "prune",
+      "prison",
+      "proud",
+      "prank",
+      "prince",
+      "princess",
+      "pretzel",
+      "prance",
+      "problem",
+      "pretend",
+      "press"
+    ]
+  },
+  {
+    "id": "prm",
+    "label": "PR Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "pr",
+    "folder": "PR Initial Words",
+    "words": [
+      "apron",
+      "surprise",
+      "blueprint",
+      "fingerprint",
+      "capris",
+      "sprite",
+      "impress",
+      "improve",
+      "imprint",
+      "apricot",
+      "jumprope",
+      "espresso",
+      "express",
+      "compress",
+      "bedspread",
+      "depressed",
+      "bombproof",
+      "approve",
+      "approach",
+      "capriole"
+    ]
+  },
+  {
+    "id": "bli",
+    "label": "BL Initial words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "bl",
+    "folder": "BL Initial words",
+    "words": [
+      "blow",
+      "blood",
+      "blink",
+      "blossom",
+      "blue",
+      "black",
+      "blade",
+      "block",
+      "blaze",
+      "blonde",
+      "bloom",
+      "blob",
+      "blur",
+      "bleach",
+      "blouse",
+      "blinds",
+      "blank",
+      "blame",
+      "bling",
+      "blend"
+    ]
+  },
+  {
+    "id": "blm",
+    "label": "BL Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "bl",
+    "folder": "bl medial Words",
+    "words": [
+      "goblin",
+      "sibling",
+      "oblong",
+      "wobbly",
+      "bubbly",
+      "goblet",
+      "public",
+      "ablaze",
+      "problem",
+      "cobbler",
+      "pueblo",
+      "gobbler",
+      "tablet"
+    ]
+  },
+  {
+    "id": "fli",
+    "label": "FL Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "fl",
+    "folder": "FL Initial Words",
+    "words": [
+      "flood",
+      "fly",
+      "flavor",
+      "float",
+      "flute",
+      "flamingo",
+      "flag",
+      "flat",
+      "flip",
+      "flame",
+      "flower",
+      "floss",
+      "Florida",
+      "flat",
+      "floor",
+      "flake",
+      "flap",
+      "flan",
+      "flash",
+      "flea"
+    ]
+  },
+  {
+    "id": "flm",
+    "label": "FL Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "fl",
+    "folder": "FL Medial Words",
+    "words": [
+      "inflate",
+      "deflate",
+      "reflect",
+      "dragonfly",
+      "snowflake",
+      "sunflower",
+      "butterfly",
+      "backflip",
+      "mudflap",
+      "reflex",
+      "horsefly",
+      "bellyflop",
+      "cornflakes",
+      "cauliflower",
+      "camoflauge",
+      "firefly",
+      "frontflip",
+      "halfling"
+    ]
+  },
+  {
+    "id": "gli",
+    "label": "GL Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "gl",
+    "folder": "GL Initial Words",
+    "words": [
+      "glad",
+      "glass",
+      "glade",
+      "glow",
+      "glare",
+      "gloss",
+      "gloom",
+      "glob",
+      "glue",
+      "glove",
+      "globe",
+      "glide",
+      "glacier",
+      "glitter",
+      "glasses",
+      "glum",
+      "gluten",
+      "glaze",
+      "glyph",
+      "glee"
+    ]
+  },
+  {
+    "id": "glm",
+    "label": "GL Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "gl",
+    "folder": "GL Medial Words",
+    "words": [
+      "ugly",
+      "igloo",
+      "juggling",
+      "bugler",
+      "wriggling",
+      "froglet",
+      "wiggly",
+      "burglar",
+      "dangly",
+      "superglue",
+      "piglet",
+      "hang-glider",
+      "sunglasses",
+      "snowglobe",
+      "petroglyph",
+      "hieroglyphics",
+      "giggly",
+      "jiggly"
+    ]
+  },
+  {
+    "id": "kli",
+    "label": "KL Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "kl",
+    "folder": "KL Initial Words",
+    "words": [
+      "clay",
+      "climb",
+      "cloak",
+      "claw",
+      "clap",
+      "clip",
+      "cloud",
+      "class",
+      "clean",
+      "cloth",
+      "cleat",
+      "clear",
+      "clam",
+      "clarinet",
+      "clock",
+      "click",
+      "cliff",
+      "clone",
+      "club",
+      "close"
+    ]
+  },
+  {
+    "id": "klm",
+    "label": "KL Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "kl",
+    "folder": "Kl Medial Words",
+    "words": [
+      "duckling",
+      "necklace",
+      "cyclops",
+      "cycling",
+      "eclipse",
+      "eclair",
+      "prickly",
+      "recline",
+      "quickly",
+      "cyclone",
+      "nucleus",
+      "circlet",
+      "baclava",
+      "enclose",
+      "declare",
+      "dewclaw",
+      "unclean"
+    ]
+  },
+  {
+    "id": "pli",
+    "label": "PL Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "pl",
+    "folder": "PL Initial Words",
+    "words": [
+      "plate",
+      "please",
+      "plane",
+      "plum",
+      "plump",
+      "plus",
+      "plan",
+      "plug",
+      "pluck",
+      "play",
+      "plant",
+      "plaque",
+      "plow",
+      "plunge",
+      "plastic",
+      "plaster",
+      "plateau",
+      "plywood",
+      "plasma",
+      "plumber"
+    ]
+  },
+  {
+    "id": "plm",
+    "label": "PL Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "pl",
+    "folder": "PL Medial Words",
+    "words": [
+      "dumpling",
+      "stapler",
+      "eggplant",
+      "appliance",
+      "explain",
+      "complain",
+      "display",
+      "airplane",
+      "apply",
+      "multiply",
+      "fireplace",
+      "complete",
+      "deplete",
+      "droplet",
+      "sapling",
+      "chaplain",
+      "splash",
+      "splat",
+      "triplet",
+      "sampler"
+    ]
+  },
+  {
+    "id": "ski",
+    "label": "SK Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sk",
+    "folder": "SK Initial Words",
+    "words": [
+      "ski",
+      "skate",
+      "sky",
+      "skunk",
+      "skill",
+      "skin",
+      "skull",
+      "scar",
+      "skirt",
+      "scare",
+      "scarf",
+      "scooter",
+      "scab",
+      "school",
+      "skip",
+      "scales",
+      "skunk",
+      "scoop",
+      "scone",
+      "skillet"
+    ]
+  },
+  {
+    "id": "skm",
+    "label": "SK Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sk",
+    "folder": "SK Medial Words",
+    "words": [
+      "rescue",
+      "mosquito",
+      "iceskate",
+      "whiskers",
+      "basketball",
+      "telescope",
+      "microscope",
+      "escape",
+      "asking",
+      "discover",
+      "risky",
+      "basket",
+      "biscuit",
+      "high school",
+      "mascot",
+      "husky",
+      "rascal",
+      "preschool",
+      "muskrat",
+      "disco"
+    ]
+  },
+  {
+    "id": "skf",
+    "label": "SK Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sk",
+    "folder": "SK Final Words",
+    "words": [
+      "ask",
+      "mosque",
+      "whisk",
+      "disc",
+      "mask",
+      "tusk",
+      "husk",
+      "dusk",
+      "bask",
+      "desk",
+      "task",
+      "flask",
+      "musk",
+      "cask",
+      "mollusk",
+      "bisque",
+      "brisk",
+      "kiosk",
+      "obelisk",
+      "basilisk"
+    ]
+  },
+  {
+    "id": "sti",
+    "label": "ST Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "st",
+    "folder": "ST Initial Words",
+    "words": [
+      "stay",
+      "style",
+      "sty",
+      "stars",
+      "stare",
+      "steak",
+      "stall",
+      "steam",
+      "stairs",
+      "storm",
+      "stork",
+      "stag",
+      "stump",
+      "stop",
+      "steep",
+      "store",
+      "steer",
+      "stem",
+      "stash",
+      "stool"
+    ]
+  },
+  {
+    "id": "stm",
+    "label": "ST Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "st",
+    "folder": "ST Medial Words",
+    "words": [
+      "mustache",
+      "Easter",
+      "rooster",
+      "dusty",
+      "pasta",
+      "rusty",
+      "jester",
+      "poster",
+      "sister",
+      "mister",
+      "booster",
+      "thirsty",
+      "toaster",
+      "roller coaster",
+      "frosty",
+      "pastry",
+      "costume",
+      "custard",
+      "hamster",
+      "monster"
+    ]
+  },
+  {
+    "id": "stf",
+    "label": "ST Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "st",
+    "folder": "ST Final Words",
+    "words": [
+      "rest",
+      "trust",
+      "must",
+      "just",
+      "list",
+      "mist",
+      "wrist",
+      "dust",
+      "cast",
+      "pest",
+      "best",
+      "gust",
+      "West",
+      "vest",
+      "bust",
+      "rust",
+      "East",
+      "feast",
+      "fast",
+      "toast"
+    ]
+  },
+  {
+    "id": "spi",
+    "label": "SP Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sp",
+    "folder": "SP Initial Words",
+    "words": [
+      "spoon",
+      "spin",
+      "spill",
+      "spool",
+      "spot",
+      "speak",
+      "spoke",
+      "spit",
+      "spaghetti",
+      "sprain",
+      "spurs",
+      "spaceship",
+      "speech",
+      "sports",
+      "sprinkles",
+      "spider",
+      "splash",
+      "spa",
+      "sponge",
+      "spinach"
+    ]
+  },
+  {
+    "id": "spm",
+    "label": "SP Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sp",
+    "folder": "SP Medial Words",
+    "words": [
+      "aspen",
+      "whisper",
+      "hospital",
+      "newspaper",
+      "asparagus",
+      "teaspoon",
+      "display",
+      "crispy",
+      "osprey",
+      "airspace",
+      "aspirin",
+      "crispy",
+      "espresso",
+      "respect",
+      "respond",
+      "suspect",
+      "sunspot",
+      "passport",
+      "despair",
+      "suspenders"
+    ]
+  },
+  {
+    "id": "spf",
+    "label": "SP Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sp",
+    "folder": "SP Final Words",
+    "words": [
+      "rasp",
+      "gasp",
+      "clasp",
+      "wasp",
+      "crisp",
+      "grasp",
+      "wisp",
+      "lisp"
+    ]
+  },
+  {
+    "id": "sni",
+    "label": "SN Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sn",
+    "folder": "SN Initial Words",
+    "words": [
+      "snow",
+      "sneeze",
+      "snout",
+      "sneak",
+      "snail",
+      "snake",
+      "snap",
+      "snarl",
+      "snob",
+      "snag",
+      "snuggle",
+      "snooze",
+      "snack",
+      "snore",
+      "sneaker",
+      "sniff",
+      "snorkel",
+      "snip",
+      "snoop",
+      "snort"
+    ]
+  },
+  {
+    "id": "sli",
+    "label": "SL Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sl",
+    "folder": "SL Initial Words",
+    "words": [
+      "sleep",
+      "slip",
+      "slide",
+      "slob",
+      "slow",
+      "sled",
+      "sleigh",
+      "slice",
+      "slime",
+      "sloppy",
+      "sleeve",
+      "sloth",
+      "slick",
+      "slash",
+      "slug",
+      "slam",
+      "slab",
+      "slow",
+      "slanted",
+      "slope"
+    ]
+  },
+  {
+    "id": "slm",
+    "label": "SL Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sl",
+    "folder": "SL Medial Words",
+    "words": [
+      "bracelet",
+      "asleep",
+      "coleslaw",
+      "dislike",
+      "dislocate",
+      "dog sled",
+      "grasslands",
+      "parsley",
+      "wrestling",
+      "whistling",
+      "hustling",
+      "loosely",
+      "muesli",
+      "muslin",
+      "nicely",
+      "priceless",
+      "translator",
+      "useless",
+      "voiceless",
+      "misleading"
+    ]
+  },
+  {
+    "id": "slf",
+    "label": "SL Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sl",
+    "folder": "SL Final Words",
+    "words": [
+      "castle",
+      "pencil",
+      "wrestle",
+      "parcel",
+      "whistle",
+      "hustle",
+      "bustle",
+      "muscle",
+      "mussel",
+      "fossil",
+      "axle",
+      "diesel",
+      "counsel",
+      "morsel",
+      "jostle",
+      "capsule",
+      "thistle",
+      "tassel",
+      "tinsel",
+      "missile"
+    ]
+  },
+  {
+    "id": "smi",
+    "label": "SM Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sm",
+    "folder": "SM Initial Words",
+    "words": [
+      "small",
+      "smoke",
+      "smile",
+      "smudge",
+      "small",
+      "smash",
+      "smog",
+      "smack",
+      "smart",
+      "smelt",
+      "smother",
+      "smell",
+      "smooth",
+      "smirk",
+      "smoothie",
+      "smock",
+      "smear",
+      "smuggle",
+      "smokestack",
+      "smorgasbord"
+    ]
+  },
+  {
+    "id": "smm",
+    "label": "SM Medial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sm",
+    "folder": "SM Medial Words",
+    "words": [
+      "Christmas",
+      "placemat",
+      "policeman",
+      "asthma",
+      "basement",
+      "locksmith",
+      "outsmart",
+      "plasma",
+      "seismic",
+      "basmati",
+      "cosmic",
+      "blacksmith",
+      "salesman",
+      "mismatch",
+      "craftsman"
+    ]
+  },
+  {
+    "id": "smf",
+    "label": "SM Final Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sm",
+    "folder": "SM Final Words",
+    "words": [
+      "chasm",
+      "prism",
+      "spasm",
+      "baptism",
+      "optimism",
+      "criticism",
+      "tourism",
+      "heroism",
+      "magnetism",
+      "organism",
+      "vandalism",
+      "journalism",
+      "pessimism",
+      "favoritism",
+      "metabolism"
+    ]
+  },
+  {
+    "id": "swi",
+    "label": "SW Initial Words",
+    "setType": "single",
+    "prompt": "Practice the word!",
+    "targetSound": "sw",
+    "folder": "SW Initial Words",
+    "words": [
+      "sweat",
+      "sweater",
+      "sweet",
+      "swing",
+      "swell",
+      "swap",
+      "sweep",
+      "sway",
+      "swan",
+      "swoop",
+      "swipe",
+      "swift",
+      "swamp",
+      "swallow",
+      "swaddle",
+      "switch",
+      "swoon",
+      "swivel",
+      "swine",
+      "swab"
     ]
   },
   {
@@ -29463,3284 +28669,357 @@
     ]
   },
   {
-    "id": "bi",
-    "label": "B Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "b",
-    "folder": "B Initial Words",
-    "words": [
-      "boy",
-      "bat",
-      "bee",
-      "bow",
-      "book",
-      "bake",
-      "bite",
-      "bear",
-      "bass",
-      "bike",
-      "boot",
-      "bill",
-      "box",
-      "boat",
-      "bell",
-      "boo",
-      "boom",
-      "buy",
-      "baa",
-      "bus"
+    "id": "ths-thi",
+    "label": "TH/S Minimal Pairs - Initial TH",
+    "setType": "pairs",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "s",
+    "folder": "TH:S Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "thor",
+        "sore"
+      ],
+      [
+        "thigh",
+        "sigh"
+      ],
+      [
+        "thank",
+        "sank"
+      ],
+      [
+        "thumb",
+        "some"
+      ],
+      [
+        "thick",
+        "sick"
+      ],
+      [
+        "thaw",
+        "saw"
+      ],
+      [
+        "thud",
+        "sud"
+      ],
+      [
+        "think",
+        "sink"
+      ],
+      [
+        "thing",
+        "sing"
+      ],
+      [
+        "thin",
+        "sin"
+      ],
+      [
+        "theme",
+        "seam"
+      ],
+      [
+        "third",
+        "sir"
+      ]
     ]
   },
   {
-    "id": "bm",
-    "label": "B Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "b",
-    "folder": "B Medial Words",
-    "words": [
-      "rabbit",
-      "robot",
-      "table",
-      "rubber",
-      "ribbon",
-      "cowboy",
-      "cabin",
-      "robin",
-      "Abby",
-      "label",
-      "stable",
-      "oboe",
-      "wobble",
-      "tabby",
-      "tuba",
-      "cubby",
-      "lobby",
-      "pebble",
-      "maybe",
-      "hobby"
-    ]
-  },
-  {
-    "id": "bf",
-    "label": "B Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "b",
-    "folder": "B Final Words",
-    "words": [
-      "tub",
-      "sob",
-      "lab",
-      "rib",
-      "rub",
-      "hub",
-      "jab",
-      "mob",
-      "knob",
-      "cub",
-      "web",
-      "job",
-      "tube",
-      "fib",
-      "cube",
-      "lobe",
-      "rob",
-      "sub",
-      "cab",
-      "gob"
-    ]
-  },
-  {
-    "id": "ki",
-    "label": "K Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "k",
-    "folder": "K Initial Words",
-    "words": [
-      "key",
-      "cot",
-      "Kate",
-      "cub",
-      "cab",
-      "cut",
-      "car",
-      "comb",
-      "coat",
-      "cat",
-      "cow",
-      "kiss",
-      "kite",
-      "camel",
-      "corn",
-      "king",
-      "cage",
-      "cone",
-      "cane",
-      "call"
-    ]
-  },
-  {
-    "id": "km",
-    "label": "K Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "k",
-    "folder": "K Medial Words",
-    "words": [
-      "poker",
-      "joker",
-      "hiking",
-      "pickle",
-      "soccer",
-      "ticket",
-      "sucker",
-      "vacuum",
-      "rocket",
-      "bacon",
-      "jacket",
-      "sticky",
-      "donkey",
-      "raccoon",
-      "lucky",
-      "locket",
-      "shaky",
-      "raking",
-      "baker",
-      "okay"
-    ]
-  },
-  {
-    "id": "kf",
-    "label": "K Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "k",
-    "folder": "K Final Words",
-    "words": [
-      "fake",
-      "take",
-      "bike",
-      "bake",
-      "beak",
-      "rake",
-      "hike",
-      "lake",
-      "lock",
-      "shake",
-      "book",
-      "sack",
-      "whack",
-      "week",
-      "rack",
-      "leak",
-      "talk",
-      "hook",
-      "deck",
-      "joke"
-    ]
-  },
-  {
-    "id": "di",
-    "label": "D Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "d",
-    "folder": "D Initial Words",
-    "words": [
-      "duck",
-      "day",
-      "door",
-      "dough",
-      "doe",
-      "deer",
-      "dame",
-      "deaf",
-      "doll",
-      "dare",
-      "date",
-      "dune",
-      "done",
-      "dance",
-      "dark",
-      "dime",
-      "dig",
-      "dog",
-      "dice",
-      "dome"
-    ]
-  },
-  {
-    "id": "dm",
-    "label": "D Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "d",
-    "folder": "D Medial Words",
-    "words": [
-      "body",
-      "soda",
-      "Cody",
-      "ready",
-      "today",
-      "medal",
-      "video",
-      "spider",
-      "ladder",
-      "tadpole",
-      "pudding",
-      "lady",
-      "shadow",
-      "teddy",
-      "hiding",
-      "middle",
-      "muddy",
-      "buddy",
-      "paddle",
-      "puddle"
-    ]
-  },
-  {
-    "id": "df",
-    "label": "D Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "d",
-    "folder": "D Final Words",
-    "words": [
-      "red",
-      "bad",
-      "bed",
-      "bud",
-      "sad",
-      "mad",
-      "lead",
-      "side",
-      "wide",
-      "seed",
-      "cloud",
-      "feed",
-      "reed",
-      "good",
-      "weed",
-      "wed",
-      "wood",
-      "road",
-      "code",
-      "food"
-    ]
-  },
-  {
-    "id": "fi",
-    "label": "F Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "f",
-    "folder": "F Initial Words",
-    "words": [
-      "food",
-      "fight",
-      "fool",
-      "fake",
-      "four",
-      "foal",
-      "feel",
-      "feet",
-      "foot",
-      "fair",
-      "fear",
-      "fire",
-      "file",
-      "fool",
-      "fan",
-      "fun",
-      "fork",
-      "fang",
-      "fuel",
-      "feel"
-    ]
-  },
-  {
-    "id": "fm",
-    "label": "F Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "f",
-    "folder": "F Medial Words",
-    "words": [
-      "wafer",
-      "muffin",
-      "coffee",
-      "waffle",
-      "sofa",
-      "office",
-      "seafood",
-      "trophy",
-      "puffin",
-      "dolphin",
-      "elephant",
-      "safer",
-      "puffy",
-      "toffee",
-      "taffy",
-      "laughing",
-      "goofy",
-      "rougher",
-      "stuffing",
-      "buffalo"
-    ]
-  },
-  {
-    "id": "ff",
-    "label": "F Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "f",
-    "folder": "F Final Words",
-    "words": [
-      "half",
-      "cough",
-      "safe",
-      "off",
-      "puff",
-      "laugh",
-      "goof",
-      "beef",
-      "reef",
-      "loaf",
-      "leaf",
-      "woof",
-      "buff",
-      "calf",
-      "hoof",
-      "roof",
-      "rough",
-      "stuff",
-      "chef",
-      "knife"
-    ]
-  },
-  {
-    "id": "gi",
-    "label": "G Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "g",
-    "folder": "G Initial Words",
-    "words": [
-      "go",
-      "good",
-      "goose",
-      "gate",
-      "game",
-      "goat",
-      "gum",
-      "gold",
-      "girl",
-      "garden",
-      "gas",
-      "ghost",
-      "guess",
-      "goo",
-      "goldfish",
-      "garage",
-      "guitar",
-      "gift",
-      "guppy",
-      "guide"
-    ]
-  },
-  {
-    "id": "gm",
-    "label": "G Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "g",
-    "folder": "G Medial Words",
-    "words": [
-      "eagle",
-      "wagon",
-      "beagle",
-      "bugle",
-      "tiger",
-      "yogurt",
-      "bigger",
-      "alligator",
-      "dragon",
-      "igloo",
-      "sugar",
-      "shaggy",
-      "noggin",
-      "hugger",
-      "juggle",
-      "wriggle",
-      "soggy",
-      "spaghetti",
-      "bigger",
-      "nugget"
-    ]
-  },
-  {
-    "id": "gf",
-    "label": "G Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "g",
-    "folder": "G Final Words",
-    "words": [
-      "bug",
-      "big",
-      "bag",
-      "rag",
-      "wag",
-      "rug",
-      "cog",
-      "leg",
-      "log",
-      "league",
-      "mug",
-      "fog",
-      "fig",
-      "hug",
-      "jug",
-      "pug",
-      "peg",
-      "wig",
-      "dig",
-      "tug"
-    ]
-  },
-  {
-    "id": "hi",
-    "label": "H Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "h",
-    "folder": "H Initial Words",
-    "words": [
-      "horse",
-      "hose",
-      "hi",
-      "hug",
-      "hut",
-      "hit",
-      "hole",
-      "half",
-      "heart",
-      "heat",
-      "hike",
-      "hat",
-      "heel",
-      "horn",
-      "home",
-      "head",
-      "hum",
-      "him",
-      "hero",
-      "hard"
-    ]
-  },
-  {
-    "id": "hm",
-    "label": "H Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "hm",
-    "folder": "H Medial Words",
-    "words": [
-      "ahoy",
-      "seahorse",
-      "behave",
-      "behind",
-      "inhale",
-      "unhappy",
-      "lighthouse",
-      "beehive",
-      "greenhouse",
-      "ahead",
-      "treehouse",
-      "uphill",
-      "pothole",
-      "forehead",
-      "Ohio",
-      "grasshopper",
-      "redhead",
-      "birdhouse",
-      "doghouse",
-      "somehow"
-    ]
-  },
-  {
-    "id": "ji",
-    "label": "J Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "j",
-    "folder": "J Initial Words",
-    "words": [
-      "jam",
-      "jug",
-      "June",
-      "Jane",
-      "jaguar",
-      "jet",
-      "jeep",
-      "jelly",
-      "jump",
-      "juice",
-      "jewel",
-      "gem",
-      "joke",
-      "giraffe",
-      "germ",
-      "jello",
-      "jaw",
-      "giant",
-      "genie",
-      "jacket"
-    ]
-  },
-  {
-    "id": "jm",
-    "label": "J Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "j",
-    "folder": "J Medial Words",
-    "words": [
-      "danger",
-      "magic",
-      "engine",
-      "pajamas",
-      "legend",
-      "pigeon",
-      "hedgehog",
-      "badger",
-      "budget",
-      "pages",
-      "surgeon",
-      "banjo",
-      "badges",
-      "bungee cord",
-      "agent",
-      "project",
-      "veggies",
-      "pudgy",
-      "major",
-      "fragile"
-    ]
-  },
-  {
-    "id": "jf",
-    "label": "J Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "j",
-    "folder": "J Final Words",
-    "words": [
-      "age",
-      "fridge",
-      "hedge",
-      "badge",
-      "budge",
-      "page",
-      "cage",
-      "rage",
-      "wage",
-      "wedge",
-      "grudge",
-      "nudge",
-      "bridge",
-      "stage",
-      "fudge",
-      "edge",
-      "lodge",
-      "village",
-      "huge",
-      "cabbage"
-    ]
-  },
-  {
-    "id": "li",
-    "label": "L Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "l",
-    "folder": "L Initial Words",
-    "words": [
-      "lion",
-      "locket",
-      "leaf",
-      "lamp",
-      "lemon",
-      "lake",
-      "lunch",
-      "lamb",
-      "lock",
-      "leg",
-      "log",
-      "loud",
-      "lizard",
-      "lick",
-      "love",
-      "lava",
-      "lips",
-      "laugh",
-      "lady",
-      "lobster"
-    ]
-  },
-  {
-    "id": "lm",
-    "label": "L Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "l",
-    "folder": "L Medial Words",
-    "words": [
-      "jello",
-      "belly",
-      "melon",
-      "color",
-      "dollar",
-      "balloon",
-      "yellow",
-      "pillow",
-      "hello",
-      "salad",
-      "tulip",
-      "wallet",
-      "koala",
-      "violin",
-      "olive",
-      "vanilla",
-      "pelican",
-      "jelly",
-      "holly",
-      "wheelie"
-    ]
-  },
-  {
-    "id": "lf",
-    "label": "L Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "l",
-    "folder": "L Final Words",
-    "words": [
-      "rail",
-      "whale",
-      "bowl",
-      "bale",
-      "kale",
-      "cool",
-      "hail",
-      "tall",
-      "tool",
-      "well",
-      "wheel",
-      "wall",
-      "mail",
-      "nail",
-      "quail",
-      "pail",
-      "oil",
-      "gel",
-      "jail",
-      "doll"
-    ]
-  },
-  {
-    "id": "ri1",
-    "label": "R Initial Words 1",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "R Initial Words 1",
-    "words": [
-      "red",
-      "ray",
-      "ride",
-      "right",
-      "ring",
-      "rain",
-      "rose",
-      "rice",
-      "read",
-      "rocket",
-      "rug",
-      "robot",
-      "race",
-      "roof",
-      "reef",
-      "wreath",
-      "run",
-      "rope",
-      "rash",
-      "row"
-    ]
-  },
-  {
-    "id": "ri2",
-    "label": "R Initial Words 2",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "R Initial Words 2",
-    "words": [
-      "radish",
-      "rush",
-      "rabbit",
-      "write",
-      "rip",
-      "rub",
-      "road",
-      "rage",
-      "raid",
-      "rock",
-      "radio",
-      "ribbon",
-      "rooster",
-      "rainbow",
-      "rate",
-      "Ruth",
-      "rake",
-      "rot",
-      "rude",
-      "root"
-    ]
-  },
-  {
-    "id": "arm",
-    "label": "AR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "AR Medial Words",
-    "words": [
-      "garden",
-      "party",
-      "garage",
-      "market",
-      "marble",
-      "target",
-      "starfish",
-      "pardon",
-      "cartoon",
-      "harvest",
-      "carpet",
-      "sparkle",
-      "marshmallow",
-      "cardigan",
-      "armpit",
-      "farming",
-      "barley",
-      "darling",
-      "arctic",
-      "garbage"
-    ]
-  },
-  {
-    "id": "arm",
-    "label": "AR Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "AR Final Words",
-    "words": [
-      "car",
-      "czar",
-      "tar",
-      "par",
-      "jaguar",
-      "jar",
-      "R",
-      "scar",
-      "star",
-      "far",
-      "gar",
-      "guitar",
-      "crowbar",
-      "spar",
-      "cigar",
-      "avatar",
-      "handlebar",
-      "bazaar",
-      "sonar",
-      "sidecar"
-    ]
-  },
-  {
-    "id": "airmf",
-    "label": "AIR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "AIR Medial Words",
-    "words": [
-      "carrot",
-      "berry",
-      "fairy",
-      "parent",
-      "carousel",
-      "carry",
-      "cherry",
-      "dairy",
-      "haircut",
-      "arrow",
-      "hairy",
-      "careful",
-      "very",
-      "marry",
-      "parrot",
-      "sharing",
-      "arrow",
-      "taro",
-      "scary",
-      "sheriff"
-    ]
-  },
-  {
-    "id": "airf",
-    "label": "AIR Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "AIR Final Words",
-    "words": [
-      "bear",
-      "tear",
-      "share",
-      "care",
-      "lair",
-      "dare",
-      "fair",
-      "glare",
-      "hair",
-      "mare",
-      "pear",
-      "pair",
-      "wear",
-      "chair",
-      "square",
-      "flare",
-      "beware",
-      "where",
-      "wheelchair",
-      "scare"
-    ]
-  },
-  {
-    "id": "erm",
-    "label": "ER Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "ER Medial Words",
-    "words": [
-      "hurry",
-      "furry",
-      "worry",
-      "burrito",
-      "curry",
-      "purple",
-      "turkey",
-      "jury",
-      "purring",
-      "circle",
-      "turtle",
-      "person",
-      "curtain",
-      "circus",
-      "mermaid",
-      "thirty",
-      "dirty",
-      "surfing",
-      "birthday",
-      "learning"
-    ]
-  },
-  {
-    "id": "erf",
-    "label": "ER Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "ER Final Words",
-    "words": [
-      "her",
-      "fur",
-      "sure",
-      "lure",
-      "purr",
-      "tiger",
-      "teacher",
-      "paper",
-      "water",
-      "flower",
-      "spider",
-      "ladder",
-      "father",
-      "soccer",
-      "sir",
-      "stir",
-      "baker",
-      "sweater",
-      "sister",
-      "dollar"
-    ]
-  },
-  {
-    "id": "orm",
-    "label": "OR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "OR Medial Words",
-    "words": [
-      "fork",
-      "forty",
-      "boring",
-      "morning",
-      "story",
-      "forest",
-      "tornado",
-      "normal",
-      "foreign",
-      "fortress",
-      "important",
-      "normal",
-      "doorway",
-      "forklift",
-      "fortune",
-      "horseback",
-      "forget",
-      "stormy",
-      "shortcake",
-      "shoreline"
-    ]
-  },
-  {
-    "id": "orf",
-    "label": "OR Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "OR Final Words",
-    "words": [
-      "store",
-      "four",
-      "ore",
-      "more",
-      "tore",
-      "bore",
-      "snore",
-      "pour",
-      "soar",
-      "door",
-      "shore",
-      "core",
-      "war",
-      "chore",
-      "ignore",
-      "oar",
-      "boar",
-      "explore",
-      "sore",
-      "floor"
-    ]
-  },
-  {
-    "id": "irm",
-    "label": "IR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "IR Medial Words",
-    "words": [
-      "hero",
-      "zero",
-      "earring",
-      "cereal",
-      "serious",
-      "weirdo",
-      "cheerio",
-      "nearby",
-      "period",
-      "steering",
-      "hearing",
-      "shearing",
-      "miracle",
-      "mystery",
-      "cafeteria",
-      "clearance",
-      "teary",
-      "peering",
-      "cheering",
-      "gearbox"
-    ]
-  },
-  {
-    "id": "irf",
-    "label": "IR Final words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "r",
-    "folder": "IR Final Words",
-    "words": [
-      "here",
-      "ear",
-      "cheer",
-      "near",
-      "steer",
-      "clear",
-      "fear",
-      "shear",
-      "deer",
-      "gear",
-      "sear",
-      "engineer",
-      "pioneer",
-      "volunteer",
-      "clear",
-      "tear",
-      "pier",
-      "year",
-      "cashier",
-      "chandelier"
-    ]
-  },
-  {
-    "id": "mi",
-    "label": "M Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "m",
-    "folder": "M Initial Words",
-    "words": [
-      "moo",
-      "move",
-      "my",
-      "moss",
-      "mouse",
-      "moon",
-      "mop",
-      "milk",
-      "mail",
-      "man",
-      "muffin",
-      "magic",
-      "mitten",
-      "meadow",
-      "magnet",
-      "mushroom",
-      "mountain",
-      "mud",
-      "map",
-      "money"
-    ]
-  },
-  {
-    "id": "mm",
-    "label": "M Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "m",
-    "folder": "M Medial Words",
-    "words": [
-      "hammer",
-      "camel",
-      "lemon",
-      "family",
-      "cement",
-      "diamond",
-      "homework",
-      "flamingo",
-      "almond",
-      "domino",
-      "humming",
-      "summer",
-      "camera",
-      "snowman",
-      "comma",
-      "llama",
-      "yummy",
-      "tummy",
-      "tomato",
-      "women"
-    ]
-  },
-  {
-    "id": "mf",
-    "label": "M Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "m",
-    "folder": "M Final Words",
-    "words": [
-      "jam",
-      "lamb",
-      "dome",
-      "time",
-      "ram",
-      "him",
-      "um",
-      "swim",
-      "drum",
-      "comb",
-      "hum",
-      "game",
-      "home",
-      "foam",
-      "team",
-      "thumb",
-      "gem",
-      "clam",
-      "flame",
-      "gum"
-    ]
-  },
-  {
-    "id": "ni",
-    "label": "N Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "n",
-    "folder": "N Initial Words",
-    "words": [
-      "no",
-      "nail",
-      "knee",
-      "knock",
-      "knob",
-      "knight",
-      "night",
-      "nose",
-      "nice",
-      "neat",
-      "nap",
-      "net",
-      "noodle",
-      "nest",
-      "nurse",
-      "name",
-      "nickel",
-      "nugget",
-      "noisy",
-      "narwhal"
-    ]
-  },
-  {
-    "id": "nm",
-    "label": "N Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "n",
-    "folder": "N Medial Words",
-    "words": [
-      "bunny",
-      "dino",
-      "donut",
-      "tunnel",
-      "candle",
-      "pony",
-      "penny",
-      "honey",
-      "tiny",
-      "tennis",
-      "funny",
-      "money",
-      "dinner",
-      "winner",
-      "vanilla",
-      "minnow",
-      "sunny",
-      "tuna",
-      "piano",
-      "peanut"
-    ]
-  },
-  {
-    "id": "nf",
-    "label": "N Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "n",
-    "folder": "N Final Words",
-    "words": [
-      "cane",
-      "bun",
-      "can",
-      "pin",
-      "pan",
-      "pine",
-      "bean",
-      "fun",
-      "mine",
-      "done",
-      "chin",
-      "run",
-      "fan",
-      "sun",
-      "bone",
-      "on",
-      "down",
-      "spoon",
-      "van",
-      "man"
-    ]
-  },
-  {
-    "id": "pi",
-    "label": "P Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "p",
-    "folder": "P Initial Words",
-    "words": [
-      "pail",
-      "pool",
-      "pine",
-      "pony",
-      "pick",
-      "pie",
-      "peek",
-      "pig",
-      "park",
-      "pirate",
-      "panda",
-      "pillow",
-      "paint",
-      "pickle",
-      "princess",
-      "puddle",
-      "parrot",
-      "planet",
-      "pebble",
-      "picnic"
-    ]
-  },
-  {
-    "id": "pm",
-    "label": "P Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "p",
-    "folder": "P Medial Words",
-    "words": [
-      "apple",
-      "wrapper",
-      "happy",
-      "zipper",
-      "open",
-      "leopard",
-      "teapot",
-      "hippo",
-      "maple",
-      "diaper",
-      "whirlpool",
-      "weapon",
-      "captain",
-      "floppy",
-      "copy",
-      "tiptoe",
-      "loopy",
-      "supper",
-      "copper",
-      "typing"
-    ]
-  },
-  {
-    "id": "pf",
-    "label": "P Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "p",
-    "folder": "P Final Words",
-    "words": [
-      "whip",
-      "whip",
-      "top",
-      "hip",
-      "hop",
-      "keep",
-      "steep",
-      "jeep",
-      "mop",
-      "flip",
-      "shop",
-      "ship",
-      "chip",
-      "tip",
-      "dip",
-      "tape",
-      "cape",
-      "coop",
-      "soup",
-      "loop"
-    ]
-  },
-  {
-    "id": "si",
-    "label": "S Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
+    "id": "ths-si",
+    "label": "TH/S Minimal Pairs - Initial S",
+    "setType": "pairs",
+    "prompt": "Which word has the /s/ sound?",
     "targetSound": "s",
-    "folder": "S Initial Words",
-    "words": [
-      "seal",
-      "sour",
-      "seat",
-      "sick",
-      "saw",
-      "soap",
-      "soup",
-      "sock",
-      "sun",
-      "sink",
-      "soda",
-      "salt",
-      "sack",
-      "sew",
-      "sea",
-      "sand",
-      "salamander",
-      "sad",
-      "suit",
-      "side"
+    "contrastSound": "th",
+    "folder": "TH:S Minimal Pairs - Initial",
+    "pairs": [
+      [
+        "sore",
+        "thor"
+      ],
+      [
+        "sigh",
+        "thigh"
+      ],
+      [
+        "sank",
+        "thank"
+      ],
+      [
+        "some",
+        "thumb"
+      ],
+      [
+        "sick",
+        "thick"
+      ],
+      [
+        "saw",
+        "thaw"
+      ],
+      [
+        "sud",
+        "thud"
+      ],
+      [
+        "sink",
+        "think"
+      ],
+      [
+        "sing",
+        "thing"
+      ],
+      [
+        "sin",
+        "thin"
+      ],
+      [
+        "seam",
+        "theme"
+      ],
+      [
+        "sir",
+        "third"
+      ]
     ]
   },
   {
-    "id": "sm",
-    "label": "S Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
+    "id": "ths-thm",
+    "label": "TH/S Minimal Pairs - Medial TH",
+    "setType": "pairs",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "s",
+    "folder": "TH:S Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "bathtub",
+        "basket"
+      ],
+      [
+        "toothbrush",
+        "toaster"
+      ],
+      [
+        "bathroom",
+        "basset"
+      ],
+      [
+        "wealthy",
+        "whistle"
+      ],
+      [
+        "cathedral",
+        "castle"
+      ],
+      [
+        "truthful",
+        "tassel"
+      ],
+      [
+        "panther",
+        "possum"
+      ],
+      [
+        "python",
+        "pencil"
+      ],
+      [
+        "birthday",
+        "baseball"
+      ],
+      [
+        "author",
+        "also"
+      ],
+      [
+        "nothing",
+        "Nessie"
+      ],
+      [
+        "healthy",
+        "hissing"
+      ]
+    ]
+  },
+  {
+    "id": "ths-sm",
+    "label": "TH/S Minimal Pairs - Medial S",
+    "setType": "pairs",
+    "prompt": "Which word has the /s/ sound?",
     "targetSound": "s",
-    "folder": "S Medial Words",
-    "words": [
-      "whistle",
-      "castle",
-      "muscle",
-      "cassette",
-      "bicycle",
-      "dinosuar",
-      "messy",
-      "icey",
-      "lasso",
-      "iceberg",
-      "blossom",
-      "listen",
-      "wrestle",
-      "mossy",
-      "bossy",
-      "lacy",
-      "prissy",
-      "racing",
-      "tossing",
-      "chasing"
+    "contrastSound": "th",
+    "folder": "TH:S Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "basket",
+        "bathtub"
+      ],
+      [
+        "toaster",
+        "toothbrush"
+      ],
+      [
+        "basset",
+        "bathroom"
+      ],
+      [
+        "whistle",
+        "wealthy"
+      ],
+      [
+        "castle",
+        "cathedral"
+      ],
+      [
+        "tassel",
+        "truthful"
+      ],
+      [
+        "possum",
+        "panther"
+      ],
+      [
+        "pencil",
+        "python"
+      ],
+      [
+        "baseball",
+        "birthday"
+      ],
+      [
+        "also",
+        "author"
+      ],
+      [
+        "Nessie",
+        "nothing"
+      ],
+      [
+        "hissing",
+        "healthy"
+      ]
     ]
   },
   {
-    "id": "sf",
-    "label": "S Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
+    "id": "ths-thf",
+    "label": "TH/S Minimal Pairs - Final TH",
+    "setType": "pairs",
+    "prompt": "Which word has the /th/ sound?",
+    "targetSound": "th",
+    "contrastSound": "s",
+    "folder": "TH:S Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "mouth",
+        "mouse"
+      ],
+      [
+        "faith",
+        "face"
+      ],
+      [
+        "myth",
+        "miss"
+      ],
+      [
+        "path",
+        "pass"
+      ],
+      [
+        "fourth",
+        "force"
+      ],
+      [
+        "math",
+        "mass"
+      ],
+      [
+        "bath",
+        "bass"
+      ],
+      [
+        "moth",
+        "moss"
+      ],
+      [
+        "worth",
+        "worse"
+      ],
+      [
+        "oath",
+        "oats"
+      ],
+      [
+        "growth",
+        "gross"
+      ],
+      [
+        "truth",
+        "truce"
+      ]
+    ]
+  },
+  {
+    "id": "ths-sf",
+    "label": "TH/S Minimal Pairs - Final S",
+    "setType": "pairs",
+    "prompt": "Whicih word has the /s/ sound?",
     "targetSound": "s",
-    "folder": "S Final Words",
-    "words": [
-      "bus",
-      "rice",
-      "house",
-      "mouse",
-      "ice",
-      "goose",
-      "chase",
-      "face",
-      "lace",
-      "loose",
-      "base",
-      "vase",
-      "mice",
-      "nice",
-      "piece",
-      "toss",
-      "dice",
-      "floss",
-      "boss",
-      "moose"
-    ]
-  },
-  {
-    "id": "ti",
-    "label": "T Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "t",
-    "folder": "T Initial Words",
-    "words": [
-      "tall",
-      "taco",
-      "turtle",
-      "toast",
-      "tongue",
-      "tape",
-      "tiger",
-      "toy",
-      "time",
-      "tuna",
-      "TV",
-      "toes",
-      "tie",
-      "target",
-      "top",
-      "tank",
-      "table",
-      "teepee",
-      "towel",
-      "talk"
-    ]
-  },
-  {
-    "id": "tm",
-    "label": "T Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "t",
-    "folder": "T Medial Words",
-    "words": [
-      "butter",
-      "water",
-      "kitten",
-      "mitten",
-      "button",
-      "guitar",
-      "pretty",
-      "otter",
-      "little",
-      "whittle",
-      "pothole",
-      "hotel",
-      "hotter",
-      "cotton",
-      "metal",
-      "nettle",
-      "petal",
-      "writer",
-      "city",
-      "beetle"
-    ]
-  },
-  {
-    "id": "tf",
-    "label": "T Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "t",
-    "folder": "T Final Words",
-    "words": [
-      "white",
-      "rat",
-      "hat",
-      "hut",
-      "sit",
-      "eat",
-      "oat",
-      "boat",
-      "beet",
-      "bat",
-      "light",
-      "boot",
-      "cat",
-      "goat",
-      "coat",
-      "moat",
-      "knight",
-      "meat",
-      "pot",
-      "wheat"
-    ]
-  },
-  {
-    "id": "vi",
-    "label": "V Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "v",
-    "folder": "V Initial Words",
-    "words": [
-      "van",
-      "voice",
-      "vase",
-      "vice",
-      "violin",
-      "very",
-      "vine",
-      "vacuum",
-      "vest",
-      "vet",
-      "video",
-      "volcano",
-      "vanilla",
-      "veggies",
-      "vampire",
-      "village",
-      "vulture",
-      "visor",
-      "vole",
-      "vacation"
-    ]
-  },
-  {
-    "id": "vm",
-    "label": "V Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "v",
-    "folder": "V Medial Words",
-    "words": [
-      "over",
-      "oven",
-      "cover",
-      "seven",
-      "shovel",
-      "river",
-      "heavy",
-      "lavendar",
-      "fever",
-      "raven",
-      "navy",
-      "hover",
-      "clover",
-      "diving",
-      "saving",
-      "gravy",
-      "overalls",
-      "beaver",
-      "heaven",
-      "avocado"
-    ]
-  },
-  {
-    "id": "vf",
-    "label": "V Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "v",
-    "folder": "V Final Words",
-    "words": [
-      "move",
-      "cave",
-      "heave",
-      "stove",
-      "shove",
-      "shave",
-      "save",
-      "brave",
-      "sleeve",
-      "grave",
-      "dive",
-      "have",
-      "love",
-      "leave",
-      "pave",
-      "wave",
-      "weave",
-      "dove",
-      "give",
-      "hive"
-    ]
-  },
-  {
-    "id": "wi",
-    "label": "W Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "w",
-    "folder": "W Initial Words",
-    "words": [
-      "whale",
-      "wheel",
-      "whip",
-      "wipe",
-      "white",
-      "wheat",
-      "wake",
-      "wave",
-      "weave",
-      "walk",
-      "wagon",
-      "water",
-      "web",
-      "worm",
-      "wing",
-      "wind",
-      "waffle",
-      "wand",
-      "wizard",
-      "whisper"
-    ]
-  },
-  {
-    "id": "wm",
-    "label": "W Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "w",
-    "folder": "W Medial Words",
-    "words": [
-      "kiwi",
-      "flowy",
-      "flower",
-      "power",
-      "mower",
-      "towel",
-      "Hawaii",
-      "homework",
-      "awake",
-      "owl",
-      "seaweed",
-      "shower",
-      "growing",
-      "snowy",
-      "coward",
-      "lower",
-      "towing",
-      "tower",
-      "doughy",
-      "glowing"
-    ]
-  },
-  {
-    "id": "yi",
-    "label": "Y Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "y",
-    "folder": "Y Initial Words",
-    "words": [
-      "yak",
-      "yuck",
-      "you",
-      "young",
-      "yam",
-      "year",
-      "yes",
-      "yarn",
-      "yell",
-      "yolk",
-      "yummy",
-      "yard",
-      "yawn",
-      "yeti",
-      "yacht",
-      "yogurt",
-      "yodel",
-      "yeast",
-      "yellow",
-      "yucca"
-    ]
-  },
-  {
-    "id": "ym",
-    "label": "Y Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "y",
-    "folder": "Y Medial Words",
-    "words": [
-      "onion",
-      "canyon",
-      "vacuum",
-      "million",
-      "kayak",
-      "coyote",
-      "stallion",
-      "W",
-      "payer",
-      "higher",
-      "liar",
-      "fire",
-      "crayon",
-      "mayo",
-      "layer",
-      "billion",
-      "aquarium",
-      "wire",
-      "tire",
-      "stadium"
-    ]
-  },
-  {
-    "id": "zi",
-    "label": "Z Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "z",
-    "folder": "Z Initial Words",
-    "words": [
-      "zoo",
-      "zipper",
-      "zinnia",
-      "xylophone",
-      "zebra",
-      "zit",
-      "zucchini",
-      "zero",
-      "zoom",
-      "zinnia",
-      "zap",
-      "zombie",
-      "zinc",
-      "zodiac",
-      "zen",
-      "zany",
-      "zest",
-      "zillion",
-      "zeppelin",
-      "zebu"
-    ]
-  },
-  {
-    "id": "zm",
-    "label": "Z Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "z",
-    "folder": "Z Medial Words",
-    "words": [
-      "easy",
-      "music",
-      "lizard",
-      "wizard",
-      "cousin",
-      "busy",
-      "desert",
-      "laser",
-      "noisy",
-      "poison",
-      "raisin",
-      "lazy",
-      "crazy",
-      "cozy",
-      "dozen",
-      "fuzzy",
-      "thousand",
-      "daisy",
-      "frozen",
-      "present"
-    ]
-  },
-  {
-    "id": "zf",
-    "label": "Z Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "z",
-    "folder": "Z Final Words",
-    "words": [
-      "rose",
-      "pose",
-      "buzz",
-      "fuzz",
-      "please",
-      "breeze",
-      "tease",
-      "toes",
-      "maze",
-      "lose",
-      "doze",
-      "freeze",
-      "nose",
-      "keys",
-      "bees",
-      "cheese",
-      "sneeze",
-      "shoes",
-      "knees",
-      "gauze"
-    ]
-  },
-  {
-    "id": "vthi",
-    "label": "Voiced TH Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "th",
-    "folder": "Voiced TH Initial Words",
-    "words": [
-      "they",
-      "there",
-      "their",
-      "that",
-      "those",
-      "them",
-      "the",
-      "then",
-      "this",
-      "these",
-      "they're",
-      "thee",
-      "than",
-      "though"
-    ]
-  },
-  {
-    "id": "vthm",
-    "label": "Voiced TH Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "th",
-    "folder": "Voiced TH Medial Words",
-    "words": [
-      "feather",
-      "weather",
-      "together",
-      "brother",
-      "mother",
-      "father",
-      "clothing",
-      "breathing",
-      "wither",
-      "leather",
-      "another",
-      "feather",
-      "gather",
-      "bother",
-      "soothing",
-      "smoothie",
-      "other",
-      "seething",
-      "either",
-      "neither"
-    ]
-  },
-  {
-    "id": "vthf",
-    "label": "Voiced TH Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "th",
-    "folder": "Voiced TH Final Words",
-    "words": [
-      "lathe",
-      "clothe",
-      "bathe",
-      "teethe",
-      "seethe",
-      "soothe",
-      "smooth",
-      "breathe",
-      "loathe",
-      "sunbathe",
-      "wreathe",
-      "unclothe",
-      "tithe"
-    ]
-  },
-  {
-    "id": "thi",
-    "label": "TH Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "th",
-    "folder": "TH Initial Words",
-    "words": [
-      "thirty",
-      "thigh",
-      "thin",
-      "thirst",
-      "thank",
-      "thought",
-      "thor",
-      "thread",
-      "three",
-      "thresh",
-      "thrill",
-      "thumb",
-      "thick",
-      "thorn",
-      "thunder",
-      "throne",
-      "throw",
-      "thistle",
-      "thud",
-      "thaw"
-    ]
-  },
-  {
-    "id": "thm",
-    "label": "TH Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "th",
-    "folder": "TH Medial Words",
-    "words": [
-      "bathtub",
-      "toothbrush",
-      "bathroom",
-      "healthy",
-      "wealthy",
-      "python",
-      "panther",
-      "author",
-      "nothing",
-      "birthday",
-      "earthquake",
-      "cathedral",
-      "mouthwash",
-      "athlete",
-      "something",
-      "truthful",
-      "marathon",
-      "stethoscope",
-      "anything",
-      "toothache"
-    ]
-  },
-  {
-    "id": "thf",
-    "label": "TH Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "th",
-    "folder": "TH Final Words",
-    "words": [
-      "mouth",
-      "path",
-      "bath",
-      "tooth",
-      "earth",
-      "South",
-      "North",
-      "both",
-      "moth",
-      "cloth",
-      "truth",
-      "math",
-      "wreath",
-      "Ruth",
-      "faith",
-      "growth",
-      "sloth",
-      "month",
-      "broth",
-      "Keith"
-    ]
-  },
-  {
-    "id": "shi",
-    "label": "SH Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sh",
-    "folder": "SH Initial Words",
-    "words": [
-      "shoe",
-      "shy",
-      "ship",
-      "shop",
-      "shin",
-      "shear",
-      "share",
-      "shore",
-      "sheep",
-      "show",
-      "shirt",
-      "shot",
-      "shock",
-      "shawl",
-      "shack",
-      "sheet",
-      "shell",
-      "shake",
-      "shape",
-      "shave"
-    ]
-  },
-  {
-    "id": "shm",
-    "label": "SH Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sh",
-    "folder": "sh medial Words",
-    "words": [
-      "seashell",
-      "cushion",
-      "flashlight",
-      "lotion",
-      "ocean",
-      "washer",
-      "lashes",
-      "pushup",
-      "washing",
-      "dishes",
-      "wishing",
-      "fishing",
-      "mushy",
-      "potion",
-      "t-shirt",
-      "mushroom",
-      "cashier",
-      "hashbrown",
-      "ashes",
-      "mansion"
-    ]
-  },
-  {
-    "id": "shf",
-    "label": "SH Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sh",
-    "folder": "SH Final Words",
-    "words": [
-      "cash",
-      "lash",
-      "sash",
-      "leash",
-      "rash",
-      "flash",
-      "dish",
-      "mush",
-      "rush",
-      "ash",
-      "crush",
-      "mash",
-      "push",
-      "fish",
-      "cash",
-      "wash",
-      "wish",
-      "trash",
-      "bush",
-      "brush"
-    ]
-  },
-  {
-    "id": "chi",
-    "label": "CH Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "ch",
-    "folder": "CH Initial Words",
-    "words": [
-      "cheer",
-      "chew",
-      "chip",
-      "chop",
-      "chin",
-      "chain",
-      "cherry",
-      "chair",
-      "chore",
-      "cheap",
-      "cheese",
-      "choke",
-      "chase",
-      "chow",
-      "chalk",
-      "chill",
-      "char",
-      "cheek",
-      "chap",
-      "chuck"
-    ]
-  },
-  {
-    "id": "chf",
-    "label": "CH Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "ch",
-    "folder": "CH Final Words",
-    "words": [
-      "beach",
-      "rich",
-      "roach",
-      "notch",
-      "latch",
-      "hitch",
-      "such",
-      "loach",
-      "coach",
-      "batch",
-      "leech",
-      "torch",
-      "pinch",
-      "punch",
-      "peach",
-      "touch",
-      "ditch",
-      "lunch",
-      "itch",
-      "watch"
-    ]
-  },
-  {
-    "id": "chm",
-    "label": "CH Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "ch",
-    "folder": "CH Medial Words",
-    "words": [
-      "watcher",
-      "pitcher",
-      "batches",
-      "marching",
-      "witchy",
-      "peaches",
-      "itchy",
-      "crutches",
-      "beach ball",
-      "teacher",
-      "duchess",
-      "hitching",
-      "matches",
-      "nachos",
-      "launcher",
-      "statues",
-      "couches",
-      "kitchen",
-      "catching",
-      "roaches"
-    ]
-  },
-  {
-    "id": "bri",
-    "label": "BR Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "br",
-    "folder": "BR Initial Words",
-    "words": [
-      "brown",
-      "break",
-      "breeze",
-      "bro",
-      "brow",
-      "bright",
-      "brawl",
-      "broke",
-      "bread",
-      "brush",
-      "brave",
-      "brick",
-      "broom",
-      "bridge",
-      "brain",
-      "broccoli",
-      "bride",
-      "braid",
-      "bronze",
-      "bridle"
-    ]
-  },
-  {
-    "id": "brm",
-    "label": "BR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "br",
-    "folder": "BR Medial Words",
-    "words": [
-      "eyebrow",
-      "zebra",
-      "toothbrush",
-      "umbrella",
-      "cobra",
-      "sombrero",
-      "labryinth",
-      "vibrate",
-      "celebrate",
-      "debris",
-      "jailbreak",
-      "daybreak",
-      "February",
-      "library",
-      "algebra",
-      "celebrity",
-      "abroad",
-      "Abraham",
-      "embrace",
-      "gingerbread"
-    ]
-  },
-  {
-    "id": "dri",
-    "label": "DR Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "dr",
-    "folder": "DR Initial Words",
-    "words": [
-      "dragon",
-      "dress",
-      "drum",
-      "drink",
-      "drive",
-      "drop",
-      "dream",
-      "draw",
-      "drumstick",
-      "driveway",
-      "dribble",
-      "drag",
-      "drizzle",
-      "drain",
-      "drift",
-      "drape",
-      "drought",
-      "dry",
-      "droop",
-      "drama"
-    ]
-  },
-  {
-    "id": "drm",
-    "label": "DR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "dr",
-    "folder": "DR Medial Words",
-    "words": [
-      "children",
-      "laundry",
-      "bedroom",
-      "snowdrop",
-      "eardrum",
-      "handrail",
-      "headrest",
-      "address",
-      "Andrew",
-      "snowdrift",
-      "daydream",
-      "wardrobe",
-      "cauldron",
-      "screwdriver",
-      "hundred",
-      "hydrant",
-      "mandrill",
-      "hydrate",
-      "hydrogen",
-      "dendrite"
-    ]
-  },
-  {
-    "id": "fri",
-    "label": "FR Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "fr",
-    "folder": "FR Initial Words",
-    "words": [
-      "frog",
-      "fries",
-      "fruit",
-      "friend",
-      "free",
-      "freeze",
-      "fresh",
-      "fridge",
-      "frost",
-      "frill",
-      "freckle",
-      "front",
-      "frizzy",
-      "freedom",
-      "fright",
-      "fry",
-      "frame",
-      "freight",
-      "frisbee",
-      "Friday"
-    ]
-  },
-  {
-    "id": "frm",
-    "label": "FR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "fr",
-    "folder": "FR Medial Words",
-    "words": [
-      "afro",
-      "afraid",
-      "Africa",
-      "boyfriend",
-      "saffron",
-      "different",
-      "belfry",
-      "confront",
-      "defrost",
-      "alfredo",
-      "jackfruit",
-      "off ramp",
-      "sassafras",
-      "refresh",
-      "suffragette",
-      "diffraction",
-      "passionfruit",
-      "grapefruit",
-      "refrigerator",
-      "carefree"
-    ]
-  },
-  {
-    "id": "kri",
-    "label": "KR Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "kr",
-    "folder": "KR Initial Words",
-    "words": [
-      "crab",
-      "crack",
-      "crazy",
-      "cradle",
-      "craft",
-      "crane",
-      "crawl",
-      "crayon",
-      "crown",
-      "cream",
-      "crew",
-      "crash",
-      "crowd",
-      "cry",
-      "crepe",
-      "crust",
-      "crate",
-      "crone",
-      "crystal",
-      "creepy"
-    ]
-  },
-  {
-    "id": "krm",
-    "label": "KR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "kr",
-    "folder": "KR Medial Words",
-    "words": [
-      "across",
-      "secret",
-      "increase",
-      "decrease",
-      "microscope",
-      "lacrosse",
-      "microphone",
-      "macrame",
-      "aircraft",
-      "sacred",
-      "muskrat",
-      "chakra",
-      "okra",
-      "ice cream",
-      "acrobat",
-      "secretary",
-      "microwave",
-      "backrest",
-      "bankrupt",
-      "scarecrow"
-    ]
-  },
-  {
-    "id": "gri",
-    "label": "GR Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "gr",
-    "folder": "GR Initial Words",
-    "words": [
-      "grow",
-      "grass",
-      "green",
-      "grapes",
-      "grab",
-      "gross",
-      "grade",
-      "grandma",
-      "growl",
-      "grave",
-      "gravy",
-      "groom",
-      "gray",
-      "grin",
-      "grumpy",
-      "grizzly",
-      "granola",
-      "grandpa",
-      "gryffin",
-      "grain"
-    ]
-  },
-  {
-    "id": "grm",
-    "label": "GR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "gr",
-    "folder": "GR Medial Words",
-    "words": [
-      "angry",
-      "hungry",
-      "agree",
-      "degrees",
-      "ingredient",
-      "background",
-      "playground",
-      "disagree",
-      "degree",
-      "migrate",
-      "pedigree",
-      "pilgrim",
-      "telegram",
-      "progress",
-      "program",
-      "ingrown",
-      "photograph",
-      "underground",
-      "migration",
-      "photographer"
-    ]
-  },
-  {
-    "id": "pri",
-    "label": "PR Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "pr",
-    "folder": "PR Initial Words",
-    "words": [
-      "practice",
-      "pray",
-      "pry",
-      "pretty",
-      "price",
-      "prawn",
-      "prize",
-      "prick",
-      "present",
-      "prune",
-      "prison",
-      "proud",
-      "prank",
-      "prince",
-      "princess",
-      "pretzel",
-      "prance",
-      "problem",
-      "pretend",
-      "press"
-    ]
-  },
-  {
-    "id": "prm",
-    "label": "PR Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "pr",
-    "folder": "PR Initial Words",
-    "words": [
-      "apron",
-      "surprise",
-      "blueprint",
-      "fingerprint",
-      "capris",
-      "sprite",
-      "impress",
-      "improve",
-      "imprint",
-      "apricot",
-      "jumprope",
-      "espresso",
-      "express",
-      "compress",
-      "bedspread",
-      "depressed",
-      "bombproof",
-      "approve",
-      "approach",
-      "capriole"
-    ]
-  },
-  {
-    "id": "bli",
-    "label": "BL Initial words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "bl",
-    "folder": "BL Initial words",
-    "words": [
-      "blow",
-      "blood",
-      "blink",
-      "blossom",
-      "blue",
-      "black",
-      "blade",
-      "block",
-      "blaze",
-      "blonde",
-      "bloom",
-      "blob",
-      "blur",
-      "bleach",
-      "blouse",
-      "blinds",
-      "blank",
-      "blame",
-      "bling",
-      "blend"
-    ]
-  },
-  {
-    "id": "blm",
-    "label": "BL Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "bl",
-    "folder": "bl medial Words",
-    "words": [
-      "goblin",
-      "sibling",
-      "oblong",
-      "wobbly",
-      "bubbly",
-      "goblet",
-      "public",
-      "ablaze",
-      "problem",
-      "cobbler",
-      "pueblo",
-      "gobbler",
-      "tablet"
-    ]
-  },
-  {
-    "id": "fli",
-    "label": "FL Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "fl",
-    "folder": "FL Initial Words",
-    "words": [
-      "flood",
-      "fly",
-      "flavor",
-      "float",
-      "flute",
-      "flamingo",
-      "flag",
-      "flat",
-      "flip",
-      "flame",
-      "flower",
-      "floss",
-      "Florida",
-      "flat",
-      "floor",
-      "flake",
-      "flap",
-      "flan",
-      "flash",
-      "flea"
-    ]
-  },
-  {
-    "id": "flm",
-    "label": "FL Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "fl",
-    "folder": "FL Medial Words",
-    "words": [
-      "inflate",
-      "deflate",
-      "reflect",
-      "dragonfly",
-      "snowflake",
-      "sunflower",
-      "butterfly",
-      "backflip",
-      "mudflap",
-      "reflex",
-      "horsefly",
-      "bellyflop",
-      "cornflakes",
-      "cauliflower",
-      "camoflauge",
-      "firefly",
-      "frontflip",
-      "halfling"
-    ]
-  },
-  {
-    "id": "gli",
-    "label": "GL Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "gl",
-    "folder": "GL Initial Words",
-    "words": [
-      "glad",
-      "glass",
-      "glade",
-      "glow",
-      "glare",
-      "gloss",
-      "gloom",
-      "glob",
-      "glue",
-      "glove",
-      "globe",
-      "glide",
-      "glacier",
-      "glitter",
-      "glasses",
-      "glum",
-      "gluten",
-      "glaze",
-      "glyph",
-      "glee"
-    ]
-  },
-  {
-    "id": "glm",
-    "label": "GL Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "gl",
-    "folder": "GL Medial Words",
-    "words": [
-      "ugly",
-      "igloo",
-      "juggling",
-      "bugler",
-      "wriggling",
-      "froglet",
-      "wiggly",
-      "burglar",
-      "dangly",
-      "superglue",
-      "piglet",
-      "hang-glider",
-      "sunglasses",
-      "snowglobe",
-      "petroglyph",
-      "hieroglyphics",
-      "giggly",
-      "jiggly"
-    ]
-  },
-  {
-    "id": "kli",
-    "label": "KL Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "kl",
-    "folder": "KL Initial Words",
-    "words": [
-      "clay",
-      "climb",
-      "cloak",
-      "claw",
-      "clap",
-      "clip",
-      "cloud",
-      "class",
-      "clean",
-      "cloth",
-      "cleat",
-      "clear",
-      "clam",
-      "clarinet",
-      "clock",
-      "click",
-      "cliff",
-      "clone",
-      "club",
-      "close"
-    ]
-  },
-  {
-    "id": "klm",
-    "label": "KL Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "kl",
-    "folder": "Kl Medial Words",
-    "words": [
-      "duckling",
-      "necklace",
-      "cyclops",
-      "cycling",
-      "eclipse",
-      "eclair",
-      "prickly",
-      "recline",
-      "quickly",
-      "cyclone",
-      "nucleus",
-      "circlet",
-      "baclava",
-      "enclose",
-      "declare",
-      "dewclaw",
-      "unclean"
-    ]
-  },
-  {
-    "id": "pli",
-    "label": "PL Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "pl",
-    "folder": "PL Initial Words",
-    "words": [
-      "plate",
-      "please",
-      "plane",
-      "plum",
-      "plump",
-      "plus",
-      "plan",
-      "plug",
-      "pluck",
-      "play",
-      "plant",
-      "plaque",
-      "plow",
-      "plunge",
-      "plastic",
-      "plaster",
-      "plateau",
-      "plywood",
-      "plasma",
-      "plumber"
-    ]
-  },
-  {
-    "id": "plm",
-    "label": "PL Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "pl",
-    "folder": "PL Medial Words",
-    "words": [
-      "dumpling",
-      "stapler",
-      "eggplant",
-      "appliance",
-      "explain",
-      "complain",
-      "display",
-      "airplane",
-      "apply",
-      "multiply",
-      "fireplace",
-      "complete",
-      "deplete",
-      "droplet",
-      "sapling",
-      "chaplain",
-      "splash",
-      "splat",
-      "triplet",
-      "sampler"
-    ]
-  },
-  {
-    "id": "ski",
-    "label": "SK Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sk",
-    "folder": "SK Initial Words",
-    "words": [
-      "ski",
-      "skate",
-      "sky",
-      "skunk",
-      "skill",
-      "skin",
-      "skull",
-      "scar",
-      "skirt",
-      "scare",
-      "scarf",
-      "scooter",
-      "scab",
-      "school",
-      "skip",
-      "scales",
-      "skunk",
-      "scoop",
-      "scone",
-      "skillet"
-    ]
-  },
-  {
-    "id": "skm",
-    "label": "SK Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sk",
-    "folder": "SK Medial Words",
-    "words": [
-      "rescue",
-      "mosquito",
-      "iceskate",
-      "whiskers",
-      "basketball",
-      "telescope",
-      "microscope",
-      "escape",
-      "asking",
-      "discover",
-      "risky",
-      "basket",
-      "biscuit",
-      "high school",
-      "mascot",
-      "husky",
-      "rascal",
-      "preschool",
-      "muskrat",
-      "disco"
-    ]
-  },
-  {
-    "id": "skf",
-    "label": "SK Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sk",
-    "folder": "SK Final Words",
-    "words": [
-      "ask",
-      "mosque",
-      "whisk",
-      "disc",
-      "mask",
-      "tusk",
-      "husk",
-      "dusk",
-      "bask",
-      "desk",
-      "task",
-      "flask",
-      "musk",
-      "cask",
-      "mollusk",
-      "bisque",
-      "brisk",
-      "kiosk",
-      "obelisk",
-      "basilisk"
-    ]
-  },
-  {
-    "id": "sti",
-    "label": "ST Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "st",
-    "folder": "ST Initial Words",
-    "words": [
-      "stay",
-      "style",
-      "sty",
-      "stars",
-      "stare",
-      "steak",
-      "stall",
-      "steam",
-      "stairs",
-      "storm",
-      "stork",
-      "stag",
-      "stump",
-      "stop",
-      "steep",
-      "store",
-      "steer",
-      "stem",
-      "stash",
-      "stool"
-    ]
-  },
-  {
-    "id": "stm",
-    "label": "ST Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "st",
-    "folder": "ST Medial Words",
-    "words": [
-      "mustache",
-      "Easter",
-      "rooster",
-      "dusty",
-      "pasta",
-      "rusty",
-      "jester",
-      "poster",
-      "sister",
-      "mister",
-      "booster",
-      "thirsty",
-      "toaster",
-      "roller coaster",
-      "frosty",
-      "pastry",
-      "costume",
-      "custard",
-      "hamster",
-      "monster"
-    ]
-  },
-  {
-    "id": "stf",
-    "label": "ST Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "st",
-    "folder": "ST Final Words",
-    "words": [
-      "rest",
-      "trust",
-      "must",
-      "just",
-      "list",
-      "mist",
-      "wrist",
-      "dust",
-      "cast",
-      "pest",
-      "best",
-      "gust",
-      "West",
-      "vest",
-      "bust",
-      "rust",
-      "East",
-      "feast",
-      "fast",
-      "toast"
-    ]
-  },
-  {
-    "id": "spi",
-    "label": "SP Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sp",
-    "folder": "SP Initial Words",
-    "words": [
-      "spoon",
-      "spin",
-      "spill",
-      "spool",
-      "spot",
-      "speak",
-      "spoke",
-      "spit",
-      "spaghetti",
-      "sprain",
-      "spurs",
-      "spaceship",
-      "speech",
-      "sports",
-      "sprinkles",
-      "spider",
-      "splash",
-      "spa",
-      "sponge",
-      "spinach"
-    ]
-  },
-  {
-    "id": "spm",
-    "label": "SP Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sp",
-    "folder": "SP Medial Words",
-    "words": [
-      "aspen",
-      "whisper",
-      "hospital",
-      "newspaper",
-      "asparagus",
-      "teaspoon",
-      "display",
-      "crispy",
-      "osprey",
-      "airspace",
-      "aspirin",
-      "crispy",
-      "espresso",
-      "respect",
-      "respond",
-      "suspect",
-      "sunspot",
-      "passport",
-      "despair",
-      "suspenders"
-    ]
-  },
-  {
-    "id": "spf",
-    "label": "SP Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sp",
-    "folder": "SP Final Words",
-    "words": [
-      "rasp",
-      "gasp",
-      "clasp",
-      "wasp",
-      "crisp",
-      "grasp",
-      "wisp",
-      "lisp"
-    ]
-  },
-  {
-    "id": "sni",
-    "label": "SN Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sn",
-    "folder": "SN Initial Words",
-    "words": [
-      "snow",
-      "sneeze",
-      "snout",
-      "sneak",
-      "snail",
-      "snake",
-      "snap",
-      "snarl",
-      "snob",
-      "snag",
-      "snuggle",
-      "snooze",
-      "snack",
-      "snore",
-      "sneaker",
-      "sniff",
-      "snorkel",
-      "snip",
-      "snoop",
-      "snort"
-    ]
-  },
-  {
-    "id": "sli",
-    "label": "SL Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sl",
-    "folder": "SL Initial Words",
-    "words": [
-      "sleep",
-      "slip",
-      "slide",
-      "slob",
-      "slow",
-      "sled",
-      "sleigh",
-      "slice",
-      "slime",
-      "sloppy",
-      "sleeve",
-      "sloth",
-      "slick",
-      "slash",
-      "slug",
-      "slam",
-      "slab",
-      "slow",
-      "slanted",
-      "slope"
-    ]
-  },
-  {
-    "id": "slm",
-    "label": "SL Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sl",
-    "folder": "SL Medial Words",
-    "words": [
-      "bracelet",
-      "asleep",
-      "coleslaw",
-      "dislike",
-      "dislocate",
-      "dog sled",
-      "grasslands",
-      "parsley",
-      "wrestling",
-      "whistling",
-      "hustling",
-      "loosely",
-      "muesli",
-      "muslin",
-      "nicely",
-      "priceless",
-      "translator",
-      "useless",
-      "voiceless",
-      "misleading"
-    ]
-  },
-  {
-    "id": "slf",
-    "label": "SL Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sl",
-    "folder": "SL Final Words",
-    "words": [
-      "castle",
-      "pencil",
-      "wrestle",
-      "parcel",
-      "whistle",
-      "hustle",
-      "bustle",
-      "muscle",
-      "mussel",
-      "fossil",
-      "axle",
-      "diesel",
-      "counsel",
-      "morsel",
-      "jostle",
-      "capsule",
-      "thistle",
-      "tassel",
-      "tinsel",
-      "missile"
-    ]
-  },
-  {
-    "id": "smi",
-    "label": "SM Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sm",
-    "folder": "SM Initial Words",
-    "words": [
-      "small",
-      "smoke",
-      "smile",
-      "smudge",
-      "small",
-      "smash",
-      "smog",
-      "smack",
-      "smart",
-      "smelt",
-      "smother",
-      "smell",
-      "smooth",
-      "smirk",
-      "smoothie",
-      "smock",
-      "smear",
-      "smuggle",
-      "smokestack",
-      "smorgasbord"
-    ]
-  },
-  {
-    "id": "smm",
-    "label": "SM Medial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sm",
-    "folder": "SM Medial Words",
-    "words": [
-      "Christmas",
-      "placemat",
-      "policeman",
-      "asthma",
-      "basement",
-      "locksmith",
-      "outsmart",
-      "plasma",
-      "seismic",
-      "basmati",
-      "cosmic",
-      "blacksmith",
-      "salesman",
-      "mismatch",
-      "craftsman"
-    ]
-  },
-  {
-    "id": "smf",
-    "label": "SM Final Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sm",
-    "folder": "SM Final Words",
-    "words": [
-      "chasm",
-      "prism",
-      "spasm",
-      "baptism",
-      "optimism",
-      "criticism",
-      "tourism",
-      "heroism",
-      "magnetism",
-      "organism",
-      "vandalism",
-      "journalism",
-      "pessimism",
-      "favoritism",
-      "metabolism"
-    ]
-  },
-  {
-    "id": "swi",
-    "label": "SW Initial Words",
-    "setType": "single",
-    "prompt": "Practice the word!",
-    "targetSound": "sw",
-    "folder": "SW Initial Words",
-    "words": [
-      "sweat",
-      "sweater",
-      "sweet",
-      "swing",
-      "swell",
-      "swap",
-      "sweep",
-      "sway",
-      "swan",
-      "swoop",
-      "swipe",
-      "swift",
-      "swamp",
-      "swallow",
-      "swaddle",
-      "switch",
-      "swoon",
-      "swivel",
-      "swine",
-      "swab"
+    "contrastSound": "th",
+    "folder": "TH:S Minimal Pairs - Medial",
+    "pairs": [
+      [
+        "mouse",
+        "mouth"
+      ],
+      [
+        "faith",
+        "face"
+      ],
+      [
+        "miss",
+        "myth"
+      ],
+      [
+        "pass",
+        "path"
+      ],
+      [
+        "fourth",
+        "force"
+      ],
+      [
+        "mass",
+        "math"
+      ],
+      [
+        "bass",
+        "bath"
+      ],
+      [
+        "moss",
+        "moth"
+      ],
+      [
+        "worse",
+        "worth"
+      ],
+      [
+        "oats",
+        "oath"
+      ],
+      [
+        "gross",
+        "growth"
+      ],
+      [
+        "truth",
+        "truce"
+      ]
     ]
   }
 ]

@@ -130,7 +130,7 @@
     selectedBackground = bgs.length ? bgs[0].path : null;
 
     await WordSetChoose.loadCentralWordLists({
-      cacheVersion: '3',
+      cacheVersion: '4',
       onWordSets: function (sets) {
         if (sets && sets.length) config.wordSets = sets;
       },

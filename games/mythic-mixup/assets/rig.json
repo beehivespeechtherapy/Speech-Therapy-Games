@@ -1,0 +1,17 @@
+{
+  "canvas": {
+    "width": 1600,
+    "height": 1600
+  },
+  "layerOrder": [
+    "tail",
+    "body",
+    "backLegs",
+    "head",
+    "frontLegs"
+  ],
+  "stackOrigin": {
+    "x": 0,
+    "y": 0
+  }
+}

@@ -9,10 +9,42 @@
     return document.getElementById(id);
   }
 
+  function uniqueStrings(items) {
+    const out = [];
+    (items || []).forEach(function (item) {
+      if (!item) return;
+      const n = String(item).replace(/\/$/, '');
+      if (n && out.indexOf(n) === -1) out.push(n);
+    });
+    return out;
+  }
+
+  function wordListBases(opts) {
+    const bases = [];
+    if (opts && opts.basePath) bases.push(opts.basePath);
+    if (typeof document !== 'undefined') {
+      const origin = document.baseURI || (document.location && document.location.href);
+      if (origin) {
+        try { bases.push(new URL('../../word-lists/', origin).href); } catch (e) { /* ignore */ }
+        try { bases.push(new URL('../word-lists/', origin).href); } catch (e) { /* ignore */ }
+        try { bases.push(new URL('/word-lists/', origin).href); } catch (e) { /* ignore */ }
+      }
+    }
+    bases.push('../../word-lists');
+    bases.push('../word-lists');
+    bases.push('/word-lists');
+    return uniqueStrings(bases);
+  }
+
+  function fetchJson(url) {
+    return fetch(url, { cache: 'no-store' })
+      .then(function (r) { return r.ok ? r.json() : null; })
+      .catch(function () { return null; });
+  }
+
   function loadCentralWordLists(options) {
     const opts = options || {};
-    const base = (opts.basePath || '../../word-lists').replace(/\/$/, '');
-    const cache = opts.cacheBust !== false ? '?v=' + (opts.cacheVersion || '3') : '';
+    const cache = opts.cacheBust !== false ? '?v=' + (opts.cacheVersion || '4') : '';
     const target = opts.target || {};
     const assignSets = opts.onWordSets || function (sets) {
       if (target.wordSets !== undefined) target.wordSets = sets;
@@ -20,17 +52,9 @@
     const assignIndex = opts.onIndex || function (index) {
       if (target.wordSetsIndex !== undefined) target.wordSetsIndex = index;
     };
+    const bases = wordListBases(opts);
 
-    return Promise.all([
-      fetch(base + '/word-sets.json' + cache, { cache: 'no-store' })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .catch(function () { return null; }),
-      fetch(base + '/word-sets-index.json' + cache, { cache: 'no-store' })
-        .then(function (r) { return r.ok ? r.json() : null; })
-        .catch(function () { return null; })
-    ]).then(function (results) {
-      const sets = results[0];
-      const index = results[1];
+    function apply(sets, index) {
       if (Array.isArray(sets) && sets.length) {
         assignSets(sets);
         if (opts.mergeInto && Array.isArray(opts.mergeInto)) {
@@ -46,7 +70,22 @@
       }
       if (index) assignIndex(index);
       return { sets: sets, index: index };
-    });
+    }
+
+    function tryBase(i) {
+      if (i >= bases.length) return Promise.resolve(apply(null, null));
+      const base = bases[i];
+      return Promise.all([
+        fetchJson(base + '/word-sets.json' + cache),
+        fetchJson(base + '/word-sets-index.json' + cache)
+      ]).then(function (results) {
+        const sets = results[0];
+        if (Array.isArray(sets) && sets.length) return apply(sets, results[1]);
+        return tryBase(i + 1);
+      });
+    }
+
+    return tryBase(0);
   }
 
   function create(options) {
@@ -184,30 +223,56 @@
     }
 
     function showSingleWordSets() {
-      const sets = WC().filterSetsByType(getSets(), 'single');
       const r = root();
       const l = list();
       if (!r || !l) return;
-      l.style.display = 'none';
-      if (sets.length === 0) {
-        r.style.display = 'block';
-        r.innerHTML = '';
-        const backRow = document.createElement('div');
-        backRow.className = 'back-row';
-        const backBtn = document.createElement('button');
-        backBtn.type = 'button';
-        backBtn.textContent = '← Back';
-        backBtn.addEventListener('click', showMainChoice);
-        backRow.appendChild(backBtn);
-        r.appendChild(backRow);
-        const p = document.createElement('p');
-        p.style.color = hintColor;
-        p.style.textAlign = 'center';
-        p.textContent = 'No single-word sets yet. Add setType: single in your Google Sheet.';
-        r.appendChild(p);
+      const render = function (sets) {
+        if (!sets.length) {
+          l.style.display = 'none';
+          r.style.display = 'block';
+          r.innerHTML = '';
+          const backRow = document.createElement('div');
+          backRow.className = 'back-row';
+          const backBtn = document.createElement('button');
+          backBtn.type = 'button';
+          backBtn.textContent = '← Back';
+          backBtn.addEventListener('click', showMainChoice);
+          backRow.appendChild(backBtn);
+          r.appendChild(backRow);
+          const p = document.createElement('p');
+          p.style.color = hintColor;
+          p.style.textAlign = 'center';
+          p.textContent = 'No single-word sets found. Add setType: single in your Google Sheet.';
+          r.appendChild(p);
+          return;
+        }
+        renderSetList(sets, pickSet, showMainChoice);
+      };
+      const wc = WC();
+      const sets = wc && wc.filterSetsByType
+        ? wc.filterSetsByType(getSets(), 'single')
+        : getSets().filter(function (s) {
+          return String((s && s.setType) || '').toLowerCase() === 'single';
+        });
+      if (sets.length) {
+        render(sets);
         return;
       }
-      renderSetList(sets, pickSet, showMainChoice);
+      if (opts.ensureWordSets) {
+        l.style.display = 'none';
+        r.style.display = 'block';
+        r.innerHTML = '<p class="choose-subtitle">Loading word lists…</p>';
+        Promise.resolve(opts.ensureWordSets()).then(function () {
+          const next = wc && wc.filterSetsByType
+            ? wc.filterSetsByType(getSets(), 'single')
+            : getSets().filter(function (s) {
+              return String((s && s.setType) || '').toLowerCase() === 'single';
+            });
+          render(next);
+        }).catch(function () { render([]); });
+        return;
+      }
+      render(sets);
     }
 
     function showProcessList() {

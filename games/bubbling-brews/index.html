@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <title>Bubbling Brews - Speech Therapy Game</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      color: #2a1838;
+      background: #241433;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    #game-container { width: 100%; min-height: 100vh; position: relative; }
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+    .screen.hidden { display: none; }
+
+    .btn {
+      background: #7c4dff;
+      color: #fff;
+      border: none;
+      padding: 0.9rem 1.8rem;
+      font-size: 1.15rem;
+      border-radius: 999px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+    .btn:active { transform: scale(0.98); }
+
+    #intro-screen, #potion-screen, #victory-screen {
+      justify-content: center;
+      text-align: center;
+      gap: 1.25rem;
+      padding: 1.5rem;
+      background: linear-gradient(180deg, #4a2d78 0%, #f3e8ff 55%, #fff 100%);
+    }
+    #intro-screen h1, #potion-screen h2, #victory-screen h1 {
+      font-size: 2.1rem;
+      color: #3a2458;
+    }
+    .portrait-wrap {
+      width: 200px;
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .portrait-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .portrait-wrap img.missing { display: none; }
+    .art-fallback, .cover-fallback {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 0.75rem;
+      line-height: 1.3;
+      color: #5c4a78;
+      padding: 0.35rem;
+    }
+    .art-fallback[hidden], .cover-fallback[hidden] { display: none; }
+    #spellabelle-fallback {
+      width: 160px;
+      height: 160px;
+      border: 2px dashed #7c4dff;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.7);
+    }
+    .message {
+      max-width: 520px;
+      font-size: 1.2rem;
+      line-height: 1.6;
+      color: #3a2458;
+    }
+
+    #choose-screen {
+      background: linear-gradient(180deg, #efe4ff 0%, #fff 50%);
+      justify-content: flex-start;
+      padding: 1.5rem;
+      overflow-y: auto;
+      color: #3a2458;
+    }
+    #choose-screen h2 { font-size: 1.35rem; margin-bottom: 0.5rem; text-align: center; }
+    #choose-screen .choose-subtitle {
+      margin-bottom: 1rem;
+      text-align: center;
+      max-width: 520px;
+      line-height: 1.5;
+    }
+    .word-set-list, .choice-index-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    .choice-index-options .index-btn, .word-set-btn {
+      background: #fff;
+      border: 3px solid #7c4dff;
+      border-radius: 12px;
+      padding: 1rem 1.25rem;
+      font-size: 1rem;
+      color: #3a2458;
+      cursor: pointer;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    .word-set-btn { text-align: left; }
+    .choice-index-options .index-btn.secondary { border-color: #888; color: #555; }
+    .phoneme-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1rem;
+      max-width: 520px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    .phoneme-filters select {
+      padding: 0.5rem 0.75rem;
+      border-radius: 8px;
+      border: 2px solid #7c4dff;
+      background: #fff;
+      color: #3a2458;
+      font-size: 1rem;
+    }
+    .phoneme-filters .show-sets-btn {
+      padding: 0.5rem 1rem;
+      background: #7c4dff;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .back-row { margin-bottom: 0.75rem; max-width: 520px; width: 100%; margin-left: auto; margin-right: auto; }
+    .back-row button {
+      background: transparent;
+      border: 1px solid #7c4dff;
+      color: #3a2458;
+      padding: 0.4rem 0.75rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #play-screen {
+      padding: 0;
+      background: #2a1848;
+      overflow: hidden;
+    }
+    .scene-bg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .scene-bg.missing { display: none; }
+    .scene {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: grid;
+      grid-template-columns: minmax(200px, 280px) 1fr minmax(220px, 340px);
+      gap: 1rem;
+      padding: 1rem;
+      align-items: start;
+    }
+    .recipe-panel, .shelf-panel {
+      background: rgba(255, 248, 240, 0.92);
+      border-radius: 16px;
+      padding: 0.75rem;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+    .shelf-panel {
+      background: rgba(28, 18, 40, 0.82);
+      color: #fff;
+    }
+    .panel-label {
+      font-size: 0.95rem;
+      font-weight: 700;
+      margin-bottom: 0.6rem;
+    }
+    .shelf-panel .panel-label { color: #fff; }
+    #progress-label {
+      margin-top: 0.75rem;
+      font-size: 0.9rem;
+      color: #5c4a78;
+    }
+    #recipe-slots {
+      display: flex;
+      gap: 0.5rem;
+    }
+    .recipe-slot, .shelf-slot {
+      position: relative;
+      aspect-ratio: 1;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #fff;
+    }
+    .recipe-slot {
+      flex: 1;
+      border: 3px solid #e4d7f5;
+    }
+    .recipe-slot .bottle, .shelf-slot .bottle {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 6px;
+    }
+    .recipe-slot .bottle.missing, .shelf-slot .bottle.missing { display: none; }
+    .recipe-slot .art-fallback, .shelf-slot .art-fallback {
+      position: absolute;
+      inset: 0;
+    }
+    .recipe-slot.found { border-color: #3d9a4a; }
+    .found-mark {
+      display: none;
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      color: #2e7d32;
+      font-weight: 800;
+      font-size: 1.1rem;
+    }
+    .recipe-slot.found .found-mark { display: block; }
+
+    #shelf {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.55rem;
+    }
+    .shelf-slot {
+      border: none;
+      padding: 0;
+      cursor: pointer;
+    }
+    .shelf-slot:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
+      justify-self: center;
+      width: calc(50% - 0.3rem);
+    }
+    .shelf-slot .cover, .shelf-slot .cover-fallback {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+    .shelf-slot .cover { object-fit: cover; }
+    .shelf-slot .cover.missing { display: none; }
+    .shelf-slot .cover-fallback {
+      display: none;
+      background:
+        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 45%),
+        linear-gradient(145deg, #6b4c9a, #3a2460);
+      color: #fff;
+      font-size: 0.7rem;
+    }
+    .shelf-slot .cover.missing + .cover-fallback { display: flex; }
+    .shelf-slot.revealed .cover,
+    .shelf-slot.revealed .cover-fallback { display: none; }
+    .shelf-slot.revealed { cursor: default; }
+
+    #potion-art {
+      width: min(320px, 70vw);
+      height: min(320px, 50vh);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .potion-img { width: 100%; height: 100%; object-fit: contain; }
+    .potion-img.missing { display: none; }
+    #potion-art .art-fallback {
+      width: 220px;
+      height: 220px;
+      border: 2px dashed #7c4dff;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.75);
+    }
+
+    #discrimination-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    #discrimination-overlay.hidden { display: none; }
+    .discrimination-box {
+      background: #f7f0ff;
+      color: #3a2458;
+      border-radius: 24px;
+      padding: 2rem;
+      max-width: 720px;
+      width: 100%;
+    }
+    .discrimination-box h3 { text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; }
+    .word-choices { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .word-btn {
+      padding: 1rem 1.5rem;
+      font-size: 1.25rem;
+      background: #fff;
+      border: 3px solid #7c4dff;
+      border-radius: 16px;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      color: #3a2458;
+    }
+    .word-pair-img { width: 100px; height: 100px; object-fit: contain; }
+    .word-btn.correct { background: #7cb87c; border-color: #5a9a5a; color: #fff; }
+    .word-btn.incorrect { background: #e8a0a0; border-color: #c75c5c; color: #fff; }
+    .word-btn:disabled { cursor: default; }
+
+    @media (max-width: 800px) {
+      #play-screen { overflow: auto; }
+      .scene {
+        height: auto;
+        min-height: 100%;
+        grid-template-columns: 1fr;
+        overflow: visible;
+        align-content: start;
+      }
+      .shelf-slot:last-child:nth-child(odd) { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div id="game-container">
+    <section id="intro-screen" class="screen">
+      <div class="portrait-wrap">
+        <img id="spellabelle-img" alt="Spellabelle">
+        <span id="spellabelle-fallback" class="art-fallback" hidden>spellabelle.png</span>
+      </div>
+      <h1 id="intro-title">Bubbling Brews</h1>
+      <p class="message" id="intro-message">Spellabelle needs help making potions.</p>
+      <button class="btn" id="start-btn" type="button">Let's brew</button>
+    </section>
+
+    <section id="choose-screen" class="screen hidden">
+      <h2>Choose words to practice</h2>
+      <p class="choose-subtitle">Pick a word set, then find the potion ingredients on the shelf.</p>
+      <div id="choice-index-root"></div>
+      <div class="word-set-list" id="word-set-list" style="display:none;"></div>
+    </section>
+
+    <section id="play-screen" class="screen hidden">
+      <img id="scene-bg" class="scene-bg" alt="">
+      <div class="scene">
+        <aside class="recipe-panel">
+          <p class="panel-label">Find these</p>
+          <div id="recipe-slots"></div>
+          <p id="progress-label"></p>
+        </aside>
+        <div class="scene-center" aria-hidden="true"></div>
+        <aside class="shelf-panel">
+          <p class="panel-label">Ingredients</p>
+          <div id="shelf"></div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="potion-screen" class="screen hidden">
+      <h2 id="potion-message">You made a potion!!</h2>
+      <div id="potion-art"></div>
+      <button class="btn" id="potion-continue" type="button">Next potion</button>
+    </section>
+
+    <section id="victory-screen" class="screen hidden">
+      <h1>All brewed!</h1>
+      <p class="message" id="victory-message">You helped Spellabelle make every potion!</p>
+      <button class="btn" id="play-again-btn" type="button">Play again</button>
+    </section>
+  </div>
+
+  <div id="discrimination-overlay" class="hidden">
+    <div class="discrimination-box">
+      <h3 id="discrimination-prompt">Which word?</h3>
+      <div class="word-choices" id="word-choices"></div>
+    </div>
+  </div>
+
+  <script src="../../core/word-images.js"></script>
+  <script src="../../core/word-challenges.js"></script>
+  <script src="../../core/word-set-menus.js"></script>
+  <script src="../../core/word-set-choose.js"></script>
+  <script src="../../core/discrimination-round.js"></script>
+  <script src="js/game.js"></script>
+</body>
+</html>
