@@ -40,17 +40,18 @@
     }
     .btn:active { transform: scale(0.98); }
 
-    #intro-screen, #potion-screen, #victory-screen {
+    #intro-screen, #victory-screen {
       justify-content: center;
       text-align: center;
       gap: 1.25rem;
       padding: 1.5rem;
       background: linear-gradient(180deg, #4a2d78 0%, #f3e8ff 55%, #fff 100%);
     }
-    #intro-screen h1, #potion-screen h2, #victory-screen h1 {
+    #intro-screen h1, #victory-screen h1 {
       font-size: 2.1rem;
       color: #3a2458;
     }
+    #victory-screen .portrait-wrap { width: min(280px, 46vw); height: min(360px, 52vh); }
     .portrait-wrap {
       width: 200px;
       height: 200px;
@@ -163,139 +164,175 @@
 
     #play-screen {
       padding: 0;
-      background: #2a1848;
+      background: #1c1428;
       overflow: hidden;
+      align-items: center;
+      justify-content: center;
+    }
+    .stage {
+      position: relative;
+      width: min(100vw, calc(100dvh * 1.5));
+      height: min(100dvh, calc(100vw / 1.5));
+      max-width: 100vw;
+      max-height: 100dvh;
     }
     .scene-bg {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: fill;
+      pointer-events: none;
     }
-    .scene-bg.missing { display: none; }
-    .scene {
-      position: relative;
-      z-index: 1;
-      height: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: grid;
-      grid-template-columns: minmax(200px, 280px) 1fr minmax(220px, 340px);
-      gap: 1rem;
-      padding: 1rem;
-      align-items: start;
-    }
-    .recipe-panel, .shelf-panel {
-      background: rgba(255, 248, 240, 0.92);
-      border-radius: 16px;
-      padding: 0.75rem;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
-    }
-    .shelf-panel {
-      background: rgba(28, 18, 40, 0.82);
-      color: #fff;
-    }
-    .panel-label {
-      font-size: 0.95rem;
-      font-weight: 700;
-      margin-bottom: 0.6rem;
-    }
-    .shelf-panel .panel-label { color: #fff; }
-    #progress-label {
-      margin-top: 0.75rem;
-      font-size: 0.9rem;
-      color: #5c4a78;
-    }
-    #recipe-slots {
+    .recipe-panel {
+      position: absolute;
+      left: 1.4%;
+      top: 1.6%;
+      width: 54%;
       display: flex;
-      gap: 0.5rem;
-    }
-    .recipe-slot, .shelf-slot {
-      position: relative;
-      aspect-ratio: 1;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #fff;
+      gap: 1.2%;
+      padding: 1.2% 1.1%;
+      background: rgba(212, 168, 67, 0.48);
+      border: 3px solid rgba(255, 226, 150, 0.75);
+      border-radius: 28px;
+      box-shadow: 0 8px 18px rgba(70, 40, 8, 0.18);
+      z-index: 3;
     }
     .recipe-slot {
+      position: relative;
       flex: 1;
-      border: 3px solid #e4d7f5;
+      aspect-ratio: 1;
+      min-width: 0;
     }
-    .recipe-slot .bottle, .shelf-slot .bottle {
+    .recipe-slot img {
       width: 100%;
       height: 100%;
       object-fit: contain;
-      padding: 6px;
+      filter: drop-shadow(0 2px 2px rgba(0, 0, 0, 0.25));
     }
-    .recipe-slot .bottle.missing, .shelf-slot .bottle.missing { display: none; }
-    .recipe-slot .art-fallback, .shelf-slot .art-fallback {
-      position: absolute;
-      inset: 0;
-    }
-    .recipe-slot.found { border-color: #3d9a4a; }
+    .recipe-slot.placed { opacity: 0.45; }
     .found-mark {
       display: none;
       position: absolute;
-      top: 4px;
-      right: 6px;
-      color: #2e7d32;
+      right: 0;
+      bottom: 0;
+      width: 1.1rem;
+      height: 1.1rem;
+      border-radius: 50%;
+      background: #2e7d32;
+      color: #fff;
+      font-size: 0.75rem;
+      line-height: 1.1rem;
+      text-align: center;
       font-weight: 800;
-      font-size: 1.1rem;
     }
-    .recipe-slot.found .found-mark { display: block; }
+    .recipe-slot.placed .found-mark { display: block; }
 
-    #shelf {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0.55rem;
-    }
     .shelf-slot {
-      border: none;
-      padding: 0;
-      cursor: pointer;
-    }
-    .shelf-slot:last-child:nth-child(odd) {
-      grid-column: 1 / -1;
-      justify-self: center;
-      width: calc(50% - 0.3rem);
-    }
-    .shelf-slot .cover, .shelf-slot .cover-fallback {
       position: absolute;
-      inset: 0;
+      z-index: 2;
+      background: transparent;
+    }
+    .cover-btn {
       width: 100%;
       height: 100%;
+      padding: 6%;
+      border: none;
+      background: transparent;
+      cursor: pointer;
     }
-    .shelf-slot .cover { object-fit: cover; }
-    .shelf-slot .cover.missing { display: none; }
-    .shelf-slot .cover-fallback {
-      display: none;
-      background:
-        radial-gradient(circle at 30% 30%, rgba(255, 255, 255, 0.35), transparent 45%),
-        linear-gradient(145deg, #6b4c9a, #3a2460);
-      color: #fff;
-      font-size: 0.7rem;
+    .cover-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      pointer-events: none;
     }
-    .shelf-slot .cover.missing + .cover-fallback { display: flex; }
-    .shelf-slot.revealed .cover,
-    .shelf-slot.revealed .cover-fallback { display: none; }
-    .shelf-slot.revealed { cursor: default; }
+    .ingredient-img {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      width: 76%;
+      height: 76%;
+      transform: translate(-50%, -50%);
+      object-fit: contain;
+      pointer-events: none;
+      cursor: default;
+      filter: drop-shadow(0 3px 3px rgba(0, 0, 0, 0.35));
+    }
+    .ingredient-img.nudge {
+      width: 118%;
+      height: 118%;
+      pointer-events: auto;
+      cursor: grab;
+      touch-action: none;
+      z-index: 5;
+      animation: ingredient-nudge 1s ease-in-out infinite;
+    }
+    @keyframes ingredient-nudge {
+      0%, 100% { transform: translate(-50%, -50%); }
+      50% { transform: translate(-50%, -72%); }
+    }
 
+    .cauldron-drop {
+      position: absolute;
+      left: 17.5%;
+      top: 43%;
+      width: 15%;
+      height: 13%;
+      z-index: 2;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .cauldron-drop.active {
+      pointer-events: auto;
+      box-shadow: inset 0 0 0 3px rgba(255, 214, 120, 0.0);
+      animation: drop-glow 1.2s ease-in-out infinite;
+    }
+    @keyframes drop-glow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(255, 220, 120, 0.0); }
+      50% { box-shadow: 0 0 18px 6px rgba(255, 210, 90, 0.55); }
+    }
+    .brew-hint {
+      position: absolute;
+      left: 16%;
+      bottom: 3.5%;
+      z-index: 4;
+      margin: 0;
+      padding: 0.45rem 0.8rem;
+      border-radius: 999px;
+      background: rgba(255, 244, 214, 0.92);
+      color: #4a3210;
+      font-size: clamp(0.75rem, 1.5vw, 1rem);
+      font-weight: 700;
+      pointer-events: none;
+    }
+    .brew-hint.hidden { display: none; }
+
+    #potion-screen {
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1rem;
+      padding: 1.5rem 1rem 1.25rem;
+      background: #c8c8c8;
+      text-align: center;
+    }
     #potion-art {
-      width: min(320px, 70vw);
-      height: min(320px, 50vh);
+      flex: 1;
+      width: min(720px, 92vw);
       display: flex;
       align-items: center;
       justify-content: center;
+      min-height: 0;
     }
-    .potion-img { width: 100%; height: 100%; object-fit: contain; }
-    .potion-img.missing { display: none; }
-    #potion-art .art-fallback {
-      width: 220px;
-      height: 220px;
-      border: 2px dashed #7c4dff;
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.75);
+    .potion-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+    #potion-continue {
+      background: #e7c56a;
+      color: #3d2a0c;
+      font-weight: 800;
+      border-radius: 18px;
+      max-width: 640px;
+      width: min(640px, 94vw);
+      line-height: 1.3;
     }
 
     #discrimination-overlay {
@@ -337,17 +374,6 @@
     .word-btn.incorrect { background: #e8a0a0; border-color: #c75c5c; color: #fff; }
     .word-btn:disabled { cursor: default; }
 
-    @media (max-width: 800px) {
-      #play-screen { overflow: auto; }
-      .scene {
-        height: auto;
-        min-height: 100%;
-        grid-template-columns: 1fr;
-        overflow: visible;
-        align-content: start;
-      }
-      .shelf-slot:last-child:nth-child(odd) { width: 100%; }
-    }
   </style>
 </head>
 <body>
@@ -370,28 +396,24 @@
     </section>
 
     <section id="play-screen" class="screen hidden">
-      <img id="scene-bg" class="scene-bg" alt="">
-      <div class="scene">
-        <aside class="recipe-panel">
-          <p class="panel-label">Find these</p>
-          <div id="recipe-slots"></div>
-          <p id="progress-label"></p>
-        </aside>
-        <div class="scene-center" aria-hidden="true"></div>
-        <aside class="shelf-panel">
-          <p class="panel-label">Ingredients</p>
-          <div id="shelf"></div>
-        </aside>
+      <div class="stage" id="stage">
+        <img id="scene-bg" class="scene-bg" alt="">
+        <div class="recipe-panel" id="recipe-slots" aria-label="Ingredients to find"></div>
+        <div id="shelf"></div>
+        <div id="cauldron-drop" class="cauldron-drop" aria-hidden="true"></div>
+        <p id="brew-hint" class="brew-hint hidden">Tap it or drag it into the cauldron!</p>
       </div>
     </section>
 
     <section id="potion-screen" class="screen hidden">
-      <h2 id="potion-message">You made a potion!!</h2>
       <div id="potion-art"></div>
-      <button class="btn" id="potion-continue" type="button">Next potion</button>
+      <button class="btn" id="potion-continue" type="button">make another! We need 4 more!</button>
     </section>
 
     <section id="victory-screen" class="screen hidden">
+      <div class="portrait-wrap">
+        <img id="victory-spellabelle" alt="Spellabelle">
+      </div>
       <h1>All brewed!</h1>
       <p class="message" id="victory-message">You helped Spellabelle make every potion!</p>
       <button class="btn" id="play-again-btn" type="button">Play again</button>
@@ -410,6 +432,6 @@
   <script src="../../core/word-set-menus.js"></script>
   <script src="../../core/word-set-choose.js"></script>
   <script src="../../core/discrimination-round.js"></script>
-  <script src="js/game.js"></script>
+  <script src="js/game.js?v=3"></script>
 </body>
 </html>

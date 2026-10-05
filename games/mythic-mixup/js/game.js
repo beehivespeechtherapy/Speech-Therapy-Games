@@ -11,6 +11,14 @@
     backLegs: 'Back legs',
     tail: 'Tail',
   };
+  const SLOT_ICONS = {
+    head: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9.6 10.2L7.1 4.2 5.2 2.6l.8 2.7-2.4-.7 1.8 2.7 3.2 3.8z"/><path d="M14.4 10.2L16.9 4.2 18.8 2.6l-.8 2.7 2.4-.7-1.8 2.7-3.2 3.8z"/><ellipse cx="7.6" cy="11.1" rx="1.7" ry="2.2"/><ellipse cx="16.4" cy="11.1" rx="1.7" ry="2.2"/><ellipse cx="12" cy="14.3" rx="5.6" ry="5.9"/><ellipse cx="12" cy="17.8" rx="2.5" ry="2.1"/></svg>',
+    body: '<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="8.1" cy="6.9" rx="2.2" ry="2.5"/><ellipse cx="15.9" cy="6.9" rx="2.2" ry="2.5"/><ellipse cx="12" cy="8.4" rx="3.6" ry="3"/><ellipse cx="12" cy="14" rx="7.6" ry="7.6"/></svg>',
+    frontLegs: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.8 3.2h4.1v13.4a2.05 2.05 0 0 1-4.1 0V3.2z"/><path d="M13.1 3.2h4.1v13.4a2.05 2.05 0 0 1-4.1 0V3.2z"/></svg>',
+    backLegs: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.2 3.8h4.6c.5 2.6.3 5.4 0 8.4v5.1a2.3 2.3 0 0 1-4.6 0V3.8z"/><path d="M13.2 3.8h4.6v13.5a2.3 2.3 0 0 1-4.6 0c-.3-3-.5-5.8 0-8.4V3.8z"/></svg>',
+    tail: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 19.6c.6-7.2 6.2-13.2 14.4-11.4-4.6-3.6-10.8-1.4-12.4 4 3.2-4.6 10-6 14.6-1.6-4.8-3-10.8-1.6-13.2 3.8C7.2 16.4 5.8 18.2 5 19.6z"/></svg>',
+    background: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.6" cy="7" r="3.3"/><path d="M2.2 19.6 8.2 12l3.6 3.7L16.2 9.6 21.8 19.6z"/></svg>',
+  };
 
   let config = null;
   let selectedWordSet = null;
@@ -38,6 +46,14 @@
   let selectedAccessoryIds = [];
   let patternColor = '#2d2d2d';
   let accessoryColor = '#c47f2a';
+  let idleAnim = {
+    running: false,
+    raf: 0,
+    pose: null,
+    canvas: null,
+    t0: 0,
+    gen: 0,
+  };
 
   const PART_CARD_STEP = 128;
 
@@ -74,6 +90,41 @@
     const el = document.getElementById(id);
     if (el) el.classList.remove('hidden');
     if (audio) audio.onScreen(id);
+    if (id !== 'assembly-screen' && id !== 'victory-screen') stopIdleAnim();
+  }
+
+  function stopIdleAnim() {
+    idleAnim.running = false;
+    if (idleAnim.raf) {
+      cancelAnimationFrame(idleAnim.raf);
+      idleAnim.raf = 0;
+    }
+  }
+
+  function tickIdleAnim(now) {
+    if (!idleAnim.running || !idleAnim.pose || !idleAnim.canvas || !composer) {
+      idleAnim.raf = 0;
+      return;
+    }
+    if (!document.hidden) {
+      const t = Math.max(0, (now - idleAnim.t0) / 1000);
+      const ctx = idleAnim.canvas.getContext('2d');
+      composer.drawIdleFrame(ctx, idleAnim.pose, t);
+    }
+    idleAnim.raf = requestAnimationFrame(tickIdleAnim);
+  }
+
+  function startIdleAnim(canvas, pose) {
+    idleAnim.canvas = canvas;
+    idleAnim.pose = pose;
+    idleAnim.t0 = performance.now();
+    if (composer && canvas && pose) {
+      composer.drawIdleFrame(canvas.getContext('2d'), pose, 0);
+    }
+    if (!idleAnim.running) {
+      idleAnim.running = true;
+      idleAnim.raf = requestAnimationFrame(tickIdleAnim);
+    }
   }
 
   function shuffle(arr) {
@@ -805,8 +856,8 @@
     const useTint = phase === 'color' || phase === 'pattern' || phase === 'accessory' || phase === 'victory';
     const includePattern = phase === 'pattern' || phase === 'accessory' || phase === 'victory';
     const includeAccessory = phase === 'accessory' || phase === 'victory';
-    const ctx = canvas.getContext('2d');
-    await composer.render(ctx, equipped, {
+    const gen = ++idleAnim.gen;
+    const pose = await composer.prepareIdleLayers(equipped, {
       tint: useTint,
       color: tintColor,
       customColor: customColor,
@@ -817,6 +868,8 @@
       destW: canvas.width,
       destH: canvas.height,
     });
+    if (gen !== idleAnim.gen) return;
+    startIdleAnim(canvas, pose);
   }
 
   function visibleAssemblySlots() {
@@ -1167,7 +1220,7 @@
         (function (p, cvs) {
           const eq = {};
           eq[p.slot] = p.species;
-          composer.render(cvs.getContext('2d'), eq, { tint: false, destW: 108, destH: 108 })
+          composer.fillPartThumb(cvs, eq)
             .catch(function () { /* thumbnail optional */ });
         })(part, thumb);
 
@@ -1177,6 +1230,20 @@
     }
 
     restoreElScroll('parts-picker-viewport', pickerY, updatePartsScrollButtons);
+  }
+
+  function fillSlotButton(btn, iconKey, label) {
+    btn.innerHTML = '';
+    const icon = document.createElement('span');
+    icon.className = 'slot-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    icon.innerHTML = SLOT_ICONS[iconKey] || SLOT_ICONS.body;
+    const text = document.createElement('span');
+    text.className = 'slot-text';
+    text.textContent = label;
+    btn.appendChild(icon);
+    btn.appendChild(text);
+    btn.setAttribute('aria-label', label.replace(/\n/g, ' '));
   }
 
   function renderAssemblyMenu() {
@@ -1193,9 +1260,10 @@
         + (equipped[slot] ? ' filled' : '');
       const species = equipped[slot];
       const speciesLabel = species ? ((composer.getSpecies(species) || {}).label || species) : '';
-      btn.textContent = speciesLabel
+      const label = speciesLabel
         ? (SLOT_LABELS[slot] + (isOptionalSlot(slot) ? ' (opt.)' : '') + '\n' + speciesLabel)
         : SLOT_LABELS[slot] + (isOptionalSlot(slot) ? '\n(optional)' : '');
+      fillSlotButton(btn, slot, label);
       btn.addEventListener('click', function () {
         assemblyCategory = slot;
         resetPartsPickerScroll();
@@ -1208,7 +1276,7 @@
     const bgBtn = document.createElement('button');
     bgBtn.type = 'button';
     bgBtn.className = 'slot-menu-btn bg-btn' + (assemblyCategory === 'background' ? ' active' : '');
-    bgBtn.textContent = 'Background';
+    fillSlotButton(bgBtn, 'background', 'Background');
     bgBtn.addEventListener('click', function () {
       assemblyCategory = 'background';
       resetPartsPickerScroll();

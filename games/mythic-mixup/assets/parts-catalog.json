@@ -1,24 +1,24 @@
 {
-  "canvasSize": 1694,
-  "canvasWidth": 1694,
+  "canvasSize": 1786,
+  "canvasWidth": 1786,
   "canvasHeight": 1602,
   "contentBounds": {
-    "x": 466,
+    "x": 374,
     "y": 18,
-    "w": 1694,
+    "w": 1786,
     "h": 1602,
     "srcW": 2160,
     "srcH": 1620
   },
-  "assetVersion": 1790217597,
+  "assetVersion": 1790997380,
   "layerOrder": [
-    "body",
     "tail",
+    "body",
     "backLegs",
     "frontLegs",
-    "head"
+    "head",
+    "wings"
   ],
-  "overlayAfterSlot": "backLegs",
   "species": [
     {
       "id": "cerberus",
@@ -89,14 +89,21 @@
           "base": "Creature Parts/Legs (Front)/Dragon Front Legs.png"
         },
         "backLegs": {
-          "fill": "Creature Parts/Legs (Back)/Dragon Back Legs.png",
-          "base": "Creature Parts/Legs (Back)/Dragon Back Legs.png"
+          "fill": "Creature Parts/Legs (Back)/Fills/Dragon Back Legs Fill.png",
+          "outline": "Creature Parts/Legs (Back)/Outlines/Dragon Back Legs Outline.png",
+          "base": "Creature Parts/Legs (Back)/Fills/Dragon Back Legs Fill.png"
         },
         "tail": {
           "fill": "Creature Parts/Tails/Fills/Dragon Tail Fill.png",
           "outline": "Creature Parts/Tails/Outlines/Dragon Tail Outline.png",
           "custom": "Creature Parts/Custom/Dragon Tail (custom).png",
           "base": "Creature Parts/Tails/Fills/Dragon Tail Fill.png"
+        },
+        "wings": {
+          "fill": "Creature Parts/Wings/Dragon Wing Fill.png",
+          "outline": "Creature Parts/Wings/Dragon Wing Outline.png",
+          "custom": "Creature Parts/Custom/Dragon Wings (custom).png",
+          "base": "Creature Parts/Wings/Dragon Wing Fill.png"
         }
       },
       "onlySlots": null
@@ -114,21 +121,6 @@
         "body": {
           "fill": "Creature Parts/Bodies/Fills/Griffin Body Fill.png",
           "outline": "Creature Parts/Bodies/Outlines/Griffin Body Outline.png",
-          "custom": "Creature Parts/Custom/Griffin Body (custom).png",
-          "overlays": [
-            {
-              "kind": "fill",
-              "path": "Creature Parts/Overlays/Griffin body Fill overlay.png"
-            },
-            {
-              "kind": "custom",
-              "path": "Creature Parts/Custom/Griffin Body (custom).png"
-            },
-            {
-              "kind": "outline",
-              "path": "Creature Parts/Overlays/Griffin body Outline overlay.png"
-            }
-          ],
           "base": "Creature Parts/Bodies/Fills/Griffin Body Fill.png"
         },
         "frontLegs": {
@@ -143,8 +135,15 @@
           "base": "Creature Parts/Legs (Back)/Fills/Griffin Back Legs Fill.png"
         },
         "tail": {
-          "fill": "Creature Parts/Tails/Griffin Tail.png",
-          "base": "Creature Parts/Tails/Griffin Tail.png"
+          "fill": "Creature Parts/Tails/Fills/Griffin Tail Fill.png",
+          "outline": "Creature Parts/Tails/Outlines/Griffin Tail Outline.png",
+          "base": "Creature Parts/Tails/Fills/Griffin Tail Fill.png"
+        },
+        "wings": {
+          "fill": "Creature Parts/Wings/Griffin Wing Fill.png",
+          "outline": "Creature Parts/Wings/Griffin Wing Outline.png",
+          "custom": "Creature Parts/Custom/Griffin Wing (custom).png",
+          "base": "Creature Parts/Wings/Griffin Wing Fill.png"
         }
       },
       "onlySlots": null
@@ -200,7 +199,39 @@
               "path": "Creature Parts/Overlays/Hippocampus Tail Outline overlay.png"
             }
           ],
+          "variant2": {
+            "fill": "Creature Parts/Tails/Fills/Hippocampus Tail Fill Two.png",
+            "outline": "Creature Parts/Tails/Outlines/Hippocampus Tail Outline 2.png",
+            "custom": "Creature Parts/Custom/Hippocampus Tail (custom) 2.png",
+            "overlays": [
+              {
+                "kind": "fill",
+                "path": "Creature Parts/Overlays/Hippocampus Tail Fill overlay 2.png"
+              },
+              {
+                "kind": "custom",
+                "path": "Creature Parts/Overlays/Hippocampus Tail (custom) overlay 2.png"
+              },
+              {
+                "kind": "outline",
+                "path": "Creature Parts/Overlays/Hippocampus Tail Outline overlay 2.png"
+              }
+            ],
+            "base": "Creature Parts/Tails/Fills/Hippocampus Tail Fill Two.png"
+          },
+          "variant2ForBodies": [
+            "cerberus",
+            "griffin",
+            "kitsune",
+            "peryton",
+            "unicorn"
+          ],
           "base": "Creature Parts/Tails/Fills/Hippocampus Tail Fill.png"
+        },
+        "wings": {
+          "fill": "Creature Parts/Wings/Hippocampus Wing Fill.png",
+          "outline": "Creature Parts/Wings/Hippocampus Wing Outline.png",
+          "base": "Creature Parts/Wings/Hippocampus Wing Fill.png"
         }
       },
       "onlySlots": null
@@ -243,6 +274,44 @@
       "onlySlots": null
     },
     {
+      "id": "kraken",
+      "label": "Kraken",
+      "slots": {
+        "head": {
+          "fill": "Creature Parts/Heads/Fills/Kraken Head Fill.png",
+          "outline": "Creature Parts/Heads/Outlines/Kraken Head Outline.png",
+          "custom": "Creature Parts/Custom/Kraken Head (details).png",
+          "details": "Creature Parts/Details/Kraken Head (details).png",
+          "base": "Creature Parts/Heads/Fills/Kraken Head Fill.png"
+        },
+        "body": {
+          "fill": "Creature Parts/Bodies/Fills/Kraken Body Fill.png",
+          "outline": "Creature Parts/Bodies/Outlines/Kraken Body Outline.png",
+          "custom": "Creature Parts/Custom/Kraken Body (custom).png",
+          "base": "Creature Parts/Bodies/Fills/Kraken Body Fill.png"
+        },
+        "frontLegs": {
+          "fill": "Creature Parts/Legs (Front)/Fills/Kraken Front Legs Outline.png",
+          "outline": "Creature Parts/Legs (Front)/Outlines/Kraken Front Legs.png",
+          "custom": "Creature Parts/Custom/Kraken Front Legs (custom).png",
+          "base": "Creature Parts/Legs (Front)/Fills/Kraken Front Legs Outline.png"
+        },
+        "backLegs": {
+          "fill": "Creature Parts/Legs (Back)/Fills/Kraken Back Legs Fill.png",
+          "outline": "Creature Parts/Legs (Back)/Outlines/Kraken Back Legs Outline.png",
+          "custom": "Creature Parts/Custom/Kraken Back Legs (custom).png",
+          "base": "Creature Parts/Legs (Back)/Fills/Kraken Back Legs Fill.png"
+        },
+        "tail": {
+          "fill": "Creature Parts/Tails/Fills/Kraken Tail Fill.png",
+          "outline": "Creature Parts/Tails/Outlines/Kraken Tail Outline.png",
+          "custom": "Creature Parts/Custom/Kraken Tail (custom).png",
+          "base": "Creature Parts/Tails/Fills/Kraken Tail Fill.png"
+        }
+      },
+      "onlySlots": null
+    },
+    {
       "id": "peryton",
       "label": "Peryton",
       "slots": {
@@ -256,21 +325,6 @@
         "body": {
           "fill": "Creature Parts/Bodies/Fills/Peryton Body Fill.png",
           "outline": "Creature Parts/Bodies/Outlines/Peryton Body Outline.png",
-          "custom": "Creature Parts/Custom/Peryton Body (custom).png",
-          "overlays": [
-            {
-              "kind": "fill",
-              "path": "Creature Parts/Overlays/Peryton Wing Outline Fill overlay.png"
-            },
-            {
-              "kind": "custom",
-              "path": "Creature Parts/Custom/Peryton Body (custom).png"
-            },
-            {
-              "kind": "outline",
-              "path": "Creature Parts/Overlays/Peryton Wing Outline overlay.png"
-            }
-          ],
           "base": "Creature Parts/Bodies/Fills/Peryton Body Fill.png"
         },
         "frontLegs": {
@@ -288,6 +342,12 @@
           "fill": "Creature Parts/Tails/Fills/Peryton Tail Fill.png",
           "outline": "Creature Parts/Tails/Outlines/Peryton Tail Outline.png",
           "base": "Creature Parts/Tails/Fills/Peryton Tail Fill.png"
+        },
+        "wings": {
+          "fill": "Creature Parts/Wings/Peryton Wings Fill.png",
+          "outline": "Creature Parts/Wings/Peryton Wings Outline.png",
+          "custom": "Creature Parts/Custom/Peryton Body (custom).png",
+          "base": "Creature Parts/Wings/Peryton Wings Fill.png"
         }
       },
       "onlySlots": null

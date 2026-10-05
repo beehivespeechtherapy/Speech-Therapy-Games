@@ -21,7 +21,7 @@
       overflow: hidden;
     }
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-family: Palatino, 'Palatino Linotype', 'Book Antiqua', Georgia, serif;
       background: #1a2e1a;
       color: #e8f0e0;
       min-height: 100vh;
@@ -52,14 +52,16 @@
     }
 
     .btn {
-      background: #4a8c3f;
+      background: linear-gradient(180deg, #6bab5e 0%, #3d7a34 100%);
       color: #fff;
-      border: none;
+      border: 2px solid #e8d44d;
       padding: 0.85rem 1.75rem;
       font-size: 1.1rem;
+      font-family: inherit;
+      font-weight: 700;
       border-radius: 999px;
       cursor: pointer;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+      box-shadow: 0 4px 0 #2a4a24, 0 6px 14px rgba(0,0,0,0.28);
     }
     .btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .btn:active:not(:disabled) { transform: scale(0.97); }
@@ -124,10 +126,25 @@
     #intro-screen {
       justify-content: center;
       text-align: center;
-      background: linear-gradient(180deg, #3d6b3a 0%, #1a2e1a 60%);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(232,212,77,0.18), transparent 50%),
+        linear-gradient(180deg, #3d6b3a 0%, #1a2e1a 60%);
       gap: 1.5rem;
     }
-    #intro-screen h1 { font-size: 2rem; }
+    .plaque-title {
+      display: inline-block;
+      margin: 0 auto;
+      padding: 0.4rem 1.55rem 0.5rem;
+      background: linear-gradient(180deg, #f8edd4 0%, #e4d09a 55%, #d4bc7e 100%);
+      color: #3a2a14;
+      border: 3px solid #8a6230;
+      border-radius: 10px;
+      box-shadow: 0 4px 0 #5c3d1f, 0 8px 18px rgba(0,0,0,0.35);
+      font-weight: 700;
+      letter-spacing: 0.03em;
+      line-height: 1.2;
+    }
+    #intro-screen h1.plaque-title { font-size: 2rem; }
     #intro-screen .message { max-width: 520px; line-height: 1.6; font-size: 1.15rem; }
     .pickaxe-icon { width: 120px; height: 120px; object-fit: contain; }
 
@@ -251,7 +268,9 @@
     .hunt-header {
       width: 100%;
       padding: 0.75rem 1rem;
-      background: rgba(0,0,0,0.5);
+      background: linear-gradient(180deg, #5c3d1f 0%, #3d2816 100%);
+      border-bottom: 2px solid #e8d5a3;
+      color: #f8edd4;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -381,7 +400,8 @@
       justify-content: center;
       gap: 1rem;
       flex-wrap: wrap;
-      background: rgba(0,0,0,0.4);
+      background: linear-gradient(180deg, #3d2816 0%, #2a1c10 100%);
+      border-top: 2px solid #e8d5a3;
       flex-shrink: 0;
       z-index: 10;
     }
@@ -399,27 +419,30 @@
     }
     #discrimination-overlay.hidden { display: none; }
     .discrimination-box {
-      background: #eef6ea;
-      color: #243824;
-      border-radius: 24px;
+      background: linear-gradient(180deg, #f8edd4 0%, #e4d09a 100%);
+      color: #3a2a14;
+      border-radius: 18px;
       padding: 2rem;
       max-width: 720px;
       width: 100%;
+      border: 4px solid #8a6230;
+      box-shadow: 0 4px 0 #5c3d1f, 0 12px 28px rgba(0,0,0,0.4);
     }
     .discrimination-box h3 { text-align: center; margin-bottom: 1.5rem; font-size: 1.5rem; }
     .word-choices { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
     .word-btn {
       padding: 1rem 1.5rem;
       font-size: 1.25rem;
-      background: #dcead8;
-      border: 3px solid #4a8c3f;
+      font-family: inherit;
+      background: #fff6dc;
+      border: 3px solid #8a6230;
       border-radius: 16px;
       cursor: pointer;
       display: flex;
       flex-direction: column;
       align-items: center;
       gap: 0.5rem;
-      color: #243824;
+      color: #3a2a14;
     }
     .word-pair-img { width: 100px; height: 100px; object-fit: contain; }
     .word-btn.correct { background: #7cb87c; border-color: #5a9a5a; color: #fff; }
@@ -427,7 +450,9 @@
 
     /* Assembly */
     #assembly-screen:not(.hidden) {
-      background: linear-gradient(180deg, #3d5a3a 0%, #2a3f28 100%);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(232,213,163,0.12), transparent 42%),
+        linear-gradient(180deg, #4a3420 0%, #2c3d24 45%, #1e2a18 100%);
       height: 100dvh;
       max-height: 100dvh;
       min-height: 0;
@@ -448,7 +473,15 @@
       min-width: 0;
       box-sizing: border-box;
     }
-    #assembly-screen h2 { margin: 0; flex-shrink: 0; text-align: center; font-size: 1.25rem; }
+    #assembly-screen h2 {
+      margin: 0.15rem auto 0;
+      flex-shrink: 0;
+      text-align: center;
+      font-size: 1.2rem;
+      width: auto;
+      max-width: calc(100% - 7.5rem);
+      justify-self: center;
+    }
     .assembly-hint-wrap {
       flex-shrink: 0;
       min-height: 1.2em;
@@ -456,10 +489,10 @@
     #assembly-screen .assembly-hint {
       margin: 0;
       font-size: 0.78rem;
-      opacity: 0.92;
       text-align: center;
       flex-shrink: 0;
-      color: #e8f0e0;
+      color: #f3e6c4;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.45);
     }
     .assembly-workspace {
       min-height: 0;
@@ -478,6 +511,11 @@
       flex-direction: column;
       align-items: stretch;
       gap: 0.25rem;
+      padding: 0.35rem 0.3rem 0.45rem;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(92,61,31,0.78), rgba(40,24,12,0.88));
+      border: 2px solid rgba(232,213,163,0.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.28);
     }
     .assembly-color-panel {
       flex-shrink: 0;
@@ -488,8 +526,9 @@
       gap: 0.35rem;
       padding: 0.15rem 0.1rem;
       border-radius: 14px;
-      background: rgba(0,0,0,0.18);
-      border: 1px solid rgba(255,255,255,0.12);
+      background: linear-gradient(180deg, rgba(92,61,31,0.78), rgba(40,24,12,0.88));
+      border: 2px solid rgba(232,213,163,0.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.28);
     }
     .assembly-color-panel.hidden { display: none; }
     .assembly-color-panel-label {
@@ -497,8 +536,7 @@
       font-size: 0.72rem;
       font-weight: 700;
       text-align: center;
-      color: #e8f0e0;
-      line-height: 1.25;
+      color: #f3e6c4;
       flex-shrink: 0;
     }
     .assembly-color-panel-grid {
@@ -544,9 +582,9 @@
       width: 32px;
       height: 28px;
       border-radius: 8px;
-      background: rgba(255,255,255,0.12);
-      border: 1px solid rgba(255,255,255,0.28);
-      color: #e8f0e0;
+      background: linear-gradient(180deg, #7a5230, #5a3a20);
+      border: 1px solid #e8d5a3;
+      color: #f8edd4;
       font-size: 1rem;
       line-height: 1;
       cursor: pointer;
@@ -574,28 +612,48 @@
       border-radius: 3px;
     }
     .slot-menu-btn {
-      background: rgba(255,255,255,0.1);
-      border: 2px solid rgba(255,255,255,0.28);
+      background: linear-gradient(180deg, #8a5a32 0%, #5c3a1e 100%);
+      border: 2px solid #e8d5a3;
       border-radius: 16px;
-      padding: 0.6rem 0.5rem;
-      color: #e8f0e0;
-      font-size: 0.82rem;
-      font-weight: 600;
+      padding: 0.45rem 0.4rem 0.5rem;
+      color: #f8edd4;
+      font-size: 0.72rem;
+      font-family: inherit;
+      font-weight: 700;
       cursor: pointer;
       text-align: center;
       transition: background 0.15s, border-color 0.15s, transform 0.1s;
-      line-height: 1.2;
+      line-height: 1.15;
       white-space: pre-line;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.12rem;
+      box-shadow: 0 2px 0 #3d2816;
     }
-    .slot-menu-btn:hover { background: rgba(255,255,255,0.16); }
+    .slot-menu-btn:hover { background: linear-gradient(180deg, #9a6a40 0%, #6c4a28 100%); }
     .slot-menu-btn:active { transform: scale(0.97); }
     .slot-menu-btn.active {
-      background: #4a8c3f;
+      background: linear-gradient(180deg, #6bab5e 0%, #3d7a34 100%);
       border-color: #e8d44d;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+      box-shadow: 0 2px 0 #2a4a24, 0 3px 10px rgba(0,0,0,0.3);
     }
-    .slot-menu-btn.filled:not(.active) { border-color: #7cb87c; }
-    .slot-menu-btn.bg-btn { margin-top: 0.35rem; }
+    .slot-menu-btn.filled:not(.active) { border-color: #c4e08a; }
+    .slot-menu-btn.bg-btn { margin-top: 0.2rem; }
+    .slot-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+    }
+    .slot-icon svg {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+      stroke: none;
+    }
+    .slot-text { display: block; }
     .assembly-stage-wrap {
       flex: 1;
       min-width: 0;
@@ -607,13 +665,14 @@
     }
     .dino-stage {
       position: relative;
-      border-radius: 12px;
+      border-radius: 14px;
       overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
       background: #243324;
-      box-shadow: 0 4px 20px rgba(0,0,0,0.35);
+      border: 5px solid #8a6230;
+      box-shadow: inset 0 0 0 2px #e8d5a3, 0 8px 22px rgba(0,0,0,0.4);
     }
     #assembly-screen .dino-stage {
       aspect-ratio: 3 / 2;
@@ -663,14 +722,17 @@
       flex-direction: column;
       align-items: center;
       gap: 0.3rem;
-      padding: 0.1rem 0.15rem 0.1rem 0.35rem;
-      border-left: 1px solid rgba(255,255,255,0.15);
+      padding: 0.35rem 0.3rem 0.4rem 0.35rem;
+      border-radius: 16px;
+      background: linear-gradient(180deg, rgba(92,61,31,0.78), rgba(40,24,12,0.88));
+      border: 2px solid rgba(232,213,163,0.45);
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.12), 0 4px 12px rgba(0,0,0,0.28);
     }
     .parts-picker-label {
       font-size: 0.78rem;
       margin: 0;
-      color: #e8f0e0;
-      font-weight: 600;
+      color: #f3e6c4;
+      font-weight: 700;
       text-align: center;
       line-height: 1.2;
       flex-shrink: 0;
@@ -679,9 +741,9 @@
       width: 42px;
       height: 32px;
       border-radius: 10px;
-      background: #4a8c3f;
-      border: 2px solid #e8d44d;
-      color: #fff;
+      background: linear-gradient(180deg, #7a5230, #5a3a20);
+      border: 2px solid #e8d5a3;
+      color: #f8edd4;
       font-size: 1.1rem;
       line-height: 1;
       cursor: pointer;
@@ -690,7 +752,7 @@
       justify-content: center;
       padding: 0;
       flex-shrink: 0;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+      box-shadow: 0 2px 0 #3d2816;
     }
     .parts-nav-btn:disabled { opacity: 0.35; cursor: not-allowed; }
     .parts-picker-viewport {
@@ -724,18 +786,19 @@
       flex: 0 0 auto;
       width: var(--part-card-width, 120px);
       scroll-snap-align: start;
-      background: rgba(255,255,255,0.14);
+      background: linear-gradient(180deg, #f7edd4 0%, #e4d09a 100%);
       border-radius: 14px;
       padding: 0.5rem;
       cursor: pointer;
-      border: 3px solid transparent;
+      border: 3px solid #8a6230;
       text-align: center;
       transition: border-color 0.15s, transform 0.1s;
+      box-shadow: 0 2px 0 #5c3d1f;
     }
     .part-card:hover { transform: translateY(-2px); }
     .part-card.selected {
       border-color: #e8d44d;
-      background: rgba(196,127,42,0.25);
+      background: linear-gradient(180deg, #fff6dc 0%, #efd89a 100%);
     }
     .part-card canvas,
     .part-card .part-thumb-img {
@@ -755,20 +818,20 @@
     .part-card .part-label {
       font-size: 0.68rem;
       line-height: 1.25;
-      color: #f5f0e6;
-      font-weight: 500;
+      color: #3a2a14;
+      font-weight: 700;
     }
     .part-card-none .part-none-icon {
       width: 100px;
       height: 100px;
       border-radius: 10px;
-      border: 2px dashed rgba(255,255,255,0.45);
+      border: 2px dashed #8a6230;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 2.5rem;
-      color: rgba(255,255,255,0.7);
-      background: rgba(0,0,0,0.2);
+      color: #8a6230;
+      background: rgba(255,255,255,0.25);
     }
     .part-card-none.selected .part-none-icon {
       border-color: #e8d44d;
@@ -892,8 +955,8 @@
       justify-content: center;
       gap: 0.75rem;
       padding: 0.35rem 0 0.15rem;
-      border-top: 1px solid rgba(255,255,255,0.12);
-      background: linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.12) 100%);
+      border-top: 1px solid rgba(232,213,163,0.28);
+      background: linear-gradient(180deg, transparent 0%, rgba(40,24,12,0.35) 100%);
     }
     .assembly-action-bar.hidden { display: none; }
     .color-card {
@@ -913,15 +976,15 @@
       box-shadow: 0 0 0 2px #e8d44d;
     }
     .color-card .part-label {
-      color: #f5f0e6;
+      color: #3a2a14;
     }
     .btn-secondary {
-      background: rgba(255,255,255,0.15);
-      color: #e8f0e0;
-      border: 2px solid rgba(255,255,255,0.35);
-      box-shadow: none;
+      background: linear-gradient(180deg, #8a5a32 0%, #5c3a1e 100%);
+      color: #f8edd4;
+      border: 2px solid #e8d5a3;
+      box-shadow: 0 3px 0 #3d2816;
     }
-    .btn-secondary:hover { background: rgba(255,255,255,0.22); }
+    .btn-secondary:hover { background: linear-gradient(180deg, #9a6a40 0%, #6c4a28 100%); }
     .hunt-footer .btn-secondary { font-size: 0.95rem; padding: 0.7rem 1.25rem; }
     #color-swatches { display: none; }
 
@@ -929,10 +992,12 @@
     #victory-screen {
       justify-content: center;
       text-align: center;
-      background: linear-gradient(180deg, #3d6b3a 0%, #1a2e1a 70%);
+      background:
+        radial-gradient(ellipse at 50% 0%, rgba(232,212,77,0.18), transparent 50%),
+        linear-gradient(180deg, #3d6b3a 0%, #1a2e1a 70%);
       gap: 1rem;
     }
-    #victory-screen h1 { font-size: 1.75rem; }
+    #victory-screen h1.plaque-title { font-size: 1.75rem; }
     @media (max-width: 600px) {
       .assembly-menu-wrap { width: 96px; }
       .parts-picker { width: 128px; min-width: 128px; }
@@ -980,7 +1045,7 @@
   <div id="game-container">
     <section id="intro-screen" class="screen">
       
-      <h1>Mythic Mix-Up</h1>
+      <h1 class="plaque-title">Mythic Mix-Up</h1>
       <p class="message" id="intro-message">Welcome to the enchanted grove!</p>
       <button class="btn" id="start-btn">Start exploring</button>
     </section>
@@ -1007,7 +1072,7 @@
     </section>
 
     <section id="assembly-screen" class="screen hidden">
-      <h2 id="assembly-title">Assemble your creature</h2>
+      <h2 id="assembly-title" class="plaque-title">Assemble your creature</h2>
       <div class="assembly-hint-wrap">
         <p class="assembly-hint assembly-hint-parts">Choose a body part on the left, then tap a piece on the right to equip it.</p>
         <p class="assembly-hint assembly-hint-color">Tap a color on the right to paint your creature!</p>
@@ -1063,7 +1128,7 @@
     </section>
 
     <section id="victory-screen" class="screen hidden">
-      <h1>You did it!</h1>
+      <h1 class="plaque-title">You did it!</h1>
       <p id="victory-msg">Amazing!</p>
       <div class="dino-stage landscape-stage victory-stage" id="victory-stage">
         <img class="stage-bg" id="victory-stage-bg" alt="" hidden>
@@ -1087,14 +1152,14 @@
 
   <script type="application/json" id="game-config">{"title":"Mythic Mix-Up","accessoriesVersion":4,"intro":{"message":"Welcome to the enchanted grove! Brush away the moss, practice your words, and collect mythical relics. Then build and color your own creature!"},"hunt":{"gridCols":5,"gridRows":4,"itemsPerGame":10,"brushRadius":22,"revealThreshold":0.72,"coverSquare":"mossy-square.png","background":"backgrounds/hunt-background.png","gridInset":{"top":0.07,"right":0.07,"bottom":0.08,"left":0.07},"itemImages":["Items/brown-egg.jpeg","Items/gold-egg.jpeg","Items/green-egg.jpeg","Items/red-egg.jpeg","Items/ice-egg.jpeg","Items/claw.jpeg","Items/dragon-scale.jpeg","Items/green-scale.jpeg","Items/feather.jpeg","Items/griffin-feather.jpeg","Items/fin.jpeg","Items/kitsune-fur.jpeg","Items/paw-print.jpeg"]},"slots":{"head":"Head","body":"Body","frontLegs":"Front legs","backLegs":"Back legs","tail":"Tail"},"assemblyRequiredSlots":["head","body","tail"],"assemblyOptionalSlots":["frontLegs","backLegs"],"assemblyBackgrounds":[{"id":"workshop","label":"Workshop","path":"backgrounds/assembly-background.png"},{"id":"asian-forest","label":"Asian forest","path":"backgrounds/asian-forest.jpeg"},{"id":"dragon-cave","label":"Dragon cave","path":"backgrounds/dragon-cave.jpeg"},{"id":"enchanted-forest","label":"Enchanted forest","path":"backgrounds/enchanted-forest.jpeg"},{"id":"meadow","label":"Meadow","path":"backgrounds/meadow.jpeg"},{"id":"mountaintop","label":"Mountaintop","path":"backgrounds/mountaintop.jpeg"},{"id":"ocean","label":"Ocean","path":"backgrounds/ocean.jpeg"}],"patternColors":["#2d2d2d","#4a4a4a","#8b4513","#c47f2a","#e8d44d","#8b3a3a","#6b4c9a","#2d6a9f","#f0f0f0","#1a1a1a"],"patterns":[{"id":"none","label":"None","type":"none"},{"id":"armor","label":"Armor scales","type":"tile","path":"Patterns/Tiles/armor-texture.png","preview":"Patterns/Previews/armor-texture.png","blend":"source-over","tileMode":"repeat","tileRepeatPx":280,"colorize":"alpha","applyScope":"full","colorStrength":1},{"id":"feathers","label":"Feathers","type":"tile","path":"Patterns/Tiles/feather-texture.png","preview":"Patterns/Previews/feather-texture.png","blend":"source-over","tileMode":"repeat","tileRepeatPx":300,"colorize":"alpha","applyScope":"full","colorStrength":1},{"id":"leopard","label":"Leopard print","type":"tile","path":"Patterns/Tiles/leopard-print.png","preview":"Patterns/Previews/leopard-print.png","blend":"source-over","tileMode":"repeat","tileRepeatPx":320,"colorize":"alpha","applyScope":"full","colorStrength":1},{"id":"tiger-stripes","label":"Tiger stripes","type":"tile","path":"Patterns/Tiles/tiger-stripes.png","preview":"Patterns/Previews/tiger-stripes.png","blend":"source-over","tileMode":"repeat","tileRepeatPx":260,"colorize":"alpha","applyScope":"full","colorStrength":1},{"id":"zebra-stripes","label":"Zebra stripes","type":"tile","path":"Patterns/Tiles/zebra-stripes.png","preview":"Patterns/Previews/zebra-stripes.png","blend":"source-over","tileMode":"repeat","tileRepeatPx":260,"colorize":"alpha","applyScope":"full","colorStrength":1},{"id":"lightning-bolts","label":"Lightning bolts","type":"tile","path":"Patterns/Tiles/lightning-bolts.png","preview":"Patterns/Previews/lightning-bolts.png","blend":"source-over","tileMode":"repeat","tileRepeatPx":280,"colorize":"alpha","applyScope":"full","colorStrength":1},{"id":"lightning","label":"Lightning","type":"overlay","path":"Patterns/Overlays/lightning-texture.png","preview":"Patterns/Previews/lightning-texture.png","blend":"source-over","colorize":"alpha","colorStrength":1},{"id":"flames-red","label":"Flames (red)","type":"overlay","path":"Patterns/Overlays/flames-red.png","preview":"Patterns/Previews/flames-red.png","blend":"source-over","tintOverlay":false},{"id":"flames-green","label":"Flames (green)","type":"overlay","path":"Patterns/Overlays/flames-green.png","preview":"Patterns/Previews/flames-green.png","blend":"source-over","tintOverlay":false},{"id":"flames-purple","label":"Flames (purple)","type":"overlay","path":"Patterns/Overlays/flames-purple.png","preview":"Patterns/Previews/flames-purple.png","blend":"source-over","tintOverlay":false}],"accessories":[{"id":"none","label":"None"},{"id":"crown","label":"Crown","fileBase":"Crown","preview":"Patterns/Previews/Crown.png","slot":"head","colorize":false,"stackOrder":30,"tailHatsFor":["cerberus"]},{"id":"pirate-hat","label":"Pirate hat","fileBase":"Pirate Hat","preview":"Patterns/Previews/Pirate Hat.png","slot":"head","colorize":false,"exclusiveGroup":"hat","stackOrder":30,"tailHatsFor":["cerberus"]},{"id":"pointy-hat","label":"Pointy hat","fileBase":"Pointy Hat","preview":"Patterns/Previews/Point Hat.png","slot":"head","colorize":true,"exclusiveGroup":"hat","stackOrder":30,"tailHatsFor":["cerberus"]},{"id":"witch-hat","label":"Witch hat","fileBase":"Witch Hat","preview":"Patterns/Previews/Witch Hat.png","slot":"head","colorize":true,"exclusiveGroup":"hat","stackOrder":30,"tailHatsFor":["cerberus"]},{"id":"tutu","label":"Tutu","fileBase":"Tutu","preview":"Patterns/Previews/Tutu.png","slot":"body","colorize":true,"eraseUnder":true,"stackOrder":12},{"id":"boots","label":"Boots","fileBase":"Boots","preview":"Patterns/Previews/Boots.png","slot":"frontLegs","colorize":true,"eraseUnder":true,"exclusiveGroup":"shoes","dualBootsFor":["cerberus","dragon","griffin","kitsune","peryton","unicorn"],"stackOrder":40},{"id":"sneakers","label":"Sneakers","fileBase":"Sneakers","preview":"Patterns/Previews/Sneakers.png","slot":"frontLegs","colorize":true,"eraseUnder":true,"exclusiveGroup":"shoes","dualBootsFor":["cerberus","dragon","griffin","kitsune","peryton","unicorn","zheng"],"stackOrder":40}],"tintColors":["#4a8c3f","#6bab5e","#2d5a24","#2d6a9f","#5a9fd4","#1e4466","#8b3a3a","#c75c5c","#6b2020","#c47f2a","#e8a84b","#8c5a18","#6b4c9a","#9b7fd4","#4a3068","#3a8c8c","#5cb8b8","#246060","#8c6b3a","#b8956a","#5c4828","#e8d44d","#f0e6a8","#c4b840","#7a8c9a","#4a4a4a","#d4a0c8","#e87878"],"victoryMessage":"Amazing! You mixed a one-of-a-kind mythical creature!","audio":{"brush":"Sounds/moss-brushing.mp3","click":"Sounds/click.mp3","bgm":{"hunt":"Sounds/mythic mixup hunt.mp3","assembly":"Sounds/mythic mixup assembly.mp3"},"speciesCalls":{"cerberus":"Sounds/cerberus call.mp3","dragon":"Sounds/dragon call.mp3","griffin":"Sounds/griffin call.mp3","hippocampus":"Sounds/hippocampus call.mp3","kitsune":"Sounds/kitsune call.mp3","peryton":"Sounds/peryton call.mp3","unicorn":"Sounds/unicorn call.mp3","zheng":"Sounds/zheng call.mp3"}},"wordSets":[]}</script>
 
-  <script src="js/parts-catalog-embed.js?v=6"></script>
+  <script src="js/parts-catalog-embed.js?v=13"></script>
   <script src="../../core/word-images.js"></script>
   <script src="../../core/word-challenges.js?v=5"></script>
   <script src="../../core/word-set-menus.js"></script>
   <script src="../../core/word-set-choose.js?v=6"></script>
   <script src="../../core/discrimination-round.js"></script>
-  <script src="js/dino-composer.js?v=7"></script>
+  <script src="js/dino-composer.js?v=17"></script>
   <script src="js/fossil-audio.js?v=2"></script>
-  <script src="js/game.js?v=12"></script>
+  <script src="js/game.js?v=16"></script>
 </body>
 </html>

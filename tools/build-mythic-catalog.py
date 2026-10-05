@@ -21,6 +21,7 @@ SPECIES = {
     "griffin": "Griffin",
     "hippocampus": "Hippocampus",
     "kitsune": "Kitsune",
+    "kraken": "Kraken",
     "peryton": "Peryton",
     "unicorn": "Unicorn",
     "zheng": "Zheng",
@@ -31,6 +32,7 @@ SLOT_FOLDERS = {
     "frontLegs": "Legs (Front)",
     "backLegs": "Legs (Back)",
     "tail": "Tails",
+    "wings": "Wings",
 }
 SLOT_FILE_KEYS = {
     "head": "head",
@@ -38,6 +40,7 @@ SLOT_FILE_KEYS = {
     "frontLegs": "frontlegs",
     "backLegs": "backlegs",
     "tail": "tail",
+    "wings": "wing",
 }
 LAYER_ORDER = ["fill", "details", "custom", "outline"]
 
@@ -49,8 +52,13 @@ def file_mtime(path: Path) -> float:
         return 0.0
 
 
+def is_variant2_file(filename: str) -> bool:
+    stem = re.sub(r"[()]", " ", Path(filename).stem).strip()
+    return bool(re.search(r"(?:^|\s)(?:2|two)$", stem, re.I))
+
+
 def is_duplicate_variant(filename: str) -> bool:
-    return bool(re.search(r"\s2\.png$", filename, re.I))
+    return is_variant2_file(filename)
 
 
 def compact(name: str) -> str:
@@ -75,7 +83,9 @@ def slot_from_name(filename: str) -> str | None:
         return "backLegs"
     if re.search(r"\bhead\b", fl):
         return "head"
-    if re.search(r"\b(body|wing|fin)\b", fl):
+    if re.search(r"\bwings?\b", fl):
+        return "wings"
+    if re.search(r"\bbody\b", fl):
         return "body"
     if re.search(r"\btail\b", fl):
         return "tail"
@@ -125,16 +135,22 @@ def pick_slot_layers(folder: str, label: str, slot: str) -> dict[str, str]:
     layers: dict[str, str] = {}
 
     fill_name = pick_in_folder(folder_path / "Fills", label, slot)
+    if not fill_name:
+        fill_name = pick_in_folder(folder_path, label, slot, require_token="fill")
     if fill_name:
-        layers["fill"] = f"Creature Parts/{folder}/Fills/{fill_name}"
+        fill_dir = "Fills/" if (folder_path / "Fills" / fill_name).is_file() else ""
+        layers["fill"] = f"Creature Parts/{folder}/{fill_dir}{fill_name}"
     else:
         fallback = pick_in_folder(folder_path, label, slot)
         if fallback:
             layers["fill"] = f"Creature Parts/{folder}/{fallback}"
 
     outline_name = pick_in_folder(folder_path / "Outlines", label, slot)
+    if not outline_name:
+        outline_name = pick_in_folder(folder_path, label, slot, require_token="outline")
     if outline_name:
-        layers["outline"] = f"Creature Parts/{folder}/Outlines/{outline_name}"
+        outline_dir = "Outlines/" if (folder_path / "Outlines" / outline_name).is_file() else ""
+        layers["outline"] = f"Creature Parts/{folder}/{outline_dir}{outline_name}"
 
     return layers
 
@@ -181,6 +197,78 @@ def collect_overlays() -> dict[tuple[str, str], list[dict[str, str]]]:
         items.sort(key=lambda item: (kind_rank.get(item["kind"], 99), item["name"].lower()))
         found[key] = [{"kind": item["kind"], "path": item["path"]} for item in items]
     return found
+
+
+HIPPO_TAIL2_BODIES = ["cerberus", "griffin", "kitsune", "peryton", "unicorn"]
+
+
+def collect_hippocampus_tail_variant2() -> dict | None:
+    """Land-body hippocampus tail (files named '2' or 'Two')."""
+    layers: dict = {}
+    fill = DP / "Tails" / "Fills"
+    outline = DP / "Tails" / "Outlines"
+    custom = DP / "Custom"
+    overlays = DP / "Overlays"
+
+    def first_variant(folder: Path) -> Path | None:
+        if not folder.is_dir():
+            return None
+        matches = [
+            folder / f
+            for f in os.listdir(folder)
+            if f.lower().endswith(".png")
+            and is_variant2_file(f)
+            and "hippocampus" in compact(f)
+            and "tail" in compact(f)
+        ]
+        if not matches:
+            return None
+        matches.sort(key=file_mtime, reverse=True)
+        return matches[0]
+
+    fill_path = first_variant(fill)
+    if fill_path:
+        layers["fill"] = f"Creature Parts/Tails/Fills/{fill_path.name}"
+    outline_path = first_variant(outline)
+    if outline_path:
+        layers["outline"] = f"Creature Parts/Tails/Outlines/{outline_path.name}"
+    custom_matches = []
+    if custom.is_dir():
+        for f in os.listdir(custom):
+            if (
+                f.lower().endswith(".png")
+                and is_variant2_file(f)
+                and "hippocampus" in compact(f)
+                and "tail" in compact(f)
+                and "overlay" not in f.lower()
+            ):
+                custom_matches.append(custom / f)
+    if custom_matches:
+        custom_matches.sort(key=file_mtime, reverse=True)
+        layers["custom"] = f"Creature Parts/Custom/{custom_matches[0].name}"
+
+    overlay_items = []
+    if overlays.is_dir():
+        for f in os.listdir(overlays):
+            if not f.lower().endswith(".png") or not is_variant2_file(f):
+                continue
+            if "hippocampus" not in compact(f) or "tail" not in compact(f):
+                continue
+            overlay_items.append(
+                {"kind": overlay_kind(f), "path": f"Creature Parts/Overlays/{f}", "name": f}
+            )
+    if overlay_items:
+        kind_rank = {k: i for i, k in enumerate(LAYER_ORDER)}
+        overlay_items.sort(key=lambda item: (kind_rank.get(item["kind"], 99), item["name"].lower()))
+        layers["overlays"] = [{"kind": item["kind"], "path": item["path"]} for item in overlay_items]
+
+    if not layers:
+        return None
+    if "fill" in layers:
+        layers["base"] = layers["fill"]
+    elif "outline" in layers:
+        layers["base"] = layers["outline"]
+    return layers
 
 
 def opaque_bbox(path: Path, step: int = 4, alpha_cut: int = 12) -> tuple[int, int, int, int] | None:
@@ -249,6 +337,11 @@ def main() -> None:
     details_index = collect_named_layers("Details", "Creature Parts/Details")
     custom_index = collect_named_layers("Custom", "Creature Parts/Custom")
     overlay_index = collect_overlays()
+    # Peryton covert feathers sit on the wing, even though the file is named Body.
+    peryton_coverts = custom_index.get(("peryton", "body"))
+    if peryton_coverts and ("peryton", "wings") not in custom_index:
+        custom_index[("peryton", "wings")] = peryton_coverts
+        del custom_index[("peryton", "body")]
     species_list = []
     asset_version = 0
     image_paths: list[Path] = []
@@ -286,6 +379,20 @@ def main() -> None:
 
             if not layers:
                 continue
+            if sid == "hippocampus" and slot == "tail":
+                variant2 = collect_hippocampus_tail_variant2()
+                if variant2:
+                    layers["variant2"] = variant2
+                    layers["variant2ForBodies"] = HIPPO_TAIL2_BODIES
+                    for key in ("fill", "outline", "custom"):
+                        rel = variant2.get(key)
+                        if rel:
+                            p = GAME / rel
+                            asset_version = max(asset_version, int(file_mtime(p)))
+                            image_paths.append(p)
+                    for item in variant2.get("overlays") or []:
+                        image_paths.append(GAME / item["path"])
+                        asset_version = max(asset_version, int(file_mtime(GAME / item["path"])))
             if "fill" in layers:
                 layers["base"] = layers["fill"]
             elif "outline" in layers:
@@ -330,8 +437,7 @@ def main() -> None:
         "canvasHeight": canvas_h,
         "contentBounds": content_bounds,
         "assetVersion": asset_version,
-        "layerOrder": ["body", "tail", "backLegs", "frontLegs", "head"],
-        "overlayAfterSlot": "backLegs",
+        "layerOrder": ["tail", "body", "backLegs", "frontLegs", "head", "wings"],
         "species": species_list,
     }
     out_dir = GAME / "assets"
@@ -350,6 +456,8 @@ def main() -> None:
                     bits.append(key)
             overlays = part.get("overlays") or []
             extra = " + overlays[" + ",".join(o["kind"] for o in overlays) + "]" if overlays else ""
+            if part.get("variant2"):
+                extra += " + variant2"
             print(f"  {sp['id']:14} {slot:10} {', '.join(bits) or '—'}{extra}")
 
     js_dir = GAME / "js"

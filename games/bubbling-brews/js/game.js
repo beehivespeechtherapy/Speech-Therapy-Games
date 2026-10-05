@@ -1,15 +1,32 @@
 (function () {
   'use strict';
 
+  // Black openings in assets/background.png (1536×1024), as percentages.
+  const SHELF_SLOTS = [
+    { left: 62.50, top: 13.28, width: 13.54, height: 19.14 },
+    { left: 81.25, top: 13.67, width: 13.80, height: 18.75 },
+    { left: 63.28, top: 40.23, width: 14.06, height: 19.14 },
+    { left: 81.25, top: 40.23, width: 13.80, height: 19.14 },
+    { left: 62.50, top: 65.63, width: 14.84, height: 22.27 },
+    { left: 81.25, top: 69.53, width: 13.80, height: 18.36 },
+  ];
+
   let config = null;
   let selectedWordSet = null;
   let sessionChoiceCount = 2;
   let wordSetsIndex = null;
   let wordSetChoose = null;
 
-  let potionIndex = 0;
   let shelf = [];
+  let recipe = [];
+  let potionDeck = [];
+  let potionsMade = 0;
   let challengeOpen = false;
+  let placing = false;
+  let brewSerial = 0;
+  let celebrationShown = false;
+  let bubblingAudio = null;
+  let completeAudio = null;
 
   function assetPath(relative) {
     const loc = window.location.href.split('#')[0].split('?')[0];
@@ -45,45 +62,14 @@
     if (el) el.classList.remove('hidden');
   }
 
-  function bottleById(id) {
-    const bottles = (config && config.bottles) || [];
-    for (let i = 0; i < bottles.length; i++) {
-      if (bottles[i].id === id) return bottles[i];
-    }
-    return { id: id, label: id, image: '' };
+  function goalCount() {
+    return (config && config.potionsPerGame) || 5;
   }
 
-  function currentPotion() {
-    const potions = (config && config.potions) || [];
-    return potions[potionIndex] || null;
-  }
-
-  function fileLabel(path) {
-    const parts = String(path || '').split('/');
-    return parts[parts.length - 1] || path;
-  }
-
-  function mountImage(parent, src, alt, className) {
-    const img = document.createElement('img');
-    img.className = className;
-    img.alt = alt || '';
-    const fallback = document.createElement('span');
-    fallback.className = 'art-fallback';
-    fallback.textContent = fileLabel(src);
-    fallback.hidden = true;
-    img.addEventListener('error', function () {
-      img.classList.add('missing');
-      fallback.hidden = false;
-    });
-    if (src) img.src = assetPath(src);
-    else {
-      img.classList.add('missing');
-      fallback.hidden = false;
-      fallback.textContent = alt || 'missing image';
-    }
-    parent.appendChild(img);
-    parent.appendChild(fallback);
-    return img;
+  function placedRecipeCount() {
+    return shelf.filter(function (slot) {
+      return slot.inRecipe && slot.placed;
+    }).length;
   }
 
   async function loadConfig() {
@@ -91,12 +77,6 @@
       const r = await fetch('config.json', { cache: 'no-store' });
       if (r.ok) config = await r.json();
     } catch (e) { /* embedded fallback */ }
-    if (!config) {
-      const el = document.getElementById('game-config');
-      if (el && el.textContent) {
-        try { config = JSON.parse(el.textContent.trim()); } catch (e2) {}
-      }
-    }
     if (!config) throw new Error('Missing config');
 
     document.title = (config.title || 'Bubbling Brews') + ' - Speech Therapy Game';
@@ -104,16 +84,18 @@
     if (intro) document.getElementById('intro-message').textContent = intro;
     const title = document.getElementById('intro-title');
     if (title) title.textContent = config.title || 'Bubbling Brews';
+
+    const spellabelleSrc = config.assets && config.assets.spellabelle;
+    ['spellabelle-img', 'victory-spellabelle'].forEach(function (id) {
+      const img = document.getElementById(id);
+      if (img && spellabelleSrc) img.src = assetPath(spellabelleSrc);
+    });
     const portrait = document.getElementById('spellabelle-img');
-    if (portrait && config.assets && config.assets.spellabelle) {
-      portrait.src = assetPath(config.assets.spellabelle);
+    if (portrait) {
       portrait.addEventListener('error', function () {
         portrait.classList.add('missing');
         const note = document.getElementById('spellabelle-fallback');
-        if (note) {
-          note.hidden = false;
-          note.textContent = fileLabel(config.assets.spellabelle);
-        }
+        if (note) note.hidden = false;
       });
     }
 
@@ -126,83 +108,37 @@
     }).catch(function () { /* word lists optional when offline */ });
   }
 
-  function assignCovers(count) {
-    const covers = ((config.assets && config.assets.covers) || []).slice();
-    const assigned = [];
-    if (!covers.length) {
-      for (let i = 0; i < count; i++) assigned.push('');
-      return assigned;
-    }
-    let deck = [];
-    for (let i = 0; i < count; i++) {
-      if (!deck.length) deck = shuffle(covers);
-      if (assigned.length && deck.length > 1 && deck[deck.length - 1] === assigned[assigned.length - 1]) {
-        const swapAt = deck.findIndex(function (cover) {
-          return cover !== assigned[assigned.length - 1];
-        });
-        if (swapAt >= 0) {
-          const last = deck.length - 1;
-          const tmp = deck[last];
-          deck[last] = deck[swapAt];
-          deck[swapAt] = tmp;
-        }
-      }
-      assigned.push(deck.pop());
-    }
-    return assigned;
-  }
-
-  function buildShelf(potion) {
-    const allIds = (config.bottles || []).map(function (b) { return b.id; });
-    const recipe = potion.recipe.slice();
-    const size = config.shelfSize || 7;
-    const distractors = shuffle(allIds.filter(function (id) {
-      return recipe.indexOf(id) < 0;
-    }));
-    const items = shuffle(recipe.concat(distractors.slice(0, Math.max(0, size - recipe.length))));
-    const covers = assignCovers(items.length);
-    return items.map(function (id, i) {
-      return { id: id, cover: covers[i] || '', revealed: false };
+  function buildStage() {
+    const ingredients = shuffle((config.assets && config.assets.ingredients) || []);
+    const covers = shuffle((config.assets && config.assets.covers) || []);
+    const onShelf = ingredients.slice(0, SHELF_SLOTS.length);
+    const recipeImages = shuffle(onShelf).slice(0, 3);
+    recipe = recipeImages.slice();
+    shelf = onShelf.map(function (image, i) {
+      return {
+        image: image,
+        cover: covers[i % Math.max(covers.length, 1)] || '',
+        inRecipe: recipeImages.indexOf(image) >= 0,
+        revealed: false,
+        placed: false,
+      };
     });
   }
 
-  function recipeFoundCount(potion) {
-    const remaining = {};
-    potion.recipe.forEach(function (id) {
-      remaining[id] = (remaining[id] || 0) + 1;
-    });
-    shelf.forEach(function (slot) {
-      if (slot.revealed && remaining[slot.id]) remaining[slot.id] -= 1;
-    });
-    let found = 0;
-    potion.recipe.forEach(function (id) {
-      if (!remaining[id]) found += 1;
-      else remaining[id] -= 1;
-    });
-    return found;
-  }
-
-  function recipeComplete(potion) {
-    return recipeFoundCount(potion) >= potion.recipe.length;
-  }
-
-  function renderRecipe(potion) {
+  function renderRecipe() {
     const row = document.getElementById('recipe-slots');
     row.innerHTML = '';
-    const remaining = {};
+    const placed = {};
     shelf.forEach(function (slot) {
-      if (!slot.revealed) return;
-      remaining[slot.id] = (remaining[slot.id] || 0) + 1;
+      if (slot.placed) placed[slot.image] = true;
     });
-    potion.recipe.forEach(function (id) {
-      const bottle = bottleById(id);
+    recipe.forEach(function (image) {
       const slot = document.createElement('div');
-      slot.className = 'recipe-slot';
-      if (remaining[id]) {
-        slot.classList.add('found');
-        remaining[id] -= 1;
-      }
-      mountImage(slot, bottle.image, bottle.label, 'bottle');
+      slot.className = 'recipe-slot' + (placed[image] ? ' placed' : '');
+      const img = document.createElement('img');
+      img.src = assetPath(image);
+      img.alt = '';
+      slot.appendChild(img);
       const mark = document.createElement('span');
       mark.className = 'found-mark';
       mark.textContent = '✓';
@@ -210,84 +146,91 @@
       slot.appendChild(mark);
       row.appendChild(slot);
     });
-    const progress = document.getElementById('progress-label');
-    const potions = config.potions || [];
-    progress.textContent = 'Potion ' + (potionIndex + 1) + ' of ' + potions.length
-      + '  ·  Found ' + recipeFoundCount(potion) + ' of ' + potion.recipe.length;
   }
 
   function renderShelf() {
-    const grid = document.getElementById('shelf');
-    grid.innerHTML = '';
+    const root = document.getElementById('shelf');
+    root.innerHTML = '';
     shelf.forEach(function (slot, index) {
-      const bottle = bottleById(slot.id);
+      const box = SHELF_SLOTS[index];
+      const el = document.createElement('div');
+      el.className = 'shelf-slot';
+      el.dataset.index = String(index);
+      el.style.left = box.left + '%';
+      el.style.top = box.top + '%';
+      el.style.width = box.width + '%';
+      el.style.height = box.height + '%';
+
       const btn = document.createElement('button');
       btn.type = 'button';
-      btn.className = 'shelf-slot' + (slot.revealed ? ' revealed' : '');
-      btn.dataset.index = String(index);
-      mountImage(btn, bottle.image, bottle.label, 'bottle');
+      btn.className = 'cover-btn';
+      btn.setAttribute('aria-label', 'Covered ingredient');
       const cover = document.createElement('img');
       cover.className = 'cover';
       cover.alt = '';
-      const coverFallback = document.createElement('span');
-      coverFallback.className = 'cover-fallback';
-      coverFallback.textContent = slot.cover ? fileLabel(slot.cover) : 'cover';
-      if (slot.cover) {
-        cover.src = assetPath(slot.cover);
-        cover.addEventListener('error', function () {
-          cover.classList.add('missing');
-        });
-      } else {
-        cover.classList.add('missing');
-      }
+      cover.draggable = false;
+      if (slot.cover) cover.src = assetPath(slot.cover);
       btn.appendChild(cover);
-      btn.appendChild(coverFallback);
-      btn.addEventListener('click', function () { onShelfClick(index); });
-      grid.appendChild(btn);
+      btn.addEventListener('click', function () { onCoverClick(index); });
+      el.appendChild(btn);
+      root.appendChild(el);
     });
   }
 
+  function updateHint() {
+    const waiting = shelf.some(function (slot) {
+      return slot.revealed && slot.inRecipe && !slot.placed;
+    });
+    document.getElementById('brew-hint').classList.toggle('hidden', !waiting);
+    document.getElementById('cauldron-drop').classList.toggle('active', waiting);
+  }
+
   function renderPlay() {
-    const potion = currentPotion();
-    if (!potion) return;
     const bg = document.getElementById('scene-bg');
     if (bg && config.assets && config.assets.background) {
       bg.src = assetPath(config.assets.background);
-      bg.addEventListener('error', function () { bg.classList.add('missing'); });
     }
-    renderRecipe(potion);
+    renderRecipe();
     renderShelf();
+    updateHint();
   }
 
-  function startPotion(index) {
-    potionIndex = index;
-    const potion = currentPotion();
-    if (!potion) {
+  function startStage() {
+    if (potionsMade >= goalCount()) {
       showVictory();
       return;
     }
-    shelf = buildShelf(potion);
     challengeOpen = false;
+    placing = false;
+    celebrationShown = false;
+    buildStage();
     renderPlay();
     showScreen('play-screen');
   }
 
   function startGame() {
-    startPotion(0);
+    const potions = (config.assets && config.assets.potions) || [];
+    potionDeck = shuffle(potions).slice(0, goalCount());
+    potionsMade = 0;
+    startStage();
   }
 
   function showPotionCelebration() {
-    const potion = currentPotion();
-    if (!potion) return;
-    const msg = document.getElementById('potion-message');
-    msg.textContent = potion.message || ('You made a ' + potion.name + '!!');
     const frame = document.getElementById('potion-art');
     frame.innerHTML = '';
-    mountImage(frame, potion.image, potion.name, 'potion-img');
+    const img = document.createElement('img');
+    img.className = 'potion-img';
+    img.alt = 'Finished potion';
+    img.src = assetPath(potionDeck[potionsMade] || '');
+    frame.appendChild(img);
+
+    const remaining = goalCount() - (potionsMade + 1);
     const btn = document.getElementById('potion-continue');
-    const potions = config.potions || [];
-    const last = potionIndex >= potions.length - 1;
-    btn.textContent = last ? 'All done!' : 'Next potion';
+    if (remaining > 0) {
+      btn.textContent = 'make another! We need ' + remaining + ' more!';
+    } else {
+      btn.textContent = 'See Spellabelle!';
+    }
     showScreen('potion-screen');
   }
 
@@ -297,23 +240,192 @@
     showScreen('victory-screen');
   }
 
-  function onShelfClick(index) {
-    const potion = currentPotion();
-    if (challengeOpen || !potion || recipeComplete(potion)) return;
+  function onCoverClick(index) {
     const slot = shelf[index];
-    if (!slot || slot.revealed) return;
+    if (challengeOpen || placing || !slot || slot.revealed) return;
     challengeOpen = true;
     showDiscrimination(function (correct) {
       challengeOpen = false;
       if (!correct) return;
-      slot.revealed = true;
-      renderRecipe(potion);
-      const btn = document.querySelector('.shelf-slot[data-index="' + index + '"]');
-      if (btn) btn.classList.add('revealed');
-      if (recipeComplete(potion)) {
-        setTimeout(showPotionCelebration, 450);
-      }
+      revealSlot(index);
     });
+  }
+
+  function revealSlot(index) {
+    const slot = shelf[index];
+    slot.revealed = true;
+    const el = document.querySelector('.shelf-slot[data-index="' + index + '"]');
+    if (!el) return;
+    const btn = el.querySelector('.cover-btn');
+    if (btn) btn.remove();
+
+    const img = document.createElement('img');
+    img.className = 'ingredient-img';
+    img.alt = 'Ingredient';
+    img.draggable = false;
+    img.src = assetPath(slot.image);
+    el.appendChild(img);
+
+    if (slot.inRecipe) {
+      img.classList.add('nudge');
+      bindIngredient(img, slot);
+    }
+    updateHint();
+  }
+
+  function bindIngredient(img, slot) {
+    let startX = 0;
+    let startY = 0;
+    let origin = null;
+    let moved = false;
+    let dragging = false;
+
+    function resetStyle() {
+      img.style.position = '';
+      img.style.left = '';
+      img.style.top = '';
+      img.style.width = '';
+      img.style.height = '';
+      img.style.margin = '';
+      img.style.zIndex = '';
+      img.style.transform = '';
+      img.style.transition = '';
+      img.style.pointerEvents = '';
+      img.style.opacity = '';
+      if (!slot.placed) img.classList.add('nudge');
+    }
+
+    function pointOverCauldron(x, y) {
+      const drop = document.getElementById('cauldron-drop');
+      if (!drop) return false;
+      const rect = drop.getBoundingClientRect();
+      return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+    }
+
+    function move(ev) {
+      if (!dragging || !origin) return;
+      const dx = ev.clientX - startX;
+      const dy = ev.clientY - startY;
+      if (Math.hypot(dx, dy) > 8) moved = true;
+      img.style.position = 'fixed';
+      img.style.left = (origin.left + dx) + 'px';
+      img.style.top = (origin.top + dy) + 'px';
+      img.style.width = origin.width + 'px';
+      img.style.height = origin.height + 'px';
+      img.style.margin = '0';
+      img.style.transform = 'none';
+      img.style.zIndex = '30';
+    }
+
+    function endDrag(ev) {
+      if (!dragging) return;
+      dragging = false;
+      window.removeEventListener('pointermove', move);
+      window.removeEventListener('pointerup', endDrag);
+      window.removeEventListener('pointercancel', endDrag);
+      if (slot.placed) return;
+      const droppedIn = !moved || pointOverCauldron(ev.clientX, ev.clientY);
+      if (droppedIn && !placing) {
+        placeIngredient(slot, img);
+      } else {
+        resetStyle();
+      }
+    }
+
+    img.addEventListener('pointerdown', function (e) {
+      if (slot.placed || placing || challengeOpen || dragging) return;
+      e.preventDefault();
+      moved = false;
+      dragging = true;
+      startX = e.clientX;
+      startY = e.clientY;
+      origin = img.getBoundingClientRect();
+      img.classList.remove('nudge');
+      img.style.transform = 'none';
+      window.addEventListener('pointermove', move);
+      window.addEventListener('pointerup', endDrag);
+      window.addEventListener('pointercancel', endDrag);
+    });
+  }
+
+  function placeIngredient(slot, img) {
+    if (slot.placed || placing) return;
+    slot.placed = true;
+    placing = true;
+    img.classList.remove('nudge');
+    const from = img.getBoundingClientRect();
+    const drop = document.getElementById('cauldron-drop').getBoundingClientRect();
+    img.style.position = 'fixed';
+    img.style.left = from.left + 'px';
+    img.style.top = from.top + 'px';
+    img.style.width = from.width + 'px';
+    img.style.height = from.height + 'px';
+    img.style.margin = '0';
+    img.style.transform = 'none';
+    img.style.zIndex = '30';
+    img.style.pointerEvents = 'none';
+    img.style.transition = 'left 0.4s ease, top 0.4s ease, width 0.4s ease, height 0.4s ease, opacity 0.4s ease';
+    requestAnimationFrame(function () {
+      const size = Math.min(from.width, drop.width) * 0.55;
+      img.style.left = (drop.left + drop.width / 2 - size / 2) + 'px';
+      img.style.top = (drop.top + drop.height * 0.35) + 'px';
+      img.style.width = size + 'px';
+      img.style.height = size + 'px';
+      img.style.opacity = '0';
+    });
+
+    const isLast = placedRecipeCount() >= recipe.length;
+    window.setTimeout(function () {
+      if (img.parentNode) img.remove();
+      placing = false;
+      renderRecipe();
+      updateHint();
+      playBubblingThenFinish(isLast);
+    }, 460);
+  }
+
+  function audioClip(which) {
+    const src = config.assets && config.assets[which];
+    if (!src) return null;
+    if (which === 'bubbling') {
+      if (!bubblingAudio) bubblingAudio = new Audio(assetPath(src));
+      return bubblingAudio;
+    }
+    if (!completeAudio) completeAudio = new Audio(assetPath(src));
+    return completeAudio;
+  }
+
+  function playBubblingThenFinish(isLast) {
+    const serial = ++brewSerial;
+    const bubbling = audioClip('bubbling');
+    if (!bubbling) {
+      if (isLast) playCompleteThenShow(serial);
+      return;
+    }
+    bubbling.onended = function () {
+      if (serial !== brewSerial) return;
+      if (isLast) playCompleteThenShow(serial);
+    };
+    try { bubbling.currentTime = 0; } catch (e) { /* ignore */ }
+    bubbling.play().catch(function () {
+      if (isLast && serial === brewSerial) playCompleteThenShow(serial);
+    });
+  }
+
+  function playCompleteThenShow(serial) {
+    const done = audioClip('potionComplete');
+    const show = function () {
+      if (serial !== brewSerial || celebrationShown) return;
+      celebrationShown = true;
+      showPotionCelebration();
+    };
+    if (!done) {
+      show();
+      return;
+    }
+    done.onended = show;
+    try { done.currentTime = 0; } catch (e2) { /* ignore */ }
+    done.play().catch(show);
   }
 
   function showDiscrimination(onDone) {
@@ -366,7 +478,7 @@
             }
           });
         }
-        setTimeout(function () {
+        window.setTimeout(function () {
           overlay.classList.add('hidden');
           onDone(ok);
         }, 1200);
@@ -404,9 +516,9 @@
       });
 
       document.getElementById('potion-continue').addEventListener('click', function () {
-        const potions = config.potions || [];
-        if (potionIndex >= potions.length - 1) showVictory();
-        else startPotion(potionIndex + 1);
+        potionsMade += 1;
+        if (potionsMade >= goalCount()) showVictory();
+        else startStage();
       });
 
       document.getElementById('play-again-btn').addEventListener('click', function () {

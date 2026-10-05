@@ -1,67 +1,55 @@
 {
   "title": "Bubbling Brews",
-  "description": "Help Spellabelle find the right potion ingredients and brew five potions.",
+  "description": "Help Spellabelle find potion ingredients and brew five potions.",
   "intro": {
     "message": "Spellabelle is a witch in training. She needs to make some potions for her friends before Halloween night. Can you help her find the right ingredients?"
   },
-  "shelfSize": 7,
+  "potionsPerGame": 5,
+  "victoryMessage": "You helped Spellabelle make every potion!",
   "assets": {
     "background": "assets/background.png",
     "spellabelle": "assets/spellabelle.png",
+    "bubbling": "assets/bubbling.mp3",
+    "potionComplete": "assets/potion_complete.mp3",
     "covers": [
-      "assets/covers/cover-1.png",
-      "assets/covers/cover-2.png",
-      "assets/covers/cover-3.png",
-      "assets/covers/cover-4.png",
-      "assets/covers/cover-5.png",
-      "assets/covers/cover-6.png"
+      "assets/covers/cover_1.png",
+      "assets/covers/cover_2.png",
+      "assets/covers/cover_3.png",
+      "assets/covers/cover_4.png",
+      "assets/covers/cover_5.png",
+      "assets/covers/cover_6.png",
+      "assets/covers/cover_7.png",
+      "assets/covers/cover_8.png",
+      "assets/covers/cover_9.png",
+      "assets/covers/cover_10.png",
+      "assets/covers/cover_11.png",
+      "assets/covers/cover_12.png"
+    ],
+    "ingredients": [
+      "assets/ingredients/ingredient_1.png",
+      "assets/ingredients/ingredient_2.png",
+      "assets/ingredients/ingredient_3.png",
+      "assets/ingredients/ingredient_4.png",
+      "assets/ingredients/ingredient_5.png",
+      "assets/ingredients/ingredient_6.png",
+      "assets/ingredients/ingredient_7.png",
+      "assets/ingredients/ingredient_8.png",
+      "assets/ingredients/ingredient_9.png",
+      "assets/ingredients/ingredient_10.png",
+      "assets/ingredients/ingredient_11.png",
+      "assets/ingredients/ingredient_12.png"
+    ],
+    "potions": [
+      "assets/potions/flying_potion.png",
+      "assets/potions/candy_potion.png",
+      "assets/potions/cat_potion.png",
+      "assets/potions/dragon_potion.png",
+      "assets/potions/fire_potion.png",
+      "assets/potions/ice_potion.png",
+      "assets/potions/invisibility_potion.png",
+      "assets/potions/speed_potion.png",
+      "assets/potions/star_potion.png",
+      "assets/potions/strength_potion.png"
     ]
-  },
-  "bottles": [
-    { "id": "heart", "label": "Heart flask", "image": "assets/bottles/heart.png" },
-    { "id": "orange", "label": "Orange bottle", "image": "assets/bottles/orange.png" },
-    { "id": "purple-flask", "label": "Purple flask", "image": "assets/bottles/purple-flask.png" },
-    { "id": "purple-jar", "label": "Purple jar", "image": "assets/bottles/purple-jar.png" },
-    { "id": "green", "label": "Green flask", "image": "assets/bottles/green.png" },
-    { "id": "smoke", "label": "Smoking flask", "image": "assets/bottles/smoke.png" },
-    { "id": "blue", "label": "Blue bottle", "image": "assets/bottles/blue.png" }
-  ],
-  "potions": [
-    {
-      "id": "flying",
-      "name": "flying potion",
-      "message": "You made a flying potion!!",
-      "image": "assets/potions/flying.png",
-      "recipe": ["heart", "orange", "purple-flask"]
-    },
-    {
-      "id": "candy",
-      "name": "candy potion",
-      "message": "You made a candy potion!!",
-      "image": "assets/potions/candy.png",
-      "recipe": ["green", "smoke", "blue"]
-    },
-    {
-      "id": "cat",
-      "name": "cat potion",
-      "message": "You made a cat potion!!",
-      "image": "assets/potions/cat.png",
-      "recipe": ["purple-jar", "orange", "heart"]
-    },
-    {
-      "id": "bubble",
-      "name": "bubble potion",
-      "message": "You made a bubble potion!!",
-      "image": "assets/potions/bubble.png",
-      "recipe": ["blue", "green", "purple-jar"]
-    },
-    {
-      "id": "starlight",
-      "name": "starlight potion",
-      "message": "You made a starlight potion!!",
-      "image": "assets/potions/starlight.png",
-      "recipe": ["smoke", "purple-flask", "heart"]
-    }
-  ],
-  "victoryMessage": "You helped Spellabelle make every potion!"
+  }
 }
