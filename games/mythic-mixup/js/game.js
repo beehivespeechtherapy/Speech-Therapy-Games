@@ -74,6 +74,7 @@
   }
 
   function pairImagePath(word) {
+    if (window.WordImages) return WordImages.libraryImagePath(word);
     const trimmed = (word || '').trim();
     const file = (trimmed === 'v' || trimmed === 'V') ? 'v' : (trimmed === 'Ed') ? 'Ed' : trimmed;
     try {
