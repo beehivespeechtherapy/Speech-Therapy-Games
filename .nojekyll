@@ -1,0 +1,2 @@
+# Disable Jekyll so GitHub Pages publishes folders that start with
+# an underscore, including word-images/_library/.

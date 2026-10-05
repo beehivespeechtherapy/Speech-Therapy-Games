@@ -6,6 +6,11 @@
   },
   "potionsPerGame": 5,
   "victoryMessage": "You helped Spellabelle make every potion!",
+  "audio": {
+    "bgm": "assets/bubbling_brews.mp3",
+    "bubbling": "assets/bubbling.mp3",
+    "potionComplete": "assets/potion_complete.mp3"
+  },
   "assets": {
     "background": "assets/background.png",
     "spellabelle": "assets/spellabelle.png",

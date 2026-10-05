@@ -40,6 +40,62 @@
     }
     .btn:active { transform: scale(0.98); }
 
+    .audio-controls {
+      position: fixed;
+      top: 0.65rem;
+      right: 0.65rem;
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.35rem 0.45rem 0.35rem 0.65rem;
+      border-radius: 999px;
+      border: 2px solid rgba(255,255,255,0.55);
+      background: rgba(20, 16, 12, 0.82);
+      box-shadow: 0 2px 10px rgba(0,0,0,0.35);
+    }
+    .audio-bgm-volume-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      color: #fff;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      cursor: pointer;
+    }
+    .audio-bgm-volume {
+      width: 72px;
+      height: 4px;
+      margin: 0;
+      accent-color: #e8d44d;
+      cursor: pointer;
+    }
+    .audio-mute-btn {
+      min-width: 44px;
+      height: 36px;
+      border-radius: 999px;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+      padding: 0 0.55rem;
+    }
+    .audio-mute-btn .audio-mute-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+    .audio-mute-btn:hover { background: rgba(255,255,255,0.12); }
+    .audio-mute-btn:active { transform: scale(0.95); }
+
     #intro-screen, #victory-screen {
       justify-content: center;
       text-align: center;
@@ -377,6 +433,16 @@
   </style>
 </head>
 <body>
+  <div id="audio-controls" class="audio-controls" hidden>
+    <label class="audio-bgm-volume-wrap" title="Game music only — does not change your computer or call volume">
+      <span class="audio-bgm-volume-label">Music</span>
+      <input type="range" id="audio-bgm-volume" class="audio-bgm-volume" min="0" max="100" value="75" aria-label="Game music volume">
+    </label>
+    <button type="button" id="audio-mute-btn" class="audio-mute-btn" aria-label="Toggle mute">
+      <span class="audio-mute-icon" aria-hidden="true">🔊</span>
+      <span class="audio-mute-label">Sound</span>
+    </button>
+  </div>
   <div id="game-container">
     <section id="intro-screen" class="screen">
       <div class="portrait-wrap">
@@ -432,6 +498,7 @@
   <script src="../../core/word-set-menus.js"></script>
   <script src="../../core/word-set-choose.js"></script>
   <script src="../../core/discrimination-round.js"></script>
-  <script src="js/game.js?v=3"></script>
+  <script src="js/brew-audio.js?v=1"></script>
+  <script src="js/game.js?v=4"></script>
 </body>
 </html>

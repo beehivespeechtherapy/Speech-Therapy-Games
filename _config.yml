@@ -1,0 +1,5 @@
+# GitHub Pages runs Jekyll unless .nojekyll is present.
+# Keep word clipart even if Jekyll still processes the site.
+include:
+  - _library
+  - word-images/_library

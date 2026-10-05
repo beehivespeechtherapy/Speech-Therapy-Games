@@ -25,8 +25,7 @@
   let placing = false;
   let brewSerial = 0;
   let celebrationShown = false;
-  let bubblingAudio = null;
-  let completeAudio = null;
+  let audio = null;
 
   function assetPath(relative) {
     const loc = window.location.href.split('#')[0].split('?')[0];
@@ -60,6 +59,7 @@
     });
     const el = document.getElementById(id);
     if (el) el.classList.remove('hidden');
+    if (audio) audio.onScreen(id);
   }
 
   function goalCount() {
@@ -106,6 +106,16 @@
       },
       onIndex: function (index) { wordSetsIndex = index; },
     }).catch(function () { /* word lists optional when offline */ });
+
+    audio = new BrewAudio(assetPath);
+    audio.loadConfig(config.audio);
+    if (config.assets) {
+      audio.loadConfig({
+        bubbling: config.assets.bubbling,
+        potionComplete: config.assets.potionComplete,
+      });
+    }
+    audio.init();
   }
 
   function buildStage() {
@@ -384,48 +394,32 @@
     }, 460);
   }
 
-  function audioClip(which) {
-    const src = config.assets && config.assets[which];
-    if (!src) return null;
-    if (which === 'bubbling') {
-      if (!bubblingAudio) bubblingAudio = new Audio(assetPath(src));
-      return bubblingAudio;
-    }
-    if (!completeAudio) completeAudio = new Audio(assetPath(src));
-    return completeAudio;
-  }
-
   function playBubblingThenFinish(isLast) {
     const serial = ++brewSerial;
-    const bubbling = audioClip('bubbling');
-    if (!bubbling) {
-      if (isLast) playCompleteThenShow(serial);
-      return;
-    }
-    bubbling.onended = function () {
+    const path = audio && audio.paths && audio.paths.bubbling;
+    const after = function () {
       if (serial !== brewSerial) return;
       if (isLast) playCompleteThenShow(serial);
     };
-    try { bubbling.currentTime = 0; } catch (e) { /* ignore */ }
-    bubbling.play().catch(function () {
-      if (isLast && serial === brewSerial) playCompleteThenShow(serial);
-    });
+    if (!audio || !path) {
+      after();
+      return;
+    }
+    audio.playSfx(path, { onEnded: after });
   }
 
   function playCompleteThenShow(serial) {
-    const done = audioClip('potionComplete');
     const show = function () {
       if (serial !== brewSerial || celebrationShown) return;
       celebrationShown = true;
       showPotionCelebration();
     };
-    if (!done) {
+    const path = audio && audio.paths && audio.paths.potionComplete;
+    if (!audio || !path) {
       show();
       return;
     }
-    done.onended = show;
-    try { done.currentTime = 0; } catch (e2) { /* ignore */ }
-    done.play().catch(show);
+    audio.playSfx(path, { onEnded: show });
   }
 
   function showDiscrimination(onDone) {
@@ -480,6 +474,7 @@
         }
         window.setTimeout(function () {
           overlay.classList.add('hidden');
+          if (audio) audio.setChallengeOpen(false);
           onDone(ok);
         }, 1200);
       });
@@ -488,6 +483,7 @@
     });
 
     overlay.classList.remove('hidden');
+    if (audio) audio.setChallengeOpen(true);
   }
 
   function beginGameWithSet(set, choiceCount) {
