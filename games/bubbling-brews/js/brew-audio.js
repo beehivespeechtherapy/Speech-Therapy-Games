@@ -248,7 +248,7 @@
       this.stopBgm(true);
       return;
     }
-    if (screenId === 'play-screen' || screenId === 'potion-screen') {
+    if (screenId === 'play-screen') {
       this.playBgm('kitchen', this.paths.bgm);
     } else {
       this.stopBgm(true);

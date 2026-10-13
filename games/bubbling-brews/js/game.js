@@ -57,9 +57,21 @@
     document.querySelectorAll('.screen').forEach(function (s) {
       s.classList.add('hidden');
     });
+    if (id !== 'potion-screen') {
+      document.querySelectorAll('#potion-art video').forEach(function (video) {
+        video.pause();
+      });
+    }
     const el = document.getElementById(id);
     if (el) el.classList.remove('hidden');
     if (audio) audio.onScreen(id);
+  }
+
+  function animationForPotion(potionPath) {
+    const file = String(potionPath || '').split('/').pop();
+    const id = file.replace(/_potion\.[^.]+$/i, '');
+    if (!id || id === file) return '';
+    return 'assets/animations/' + id + '.mp4';
   }
 
   function goalCount() {
@@ -225,23 +237,96 @@
     startStage();
   }
 
-  function showPotionCelebration() {
-    const frame = document.getElementById('potion-art');
-    frame.innerHTML = '';
+  function potionLabel(potionPath) {
+    const file = String(potionPath || '').split('/').pop();
+    return file.replace(/_potion\.[^.]+$/i, '').replace(/[-_]/g, ' ');
+  }
+
+  function showPotionStill(frame, potionPath) {
     const img = document.createElement('img');
     img.className = 'potion-img';
     img.alt = 'Finished potion';
-    img.src = assetPath(potionDeck[potionsMade] || '');
+    img.src = assetPath(potionPath);
     frame.appendChild(img);
+  }
 
+  function nextPotionLabel() {
     const remaining = goalCount() - (potionsMade + 1);
+    if (remaining > 0) return 'make another! We need ' + remaining + ' more!';
+    return 'See Spellabelle!';
+  }
+
+  function resumeKitchenMusic() {
+    if (audio && !audio.muted && audio.paths) audio.playBgm('kitchen', audio.paths.bgm);
+  }
+
+  function showNextPotionButton() {
+    const title = document.getElementById('potion-title');
     const btn = document.getElementById('potion-continue');
-    if (remaining > 0) {
-      btn.textContent = 'make another! We need ' + remaining + ' more!';
-    } else {
-      btn.textContent = 'See Spellabelle!';
+    if (title) title.classList.add('hidden');
+    btn.classList.remove('hidden');
+    btn.dataset.action = 'next';
+    btn.textContent = nextPotionLabel();
+    resumeKitchenMusic();
+  }
+
+  function playPotionTest(potionPath) {
+    const frame = document.getElementById('potion-art');
+    const title = document.getElementById('potion-title');
+    const btn = document.getElementById('potion-continue');
+    const animation = animationForPotion(potionPath);
+    if (title) title.classList.add('hidden');
+    btn.classList.add('hidden');
+    frame.innerHTML = '';
+    if (audio) audio.stopBgm(true);
+    if (!animation) {
+      showPotionStill(frame, potionPath);
+      showNextPotionButton();
+      return;
     }
+    const video = document.createElement('video');
+    video.className = 'potion-video';
+    video.setAttribute('playsinline', '');
+    video.playsInline = true;
+    video.preload = 'auto';
+    video.setAttribute('aria-label', 'Spellabelle takes the potion');
+    video.src = assetPath(animation);
+    if (audio && audio.muted) video.muted = true;
+    video.addEventListener('error', function () {
+      if (!frame.contains(video)) return;
+      frame.innerHTML = '';
+      showPotionStill(frame, potionPath);
+      showNextPotionButton();
+    });
+    video.addEventListener('ended', showNextPotionButton);
+    frame.appendChild(video);
+    const played = video.play();
+    if (played && played.catch) {
+      played.catch(function () {
+        showNextPotionButton();
+      });
+    }
+  }
+
+  function showPotionCelebration() {
+    const frame = document.getElementById('potion-art');
+    const title = document.getElementById('potion-title');
+    const btn = document.getElementById('potion-continue');
+    const potionPath = potionDeck[potionsMade] || '';
+    frame.innerHTML = '';
+    showPotionStill(frame, potionPath);
+    const name = potionLabel(potionPath) || 'mystery';
+    const article = /^[aeiou]/i.test(name) ? 'an' : 'a';
+    if (title) {
+      title.classList.remove('hidden');
+      title.textContent = 'You made ' + article + ' ' + name + ' potion!';
+    }
+    btn.classList.remove('hidden');
+    btn.dataset.action = 'test';
+    btn.dataset.potion = potionPath;
+    btn.textContent = 'Test it?';
     showScreen('potion-screen');
+    resumeKitchenMusic();
   }
 
   function showVictory() {
@@ -512,6 +597,11 @@
       });
 
       document.getElementById('potion-continue').addEventListener('click', function () {
+        const btn = document.getElementById('potion-continue');
+        if (btn.dataset.action === 'test') {
+          playPotionTest(btn.dataset.potion || '');
+          return;
+        }
         potionsMade += 1;
         if (potionsMade >= goalCount()) showVictory();
         else startStage();
