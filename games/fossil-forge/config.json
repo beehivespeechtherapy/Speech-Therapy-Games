@@ -1,6 +1,6 @@
 {
   "title": "Fossil Forge",
-  "accessoriesVersion": 2,
+  "accessoriesVersion": 5,
   "intro": {
     "message": "Welcome to the dig site! Brush away the dirt, practice your words, and collect dinosaur fossils. Then build and color your own dinosaur!"
   },
@@ -26,7 +26,10 @@
     { "id": "desert", "label": "Desert", "path": "backgrounds/desert-background.png" },
     { "id": "ocean", "label": "Ocean", "path": "backgrounds/ocean-background.png" },
     { "id": "valley", "label": "Valley", "path": "backgrounds/valley-background.png" },
-    { "id": "volcano", "label": "Volcano", "path": "backgrounds/volcano-background.png" }
+    { "id": "volcano", "label": "Volcano", "path": "backgrounds/volcano-background.png" },
+    { "id": "cave", "label": "Cave", "path": "backgrounds/cave-background.png" },
+    { "id": "forest", "label": "Forest", "path": "backgrounds/forest-background.png" },
+    { "id": "snowy", "label": "Snowy", "path": "backgrounds/snowy-background.png" }
   ],
   "patternColors": [
     "#2d2d2d",
@@ -38,7 +41,28 @@
     "#6b4c9a",
     "#2d6a9f",
     "#f0f0f0",
-    "#1a1a1a"
+    "#1a1a1a",
+    "#4a8c3f",
+    "#6bab5e",
+    "#2d5a24",
+    "#5a9fd4",
+    "#1e4466",
+    "#c75c5c",
+    "#6b2020",
+    "#e8a84b",
+    "#8c5a18",
+    "#9b7fd4",
+    "#4a3068",
+    "#3a8c8c",
+    "#5cb8b8",
+    "#246060",
+    "#b8956a",
+    "#5c4828",
+    "#f0e6a8",
+    "#c4b840",
+    "#7a8c9a",
+    "#d4a0c8",
+    "#e87878"
   ],
   "patterns": [
     { "id": "none", "label": "None", "type": "none" },
@@ -88,6 +112,17 @@
       "stackOrder": 20
     },
     {
+      "id": "t-shirt",
+      "label": "T-shirt",
+      "fileBase": "shirt",
+      "pieceType": "shirt-sleeve",
+      "preview": "Patterns/Previews/t-shirt.png",
+      "slot": "body",
+      "colorize": true,
+      "eraseUnder": true,
+      "stackOrder": 15
+    },
+    {
       "id": "party-hat",
       "label": "Party hat",
       "fileBase": "Party hat",
@@ -107,6 +142,20 @@
       "colorize": true,
       "eraseUnder": true,
       "dualBootsFor": ["brachiosaurus", "stegosaurus", "triceratops"],
+      "tailBootsFor": ["pterodactyl"],
+      "exclusiveGroup": "shoes",
+      "stackOrder": 40
+    },
+    {
+      "id": "sneakers",
+      "label": "Sneakers",
+      "fileBase": "Sneakers",
+      "preview": "Patterns/Previews/sneakers.png",
+      "slot": "frontLegs",
+      "colorize": true,
+      "eraseUnder": true,
+      "exclusiveGroup": "shoes",
+      "dualBootsFor": ["brachiosaurus", "stegosaurus", "triceratops", "mosasaurus"],
       "tailBootsFor": ["pterodactyl"],
       "stackOrder": 40
     },

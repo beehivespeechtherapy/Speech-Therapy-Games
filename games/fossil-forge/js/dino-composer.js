@@ -119,42 +119,8 @@
     this.drawLayerImage(octx, img, true, color, destW, destH);
   };
 
-  DinoComposer.prototype.buildLegEraseMask = function (legsImg, destW, destH) {
-    const off = document.createElement('canvas');
-    off.width = destW;
-    off.height = destH;
-    const octx = off.getContext('2d');
-    octx.drawImage(legsImg, 0, 0, destW, destH);
-    const imgData = octx.getImageData(0, 0, destW, destH);
-    const d = imgData.data;
-    const threshold = 96;
-    for (let i = 3; i < d.length; i += 4) {
-      d[i] = d[i] >= threshold ? 255 : 0;
-      d[i - 3] = 255;
-      d[i - 2] = 255;
-      d[i - 1] = 255;
-    }
-    octx.clearRect(0, 0, destW, destH);
-    octx.putImageData(imgData, 0, 0);
-    return off;
-  };
-
-  DinoComposer.prototype.eraseUnderFrontLegs = function (ctx, destW, destH, legsImg) {
-    const mask = this.buildLegEraseMask(legsImg, destW, destH);
-    ctx.globalCompositeOperation = 'destination-out';
-    ctx.drawImage(mask, 0, 0);
-    ctx.globalCompositeOperation = 'source-over';
-  };
-
-  DinoComposer.prototype.drawBodyLayerTo = async function (octx, img, equipped, color, destW, destH, tint) {
+  DinoComposer.prototype.drawBodyLayerTo = function (octx, img, equipped, color, destW, destH, tint) {
     this.drawLayerImage(octx, img, !!tint, color, destW, destH);
-    if (!equipped.frontLegs) return;
-    const legsSpecies = this.getSpecies(equipped.frontLegs);
-    if (!legsSpecies || !legsSpecies.slots || !legsSpecies.slots.frontLegs) return;
-    try {
-      const legsImg = await this.loadImage(legsSpecies.slots.frontLegs.base);
-      this.eraseUnderFrontLegs(octx, destW, destH, legsImg);
-    } catch (e) { /* skip */ }
   };
 
   DinoComposer.prototype.parseColor = function (hex) {
@@ -427,22 +393,54 @@
     return null;
   };
 
-  DinoComposer.prototype.appendRainBootImages = async function (images, accessory, speciesId) {
-    const dualBootsFor = accessory.dualBootsFor || ['brachiosaurus', 'stegosaurus', 'triceratops'];
+  DinoComposer.prototype.appendBootForSlot = async function (images, accessory, speciesId, leg, loadedSingles) {
+    if (!speciesId) return;
+    const dualBootsFor = accessory.dualBootsFor || [];
     if (dualBootsFor.indexOf(speciesId) >= 0) {
-      const frontImg = await this.loadFirstExistingImage(
-        this.dualBootPathCandidates(accessory.fileBase, speciesId, 'front')
+      const img = await this.loadFirstExistingImage(
+        this.dualBootPathCandidates(accessory.fileBase, speciesId, leg)
       );
-      const backImg = await this.loadFirstExistingImage(
-        this.dualBootPathCandidates(accessory.fileBase, speciesId, 'back')
-      );
-      if (frontImg) images.push(frontImg);
-      if (backImg) images.push(backImg);
-    } else {
-      const singleImg = await this.loadFirstExistingImage(
-        this.accessoryPathCandidates(accessory.fileBase, speciesId, accessory)
-      );
-      if (singleImg) images.push(singleImg);
+      if (img) images.push(img);
+      return;
+    }
+    if (loadedSingles[speciesId]) return;
+    loadedSingles[speciesId] = true;
+    const img = await this.loadFirstExistingImage(
+      this.accessoryPathCandidates(accessory.fileBase, speciesId, accessory)
+    );
+    if (img) images.push(img);
+  };
+
+  DinoComposer.prototype.shirtPiecePaths = function (piece, speciesId) {
+    const sp = this.getSpecies(speciesId);
+    const suffixes = [];
+    if (speciesId === 't-rex') suffixes.push('T-Rex', 't-Rex');
+    if (sp && sp.label) suffixes.push(sp.label);
+    suffixes.push(speciesId);
+    const seen = {};
+    const paths = [];
+    suffixes.forEach(function (s) {
+      if (!s || seen[s]) return;
+      seen[s] = true;
+      paths.push('Patterns/Accessories/' + s + ' ' + piece + '.png');
+      paths.push('Patterns/Accessories/' + s + ' ' + piece + ' .png');
+    });
+    return paths;
+  };
+
+  DinoComposer.prototype.drawShirtPiece = async function (
+    ctx, equipped, accessories, accessoryColor, destW, destH, piece
+  ) {
+    const speciesId = piece === 'sleeve' ? equipped.frontLegs : equipped.body;
+    if (!speciesId) return;
+    const list = accessories || [];
+    for (let i = 0; i < list.length; i++) {
+      const acc = list[i];
+      if (!acc || acc.pieceType !== 'shirt-sleeve') continue;
+      const img = await this.loadFirstExistingImage(this.shirtPiecePaths(piece, speciesId));
+      if (!img) continue;
+      const drawAcc = piece === 'shirt' ? Object.assign({}, acc, { eraseUnder: false }) : acc;
+      await this.drawAccessoryImages(ctx, equipped, drawAcc, accessoryColor, destW, destH, [img]);
     }
   };
 
@@ -620,21 +618,21 @@
   ) {
     if (!this.rainBootsAvailable(equipped)) return;
     const images = [];
-    const loadedSpecies = {};
-    const legSpecies = [];
+    const loadedSingles = {};
 
-    if (equipped.frontLegs) legSpecies.push(equipped.frontLegs);
-    if (equipped.backLegs) legSpecies.push(equipped.backLegs);
-
-    for (let i = 0; i < legSpecies.length; i++) {
-      const speciesId = legSpecies[i];
-      if (loadedSpecies[speciesId]) continue;
-      loadedSpecies[speciesId] = true;
-      await this.appendRainBootImages(images, accessory, speciesId);
+    if (equipped.frontLegs) {
+      await this.appendBootForSlot(images, accessory, equipped.frontLegs, 'front', loadedSingles);
+    }
+    if (equipped.backLegs) {
+      await this.appendBootForSlot(images, accessory, equipped.backLegs, 'back', loadedSingles);
     }
 
-    if (this.hasPterodactylTailBoots(equipped, accessory)) {
-      await this.appendRainBootImages(images, accessory, equipped.tail);
+    if (this.hasPterodactylTailBoots(equipped, accessory) && !loadedSingles[equipped.tail]) {
+      loadedSingles[equipped.tail] = true;
+      const tailImg = await this.loadFirstExistingImage(
+        this.accessoryPathCandidates(accessory.fileBase, equipped.tail, accessory)
+      );
+      if (tailImg) images.push(tailImg);
     }
 
     await this.drawAccessoryImages(ctx, equipped, accessory, accessoryColor, destW, destH, images);
@@ -642,7 +640,8 @@
 
   DinoComposer.prototype.drawEquippedAccessory = async function (ctx, equipped, accessory, accessoryColor, destW, destH) {
     if (!accessory || !accessory.fileBase) return;
-    if (accessory.id === 'rain-boot') {
+    if (accessory.pieceType === 'shirt-sleeve') return;
+    if (accessory.id === 'rain-boot' || accessory.id === 'sneakers' || accessory.dualBootsFor) {
       await this.drawRainBoots(ctx, equipped, accessory, accessoryColor, destW, destH);
       return;
     }
@@ -681,7 +680,7 @@
     for (let j = 0; j < otherAccs.length; j++) {
       const acc = otherAccs[j];
       await this.drawEquippedAccessory(ctx, equipped, acc, accessoryColor, destW, destH);
-      const pteroTailBoots = acc.id === 'rain-boot' && this.hasPterodactylTailBoots(equipped, acc);
+      const pteroTailBoots = this.hasPterodactylTailBoots(equipped, acc);
       if (acc.slot === 'frontLegs' && equipped.tail && !pteroTailBoots) {
         redrawTailAfterBoots = true;
       }
@@ -689,8 +688,36 @@
 
     if (redrawTailAfterBoots && slotRenderOpts) {
       await this.redrawSlotOnTop(ctx, equipped, 'tail', slotRenderOpts);
+      await this.drawSlotCustom(ctx, equipped, 'tail', slotRenderOpts);
       await this.drawSlotDetails(ctx, equipped, 'tail', destW, destH);
     }
+  };
+
+  DinoComposer.prototype.hasCustomParts = function (equipped) {
+    if (!equipped) return false;
+    const slots = Object.keys(equipped);
+    for (let i = 0; i < slots.length; i++) {
+      const species = this.getSpecies(equipped[slots[i]]);
+      const part = species && species.slots && species.slots[slots[i]];
+      if (part && part.custom) return true;
+    }
+    return false;
+  };
+
+  DinoComposer.prototype.drawSlotCustom = async function (ctx, equipped, slot, renderOpts) {
+    const speciesId = equipped[slot];
+    if (!speciesId) return;
+    const species = this.getSpecies(speciesId);
+    const part = species && species.slots && species.slots[slot];
+    if (!part || !part.custom) return;
+    const destW = (renderOpts && renderOpts.destW) || ctx.canvas.width;
+    const destH = (renderOpts && renderOpts.destH) || ctx.canvas.height;
+    try {
+      const img = await this.loadImage(part.custom);
+      const tint = renderOpts && renderOpts.tint;
+      const color = (renderOpts && (renderOpts.customColor || renderOpts.color)) || '#6b4c9a';
+      this.drawLayerImage(ctx, img, !!tint, color, destW, destH);
+    } catch (e) { /* skip */ }
   };
 
   DinoComposer.prototype.slotsHiddenByAccessory = function (accessory, equipped) {
@@ -877,6 +904,7 @@
     if (!this.catalog) return;
     const tint = opts && opts.tint;
     const color = (opts && opts.color) || '#4a8c3f';
+    const customColor = (opts && opts.customColor) || '#6b4c9a';
     const pattern = opts && opts.pattern;
     const patternColor = (opts && opts.patternColor) || '#2d2d2d';
     const accessories = (opts && opts.accessories)
@@ -961,6 +989,7 @@
     const slotRenderOpts = {
       tint: tint,
       color: color,
+      customColor: customColor,
       pattern: pattern,
       patternColor: patternColor,
       tileImg: tileImg,
@@ -975,6 +1004,11 @@
     }
 
     const detailsSkip = this.slotsRedrawnOnTop().concat(hiddenSlots);
+    for (let c = 0; c < order.length; c++) {
+      const customSlot = order[c];
+      if (detailsSkip.indexOf(customSlot) >= 0) continue;
+      await this.drawSlotCustom(baseCtx, equipped, customSlot, slotRenderOpts);
+    }
 
     await this.drawAllDetailsExcept(
       baseCtx, equipped, order, detailsSkip, destW, destH
@@ -983,19 +1017,562 @@
     const onTopSlots = this.slotsRedrawnOnTop();
     for (let s = 0; s < onTopSlots.length; s++) {
       const slot = onTopSlots[s];
+      if (slot === 'frontLegs' && accessories.length) {
+        await this.drawShirtPiece(
+          baseCtx, equipped, accessories, accessoryColor, destW, destH, 'shirt'
+        );
+      }
       if (hiddenSlots.indexOf(slot) >= 0) continue;
       if (!equipped[slot]) continue;
       await this.redrawSlotOnTop(baseCtx, equipped, slot, slotRenderOpts);
+      await this.drawSlotCustom(baseCtx, equipped, slot, slotRenderOpts);
       await this.drawSlotDetails(baseCtx, equipped, slot, destW, destH);
     }
 
     if (accessories.length) {
+      await this.drawShirtPiece(
+        baseCtx, equipped, accessories, accessoryColor, destW, destH, 'sleeve'
+      );
       await this.drawEquippedAccessories(
         baseCtx, equipped, accessories, accessoryColor, destW, destH, slotRenderOpts
       );
     }
 
     ctx.drawImage(baseLayer, 0, 0);
+  };
+
+  DinoComposer.prototype.safeGetImageData = function (ctx, w, h) {
+    try {
+      return ctx.getImageData(0, 0, w, h);
+    } catch (e) {
+      return null;
+    }
+  };
+
+  DinoComposer.prototype.getCanvasContentBBox = function (canvas, alphaThreshold) {
+    const w = canvas && canvas.width;
+    const h = canvas && canvas.height;
+    if (!w || !h) return null;
+    const ctx = canvas.getContext('2d');
+    const imgData = this.safeGetImageData(ctx, w, h);
+    if (!imgData) return null;
+    const data = imgData.data;
+    const cutoff = alphaThreshold != null ? alphaThreshold : 16;
+    const step = w * h > 400000 ? 2 : 1;
+    let minX = w;
+    let minY = h;
+    let maxX = -1;
+    let maxY = -1;
+    for (let y = 0; y < h; y += step) {
+      for (let x = 0; x < w; x += step) {
+        if (data[(y * w + x) * 4 + 3] >= cutoff) {
+          if (x < minX) minX = x;
+          if (y < minY) minY = y;
+          if (x > maxX) maxX = x;
+          if (y > maxY) maxY = y;
+        }
+      }
+    }
+    if (maxX < minX || maxY < minY) return null;
+    return { x: minX, y: minY, w: maxX - minX + 1, h: maxY - minY + 1 };
+  };
+
+  DinoComposer.prototype.fillPartThumb = async function (canvas, equipped) {
+    if (!canvas || !this.catalog) return;
+    const destW = 320;
+    const destH = 320;
+    const off = document.createElement('canvas');
+    off.width = destW;
+    off.height = destH;
+    await this.render(off.getContext('2d'), equipped, { tint: false, destW: destW, destH: destH });
+    const bbox = this.getCanvasContentBBox(off, 16);
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    const pad = 6;
+    const dw = canvas.width - pad * 2;
+    const dh = canvas.height - pad * 2;
+    if (!bbox || !bbox.w || !bbox.h) {
+      ctx.drawImage(off, pad, pad, dw, dh);
+      return;
+    }
+    const scale = Math.min(dw / bbox.w, dh / bbox.h);
+    const w = bbox.w * scale;
+    const h = bbox.h * scale;
+    const x = (canvas.width - w) / 2;
+    const y = (canvas.height - h) / 2;
+    ctx.imageSmoothingEnabled = true;
+    if (ctx.imageSmoothingQuality) ctx.imageSmoothingQuality = 'high';
+    ctx.drawImage(off, bbox.x, bbox.y, bbox.w, bbox.h, x, y, w, h);
+  };
+
+  DinoComposer.prototype.idleMotionFor = function (slot) {
+    if (slot === 'head') return 'head';
+    if (slot === 'tail') return 'tail';
+    if (slot === 'body') return 'body';
+    return 'ground';
+  };
+
+  DinoComposer.prototype.pivotFromBBox = function (motion, bbox, destW, destH) {
+    if (!bbox) {
+      if (motion === 'head') return { x: destW * 0.34, y: destH * 0.40 };
+      if (motion === 'tail') return { x: destW * 0.70, y: destH * 0.50 };
+      return { x: destW * 0.50, y: destH * 0.52 };
+    }
+    if (motion === 'head') return { x: bbox.x + bbox.w * 0.92, y: bbox.y + bbox.h * 0.78 };
+    if (motion === 'tail') return { x: bbox.x + bbox.w * 0.07, y: bbox.y + bbox.h * 0.48 };
+    return { x: bbox.x + bbox.w * 0.50, y: bbox.y + bbox.h * 0.58 };
+  };
+
+  DinoComposer.prototype.jointBand = function (motion, bbox) {
+    if (!bbox) return null;
+    if (motion === 'head') {
+      return {
+        x0: bbox.x + bbox.w * 0.82,
+        x1: bbox.x + bbox.w,
+        y0: bbox.y + bbox.h * 0.55,
+        y1: bbox.y + bbox.h,
+      };
+    }
+    if (motion === 'tail') {
+      return {
+        x0: bbox.x,
+        x1: bbox.x + bbox.w * 0.14,
+        y0: bbox.y + bbox.h * 0.28,
+        y1: bbox.y + bbox.h * 0.72,
+      };
+    }
+    return null;
+  };
+
+  DinoComposer.prototype.jointPivotFromCanvas = function (canvas, motion, destW, destH) {
+    const bbox = this.getCanvasContentBBox(canvas);
+    const fallback = this.pivotFromBBox(motion, bbox, destW, destH);
+    const band = this.jointBand(motion, bbox);
+    if (!band || !canvas) return { bbox: bbox, pivot: fallback };
+    const ctx = canvas.getContext('2d');
+    const w = canvas.width;
+    const h = canvas.height;
+    const imgData = this.safeGetImageData(ctx, w, h);
+    if (!imgData) return { bbox: bbox, pivot: fallback };
+    const data = imgData.data;
+    const cutoff = 16;
+    const step = w * h > 400000 ? 2 : 1;
+    const x0 = Math.max(0, Math.floor(band.x0));
+    const x1 = Math.min(w - 1, Math.ceil(band.x1));
+    const y0 = Math.max(0, Math.floor(band.y0));
+    const y1 = Math.min(h - 1, Math.ceil(band.y1));
+    let sx = 0;
+    let sy = 0;
+    let n = 0;
+    for (let y = y0; y <= y1; y += step) {
+      for (let x = x0; x <= x1; x += step) {
+        if (data[(y * w + x) * 4 + 3] >= cutoff) {
+          sx += x;
+          sy += y;
+          n += 1;
+        }
+      }
+    }
+    if (n < 8) return { bbox: bbox, pivot: fallback };
+    return { bbox: bbox, pivot: { x: sx / n, y: sy / n } };
+  };
+
+  DinoComposer.prototype.seamPivotFromCanvases = function (movingCanvas, anchorCanvas) {
+    if (!movingCanvas || !anchorCanvas) return null;
+    const w = Math.min(movingCanvas.width, anchorCanvas.width);
+    const h = Math.min(movingCanvas.height, anchorCanvas.height);
+    if (!w || !h) return null;
+    const mData = this.safeGetImageData(movingCanvas.getContext('2d'), movingCanvas.width, movingCanvas.height);
+    const aData = this.safeGetImageData(anchorCanvas.getContext('2d'), anchorCanvas.width, anchorCanvas.height);
+    if (!mData || !aData) return null;
+    const m = mData.data;
+    const a = aData.data;
+    const mw = movingCanvas.width;
+    const aw = anchorCanvas.width;
+    const cutoff = 16;
+    const radius = 10;
+    const step = w * h > 400000 ? 2 : 1;
+    const movingBBox = this.getCanvasContentBBox(movingCanvas);
+    const anchorBBox = this.getCanvasContentBBox(anchorCanvas);
+    if (!movingBBox || !anchorBBox) return null;
+    const x0 = Math.max(0, Math.floor(Math.min(movingBBox.x, anchorBBox.x) - radius));
+    const y0 = Math.max(0, Math.floor(Math.min(movingBBox.y, anchorBBox.y) - radius));
+    const x1 = Math.min(w - 1, Math.ceil(Math.max(movingBBox.x + movingBBox.w, anchorBBox.x + anchorBBox.w) + radius));
+    const y1 = Math.min(h - 1, Math.ceil(Math.max(movingBBox.y + movingBBox.h, anchorBBox.y + anchorBBox.h) + radius));
+
+    function opaque(data, width, x, y) {
+      if (x < 0 || y < 0 || x >= width) return false;
+      const rowCount = data.length / 4 / width;
+      if (y >= rowCount) return false;
+      return data[(y * width + x) * 4 + 3] >= cutoff;
+    }
+
+    const pts = [];
+    for (let y = y0; y <= y1; y += step) {
+      for (let x = x0; x <= x1; x += step) {
+        if (!opaque(m, mw, x, y) || !opaque(a, aw, x, y)) continue;
+        pts.push(x, y);
+      }
+    }
+    if (pts.length / 2 < 12) {
+      pts.length = 0;
+      for (let y = y0; y <= y1; y += step) {
+        for (let x = x0; x <= x1; x += step) {
+          if (!opaque(m, mw, x, y)) continue;
+          let near = false;
+          for (let dy = -radius; dy <= radius && !near; dy += 2) {
+            for (let dx = -radius; dx <= radius; dx += 2) {
+              if (opaque(a, aw, x + dx, y + dy)) {
+                near = true;
+                break;
+              }
+            }
+          }
+          if (!near) continue;
+          pts.push(x, y);
+        }
+      }
+    }
+    const count = pts.length / 2;
+    if (count < 8) return null;
+    const bodyCx = anchorBBox.x + anchorBBox.w * 0.55;
+    const bodyCy = anchorBBox.y + anchorBBox.h * 0.58;
+    const order = [];
+    for (let i = 0; i < count; i++) {
+      const x = pts[i * 2];
+      const y = pts[i * 2 + 1];
+      const dx = x - bodyCx;
+      const dy = y - bodyCy;
+      order.push({ x: x, y: y, d: dx * dx + dy * dy });
+    }
+    order.sort(function (a, b) { return a.d - b.d; });
+    const keep = Math.max(8, Math.ceil(order.length * 0.22));
+    let sx = 0;
+    let sy = 0;
+    for (let j = 0; j < keep; j++) {
+      sx += order[j].x;
+      sy += order[j].y;
+    }
+    return { x: sx / keep, y: sy / keep };
+  };
+
+  DinoComposer.prototype.pinTailLayersToBody = function (pose) {
+    const layers = pose && pose.layers;
+    if (!layers || !layers.length) return;
+    let bodyLayer = null;
+    let tailLayer = null;
+    for (let i = 0; i < layers.length; i++) {
+      if (layers[i].id === 'body') bodyLayer = layers[i];
+      if (layers[i].id === 'tail') tailLayer = layers[i];
+    }
+    if (!bodyLayer || !tailLayer) return;
+    const seam = this.seamPivotFromCanvases(tailLayer.canvas, bodyLayer.canvas);
+    if (!seam) return;
+    pose.hip = seam;
+    for (let j = 0; j < layers.length; j++) {
+      if (layers[j].motion === 'tail') layers[j].pivot = seam;
+    }
+  };
+
+  DinoComposer.prototype.pushIdleLayer = function (layers, id, canvas, motion, destW, destH, eraseMask) {
+    if (!canvas) return;
+    const joint = this.jointPivotFromCanvas(canvas, motion, destW, destH);
+    layers.push({
+      id: id,
+      canvas: canvas,
+      motion: motion,
+      eraseMask: eraseMask || null,
+      pivot: joint.pivot,
+      bbox: joint.bbox,
+    });
+  };
+
+  DinoComposer.prototype.composeAccessoryPiece = function (images, accessory, accessoryColor, destW, destH) {
+    const canvas = document.createElement('canvas');
+    canvas.width = destW;
+    canvas.height = destH;
+    const ctx = canvas.getContext('2d');
+    const erase = document.createElement('canvas');
+    erase.width = destW;
+    erase.height = destH;
+    const ectx = erase.getContext('2d');
+    let hasErase = false;
+    let drew = false;
+    for (let i = 0; i < images.length; i++) {
+      const accImg = images[i];
+      if (!accImg) continue;
+      const layer = this.buildAccessoryLayer(accImg, destW, destH, accessoryColor, accessory);
+      const shouldErase = accessory.eraseUnder !== false && !accessory.preserveAlpha;
+      if (shouldErase) {
+        ectx.drawImage(this.buildAccessoryEraseMask(accImg, destW, destH), 0, 0);
+        hasErase = true;
+      }
+      ctx.drawImage(layer, 0, 0);
+      drew = true;
+    }
+    if (!drew) return null;
+    return { canvas: canvas, eraseMask: hasErase ? erase : null };
+  };
+
+  DinoComposer.prototype.composeFossilSlotCanvas = async function (equipped, slot, renderOpts) {
+    if (!equipped[slot]) return null;
+    const destW = renderOpts.destW;
+    const destH = renderOpts.destH;
+    const canvas = document.createElement('canvas');
+    canvas.width = destW;
+    canvas.height = destH;
+    const ctx = canvas.getContext('2d');
+    await this.drawSlotLayerOnTop(ctx, equipped, slot, renderOpts);
+    if (renderOpts.tint) {
+      await this.drawSlotOutlineOnTop(ctx, equipped, slot, destW, destH);
+    }
+    await this.drawSlotCustom(ctx, equipped, slot, renderOpts);
+    await this.drawSlotDetails(ctx, equipped, slot, destW, destH);
+    return canvas;
+  };
+
+  DinoComposer.prototype.appendIdleAccessoryLayers = async function (
+    layers, equipped, accessories, accessoryColor, destW, destH
+  ) {
+    const sorted = this.sortAccessories(accessories);
+    const headAccs = [];
+    const otherAccs = [];
+    for (let i = 0; i < sorted.length; i++) {
+      const acc = sorted[i];
+      if (!acc || !acc.fileBase) continue;
+      if ((acc.slot || 'head') === 'head') headAccs.push(acc);
+      else otherAccs.push(acc);
+    }
+    const ordered = headAccs.concat(otherAccs);
+    let drewLegBoots = false;
+    let drewTailBoots = false;
+
+    for (let a = 0; a < ordered.length; a++) {
+      const acc = ordered[a];
+      if (acc.pieceType === 'shirt-sleeve') continue;
+      if (acc.id === 'rain-boot' || acc.id === 'sneakers' || acc.dualBootsFor) {
+        if (!this.rainBootsAvailable(equipped)) continue;
+        const legImages = [];
+        const loadedSingles = {};
+        if (equipped.frontLegs) {
+          await this.appendBootForSlot(legImages, acc, equipped.frontLegs, 'front', loadedSingles);
+        }
+        if (equipped.backLegs) {
+          await this.appendBootForSlot(legImages, acc, equipped.backLegs, 'back', loadedSingles);
+        }
+        const legPiece = this.composeAccessoryPiece(legImages, acc, accessoryColor, destW, destH);
+        if (legPiece) {
+          drewLegBoots = true;
+          this.pushIdleLayer(layers, acc.id + ':legs', legPiece.canvas, 'ground', destW, destH, legPiece.eraseMask);
+        }
+        if (this.hasPterodactylTailBoots(equipped, acc) && !loadedSingles[equipped.tail]) {
+          const tailImg = await this.loadFirstExistingImage(
+            this.accessoryPathCandidates(acc.fileBase, equipped.tail, acc)
+          );
+          const tailPiece = tailImg && this.composeAccessoryPiece([tailImg], acc, accessoryColor, destW, destH);
+          if (tailPiece) {
+            drewTailBoots = true;
+            this.pushIdleLayer(layers, acc.id + ':tail', tailPiece.canvas, 'tail', destW, destH, tailPiece.eraseMask);
+          }
+        }
+        continue;
+      }
+      const speciesId = this.resolveAccessorySpeciesId(equipped, acc);
+      if (!speciesId) continue;
+      const accImg = await this.loadFirstExistingImage(
+        this.accessoryPathCandidates(acc.fileBase, speciesId, acc)
+      );
+      if (!accImg) continue;
+      const slot = acc.slot || 'head';
+      const piece = this.composeAccessoryPiece([accImg], acc, accessoryColor, destW, destH);
+      if (piece) {
+        this.pushIdleLayer(layers, acc.id + ':' + slot, piece.canvas, this.idleMotionFor(slot), destW, destH, piece.eraseMask);
+      }
+    }
+
+    return { drewLegBoots: drewLegBoots, drewTailBoots: drewTailBoots };
+  };
+
+  DinoComposer.prototype.pushShirtIdleLayer = async function (
+    layers, equipped, accessories, accessoryColor, destW, destH, piece
+  ) {
+    const speciesId = piece === 'sleeve' ? equipped.frontLegs : equipped.body;
+    if (!speciesId) return;
+    const list = accessories || [];
+    const motion = piece === 'sleeve' ? 'ground' : 'body';
+    for (let i = 0; i < list.length; i++) {
+      const acc = list[i];
+      if (!acc || acc.pieceType !== 'shirt-sleeve') continue;
+      const img = await this.loadFirstExistingImage(this.shirtPiecePaths(piece, speciesId));
+      const drawAcc = piece === 'shirt' ? Object.assign({}, acc, { eraseUnder: false }) : acc;
+      const composed = img && this.composeAccessoryPiece([img], drawAcc, accessoryColor, destW, destH);
+      if (composed) {
+        this.pushIdleLayer(
+          layers, 't-shirt:' + piece, composed.canvas, motion, destW, destH, composed.eraseMask
+        );
+      }
+    }
+  };
+
+  DinoComposer.prototype.prepareIdleLayers = async function (equipped, opts) {
+    const destW = (opts && opts.destW) || 640;
+    const destH = (opts && opts.destH) || destW;
+    const pose = {
+      destW: destW,
+      destH: destH,
+      chest: { x: destW * 0.50, y: destH * 0.52 },
+      neck: { x: destW * 0.34, y: destH * 0.40 },
+      hip: { x: destW * 0.70, y: destH * 0.50 },
+      layers: [],
+    };
+    if (!this.catalog) return pose;
+
+    const tint = opts && opts.tint;
+    const color = (opts && opts.color) || '#4a8c3f';
+    const customColor = (opts && opts.customColor) || '#6b4c9a';
+    const pattern = opts && opts.pattern;
+    const patternColor = (opts && opts.patternColor) || '#2d2d2d';
+    const accessories = (opts && opts.accessories)
+      || (opts && opts.accessory ? [opts.accessory] : []);
+    const accessoryColor = (opts && opts.accessoryColor) || patternColor;
+    pose.tailSpecies = equipped.tail || null;
+
+    let tileImg = null;
+    let overlayImg = null;
+    if (pattern && pattern.type === 'tile' && pattern.path) {
+      try { tileImg = await this.loadImage(pattern.path); } catch (e) { /* skip */ }
+    }
+    if (pattern && pattern.type === 'overlay' && pattern.path) {
+      try { overlayImg = await this.loadImage(pattern.path); } catch (e) { /* skip */ }
+    }
+    const patternPerPart = tileImg && tint && (!pattern || pattern.applyScope !== 'full');
+    const slotRenderOpts = {
+      tint: tint,
+      color: color,
+      customColor: customColor,
+      pattern: pattern,
+      patternColor: patternColor,
+      tileImg: tileImg,
+      overlayImg: overlayImg,
+      patternPerPart: patternPerPart,
+      destW: destW,
+      destH: destH,
+    };
+
+    const drawOrder = ['body', 'backLegs', 'tail', 'head', 'frontLegs'];
+    let tailCanvas = null;
+    for (let i = 0; i < drawOrder.length; i++) {
+      const slot = drawOrder[i];
+      try {
+        const canvas = await this.composeFossilSlotCanvas(equipped, slot, slotRenderOpts);
+        if (!canvas) continue;
+        if (slot === 'tail') tailCanvas = canvas;
+        this.pushIdleLayer(pose.layers, slot, canvas, this.idleMotionFor(slot), destW, destH);
+        if (slot === 'head' || (slot === 'body' && !equipped.head)) {
+          await this.pushShirtIdleLayer(pose.layers, equipped, accessories, accessoryColor, destW, destH, 'shirt');
+        }
+        if (slot === 'frontLegs') {
+          await this.pushShirtIdleLayer(pose.layers, equipped, accessories, accessoryColor, destW, destH, 'sleeve');
+        }
+      } catch (e) { /* skip missing */ }
+    }
+
+    let bootFlags = { drewLegBoots: false, drewTailBoots: false };
+    if (accessories.length) {
+      try {
+        bootFlags = await this.appendIdleAccessoryLayers(
+          pose.layers, equipped, accessories, accessoryColor, destW, destH
+        ) || bootFlags;
+      } catch (e) { /* keep the dinosaur if an accessory fails */ }
+    }
+
+    if (tailCanvas && bootFlags.drewLegBoots && !bootFlags.drewTailBoots) {
+      this.pushIdleLayer(pose.layers, 'tail:over-boots', tailCanvas, 'tail', destW, destH);
+    }
+
+    function pivotOf(id, motion) {
+      const layers = pose.layers;
+      for (let i = 0; i < layers.length; i++) {
+        if (layers[i].id === id) return layers[i].pivot;
+      }
+      for (let j = 0; j < layers.length; j++) {
+        if (layers[j].motion === motion) return layers[j].pivot;
+      }
+      return null;
+    }
+
+    pose.chest = pivotOf('body', 'body') || pose.chest;
+    pose.neck = pivotOf('head', 'head') || pose.chest;
+    pose.hip = pivotOf('tail', 'tail') || pose.chest;
+    this.pinTailLayersToBody(pose);
+    return pose;
+  };
+
+  DinoComposer.prototype.idleMotionAt = function (tSeconds) {
+    const deg = Math.PI / 180;
+    const breath = Math.sin(tSeconds * Math.PI * 2 / 4.1);
+    const head = Math.sin(tSeconds * Math.PI * 2 / 3.3);
+    const tail = Math.sin(tSeconds * Math.PI * 2 / 2.85 + 0.7);
+    const glanceCycle = tSeconds % 10.5;
+    let glance = 0;
+    if (glanceCycle > 8.6 && glanceCycle < 10.0) {
+      glance = Math.sin((glanceCycle - 8.6) / 1.4 * Math.PI);
+    }
+    return {
+      scaleX: 1 + 0.014 * breath,
+      scaleY: 1 + 0.036 * breath,
+      head: (2.5 * head + 1.2 * glance) * deg,
+      tail: -4.0 * tail * deg,
+    };
+  };
+
+  DinoComposer.prototype.drawIdleFrame = function (ctx, pose, tSeconds) {
+    if (!ctx || !pose) return;
+    const destW = pose.destW || ctx.canvas.width;
+    const destH = pose.destH || ctx.canvas.height;
+    ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+    ctx.imageSmoothingEnabled = true;
+    if (ctx.imageSmoothingQuality) ctx.imageSmoothingQuality = 'high';
+    const motion = this.idleMotionAt(tSeconds || 0);
+    const chest = pose.chest || { x: destW / 2, y: destH / 2 };
+    const layers = pose.layers || [];
+    for (let i = 0; i < layers.length; i++) {
+      const layer = layers[i];
+      if (!layer || !layer.canvas) continue;
+      ctx.save();
+      if (layer.motion === 'body') {
+        ctx.translate(chest.x, chest.y);
+        ctx.scale(motion.scaleX, motion.scaleY);
+        ctx.translate(-chest.x, -chest.y);
+      }
+      let ang = 0;
+      let pivot = layer.pivot || chest;
+      if (layer.motion === 'head') {
+        ang = motion.head;
+        pivot = pose.neck || layer.pivot || chest;
+      } else if (layer.motion === 'tail') {
+        ang = motion.tail;
+        pivot = pose.hip || layer.pivot || chest;
+        const liveHip = {
+          x: chest.x + (pivot.x - chest.x) * motion.scaleX,
+          y: chest.y + (pivot.y - chest.y) * motion.scaleY,
+        };
+        ctx.translate(liveHip.x - pivot.x, liveHip.y - pivot.y);
+        pivot = liveHip;
+      }
+      if (ang) {
+        ctx.translate(pivot.x, pivot.y);
+        ctx.rotate(ang);
+        ctx.translate(-pivot.x, -pivot.y);
+      }
+      if (layer.eraseMask) {
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.drawImage(layer.eraseMask, 0, 0);
+        ctx.globalCompositeOperation = 'source-over';
+      }
+      ctx.drawImage(layer.canvas, 0, 0);
+      ctx.restore();
+    }
   };
 
   DinoComposer.prototype.allParts = function () {

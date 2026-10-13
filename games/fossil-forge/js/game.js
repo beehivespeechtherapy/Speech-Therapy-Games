@@ -11,6 +11,16 @@
     backLegs: 'Back legs',
     tail: 'Tail',
   };
+  const SLOT_ICON_SRC = {
+    head: 'icons/Heads.png',
+    body: 'icons/Bodies.png',
+    frontLegs: 'icons/Front Legs.png',
+    backLegs: 'icons/Back Legs.png',
+    tail: 'icons/Tails.png',
+  };
+  const SLOT_ICONS = {
+    background: '<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="16.6" cy="7" r="3.3"/><path d="M2.2 19.6 8.2 12l3.6 3.7L16.2 9.6 21.8 19.6z"/></svg>',
+  };
 
   let config = null;
   let selectedWordSet = null;
@@ -22,6 +32,7 @@
 
   let equipped = {};
   let tintColor = '#4a8c3f';
+  let customColor = '#6b4c9a';
   let selectedBackground = null;
   let fossilsFound = 0;
   let digStates = [];
@@ -31,11 +42,20 @@
 
   let assemblyCategory = 'head';
   let assemblyUiReady = false;
+  let huntResizeBound = false;
   let customizePhase = 'assemble';
   let selectedPatternId = null;
   let selectedAccessoryIds = [];
   let patternColor = '#2d2d2d';
   let accessoryColor = '#c47f2a';
+  let idleAnim = {
+    running: false,
+    raf: 0,
+    pose: null,
+    canvas: null,
+    t0: 0,
+    gen: 0,
+  };
 
   const PART_CARD_STEP = 128;
 
@@ -72,6 +92,41 @@
     const el = document.getElementById(id);
     if (el) el.classList.remove('hidden');
     if (audio) audio.onScreen(id);
+    if (id !== 'assembly-screen' && id !== 'victory-screen') stopIdleAnim();
+  }
+
+  function stopIdleAnim() {
+    idleAnim.running = false;
+    if (idleAnim.raf) {
+      cancelAnimationFrame(idleAnim.raf);
+      idleAnim.raf = 0;
+    }
+  }
+
+  function tickIdleAnim(now) {
+    if (!idleAnim.running || !idleAnim.pose || !idleAnim.canvas || !composer) {
+      idleAnim.raf = 0;
+      return;
+    }
+    if (!document.hidden) {
+      const t = Math.max(0, (now - idleAnim.t0) / 1000);
+      const ctx = idleAnim.canvas.getContext('2d');
+      composer.drawIdleFrame(ctx, idleAnim.pose, t);
+    }
+    idleAnim.raf = requestAnimationFrame(tickIdleAnim);
+  }
+
+  function startIdleAnim(canvas, pose) {
+    idleAnim.canvas = canvas;
+    idleAnim.pose = pose;
+    idleAnim.t0 = performance.now();
+    if (composer && canvas && pose) {
+      composer.drawIdleFrame(canvas.getContext('2d'), pose, 0);
+    }
+    if (!idleAnim.running) {
+      idleAnim.running = true;
+      idleAnim.raf = requestAnimationFrame(tickIdleAnim);
+    }
   }
 
   function shuffle(arr) {
@@ -125,6 +180,7 @@
       document.getElementById('victory-msg').textContent = config.victoryMessage;
     }
     tintColor = (config.tintColors && config.tintColors[0]) || '#4a8c3f';
+    customColor = (config.tintColors && config.tintColors[12]) || '#6b4c9a';
     patternColor = (config.patternColors && config.patternColors[0]) || '#2d2d2d';
     const bgs = config.assemblyBackgrounds || [];
     selectedBackground = bgs.length ? bgs[0].path : null;
@@ -138,7 +194,7 @@
     }).catch(function () { /* word lists optional when offline */ });
 
     composer = new DinoComposer(assetPath(''));
-    await composer.loadCatalog(assetPath('assets/parts-catalog.json?v=1783358577'));
+    await composer.loadCatalog(assetPath('assets/parts-catalog.json?v=1791829360'));
     if (config.accessoriesVersion != null) {
       composer.setAccessoriesVersion(config.accessoriesVersion);
     }
@@ -414,9 +470,13 @@
     return composer.rainBootsAvailable(equipped);
   }
 
+  function isShoeAccessory(acc) {
+    return !!(acc && (acc.exclusiveGroup === 'shoes' || acc.dualBootsFor));
+  }
+
   function isAccessoryAvailable(acc) {
     if (!acc || acc.id === 'none') return true;
-    if (acc.id === 'rain-boot') return rainBootsAvailable();
+    if (isShoeAccessory(acc)) return rainBootsAvailable();
     return true;
   }
 
@@ -424,8 +484,8 @@
     return (config.accessories || []).find(function (a) { return a.id === id; }) || null;
   }
 
-  function isHatAccessory(acc) {
-    return !!(acc && acc.exclusiveGroup === 'hat');
+  function sharesExclusiveGroup(acc) {
+    return !!(acc && acc.exclusiveGroup);
   }
 
   function isAccessorySelected(id) {
@@ -451,9 +511,10 @@
       selectedAccessoryIds.splice(idx, 1);
       return;
     }
-    if (isHatAccessory(acc)) {
+    if (sharesExclusiveGroup(acc)) {
       selectedAccessoryIds = selectedAccessoryIds.filter(function (id) {
-        return !isHatAccessory(getAccessoryById(id));
+        const other = getAccessoryById(id);
+        return !(other && other.exclusiveGroup === acc.exclusiveGroup);
       });
     }
     selectedAccessoryIds.push(acc.id);
@@ -481,7 +542,6 @@
     const colorBar = document.getElementById('assembly-action-color');
     const patternBar = document.getElementById('assembly-action-pattern');
     const accessoryBar = document.getElementById('assembly-action-accessory');
-    const partsNav = document.querySelector('.parts-picker-nav');
     const colorPanel = document.getElementById('assembly-color-panel');
     if (screen) {
       screen.classList.toggle('color-mode', isColorPhase());
@@ -498,25 +558,55 @@
     if (colorBar) colorBar.classList.toggle('hidden', !isColorPhase());
     if (patternBar) patternBar.classList.toggle('hidden', !isPatternPhase());
     if (accessoryBar) accessoryBar.classList.toggle('hidden', !isAccessoryPhase());
-    if (partsNav) {
-      partsNav.style.display = (isAssemblePhase() || isPatternPhase() || isAccessoryPhase()) ? '' : 'none';
-    }
+    const showCustom = isColorPhase() && composer && composer.hasCustomParts(equipped);
+    if (screen) screen.classList.toggle('has-accent', !!showCustom);
     if (colorPanel) {
-      const showPanel = isPatternPhase() || (isAccessoryPhase() && accessoryColorizeEnabled());
+      const showPanel = showCustom
+        || isPatternPhase()
+        || (isAccessoryPhase() && accessoryColorizeEnabled());
       colorPanel.classList.toggle('hidden', !showPanel);
+    }
+    const colorHint = document.querySelector('.assembly-hint-color');
+    if (colorHint && isColorPhase()) {
+      colorHint.textContent = showCustom
+        ? 'Tap a color on the right to paint the body. Use the left colors for markings.'
+        : 'Tap a color on the right to paint your dinosaur!';
     }
     const accessoryHint = document.querySelector('.assembly-hint-accessory');
     if (accessoryHint && isAccessoryPhase()) {
       accessoryHint.textContent = accessoryColorizeEnabled()
-        ? 'Pick accessories below (tap again to remove). Choose an accessory color on the left.'
-        : 'Pick accessories below (tap again to remove). Hats replace each other; other items can mix.';
+        ? 'Pick accessories on the right (tap again to remove). Choose an accessory color on the left.'
+        : 'Pick accessories on the right (tap again to remove). Hats replace each other; shoes replace each other.';
     }
   }
 
   function applyGridInset(gridEl) {
     const hs = huntSettings();
-    gridEl.style.gridTemplateColumns = 'repeat(' + hs.cols + ', 1fr)';
-    gridEl.style.gridTemplateRows = 'repeat(' + hs.rows + ', 1fr)';
+    const inset = hs.inset;
+    gridEl.style.top = (inset.top * 100) + '%';
+    gridEl.style.right = (inset.right * 100) + '%';
+    gridEl.style.bottom = (inset.bottom * 100) + '%';
+    gridEl.style.left = (inset.left * 100) + '%';
+    sizeHuntGrid(gridEl);
+  }
+
+  function sizeHuntGrid(gridEl) {
+    if (!gridEl) return;
+    const hs = huntSettings();
+    const cols = hs.cols;
+    const rows = hs.rows;
+    const gap = Math.max(4, Math.min(10, Math.round(Math.min(gridEl.clientWidth, gridEl.clientHeight) * 0.012)));
+    const w = gridEl.clientWidth;
+    const h = gridEl.clientHeight;
+    const cell = Math.max(28, Math.floor(Math.min(
+      (w - gap * (cols - 1)) / cols,
+      (h - gap * (rows - 1)) / rows
+    )));
+    gridEl.style.gap = gap + 'px';
+    gridEl.style.gridTemplateColumns = 'repeat(' + cols + ', ' + cell + 'px)';
+    gridEl.style.gridTemplateRows = 'repeat(' + rows + ', ' + cell + 'px)';
+    gridEl.style.placeContent = 'center';
+    gridEl.style.setProperty('--moss-cell', cell + 'px');
   }
 
   function renderHunt() {
@@ -624,6 +714,17 @@
       grid.appendChild(wrap);
     });
     updateHuntStatus();
+    requestAnimationFrame(function () {
+      sizeHuntGrid(grid);
+      requestAnimationFrame(function () { sizeHuntGrid(grid); });
+    });
+    if (!huntResizeBound) {
+      huntResizeBound = true;
+      window.addEventListener('resize', function () {
+        const g = document.getElementById('hunt-grid');
+        if (g) sizeHuntGrid(g);
+      });
+    }
   }
 
   function updateHuntStatus() {
@@ -658,10 +759,11 @@
     const useTint = phase === 'color' || phase === 'pattern' || phase === 'accessory' || phase === 'victory';
     const includePattern = phase === 'pattern' || phase === 'accessory' || phase === 'victory';
     const includeAccessory = phase === 'accessory' || phase === 'victory';
-    const ctx = canvas.getContext('2d');
-    await composer.render(ctx, equipped, {
+    const gen = ++idleAnim.gen;
+    const pose = await composer.prepareIdleLayers(equipped, {
       tint: useTint,
       color: tintColor,
+      customColor: customColor,
       pattern: includePattern ? getSelectedPattern() : null,
       patternColor: patternColor,
       accessories: includeAccessory ? getSelectedAccessories() : [],
@@ -669,6 +771,8 @@
       destW: canvas.width,
       destH: canvas.height,
     });
+    if (gen !== idleAnim.gen) return;
+    startIdleAnim(canvas, pose);
   }
 
   function visibleAssemblySlots() {
@@ -679,7 +783,6 @@
     if (!isOptionalSlot(slot) || !equipped[slot]) return;
     delete equipped[slot];
     if (audio) audio.playClick();
-    resetPartsPickerScroll();
     renderAssembly();
   }
 
@@ -690,7 +793,6 @@
     }
     equipped[slot] = species;
     if (audio) audio.playClick();
-    resetPartsPickerScroll();
     renderAssembly();
   }
 
@@ -701,9 +803,22 @@
     renderAssemblyMenu();
   }
 
+  function getElScroll(id) {
+    const el = document.getElementById(id);
+    return el ? el.scrollTop : 0;
+  }
+
+  function restoreElScroll(id, y, after) {
+    requestAnimationFrame(function () {
+      const el = document.getElementById(id);
+      if (el) el.scrollTop = y;
+      if (after) after();
+    });
+  }
+
   function resetPartsPickerScroll() {
     const viewport = document.getElementById('parts-picker-viewport');
-    if (viewport) viewport.scrollLeft = 0;
+    if (viewport) viewport.scrollTop = 0;
   }
 
   function updateMenuScrollButtons() {
@@ -730,22 +845,24 @@
 
   function updatePartsScrollButtons() {
     const viewport = document.getElementById('parts-picker-viewport');
-    const left = document.getElementById('parts-scroll-left');
-    const right = document.getElementById('parts-scroll-right');
-    if (!viewport || !left || !right) return;
-    const maxScroll = Math.max(0, viewport.scrollWidth - viewport.clientWidth - 2);
-    left.disabled = viewport.scrollLeft <= 2;
-    right.disabled = viewport.scrollLeft >= maxScroll;
+    const up = document.getElementById('parts-scroll-up');
+    const down = document.getElementById('parts-scroll-down');
+    if (!viewport || !up || !down) return;
+    const maxScroll = Math.max(0, viewport.scrollHeight - viewport.clientHeight - 2);
+    const needsScroll = viewport.scrollHeight > viewport.clientHeight + 2;
+    up.disabled = !needsScroll || viewport.scrollTop <= 2;
+    down.disabled = !needsScroll || viewport.scrollTop >= maxScroll;
   }
 
   function scrollPartsPicker(direction) {
     const viewport = document.getElementById('parts-picker-viewport');
     if (!viewport) return;
-    const amount = Math.max(PART_CARD_STEP * 2, Math.floor(viewport.clientWidth * 0.75));
-    viewport.scrollBy({ left: direction * amount, behavior: 'smooth' });
+    const amount = Math.max(PART_CARD_STEP * 2, Math.floor(viewport.clientHeight * 0.7));
+    viewport.scrollBy({ top: direction * amount, behavior: 'smooth' });
   }
 
   function renderColorPicker() {
+    const pickerY = getElScroll('parts-picker-viewport');
     const track = document.getElementById('parts-picker-track');
     const label = document.getElementById('parts-picker-label');
     if (!track) return;
@@ -767,13 +884,12 @@
       });
       track.appendChild(card);
     });
-    requestAnimationFrame(function () {
-      resetPartsPickerScroll();
-      updatePartsScrollButtons();
-    });
+    renderSideColorPanel();
+    restoreElScroll('parts-picker-viewport', pickerY, updatePartsScrollButtons);
   }
 
   function renderSideColorPanel() {
+    const panelY = getElScroll('assembly-color-panel-grid');
     const panelLabel = document.getElementById('assembly-color-panel-label');
     const grid = document.getElementById('assembly-color-panel-grid');
     if (!grid) return;
@@ -781,12 +897,16 @@
 
     const isPattern = isPatternPhase();
     const isAccessory = isAccessoryPhase();
-    if (!isPattern && !(isAccessory && accessoryColorizeEnabled())) return;
+    const isColor = isColorPhase();
+    const showCustom = isColor && composer && composer.hasCustomParts(equipped);
+    if (!isPattern && !(isAccessory && accessoryColorizeEnabled()) && !showCustom) return;
 
-    const colors = config.patternColors || ['#2d2d2d'];
-    const activeColor = isPattern ? patternColor : accessoryColor;
+    const colors = isColor
+      ? (config.tintColors || ['#6b4c9a'])
+      : (config.patternColors || ['#2d2d2d']);
+    const activeColor = isColor ? customColor : (isPattern ? patternColor : accessoryColor);
     if (panelLabel) {
-      panelLabel.textContent = isPattern ? 'Pattern color' : 'Accessory color';
+      panelLabel.textContent = isColor ? 'Marking color' : (isPattern ? 'Pattern color' : 'Accessory color');
     }
 
     colors.forEach(function (c) {
@@ -796,7 +916,8 @@
       btn.style.background = c;
       btn.setAttribute('aria-label', 'Color ' + c);
       btn.addEventListener('click', function () {
-        if (isPattern) patternColor = c;
+        if (isColor) customColor = c;
+        else if (isPattern) patternColor = c;
         else accessoryColor = c;
         if (audio) audio.playClick();
         renderSideColorPanel();
@@ -804,9 +925,11 @@
       });
       grid.appendChild(btn);
     });
+    restoreElScroll('assembly-color-panel-grid', panelY);
   }
 
   function renderPatternPicker() {
+    const pickerY = getElScroll('parts-picker-viewport');
     const track = document.getElementById('parts-picker-track');
     const headerLabel = document.getElementById('parts-picker-label');
     if (!track) return;
@@ -846,13 +969,11 @@
 
     renderSideColorPanel();
 
-    requestAnimationFrame(function () {
-      resetPartsPickerScroll();
-      updatePartsScrollButtons();
-    });
+    restoreElScroll('parts-picker-viewport', pickerY, updatePartsScrollButtons);
   }
 
   function renderAccessoryPicker() {
+    const pickerY = getElScroll('parts-picker-viewport');
     const track = document.getElementById('parts-picker-track');
     const headerLabel = document.getElementById('parts-picker-label');
     if (!track) return;
@@ -898,10 +1019,7 @@
 
     renderSideColorPanel();
 
-    requestAnimationFrame(function () {
-      resetPartsPickerScroll();
-      updatePartsScrollButtons();
-    });
+    restoreElScroll('parts-picker-viewport', pickerY, updatePartsScrollButtons);
   }
 
   function renderPartsPicker() {
@@ -917,6 +1035,7 @@
       renderAccessoryPicker();
       return;
     }
+    const pickerY = getElScroll('parts-picker-viewport');
     const track = document.getElementById('parts-picker-track');
     const label = document.getElementById('parts-picker-label');
     if (!track) return;
@@ -978,8 +1097,8 @@
         const isSelected = equipped[slot] === part.species;
         card.className = 'part-card' + (isSelected ? ' selected' : '');
         const thumb = document.createElement('canvas');
-        thumb.width = 108;
-        thumb.height = 108;
+        thumb.width = 256;
+        thumb.height = 256;
         card.appendChild(thumb);
         const cap = document.createElement('div');
         cap.className = 'part-label';
@@ -989,7 +1108,7 @@
         (function (p, cvs) {
           const eq = {};
           eq[p.slot] = p.species;
-          composer.render(cvs.getContext('2d'), eq, { tint: false, destW: 108, destH: 108 })
+          composer.fillPartThumb(cvs, eq)
             .catch(function () { /* thumbnail optional */ });
         })(part, thumb);
 
@@ -998,14 +1117,36 @@
       });
     }
 
-    requestAnimationFrame(function () {
-      updatePartsScrollButtons();
-    });
+    restoreElScroll('parts-picker-viewport', pickerY, updatePartsScrollButtons);
+  }
+
+  function fillSlotButton(btn, iconKey, label) {
+    btn.innerHTML = '';
+    const icon = document.createElement('span');
+    icon.className = 'slot-icon';
+    icon.setAttribute('aria-hidden', 'true');
+    const src = SLOT_ICON_SRC[iconKey];
+    if (src) {
+      const img = document.createElement('img');
+      img.src = assetPath(src);
+      img.alt = '';
+      img.draggable = false;
+      icon.appendChild(img);
+    } else {
+      icon.innerHTML = SLOT_ICONS[iconKey] || SLOT_ICONS.background;
+    }
+    const text = document.createElement('span');
+    text.className = 'slot-text';
+    text.textContent = label;
+    btn.appendChild(icon);
+    btn.appendChild(text);
+    btn.setAttribute('aria-label', label.replace(/\n/g, ' '));
   }
 
   function renderAssemblyMenu() {
     const menu = document.getElementById('assembly-menu');
     if (!menu) return;
+    const menuY = menu.scrollTop;
     menu.innerHTML = '';
     if (!catalogReady()) return;
     visibleAssemblySlots().forEach(function (slot) {
@@ -1016,9 +1157,10 @@
         + (equipped[slot] ? ' filled' : '');
       const species = equipped[slot];
       const speciesLabel = species ? ((composer.getSpecies(species) || {}).label || species) : '';
-      btn.textContent = speciesLabel
+      const label = speciesLabel
         ? (SLOT_LABELS[slot] + (isOptionalSlot(slot) ? ' (opt.)' : '') + '\n' + speciesLabel)
         : SLOT_LABELS[slot] + (isOptionalSlot(slot) ? '\n(optional)' : '');
+      fillSlotButton(btn, slot, label);
       btn.addEventListener('click', function () {
         assemblyCategory = slot;
         resetPartsPickerScroll();
@@ -1031,7 +1173,7 @@
     const bgBtn = document.createElement('button');
     bgBtn.type = 'button';
     bgBtn.className = 'slot-menu-btn bg-btn' + (assemblyCategory === 'background' ? ' active' : '');
-    bgBtn.textContent = 'Background';
+    fillSlotButton(bgBtn, 'background', 'Background');
     bgBtn.addEventListener('click', function () {
       assemblyCategory = 'background';
       resetPartsPickerScroll();
@@ -1039,23 +1181,23 @@
       renderPartsPicker();
     });
     menu.appendChild(bgBtn);
-    requestAnimationFrame(updateMenuScrollButtons);
+    restoreElScroll('assembly-menu', menuY, updateMenuScrollButtons);
   }
 
   function setupAssemblyUi() {
     if (assemblyUiReady) return;
     assemblyUiReady = true;
-    const left = document.getElementById('parts-scroll-left');
-    const right = document.getElementById('parts-scroll-right');
+    const up = document.getElementById('parts-scroll-up');
+    const down = document.getElementById('parts-scroll-down');
     const viewport = document.getElementById('parts-picker-viewport');
     const menu = document.getElementById('assembly-menu');
     const menuUp = document.getElementById('menu-scroll-up');
     const menuDown = document.getElementById('menu-scroll-down');
-    if (left) {
-      left.addEventListener('click', function () { scrollPartsPicker(-1); });
+    if (up) {
+      up.addEventListener('click', function () { scrollPartsPicker(-1); });
     }
-    if (right) {
-      right.addEventListener('click', function () { scrollPartsPicker(1); });
+    if (down) {
+      down.addEventListener('click', function () { scrollPartsPicker(1); });
     }
     if (viewport) {
       viewport.addEventListener('scroll', function () {

@@ -85,24 +85,53 @@ def detail_slot(filename: str) -> str | None:
     return None
 
 
-def collect_details() -> dict[tuple[str, str], tuple[str, float]]:
+def custom_slot(filename: str) -> str | None:
+    fl = filename.lower()
+    if "custom" not in fl or is_duplicate_variant(filename):
+        return None
+    if "head" in fl:
+        return "head"
+    if "body" in fl:
+        return "body"
+    if "tail" in fl:
+        return "tail"
+    if "front" in fl and "leg" in fl:
+        return "frontLegs"
+    if "back" in fl and "leg" in fl:
+        return "backLegs"
+    return None
+
+
+def collect_named(
+    folder_name: str, slot_fn
+) -> dict[tuple[str, str], tuple[str, float]]:
     """Map (species, slot) -> (relative path, mtime), keeping newest per key."""
-    details_by: dict[tuple[str, str], tuple[str, float]] = {}
-    details_dir = DP / "Details"
-    for f in os.listdir(details_dir):
+    found: dict[tuple[str, str], tuple[str, float]] = {}
+    folder = DP / folder_name
+    if not folder.is_dir():
+        return found
+    for f in os.listdir(folder):
         if not f.endswith(".png"):
             continue
         sp = match_species(f)
-        slot = detail_slot(f)
+        slot = slot_fn(f)
         if not sp or not slot:
             continue
-        rel = f"Dinosaur Parts/Details/{f}"
-        mtime = file_mtime(details_dir / f)
+        rel = f"Dinosaur Parts/{folder_name}/{f}"
+        mtime = file_mtime(folder / f)
         key = (sp, slot)
-        prev = details_by.get(key)
+        prev = found.get(key)
         if not prev or mtime > prev[1]:
-            details_by[key] = (rel, mtime)
-    return details_by
+            found[key] = (rel, mtime)
+    return found
+
+
+def collect_details() -> dict[tuple[str, str], tuple[str, float]]:
+    return collect_named("Details", detail_slot)
+
+
+def collect_custom() -> dict[tuple[str, str], tuple[str, float]]:
+    return collect_named("Custom", custom_slot)
 
 
 def attach_details(
@@ -121,9 +150,11 @@ def attach_details(
 
 def main() -> None:
     details_index = collect_details()
+    custom_index = collect_custom()
     species_list = []
     asset_version = 0
     skipped_front_leg_details: list[str] = []
+    missing_custom: list[str] = []
 
     for sid, label in SPECIES.items():
         slots = {}
@@ -144,6 +175,12 @@ def main() -> None:
             if detail_rel:
                 entry["details"] = detail_rel
                 asset_version = max(asset_version, int(file_mtime(FORGE / detail_rel)))
+            custom = custom_index.get((sid, slot))
+            if custom:
+                entry["custom"] = custom[0]
+                asset_version = max(asset_version, int(custom[1]))
+            else:
+                missing_custom.append(f"{sid} {slot}")
             slots[slot] = entry
 
         species_list.append(
@@ -169,8 +206,18 @@ def main() -> None:
     for sp in species_list:
         for slot, part in sp["slots"].items():
             name = Path(part["base"]).name
-            extra = " + details" if part.get("details") else ""
+            flags = []
+            if part.get("custom"):
+                flags.append("custom")
+            if part.get("details"):
+                flags.append("details")
+            extra = (" + " + ", ".join(flags)) if flags else ""
             print(f"  {sp['id']:14} {slot:10} {name}{extra}")
+
+    if missing_custom:
+        print("\nNo custom PNG for:")
+        for line in missing_custom:
+            print(f"  - {line}")
 
     embed = FORGE / "js" / "parts-catalog-embed.js"
     compact = json.dumps(catalog, separators=(",", ":"))
